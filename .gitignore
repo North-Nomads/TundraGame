@@ -756,3 +756,16 @@ FodyWeavers.xsd
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/unity,visualstudio,rider,jetbrains,jetbrains+all,jetbrains+iml,visualstudiocode
+
+# Unity generated library files
+TundraTD/[Oo]bj/*
+TundraTD/[Bb]uild/*
+TundraTD/[Bb]uilds/*
+TundraTD/[Ll]ogs/*
+TundraTD/[Uu]ser[Ss]ettings/*
+TundraTD/[Ll]ibrary/*
+TundraTD/[Tt]emp/*
+TundraTD/Assets/Textures/GUI/Raw Files/*
+TundraTD/Assets/Textures/Raw Textures/*
+TundraTD/.idea
+TundraTD/.idea/*
