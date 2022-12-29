@@ -20,5 +20,18 @@ namespace Assets.Spells
         private float _reloadTime;
 
         private float _currentReloadTime;
+
+        public void ContinueReloading()
+        {
+            if (_currentCharges < _maxCharges)
+            {
+                _currentReloadTime += Time.deltaTime;
+                if (_currentReloadTime > _reloadTime)
+                {
+                    _currentCharges++;
+                    _currentReloadTime -= _reloadTime;
+                }
+            }
+        }
     }
 }
