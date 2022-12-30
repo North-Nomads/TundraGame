@@ -8,12 +8,8 @@ namespace City
     {
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log(other.tag);
             if (string.Equals(other.tag, "Mob"))
-            {
-                var mb = other.GetComponent<MobBehaviour>();
-                mb.KillThisMob();
-            }
+                other.GetComponent<MobBehaviour>().KillThisMob();;
         }
     } 
 }
