@@ -11,6 +11,7 @@ namespace Mobs
         public abstract void HandleAppliedEffects();
         public abstract void ApplyReceivedEffects();
         public abstract void MoveTowards(Vector3 point);
+        public abstract void HandleIncomeDamage(float damage);
         public abstract void KillThisMob();
     }
 }

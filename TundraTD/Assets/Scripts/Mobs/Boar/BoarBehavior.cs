@@ -1,8 +1,12 @@
 ﻿using System;
+using UnityEditor.Experimental.AssetImporters;
 using UnityEngine;
 
 namespace Mobs.Boar
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [RequireComponent(typeof(MobModel))]
     public class BoarBehavior : MobBehaviour
     {
@@ -23,6 +27,11 @@ namespace Mobs.Boar
         public override void MoveTowards(Vector3 point)
         {
             _mobModel.MobNavMeshAgent.SetDestination(point);
+        }
+
+        public override void HandleIncomeDamage(float damage)
+        {
+            _mobModel.CurrentMobHealth -= damage;
         }
 
         public override void KillThisMob()
