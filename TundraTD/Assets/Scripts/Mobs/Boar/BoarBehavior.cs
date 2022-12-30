@@ -10,7 +10,7 @@ namespace Mobs.Boar
 
         private MobModel _mobModel;
         private bool _canDistractFromCurrentTarget;
-        private float _currentSprintDelay;
+        private float _chargeLeftTime;
         
         public override void HandleAppliedEffects()
         {
@@ -27,28 +27,28 @@ namespace Mobs.Boar
 
         public override void KillThisMob()
         {
-            throw new System.NotImplementedException();
+            Destroy(this.gameObject);
         }
 
         private void Start()
         {
             _mobModel = GetComponent<MobModel>();
             _canDistractFromCurrentTarget = true;
-            _currentSprintDelay = 3f;
+            _chargeLeftTime = 3f;
         }
         
         private void FixedUpdate()
         {
-            if (_currentSprintDelay > 0)
-                _currentSprintDelay -= Time.fixedDeltaTime;
+            if (_chargeLeftTime > 0)
+                _chargeLeftTime -= Time.fixedDeltaTime;
 
-            if (_currentSprintDelay <= 0 && _canDistractFromCurrentTarget)
-                TurnOnSprintingMode();
+            if (_chargeLeftTime <= 0 && _canDistractFromCurrentTarget)
+                TakeChargeMode();
                 
             MoveTowards(gates.position);
         }
         
-        private void TurnOnSprintingMode()
+        private void TakeChargeMode()
         {
             _canDistractFromCurrentTarget = false;
             _mobModel.CurrentMobSpeed *= 1.5f;
