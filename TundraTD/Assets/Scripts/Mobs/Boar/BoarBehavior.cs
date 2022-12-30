@@ -7,13 +7,11 @@ namespace Mobs.Boar
     public class BoarBehavior : MobBehaviour
     {
         [SerializeField] private Transform gates;
+
         private MobModel _mobModel;
-
-        private void Start()
-        {
-            _mobModel = GetComponent<MobModel>();
-        }
-
+        private bool _canDistractFromCurrentTarget;
+        private float _currentSprintDelay;
+        
         public override void HandleAppliedEffects()
         {
             throw new System.NotImplementedException();
@@ -32,9 +30,28 @@ namespace Mobs.Boar
             throw new System.NotImplementedException();
         }
 
-        private void Update()
+        private void Start()
         {
+            _mobModel = GetComponent<MobModel>();
+            _canDistractFromCurrentTarget = true;
+            _currentSprintDelay = 3f;
+        }
+        
+        private void FixedUpdate()
+        {
+            if (_currentSprintDelay > 0)
+                _currentSprintDelay -= Time.fixedDeltaTime;
+
+            if (_currentSprintDelay <= 0 && _canDistractFromCurrentTarget)
+                TurnOnSprintingMode();
+                
             MoveTowards(gates.position);
+        }
+        
+        private void TurnOnSprintingMode()
+        {
+            _canDistractFromCurrentTarget = false;
+            _mobModel.CurrentMobSpeed *= 1.5f;
         }
     }
 }

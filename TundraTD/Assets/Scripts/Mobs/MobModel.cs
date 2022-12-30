@@ -28,7 +28,11 @@ namespace Mobs
         public float CurrentMobSpeed
         {
             get => _currentMobSpeed;
-            set => _currentMobSpeed = value;
+            set
+            {
+                _currentMobSpeed = value;
+                _mobNavMeshAgent.speed = _currentMobSpeed;
+            }
         }
         
         private void Start()
