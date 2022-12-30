@@ -19,7 +19,13 @@ namespace Mobs
         public float CurrentMobHealth
         {
             get => _currentMobHealth;
-            set => _currentMobHealth = value;
+            set
+            {
+                if (value < 0)
+                    _currentMobHealth = 0;
+                else
+                    _currentMobHealth = value;   
+            }
         }
         public float CurrentMobDamage
         {
