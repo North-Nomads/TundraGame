@@ -1,24 +1,23 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Mobs.Boar
+namespace Mobs.Undead
 {
     [RequireComponent(typeof(MobModel))]
-    public class BoarBehavior : MobBehaviour
+    public class UndeadBehaviour : MobBehaviour
     {
         [SerializeField] private Transform gates;
 
         private MobModel _mobModel;
-        private bool _canDistractFromCurrentTarget;
-        private float _chargeLeftTime;
-        
+
         public override void HandleAppliedEffects()
         {
             throw new System.NotImplementedException();
         }
 
         public override void ApplyReceivedEffects()
-        { }
+        {
+            throw new System.NotImplementedException();
+        }
 
         public override void MoveTowards(Vector3 point)
         {
@@ -33,25 +32,11 @@ namespace Mobs.Boar
         private void Start()
         {
             _mobModel = GetComponent<MobModel>();
-            _canDistractFromCurrentTarget = true;
-            _chargeLeftTime = 3f;
         }
-        
+
         private void FixedUpdate()
         {
-            if (_chargeLeftTime > 0)
-                _chargeLeftTime -= Time.fixedDeltaTime;
-
-            if (_chargeLeftTime <= 0 && _canDistractFromCurrentTarget)
-                TakeChargeMode();
-                
             MoveTowards(gates.position);
-        }
-        
-        private void TakeChargeMode()
-        {
-            _canDistractFromCurrentTarget = false;
-            _mobModel.CurrentMobSpeed *= 1.5f;
         }
     }
 }
