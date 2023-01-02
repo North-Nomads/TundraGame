@@ -1,5 +1,4 @@
-﻿using UnityEditor.Experimental.AssetImporters;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Mobs.Undead
 {

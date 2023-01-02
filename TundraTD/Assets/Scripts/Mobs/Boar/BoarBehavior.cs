@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEditor.Experimental.AssetImporters;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Mobs.Boar
 {
@@ -61,6 +59,7 @@ namespace Mobs.Boar
         {
             _canDistractFromCurrentTarget = false;
             _mobModel.CurrentMobSpeed *= 1.5f;
+            _mobModel.CurrentMobDamage *= 2f;
         }
     }
 }
