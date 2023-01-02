@@ -4,23 +4,64 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Spells.SpellClasses
 {
-    [Spell(BasicElement.Fire, "Fireball", "Casts a firestorm into heads of your enemies.")]
+    [Spell(BasicElement.Fire, "Meteor", "Casts a fire meteor on heads of your enemies.")]
     public class FireballSpell : MagicSpell
     {
-        public float HitDamageRadius { get; private set; }
+        private const float HitDelay = 0.5f;
+        private float currentHitTime;
 
-        public float HitDamageValue { get; private set; }
+        /// <summary>
+        /// The radius of the hit area
+        /// </summary>
+        public float HitDamageRadius { get; set; } = 5f;
 
-        public float BurnDuration { get; private set; }
+        /// <summary>
+        /// The damage of the hit epicenter.
+        /// </summary>
+        [MultiplictableProperty(BasicElement.Earth, 1.35f)]
+        public float HitDamageValue { get; set; } = 100f;
 
-        public float BurnDamage { get; private set; }
+        /// <summary>
+        /// Duration of the burn effect.
+        /// </summary>
+        [IncreasableProperty(BasicElement.Air, 5f)]
+        public float BurnDuration { get; set; } = 5f;
+
+        /// <summary>
+        /// Damage of the burn effect.
+        /// </summary>
+        [MultiplictableProperty(BasicElement.Fire, 1.25f)]
+        [MultiplictableProperty(BasicElement.Water, 0.75f)]
+        public float BurnDamage { get; set; } = 20f;
+
+        /// <summary>
+        /// Value of the slowness effect.
+        /// </summary>
+        public float SlownessValue { get; set; } = 0.3f;
+
+        /// <summary>
+        /// Duration of the slowness effect.
+        /// </summary>
+        [IncreasableProperty(BasicElement.Lightning, 2f)]
+        public float SlownessDuration { get; set; }
 
         public override void ExecuteSpell()
         {
+            Debug.Log($"Meteor cast. \nHit damage: {HitDamageValue};\nBurn duration: {BurnDuration};\nBurn damage: {BurnDamage};\nSlowness duration: {SlownessDuration}.");
             throw new NotImplementedException();
+        }
+
+        private void Update()
+        {
+            currentHitTime += Time.deltaTime;
+            if (currentHitTime > HitDelay)
+            {
+                // ..Here should be hit handler
+            }
         }
     }
 }
