@@ -51,7 +51,7 @@ namespace Assets.Spells.SpellClasses
 
         public override void ExecuteSpell()
         {
-            Debug.Log($"Meteor cast. \nHit damage: {HitDamageValue};\nBurn duration: {BurnDuration};\nBurn damage: {BurnDamage};\nSlowness duration: {SlownessDuration}.");
+            Debug.Log($"Meteor cast. Hit damage: {HitDamageValue}; Burn duration: {BurnDuration}; Burn damage: {BurnDamage}; Slowness duration: {SlownessDuration}.");
             throw new NotImplementedException();
         }
 
