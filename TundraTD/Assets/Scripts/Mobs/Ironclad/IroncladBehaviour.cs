@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Spells;
+using UnityEngine;
 
 namespace Mobs.Ironclad
 {
@@ -23,17 +24,9 @@ namespace Mobs.Ironclad
         }
 
         private MobModel _mobModel;
+
+        public override BasicElement MobBasicElement => BasicElement.Earth;
         
-        public override void HandleAppliedEffects()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override void ApplyReceivedEffects()
-        {
-            throw new System.NotImplementedException();
-        }
-
         public override void MoveTowards(Vector3 point)
         {
             _mobModel.MobNavMeshAgent.SetDestination(point);

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Mobs.MobEffects;
+using Spells;
+using UnityEngine;
 
 namespace Mobs.Undead
 {
@@ -12,16 +14,8 @@ namespace Mobs.Undead
 
         private MobModel _mobModel;
 
-        public override void HandleAppliedEffects()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override void ApplyReceivedEffects()
-        {
-            throw new System.NotImplementedException();
-        }
-
+        public override BasicElement MobBasicElement => BasicElement.Water;
+        
         public override void MoveTowards(Vector3 point)
         {
             _mobModel.MobNavMeshAgent.SetDestination(point);

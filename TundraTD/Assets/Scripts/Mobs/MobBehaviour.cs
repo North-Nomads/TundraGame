@@ -1,4 +1,6 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using Mobs.MobEffects;
+using Spells;
 using UnityEngine;
 
 namespace Mobs
@@ -8,10 +10,46 @@ namespace Mobs
     /// </summary>
     public abstract class MobBehaviour : MonoBehaviour
     {
-        public abstract void HandleAppliedEffects();
-        public abstract void ApplyReceivedEffects();
+        private float _tickTimer;
+        protected List<Effect> CurrentEffects { get; } = new List<Effect>();
+
+        protected float TickTimer
+        {
+            get => _tickTimer;
+            set
+            {
+                if (value <= 0)
+                {
+                    HandleAppliedEffects();
+                    _tickTimer = Effect.BasicTickTime;
+                    return;
+                }
+
+                _tickTimer = value;
+            }
+        }
+        public abstract BasicElement MobBasicElement { get; }
+
+        public void AddReceivedEffects(IEnumerable<Effect> effectsToApply)
+        {
+            CurrentEffects.AddRange(effectsToApply);
+        }
+        
         public abstract void MoveTowards(Vector3 point);
         public abstract void HandleIncomeDamage(float damage);
         public abstract void KillThisMob();
+
+        private void HandleAppliedEffects()
+        {
+            for (int i = 0; i < CurrentEffects.Count;)
+            {
+                CurrentEffects[i].HandleTick(this);
+                
+                if (CurrentEffects[i].TicksAmountLeft == CurrentEffects[i].MaxTicksAmount)
+                    CurrentEffects.RemoveAt(i);
+                else
+                    i++;
+            }
+        }
     }
 }

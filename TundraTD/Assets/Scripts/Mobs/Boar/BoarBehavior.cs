@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Mobs.MobEffects;
+using Spells;
+using UnityEngine;
 
 namespace Mobs.Boar
 {
@@ -13,23 +17,18 @@ namespace Mobs.Boar
         private MobModel _mobModel;
         private bool _canDistractFromCurrentTarget;
         private float _chargeLeftTime;
+
+        public override BasicElement MobBasicElement => BasicElement.Earth;
         
-        public override void HandleAppliedEffects()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override void ApplyReceivedEffects()
-        { }
-
-        public override void MoveTowards(Vector3 point)
-        {
-            _mobModel.MobNavMeshAgent.SetDestination(point);
-        }
-
         public override void HandleIncomeDamage(float damage)
         {
             _mobModel.CurrentMobHealth -= damage;
+            print(_mobModel.CurrentMobHealth);
+        }
+        
+        public override void MoveTowards(Vector3 point)
+        {
+            _mobModel.MobNavMeshAgent.SetDestination(point);
         }
 
         public override void KillThisMob()
@@ -53,6 +52,9 @@ namespace Mobs.Boar
                 TakeChargeMode();
                 
             MoveTowards(gates.position);
+
+            if (CurrentEffects.Count > 0)
+                TickTimer -= Time.fixedDeltaTime;
         }
         
         private void TakeChargeMode()
