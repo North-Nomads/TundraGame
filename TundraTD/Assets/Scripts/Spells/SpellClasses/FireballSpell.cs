@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Spells;
 using UnityEngine;
 
-namespace Assets.Spells.SpellClasses
+namespace Spells.SpellClasses
 {
     [Spell(BasicElement.Fire, "Meteor", "Casts a fire meteor on heads of your enemies.")]
     public class FireballSpell : MagicSpell

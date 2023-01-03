@@ -5,7 +5,7 @@ namespace Spells
     /// <summary>
     /// Used to detect if the class is a magic spell.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Class)]
     public class SpellAttribute : Attribute
     {
         /// <summary>
