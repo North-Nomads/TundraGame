@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Assets.Spells;
 
-namespace Assets.Spells
+namespace Spells
 {
     /// <summary>
     /// A helper class to build spells from elements.

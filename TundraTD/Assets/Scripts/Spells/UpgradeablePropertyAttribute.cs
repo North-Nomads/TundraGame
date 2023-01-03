@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Assets.Spells
+namespace Spells
 {
     /// <summary>
     /// Represents the property which value should be increased by fixed value every time you use an element to upgrade the spell.

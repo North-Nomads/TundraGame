@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Assets.Spells
+namespace Spells
 {
     /// <summary>
     /// Used to detect if the class is a magic spell.

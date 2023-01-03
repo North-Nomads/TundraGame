@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assets.Spells
+namespace Spells
 {
     /// <summary>
     /// Used to detect the element used to create a spell.
