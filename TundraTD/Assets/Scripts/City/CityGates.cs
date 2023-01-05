@@ -1,4 +1,5 @@
 ﻿using Mobs;
+using Spells;
 using UnityEngine;
 
 namespace City
@@ -38,6 +39,8 @@ namespace City
             var mobAttack = mob.GetComponent<MobModel>().CurrentMobDamage;
 
             CityGatesHealthPoints -= mobAttack;
+            // HACK: made here fireball casting to test, remove later
+            Grimoire.TurnElementsIntoSpell(new BasicElement[] { BasicElement.Fire, BasicElement.Fire, BasicElement.Fire, BasicElement.Earth, BasicElement.Earth }).ExecuteSpell();
             mob.KillThisMob();
         }
     } 

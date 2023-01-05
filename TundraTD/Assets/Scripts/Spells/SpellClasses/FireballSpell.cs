@@ -1,13 +1,20 @@
-﻿using System;
+﻿using Mobs;
+using Mobs.MobEffects;
+using System;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Spells.SpellClasses
 {
     [Spell(BasicElement.Fire, "Meteor", "Casts a fire meteor on heads of your enemies.")]
     public class FireballSpell : MagicSpell
     {
-        private const float HitDelay = 0.5f;
+        private const float HitDelay = 1f;
+        private const int MobsLayerMask = 8;
+        private readonly float flyDistance = 30;
         private float currentHitTime;
+        private Vector3 target;
 
         /// <summary>
         /// The radius of the hit area
@@ -46,16 +53,41 @@ namespace Spells.SpellClasses
 
         public override void ExecuteSpell()
         {
-            Debug.Log($"Meteor cast. Hit damage: {HitDamageValue}; Burn duration: {BurnDuration}; Burn damage: {BurnDamage}; Slowness duration: {SlownessDuration}.");
-            throw new NotImplementedException();
+            Debug.Log("Fireball has been executed!");
+            GameObject fireball = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            var spell = fireball.AddComponent<FireballSpell>();
+            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out var hit))
+            {
+                spell.target = hit.point;
+                var reflect = Vector3.Reflect(Quaternion.Euler(0, -90, 0) * Camera.main.transform.forward, hit.normal).normalized;
+                fireball.transform.position = hit.point + reflect * flyDistance;
+                Debug.DrawLine(spell.transform.position, spell.target, Color.red, 2);
+                Debug.DrawRay(spell.target, Vector3.up * spell.HitDamageRadius, Color.blue, 2);
+            }
         }
 
         private void Update()
         {
+            // Performs flight towards target.
+            transform.position += (target - transform.position) * (Time.deltaTime * flyDistance / HitDelay);
+
             currentHitTime += Time.deltaTime;
             if (currentHitTime > HitDelay)
             {
-                // ..Here should be hit handler
+                var targets = Physics.OverlapSphere(transform.position, HitDamageRadius, MobsLayerMask);
+                var effects = new Effect[]
+                {
+                    new MeteoriteBurningEffect()
+                };
+                foreach (var target in targets )
+                {
+                    var mob = target.GetComponent<MobBehaviour>();
+                    float damage = HitDamageValue * Vector3.Distance(target.transform.position, transform.position) / HitDamageRadius;
+                    Debug.Log($"Target {target}, Damage: {damage}");
+                    mob.HandleIncomeDamage(damage);
+                    mob.AddReceivedEffects(effects);
+                }
+                Destroy(gameObject);
             }
         }
     }
