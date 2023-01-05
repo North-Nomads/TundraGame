@@ -10,8 +10,8 @@ namespace Spells.SpellClasses
     [Spell(BasicElement.Fire, "Meteor", "Casts a fire meteor on heads of your enemies.")]
     public class FireballSpell : MagicSpell
     {
-        private const float HitDelay = 1f;
-        private const int MobsLayerMask = 8;
+        private const float HitDelay = 0.5f;
+        private const int MobsLayerMask = 1 << 8;
         private readonly float flyDistance = 30;
         private float currentHitTime;
         private Vector3 target;
@@ -69,7 +69,7 @@ namespace Spells.SpellClasses
         private void Update()
         {
             // Performs flight towards target.
-            transform.position += (target - transform.position) * (Time.deltaTime * flyDistance / HitDelay);
+            transform.position += Vector3.Normalize(target - transform.position) * (Time.deltaTime * flyDistance / HitDelay);
 
             currentHitTime += Time.deltaTime;
             if (currentHitTime > HitDelay)
@@ -79,7 +79,7 @@ namespace Spells.SpellClasses
                 {
                     new MeteoriteBurningEffect()
                 };
-                foreach (var target in targets )
+                foreach (var target in targets)
                 {
                     var mob = target.GetComponent<MobBehaviour>();
                     float damage = HitDamageValue * Vector3.Distance(target.transform.position, transform.position) / HitDamageRadius;
@@ -89,6 +89,12 @@ namespace Spells.SpellClasses
                 }
                 Destroy(gameObject);
             }
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawSphere(transform.position, HitDamageRadius);
         }
     }
 }
