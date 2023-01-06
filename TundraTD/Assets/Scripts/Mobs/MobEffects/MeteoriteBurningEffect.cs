@@ -1,4 +1,6 @@
-﻿namespace Mobs.MobEffects
+﻿using Spells;
+
+namespace Mobs.MobEffects
 {
     public class MeteoriteBurningEffect : Effect
     {
@@ -8,7 +10,7 @@
 
         public override void HandleTick(MobBehaviour mob)
         {
-            mob.HandleIncomeDamage(BurningDamage);
+            mob.HandleIncomeDamage(BurningDamage, BasicElement.Fire);
             TicksAmountLeft++;
         }
     }

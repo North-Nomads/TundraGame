@@ -10,6 +10,9 @@ namespace Mobs.Ironclad
     public class IroncladBehaviour : MobBehaviour
     {
         [SerializeField] private Transform gates;
+        private const BasicElement MobElement = BasicElement.Earth;
+        private const BasicElement MobCounterElement = BasicElement.Air;
+        
         private float _mobShield;
         private float MobShield
         {
@@ -32,15 +35,33 @@ namespace Mobs.Ironclad
             _mobModel.MobNavMeshAgent.SetDestination(point);
         }
 
-        public override void HandleIncomeDamage(float damage)
+        public override void HandleIncomeDamage(float damage, BasicElement damageElement)
         {
+            float multiplier;
+            switch (damageElement)
+            {
+                case MobElement:
+                    multiplier = 0.8f;
+                    break;
+                case MobCounterElement:
+                    multiplier = 1.2f;
+                    break;
+                default:
+                    multiplier = 1;
+                    break;
+            }
+            
             if (MobShield > 0)
             {
-                MobShield -= damage;
+                MobShield -= damage * multiplier;
                 return;
             }
-
-            _mobModel.CurrentMobHealth -= damage;
+            
+            _mobModel.CurrentMobHealth -= damage * multiplier;
+            print($"{name}: {_mobModel.CurrentMobHealth}");
+            
+            if (_mobModel.CurrentMobHealth <= 0)
+                KillThisMob();
         }
 
         public override void KillThisMob()
@@ -60,6 +81,9 @@ namespace Mobs.Ironclad
             
             if (_mobModel.CurrentMobHealth <= 0)
                 KillThisMob();
+            
+            if (CurrentEffects.Count > 0)
+                TickTimer -= Time.fixedDeltaTime;
         }
     }
 }

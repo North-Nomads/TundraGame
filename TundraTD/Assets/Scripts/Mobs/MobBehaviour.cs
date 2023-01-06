@@ -36,7 +36,7 @@ namespace Mobs
         }
         
         public abstract void MoveTowards(Vector3 point);
-        public abstract void HandleIncomeDamage(float damage);
+        public abstract void HandleIncomeDamage(float damage, BasicElement damageElement);
         public abstract void KillThisMob();
 
         private void HandleAppliedEffects()
