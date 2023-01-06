@@ -675,7 +675,12 @@ MonoBehaviour:
   mobWaves:
   - mobProperties:
     - mob: {fileID: 4000996451007599641, guid: f5414b311da4f80499a5e14d23b10945, type: 3}
+      mobQuantity: 3
+    - mob: {fileID: 4000996451007599641, guid: f5414b311da4f80499a5e14d23b10945, type: 3}
       mobQuantity: 1
+  - mobProperties:
+    - mob: {fileID: 7987837108767728486, guid: b4f507c285d21a343a4592c444a51ddd, type: 3}
+      mobQuantity: 2
   mobSpawner: {fileID: 54150367}
 --- !u!65 &1429517935
 BoxCollider:
