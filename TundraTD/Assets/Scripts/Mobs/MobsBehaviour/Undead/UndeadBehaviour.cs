@@ -7,16 +7,14 @@ namespace Mobs.MobsBehaviour.Undead
     /// 
     /// </summary>
     [RequireComponent(typeof(MobModel))]
-    public class UndeadBehaviour : MobsBehaviour.MobBehaviour
+    public class UndeadBehaviour : MobBehaviour
     {
         [SerializeField] private Transform gates;
-        private const BasicElement MobElement = BasicElement.Water;
-        private const BasicElement MobCounterElement = BasicElement.Lightning;
-
         private MobModel _mobModel;
 
         public override BasicElement MobBasicElement => BasicElement.Water;
-        
+        public override BasicElement MobCounterElement => BasicElement.Lightning;
+
         public override void MoveTowards(Vector3 point)
         {
             _mobModel.MobNavMeshAgent.SetDestination(point);
@@ -24,19 +22,11 @@ namespace Mobs.MobsBehaviour.Undead
 
         public override void HandleIncomeDamage(float damage, BasicElement damageElement)
         {
-            float multiplier;
-            switch (damageElement)
-            {
-                case MobElement:
-                    multiplier = 0.8f;
-                    break;
-                case MobCounterElement:
-                    multiplier = 1.2f;
-                    break;
-                default:
-                    multiplier = 1;
-                    break;
-            }
+            var multiplier = 1f;
+            if (damageElement == MobBasicElement)
+                multiplier = 0.8f;
+            else if  (damageElement == MobCounterElement)
+                multiplier = 1.2f;
 
             _mobModel.CurrentMobHealth -= damage * multiplier;
             print($"{name}: {_mobModel.CurrentMobHealth}");

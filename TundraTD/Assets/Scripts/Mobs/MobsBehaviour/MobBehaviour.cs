@@ -29,6 +29,7 @@ namespace Mobs.MobsBehaviour
             }
         }
         public abstract BasicElement MobBasicElement { get; }
+        public abstract BasicElement MobCounterElement { get; }
 
         public void AddReceivedEffects(IEnumerable<Effect> effectsToApply)
         {

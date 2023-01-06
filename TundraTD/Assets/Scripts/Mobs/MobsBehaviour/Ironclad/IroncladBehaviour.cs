@@ -10,8 +10,6 @@ namespace Mobs.MobsBehaviour.Ironclad
     public class IroncladBehaviour : MobBehaviour
     {
         [SerializeField] private Transform gates;
-        private const BasicElement MobElement = BasicElement.Earth;
-        private const BasicElement MobCounterElement = BasicElement.Air;
         
         private float _mobShield;
         private float MobShield
@@ -29,7 +27,8 @@ namespace Mobs.MobsBehaviour.Ironclad
         private MobModel _mobModel;
 
         public override BasicElement MobBasicElement => BasicElement.Earth;
-        
+        public override BasicElement MobCounterElement =>  BasicElement.Air;
+
         public override void MoveTowards(Vector3 point)
         {
             _mobModel.MobNavMeshAgent.SetDestination(point);
@@ -37,19 +36,11 @@ namespace Mobs.MobsBehaviour.Ironclad
 
         public override void HandleIncomeDamage(float damage, BasicElement damageElement)
         {
-            float multiplier;
-            switch (damageElement)
-            {
-                case MobElement:
-                    multiplier = 0.8f;
-                    break;
-                case MobCounterElement:
-                    multiplier = 1.2f;
-                    break;
-                default:
-                    multiplier = 1;
-                    break;
-            }
+            var multiplier = 1f;
+            if (damageElement == MobBasicElement)
+                multiplier = 0.8f;
+            else if  (damageElement == MobCounterElement)
+                multiplier = 1.2f;
             
             if (MobShield > 0)
             {

@@ -10,30 +10,21 @@ namespace Mobs.MobsBehaviour.Boar
     public class BoarBehavior : MobBehaviour
     {
         [SerializeField] private Transform gates;
-        private const BasicElement MobElement = BasicElement.Earth;
-        private const BasicElement MobCounterElement = BasicElement.Air;
         
         private MobModel _mobModel;
         private bool _canDistractFromCurrentTarget;
         private float _chargeLeftTime;
 
         public override BasicElement MobBasicElement => BasicElement.Earth;
-        
+        public override BasicElement MobCounterElement => BasicElement.Air;
+
         public override void HandleIncomeDamage(float damage, BasicElement damageElement)
         {
-            float multiplier;
-            switch (damageElement)
-            {
-                case MobElement:
-                    multiplier = 0.8f;
-                    break;
-                case MobCounterElement:
-                    multiplier = 1.2f;
-                    break;
-                default:
-                    multiplier = 1;
-                    break;
-            }
+            var multiplier = 1f;
+            if (damageElement == MobBasicElement)
+                multiplier = 0.8f;
+            else if  (damageElement == MobCounterElement)
+                multiplier = 1.2f;
 
             _mobModel.CurrentMobHealth -= damage * multiplier;
             print($"{name}: {_mobModel.CurrentMobHealth}");
