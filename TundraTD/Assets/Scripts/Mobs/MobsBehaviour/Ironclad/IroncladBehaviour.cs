@@ -9,8 +9,6 @@ namespace Mobs.MobsBehaviour.Ironclad
     [RequireComponent(typeof(MobModel))]
     public class IroncladBehaviour : MobBehaviour
     {
-        [SerializeField] private Transform gates;
-        
         private float _mobShield;
         private float MobShield
         {
@@ -60,16 +58,18 @@ namespace Mobs.MobsBehaviour.Ironclad
             Destroy(gameObject);
         }
 
-        private void Start()
+        public override void ExecuteOnMobSpawn(Transform gates)
         {
             _mobModel = GetComponent<MobModel>();
+            _mobModel.InstantiateMobModel();
+            
             MobShield = 10;
+            DefaultDestinationPoint = gates;
+            _mobModel.MobNavMeshAgent.SetDestination(DefaultDestinationPoint.position);
         }
-        
+
         private void FixedUpdate()
         {
-            MoveTowards(gates.position);
-            
             if (_mobModel.CurrentMobHealth <= 0)
                 KillThisMob();
             

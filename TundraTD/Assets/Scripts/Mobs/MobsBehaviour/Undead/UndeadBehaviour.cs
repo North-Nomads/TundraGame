@@ -9,7 +9,6 @@ namespace Mobs.MobsBehaviour.Undead
     [RequireComponent(typeof(MobModel))]
     public class UndeadBehaviour : MobBehaviour
     {
-        [SerializeField] private Transform gates;
         private MobModel _mobModel;
 
         public override BasicElement MobBasicElement => BasicElement.Water;
@@ -40,15 +39,17 @@ namespace Mobs.MobsBehaviour.Undead
             Destroy(gameObject);
         }
 
-        private void Start()
+        public override void ExecuteOnMobSpawn(Transform gates)
         {
             _mobModel = GetComponent<MobModel>();
+            _mobModel.InstantiateMobModel();
+            
+            DefaultDestinationPoint = gates;
+            _mobModel.MobNavMeshAgent.SetDestination(DefaultDestinationPoint.position);
         }
 
         private void FixedUpdate()
         {
-            MoveTowards(gates.position);
-            
             if (CurrentEffects.Count > 0)
                 TickTimer -= Time.fixedDeltaTime;
         }

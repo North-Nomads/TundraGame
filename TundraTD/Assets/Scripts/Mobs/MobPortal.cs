@@ -6,6 +6,7 @@ namespace Mobs
 {
     public class MobPortal : MonoBehaviour
     {
+        [SerializeField] private Transform gates;
         [SerializeField] private MobWave[] mobWaves;
         [SerializeField] private Transform mobSpawner;
 
@@ -17,7 +18,8 @@ namespace Mobs
 
         public void SpawnNextMob()
         {
-            Instantiate(mobWaves[0].MobProperties[0].Mob, mobSpawner.position, Quaternion.identity, mobSpawner.transform);
+            var mob = Instantiate(mobWaves[0].MobProperties[0].Mob, mobSpawner.position, Quaternion.identity, mobSpawner.transform);
+            mob.ExecuteOnMobSpawn(gates);
         }
         
         [Serializable]

@@ -9,8 +9,6 @@ namespace Mobs.MobsBehaviour.Boar
     [RequireComponent(typeof(MobModel))]
     public class BoarBehavior : MobBehaviour
     {
-        [SerializeField] private Transform gates;
-        
         private MobModel _mobModel;
         private bool _canDistractFromCurrentTarget;
         private float _chargeLeftTime;
@@ -23,16 +21,16 @@ namespace Mobs.MobsBehaviour.Boar
             var multiplier = 1f;
             if (damageElement == MobBasicElement)
                 multiplier = 0.8f;
-            else if  (damageElement == MobCounterElement)
+            else if (damageElement == MobCounterElement)
                 multiplier = 1.2f;
 
             _mobModel.CurrentMobHealth -= damage * multiplier;
             print($"{name}: {_mobModel.CurrentMobHealth}");
-            
+
             if (_mobModel.CurrentMobHealth <= 0)
                 KillThisMob();
         }
-        
+
         public override void MoveTowards(Vector3 point)
         {
             _mobModel.MobNavMeshAgent.SetDestination(point);
@@ -43,13 +41,18 @@ namespace Mobs.MobsBehaviour.Boar
             Destroy(gameObject);
         }
 
-        private void Start()
+        public override void ExecuteOnMobSpawn(Transform gates)
         {
             _mobModel = GetComponent<MobModel>();
+            _mobModel.InstantiateMobModel();
             _canDistractFromCurrentTarget = true;
             _chargeLeftTime = 3f;
+            
+            DefaultDestinationPoint = gates;
+            _mobModel.MobNavMeshAgent.SetDestination(DefaultDestinationPoint.position);
         }
-        
+    
+
         private void FixedUpdate()
         {
             if (_chargeLeftTime > 0)
@@ -57,8 +60,6 @@ namespace Mobs.MobsBehaviour.Boar
 
             if (_chargeLeftTime <= 0 && _canDistractFromCurrentTarget)
                 TakeChargeMode();
-                
-            MoveTowards(gates.position);
 
             if (CurrentEffects.Count > 0)
                 TickTimer -= Time.fixedDeltaTime;

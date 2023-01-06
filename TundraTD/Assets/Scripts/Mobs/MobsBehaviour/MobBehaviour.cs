@@ -11,7 +11,16 @@ namespace Mobs.MobsBehaviour
     public abstract class MobBehaviour : MonoBehaviour
     {
         private float _tickTimer;
+        private Transform _defaultDestinationPoint;
+        private Transform _currentDestinationPoint;
+        
         protected List<Effect> CurrentEffects { get; } = new List<Effect>();
+        public Transform DefaultDestinationPoint { get; protected set; }
+        public Transform CurrentDestinationPoint
+        {
+            get => _currentDestinationPoint;
+            set => _currentDestinationPoint = value;
+        }
 
         protected float TickTimer
         {
@@ -52,5 +61,7 @@ namespace Mobs.MobsBehaviour
                     i++;
             }
         }
+
+        public abstract void ExecuteOnMobSpawn(Transform gates);
     }
 }

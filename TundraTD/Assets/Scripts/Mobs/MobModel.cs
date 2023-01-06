@@ -42,7 +42,7 @@ namespace Mobs
             }
         }
         
-        private void Start()
+        public void InstantiateMobModel()
         {
             _mobNavMeshAgent = GetComponent<NavMeshAgent>();
             _currentMobHealth = maxMobHealth;
