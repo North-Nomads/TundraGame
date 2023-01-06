@@ -1,4 +1,5 @@
 ﻿using Mobs;
+using Mobs.MobsBehaviour;
 using UnityEngine;
 
 namespace City

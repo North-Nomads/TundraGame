@@ -1,34 +1,21 @@
 ﻿using Spells;
 using UnityEngine;
 
-namespace Mobs.Ironclad
+namespace Mobs.MobsBehaviour.Undead
 {
     /// <summary>
     /// 
     /// </summary>
     [RequireComponent(typeof(MobModel))]
-    public class IroncladBehaviour : MobBehaviour
+    public class UndeadBehaviour : MobsBehaviour.MobBehaviour
     {
         [SerializeField] private Transform gates;
-        private const BasicElement MobElement = BasicElement.Earth;
-        private const BasicElement MobCounterElement = BasicElement.Air;
-        
-        private float _mobShield;
-        private float MobShield
-        {
-            get => _mobShield;
-            set
-            {
-                if (value < 0)
-                    _mobShield = 0; 
-                else
-                    _mobShield = value;
-            }
-        }
+        private const BasicElement MobElement = BasicElement.Water;
+        private const BasicElement MobCounterElement = BasicElement.Lightning;
 
         private MobModel _mobModel;
 
-        public override BasicElement MobBasicElement => BasicElement.Earth;
+        public override BasicElement MobBasicElement => BasicElement.Water;
         
         public override void MoveTowards(Vector3 point)
         {
@@ -50,13 +37,7 @@ namespace Mobs.Ironclad
                     multiplier = 1;
                     break;
             }
-            
-            if (MobShield > 0)
-            {
-                MobShield -= damage * multiplier;
-                return;
-            }
-            
+
             _mobModel.CurrentMobHealth -= damage * multiplier;
             print($"{name}: {_mobModel.CurrentMobHealth}");
             
@@ -72,15 +53,11 @@ namespace Mobs.Ironclad
         private void Start()
         {
             _mobModel = GetComponent<MobModel>();
-            MobShield = 10;
         }
-        
+
         private void FixedUpdate()
         {
             MoveTowards(gates.position);
-            
-            if (_mobModel.CurrentMobHealth <= 0)
-                KillThisMob();
             
             if (CurrentEffects.Count > 0)
                 TickTimer -= Time.fixedDeltaTime;

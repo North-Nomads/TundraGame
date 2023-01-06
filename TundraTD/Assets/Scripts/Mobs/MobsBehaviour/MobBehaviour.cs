@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using Mobs.MobEffects;
-using Spells;
+﻿using Mobs.MobEffects;
 using UnityEngine;
+using System.Collections.Generic;
+using Spells;
 
-namespace Mobs
+namespace Mobs.MobsBehaviour
 {
     /// <summary>
     /// An abstract class that represents the basic behavior of every mob on the map

@@ -1,27 +1,24 @@
 ﻿using Spells;
 using UnityEngine;
 
-namespace Mobs.Undead
+namespace Mobs.MobsBehaviour.Boar
 {
     /// <summary>
-    /// 
+    /// Handles boar mob movement and taking and dealing damage behaviour 
     /// </summary>
     [RequireComponent(typeof(MobModel))]
-    public class UndeadBehaviour : MobBehaviour
+    public class BoarBehavior : MobBehaviour
     {
         [SerializeField] private Transform gates;
-        private const BasicElement MobElement = BasicElement.Water;
-        private const BasicElement MobCounterElement = BasicElement.Lightning;
-
-        private MobModel _mobModel;
-
-        public override BasicElement MobBasicElement => BasicElement.Water;
+        private const BasicElement MobElement = BasicElement.Earth;
+        private const BasicElement MobCounterElement = BasicElement.Air;
         
-        public override void MoveTowards(Vector3 point)
-        {
-            _mobModel.MobNavMeshAgent.SetDestination(point);
-        }
+        private MobModel _mobModel;
+        private bool _canDistractFromCurrentTarget;
+        private float _chargeLeftTime;
 
+        public override BasicElement MobBasicElement => BasicElement.Earth;
+        
         public override void HandleIncomeDamage(float damage, BasicElement damageElement)
         {
             float multiplier;
@@ -44,6 +41,11 @@ namespace Mobs.Undead
             if (_mobModel.CurrentMobHealth <= 0)
                 KillThisMob();
         }
+        
+        public override void MoveTowards(Vector3 point)
+        {
+            _mobModel.MobNavMeshAgent.SetDestination(point);
+        }
 
         public override void KillThisMob()
         {
@@ -53,14 +55,29 @@ namespace Mobs.Undead
         private void Start()
         {
             _mobModel = GetComponent<MobModel>();
+            _canDistractFromCurrentTarget = true;
+            _chargeLeftTime = 3f;
         }
-
+        
         private void FixedUpdate()
         {
+            if (_chargeLeftTime > 0)
+                _chargeLeftTime -= Time.fixedDeltaTime;
+
+            if (_chargeLeftTime <= 0 && _canDistractFromCurrentTarget)
+                TakeChargeMode();
+                
             MoveTowards(gates.position);
-            
+
             if (CurrentEffects.Count > 0)
                 TickTimer -= Time.fixedDeltaTime;
+        }
+        
+        private void TakeChargeMode()
+        {
+            _canDistractFromCurrentTarget = false;
+            _mobModel.CurrentMobSpeed *= 1.5f;
+            _mobModel.CurrentMobDamage *= 2f;
         }
     }
 }

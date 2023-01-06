@@ -1,4 +1,5 @@
-﻿using Spells;
+﻿using Mobs.MobsBehaviour;
+using Spells;
 
 namespace Mobs.MobEffects
 {

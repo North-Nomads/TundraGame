@@ -1,4 +1,6 @@
-﻿namespace Mobs.MobEffects
+﻿using Mobs.MobsBehaviour;
+
+namespace Mobs.MobEffects
 {
     /// <summary>
     /// Represents the model of effects in unity  
