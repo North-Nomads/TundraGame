@@ -1,9 +1,6 @@
 ﻿using Mobs;
 using Mobs.MobEffects;
-using System;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Spells.SpellClasses
 {
@@ -54,15 +51,13 @@ namespace Spells.SpellClasses
         public override void ExecuteSpell()
         {
             Debug.Log("Fireball has been executed!");
-            GameObject fireball = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            var spell = fireball.AddComponent<FireballSpell>();
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out var hit))
             {
-                spell.target = hit.point;
+                target = hit.point;
                 var reflect = Vector3.Reflect(Quaternion.Euler(0, -90, 0) * Camera.main.transform.forward, hit.normal).normalized;
-                fireball.transform.position = hit.point + reflect * flyDistance;
-                Debug.DrawLine(spell.transform.position, spell.target, Color.red, 2);
-                Debug.DrawRay(spell.target, Vector3.up * spell.HitDamageRadius, Color.blue, 2);
+                transform.position = hit.point + reflect * flyDistance;
+                Debug.DrawLine(transform.position, target, Color.red, 2);
+                Debug.DrawRay(target, Vector3.up * HitDamageRadius, Color.blue, 2);
             }
         }
 

@@ -9,18 +9,19 @@ namespace Spells
     /// <summary>
     /// A helper class to build spells from elements.
     /// </summary>
-    public static class Grimoire
+    public class Grimoire : MonoBehaviour
     {
-        private static readonly Dictionary<BasicElement, Type> spellTypes;
-        public static GameObject[] SpellPrefabs { private get; set; }
+        private readonly Dictionary<BasicElement, Type> _spellTypes;
 
-        static Grimoire()
+        [SerializeField] private GameObject[] _spellPrefabs;
+
+        public Grimoire()
         {
-            spellTypes = (from type in Assembly.GetExecutingAssembly().GetTypes()
-                          where typeof(MagicSpell).IsAssignableFrom(type) && !type.IsAbstract
-                          let element = type.GetCustomAttribute<SpellAttribute>()
-                          where element != null
-                          select (element.CoreElement, type)).ToDictionary(x => x.CoreElement, y => y.type);
+            _spellTypes = (from type in Assembly.GetExecutingAssembly().GetTypes()
+                           where typeof(MagicSpell).IsAssignableFrom(type) && !type.IsAbstract
+                           let element = type.GetCustomAttribute<SpellAttribute>()
+                           where element != null
+                           select (element.CoreElement, type)).ToDictionary(x => x.CoreElement, y => y.type);
         }
 
         /// <summary>
@@ -28,15 +29,15 @@ namespace Spells
         /// </summary>
         /// <param name="elements">Elements list.</param>
         /// <returns>Created spell which is ready to cast.</returns>
-        public static MagicSpell TurnElementsIntoSpell(BasicElement[] elements)
+        public MagicSpell TurnElementsIntoSpell(BasicElement[] elements)
         {
             BasicElement? mostElement = elements.GroupBy(x => x).FirstOrDefault(x => x.Count() >= 3)?.Key;
             Array.Sort(elements);
             int startMostIndex = Array.IndexOf(elements, mostElement);
             var remElements = elements.Where((x, i) => x != mostElement || i >= startMostIndex + 3);
-            if (mostElement.HasValue && spellTypes.TryGetValue(mostElement.Value, out Type spellType))
+            if (mostElement.HasValue && _spellTypes.TryGetValue(mostElement.Value, out Type spellType))
             {
-                var spellObject = UnityEngine.Object.Instantiate(SpellPrefabs[(int)Math.Log((int)mostElement, 2)]);
+                var spellObject = Instantiate(_spellPrefabs[(int)Math.Log((int)mostElement, 2)]);
                 MagicSpell spell = spellObject.GetComponent(spellType) as MagicSpell;
                 foreach (var prop in spellType.GetProperties())
                 {

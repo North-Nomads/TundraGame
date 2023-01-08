@@ -788,6 +788,7 @@ GameObject:
   - component: {fileID: 1238728036}
   - component: {fileID: 1238728039}
   - component: {fileID: 1238728040}
+  - component: {fileID: 1238728041}
   m_Layer: 0
   m_Name: Gates
   m_TagString: Untagged
@@ -895,6 +896,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPointsHolder: {fileID: 1600090611}
+--- !u!114 &1238728041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1238728034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 154c4f598e1d40145b532bb77bad9eee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spellPrefabs:
+  - {fileID: 7913506393892522128, guid: 4c9b0db6e89c5d5478a5d9554eef8b15, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &1239325713
 GameObject:
   m_ObjectHideFlags: 0
