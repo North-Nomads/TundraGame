@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using UnityEngine;
 
 namespace Spells
 {
@@ -11,6 +12,7 @@ namespace Spells
     public static class Grimoire
     {
         private static readonly Dictionary<BasicElement, Type> spellTypes;
+        public static GameObject[] SpellPrefabs { private get; set; }
 
         static Grimoire()
         {
@@ -34,7 +36,8 @@ namespace Spells
             var remElements = elements.Where((x, i) => x != mostElement || i >= startMostIndex + 3);
             if (mostElement.HasValue && spellTypes.TryGetValue(mostElement.Value, out Type spellType))
             {
-                MagicSpell spell = Activator.CreateInstance(spellType) as MagicSpell;
+                var spellObject = UnityEngine.Object.Instantiate(SpellPrefabs[(int)Math.Log((int)mostElement, 2)]);
+                MagicSpell spell = spellObject.GetComponent(spellType) as MagicSpell;
                 foreach (var prop in spellType.GetProperties())
                 {
                     foreach (var attr in prop.GetCustomAttributes<UpgradeablePropertyAttribute>(true))
@@ -45,6 +48,7 @@ namespace Spells
                         }
                     }
                 }
+                spell.ExecuteSpell();
                 return spell;
             }
             return null;
