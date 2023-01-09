@@ -1,5 +1,6 @@
 ﻿using Mobs;
 using Mobs.MobEffects;
+using Mobs.MobsBehaviour;
 using UnityEngine;
 
 namespace Spells.SpellClasses
@@ -55,7 +56,7 @@ namespace Spells.SpellClasses
             {
                 target = hit.point;
                 var reflect = Vector3.Reflect(Quaternion.Euler(0, -90, 0) * Camera.main.transform.forward, hit.normal).normalized;
-                transform.position = hit.point + reflect * flyDistance;
+                transform.position = hit.point + (reflect * flyDistance);
                 Debug.DrawLine(transform.position, target, Color.red, 2);
                 Debug.DrawRay(target, Vector3.up * HitDamageRadius, Color.blue, 2);
             }
@@ -79,7 +80,7 @@ namespace Spells.SpellClasses
                     var mob = target.GetComponent<MobBehaviour>();
                     float damage = HitDamageValue * Vector3.Distance(target.transform.position, transform.position) / HitDamageRadius;
                     Debug.Log($"Target {target}, Damage: {damage}");
-                    mob.HandleIncomeDamage(damage);
+                    mob.HandleIncomeDamage(damage, BasicElement.Fire);
                     mob.AddReceivedEffects(effects);
                 }
                 Destroy(gameObject);
