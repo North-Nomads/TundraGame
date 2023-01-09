@@ -9,9 +9,9 @@ namespace Spells.SpellClasses
     {
         private const float HitDelay = 0.5f;
         private const int MobsLayerMask = 1 << 8;
-        private readonly float flyDistance = 30;
-        private float currentHitTime;
-        private Vector3 target;
+        private const float FlightDistance = 30;
+        private float _currentHitTime;
+        private Vector3 _flightTarget;
 
         /// <summary>
         /// The radius of the hit area
@@ -53,21 +53,25 @@ namespace Spells.SpellClasses
             Debug.Log("Fireball has been executed!");
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out var hit))
             {
-                target = hit.point;
+                _flightTarget = hit.point;
                 var reflect = Vector3.Reflect(Quaternion.Euler(0, -90, 0) * Camera.main.transform.forward, hit.normal).normalized;
-                transform.position = hit.point + reflect * flyDistance;
-                Debug.DrawLine(transform.position, target, Color.red, 2);
-                Debug.DrawRay(target, Vector3.up * HitDamageRadius, Color.blue, 2);
+                transform.position = hit.point + reflect * FlightDistance;
+                Debug.DrawLine(transform.position, _flightTarget, Color.red, 2);
+                Debug.DrawRay(_flightTarget, Vector3.up * HitDamageRadius, Color.blue, 2);
             }
         }
 
         private void Update()
         {
-            // Performs flight towards target.
-            transform.position += Vector3.Normalize(target - transform.position) * (Time.deltaTime * flyDistance / HitDelay);
+            FlyTowardsTarget();
+        }
 
-            currentHitTime += Time.deltaTime;
-            if (currentHitTime > HitDelay)
+        private void FlyTowardsTarget()
+        {
+            transform.position += Vector3.Normalize(_flightTarget - transform.position) * (Time.deltaTime * FlightDistance / HitDelay);
+
+            _currentHitTime += Time.deltaTime;
+            if (_currentHitTime > HitDelay)
             {
                 var targets = Physics.OverlapSphere(transform.position, HitDamageRadius, MobsLayerMask);
                 var effects = new Effect[]

@@ -28,7 +28,7 @@ namespace Spells
         /// Turns elements into a spell if it's available.
         /// </summary>
         /// <param name="elements">Elements list.</param>
-        /// <returns>Created spell which is ready to cast.</returns>
+        /// <returns>Created spell which is ready to cast. If the spell can't be casted, returns <see langword="null"/>.</returns>
         public MagicSpell TurnElementsIntoSpell(BasicElement[] elements)
         {
             BasicElement? mostElement = elements.GroupBy(x => x).FirstOrDefault(x => x.Count() >= 3)?.Key;

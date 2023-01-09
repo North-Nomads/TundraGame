@@ -8,27 +8,15 @@ namespace Spells
     [AttributeUsage(AttributeTargets.Class)]
     public class SpellAttribute : Attribute
     {
-        /// <summary>
-        /// A core element used to create a spell.
-        /// </summary>
-        public BasicElement CoreElement { get; set; }
+        public BasicElement CoreElement { get; }
 
-        /// <summary>
-        /// A description of a spell.
-        /// </summary>
-        public string Description { get; set; }
+        public string Description { get; }
 
-        /// <summary>
-        /// The name of the spell.
-        /// </summary>
-        public string Name { get; set; }
+        public string Name { get; }
 
         /// <summary>
         /// Creates the new instance of a <see cref="SpellAttribute"/> using all provided data.
         /// </summary>
-        /// <param name="coreElement"></param>
-        /// <param name="name"></param>
-        /// <param name="description"></param>
         public SpellAttribute(BasicElement coreElement, string name, string description)
         {
             CoreElement = coreElement;
