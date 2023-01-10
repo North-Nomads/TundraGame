@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace City
@@ -10,9 +9,15 @@ namespace City
     [RequireComponent(typeof(CityGates))]
     public class CityGatesUI : MonoBehaviour
     {
-        [FormerlySerializedAs("healthPointHolder")] [SerializeField] private Text healthPointsHolder;
+        [SerializeField] private Text influencePointsHolder;
+        [SerializeField] private Text healthPointsHolder;
         private CityGates _cityGates;
 
+        public void UpdateInfluencePointsText(string text)
+        {
+            influencePointsHolder.text = text;
+        }
+        
         public void UpdateHealthText(string text)
         {
             healthPointsHolder.text = text;
