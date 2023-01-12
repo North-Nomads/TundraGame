@@ -23,7 +23,7 @@ namespace City.Building
             var position = _bottomCentreBuildingAnchor + Vector3.up * prefab.transform.localScale.y / 2;
             var tower = Instantiate(prefab, position, Quaternion.identity);
             tower.TowerSlot = this;
-            tower.InstantiateTowerUI();
+            tower.InstantiateTowerUIMenu();
             IsOccupied = true;
         }
         
