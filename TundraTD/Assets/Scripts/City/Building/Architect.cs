@@ -10,10 +10,13 @@ namespace City.Building
     /// </summary>
     public class Architect : MonoBehaviour
     {
+        [SerializeField] private Transform canvasesParent;
         [SerializeField] private int influencePoints; // temporary SF
         [SerializeField] private CityGatesUI influencePointsHolder;
         [SerializeField] private TowerPlacementSlot[] placementSlots; 
         [SerializeField] private ElementalTower[] elementalTowerPrefabs;
+
+        public Transform CanvasesParent => canvasesParent;
 
         private void Start()
         {

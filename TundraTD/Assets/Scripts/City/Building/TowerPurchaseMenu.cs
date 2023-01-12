@@ -41,5 +41,10 @@ namespace City.Building
                 }
             }
         }
+
+        public void ClosePurchaseMenu()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

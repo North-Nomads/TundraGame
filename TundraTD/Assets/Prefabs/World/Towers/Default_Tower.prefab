@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 447607124626539661}
   - component: {fileID: 5064179694057019742}
   - component: {fileID: 8965262571590256374}
-  - component: {fileID: 6301997693340246675}
   m_Layer: 0
   m_Name: Default_Tower
   m_TagString: Untagged
@@ -93,7 +92,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1.2, y: 1.2, z: 1.2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8965262571590256374
 MonoBehaviour:
@@ -108,17 +107,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerElement: 1
-  elementalTowerUI: {fileID: 6301997693340246675}
   towerPurchasePrice: 10
---- !u!114 &6301997693340246675
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6129803282017891325}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb8e238898a2436bac816552c0db087e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  elementalTowerUIPrefab: {fileID: 5413445776950507049, guid: 3bb36302d1515a849a702ef749c48701,
+    type: 3}
