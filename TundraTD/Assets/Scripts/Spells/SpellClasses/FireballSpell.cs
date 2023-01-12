@@ -8,7 +8,7 @@ namespace Spells.SpellClasses
     [Spell(BasicElement.Fire, "Meteor", "Casts a fire meteor on heads of your enemies.")]
     public class FireballSpell : MagicSpell
     {
-        private const float HitDelay = 0.5f;
+        private const float HitDelay = 0.7f;
         private const int MobsLayerMask = 1 << 8;
         private readonly float flyDistance = 30;
         private float currentHitTime;
@@ -57,6 +57,7 @@ namespace Spells.SpellClasses
                 target = hit.point;
                 var reflect = Vector3.Reflect(Quaternion.Euler(0, -90, 0) * Camera.main.transform.forward, hit.normal).normalized;
                 transform.position = hit.point + (reflect * flyDistance);
+                transform.forward = target;
                 Debug.DrawLine(transform.position, target, Color.red, 2);
                 Debug.DrawRay(target, Vector3.up * HitDamageRadius, Color.blue, 2);
             }
