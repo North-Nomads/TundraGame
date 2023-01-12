@@ -1,6 +1,8 @@
+using City.Building.ElementPools;
 using City.Building.Upgrades;
 using Spells;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace City.Building
 {
@@ -20,7 +22,7 @@ namespace City.Building
         public int TowerPurchasePrice => towerPurchasePrice;
 
         // + HandleUpgradePurchase(IUpgrade upgrade):  void
-
+        
         private void Start()
         {
             InstantiateUpgradesList();
@@ -40,6 +42,13 @@ namespace City.Building
         public void InstantiateTowerUIMenu()
         {
             _elementalTowerUI = Instantiate(elementalTowerUIPrefab, TowerSlot.Architect.CanvasesParent);
+        }
+        
+        public static void HandleUpgradePurchase(IUpgrade upgrade)
+        {
+            print(FirePool.DamageAgainstWaterMultiplier);
+            upgrade.ExecuteOnUpgradeBought();
+            print(FirePool.DamageAgainstWaterMultiplier);
         }
     }
 }

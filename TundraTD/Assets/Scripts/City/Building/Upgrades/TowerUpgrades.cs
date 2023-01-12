@@ -16,25 +16,25 @@ namespace City.Building.Upgrades
         {
             FireTowerUpgrades[0] = new IUpgrade[]
             {
-                new WaterEnemiesDamangeUpgrade(),
-                new WaterEnemiesDamangeUpgrade()
+                new WaterEnemiesDamageUpgrade(),
+                new WaterEnemiesDamageUpgrade()
             };
             FireTowerUpgrades[1] = new IUpgrade[]
             {
-                new WaterEnemiesDamangeUpgrade(),
-                new WaterEnemiesDamangeUpgrade(),
-                new WaterEnemiesDamangeUpgrade()
+                new WaterEnemiesDamageUpgrade(),
+                new WaterEnemiesDamageUpgrade(),
+                new WaterEnemiesDamageUpgrade()
             };
             FireTowerUpgrades[2] = new IUpgrade[]
             {
-                new WaterEnemiesDamangeUpgrade()
+                new WaterEnemiesDamageUpgrade()
             };
             FireTowerUpgrades[3] = new IUpgrade[]
             {
-                new WaterEnemiesDamangeUpgrade(),
-                new WaterEnemiesDamangeUpgrade(),
-                new WaterEnemiesDamangeUpgrade(),
-                new WaterEnemiesDamangeUpgrade()
+                new WaterEnemiesDamageUpgrade(),
+                new WaterEnemiesDamageUpgrade(),
+                new WaterEnemiesDamageUpgrade(),
+                new WaterEnemiesDamageUpgrade()
             };
         }
         
