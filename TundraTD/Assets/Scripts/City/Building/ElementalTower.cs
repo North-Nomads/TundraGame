@@ -28,30 +28,7 @@ namespace City.Building
 
         private void InstantiateUpgradesList()
         {
-            _towerUpgrades = new IUpgrade[4][];
-            _towerUpgrades[0] = new IUpgrade[]
-            {
-                new WaterEnemiesDamangeUpgrade(),
-                new WaterEnemiesDamangeUpgrade()
-            };
-            _towerUpgrades[1] = new IUpgrade[]
-            {
-                new WaterEnemiesDamangeUpgrade(),
-                new WaterEnemiesDamangeUpgrade(),
-                new WaterEnemiesDamangeUpgrade()
-            };
-            _towerUpgrades[2] = new IUpgrade[]
-            {
-                new WaterEnemiesDamangeUpgrade()
-            };
-            _towerUpgrades[3] = new IUpgrade[]
-            {
-                new WaterEnemiesDamangeUpgrade(),
-                new WaterEnemiesDamangeUpgrade(),
-                new WaterEnemiesDamangeUpgrade(),
-                new WaterEnemiesDamangeUpgrade()
-            };
-            
+            _towerUpgrades = TowerUpgrades.UpgradesMap[towerElement];
             _elementalTowerUI.LoadUpgradesInTowerMenu(_towerUpgrades);
         }
 
