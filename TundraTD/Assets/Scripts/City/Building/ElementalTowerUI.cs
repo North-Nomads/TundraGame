@@ -6,7 +6,7 @@ namespace City.Building
 {
     public class ElementalTowerUI : MonoBehaviour
     {
-        [SerializeField] private Button upgradeButtonPrefab;
+        [SerializeField] private UpgradeUI upgradeButtonPrefab;
         [SerializeField] private GridLayoutGroup[] upgradeLevels;
 
         private void Start()
@@ -22,8 +22,10 @@ namespace City.Building
                 var level = upgradeLevels[i];
                 foreach (var upgrade in upgradesList)
                 {
-                    var button = Instantiate(upgradeButtonPrefab, level.transform);
-                    button.onClick.AddListener(() => ElementalTower.HandleUpgradePurchase(upgrade));
+                    var upgradeUI = Instantiate(upgradeButtonPrefab, level.transform);
+                    upgradeUI.Button.onClick.AddListener(() => ElementalTower.HandleUpgradePurchase(upgrade));
+                    var sprite = Resources.Load<Sprite>("UpgradeIcons/Arcanist1");
+                    upgradeUI.UpgradeIcon.sprite = sprite;
                 }
                 i += 1;
             }

@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb8e238898a2436bac816552c0db087e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradeButtonPrefab: {fileID: 8286136478453513528, guid: 2d37770865e080a43b62aa7236f111b2,
+  upgradeButtonPrefab: {fileID: 1073972091799621117, guid: 2d37770865e080a43b62aa7236f111b2,
     type: 3}
   upgradeLevels:
   - {fileID: 2440528152576452423}
