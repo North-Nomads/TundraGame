@@ -33,6 +33,14 @@ namespace City
             _grimoire = GetComponent<Grimoire>();
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                _grimoire.TurnElementsIntoSpell(new BasicElement[] { BasicElement.Fire, BasicElement.Fire, BasicElement.Fire, BasicElement.Earth, BasicElement.Earth });
+            }
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             if (!other.CompareTag("Mob"))
