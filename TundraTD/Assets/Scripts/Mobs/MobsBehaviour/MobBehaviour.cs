@@ -2,6 +2,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Spells;
+using System.Linq;
+using System;
 
 namespace Mobs.MobsBehaviour
 {
@@ -13,7 +15,9 @@ namespace Mobs.MobsBehaviour
         private float _tickTimer;
         private Transform _defaultDestinationPoint;
         private Transform _currentDestinationPoint;
-        
+
+        [SerializeField] private GameObject[] effectPrefabs;
+
         protected List<Effect> CurrentEffects { get; } = new List<Effect>();
         public Transform DefaultDestinationPoint { get; protected set; }
         public Transform CurrentDestinationPoint
@@ -49,16 +53,31 @@ namespace Mobs.MobsBehaviour
         public abstract void HandleIncomeDamage(float damage, BasicElement damageElement);
         public abstract void KillThisMob();
 
+        protected virtual void Start()
+        {
+            foreach (var prefab in effectPrefabs)
+            {
+                if (prefab != null) prefab.SetActive(false);
+            }
+        }
+
         private void HandleAppliedEffects()
         {
             for (int i = 0; i < CurrentEffects.Count;)
             {
                 CurrentEffects[i].HandleTick(this);
-                
-                if (CurrentEffects[i].TicksAmountLeft == CurrentEffects[i].MaxTicksAmount)
+
+                if (CurrentEffects[i].CurrentTicksAmount == CurrentEffects[i].MaxTicksAmount)
                     CurrentEffects.RemoveAt(i);
                 else
                     i++;
+            }
+            foreach (var prefab in effectPrefabs)
+                if (prefab != null) prefab.SetActive(false);
+            foreach (var effect in CurrentEffects)
+            {
+                int effectIndex = (int)Mathf.Log((int)effect.Code, 2);
+                if (effectPrefabs[effectIndex] != null) effectPrefabs[effectIndex].SetActive(true);
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using Mobs;
 using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
+using System.Collections;
 using UnityEngine;
 
 namespace Spells.SpellClasses
@@ -8,11 +9,14 @@ namespace Spells.SpellClasses
     [Spell(BasicElement.Fire, "Meteor", "Casts a fire meteor on heads of your enemies.")]
     public class FireballSpell : MagicSpell
     {
-        private const float HitDelay = 0.7f;
+        private const float HitDelay = 0.5f;
         private const int MobsLayerMask = 1 << 8;
         private readonly float flyDistance = 30;
         private float currentHitTime;
         private Vector3 target;
+
+        [SerializeField] private GameObject explosionPrefab;
+        [SerializeField] private float explosionDelay;
 
         /// <summary>
         /// The radius of the hit area
@@ -74,7 +78,7 @@ namespace Spells.SpellClasses
                 var targets = Physics.OverlapSphere(transform.position, HitDamageRadius, MobsLayerMask);
                 var effects = new Effect[]
                 {
-                    new MeteoriteBurningEffect()
+                    new MeteoriteBurningEffect(BurnDamage, (int)BurnDuration)
                 };
                 foreach (var target in targets)
                 {
@@ -84,8 +88,18 @@ namespace Spells.SpellClasses
                     mob.HandleIncomeDamage(damage, BasicElement.Fire);
                     mob.AddReceivedEffects(effects);
                 }
+                StartCoroutine(RunExplosionAnimation());
                 Destroy(gameObject);
             }
+        }
+
+        private IEnumerator RunExplosionAnimation()
+        {
+            var obj = Instantiate(explosionPrefab);
+            obj.transform.position = target;
+            obj.transform.localScale = new Vector3(5, 5, 5);
+            yield return new WaitForSecondsRealtime(explosionDelay);
+            Destroy(obj);
         }
 
         private void OnDrawGizmosSelected()
