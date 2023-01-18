@@ -7,13 +7,10 @@ namespace City.Building
     /// </summary>
     public class TowerPlacementSlot : MonoBehaviour
     {
-        [SerializeField] private Architect architect;
         [SerializeField] private TowerPurchaseMenu purchaseMenu;
         [SerializeField] private int slotID;
         
         private Vector3 _bottomCentreBuildingAnchor;
-
-        public Architect Architect => architect;
         public bool IsOccupied { get; private set; }
         public int SlotID => slotID;
 
@@ -21,9 +18,7 @@ namespace City.Building
         {
             // we define new spawn position higher than the anchor because unity defines axis in the centre of a model
             var position = _bottomCentreBuildingAnchor + Vector3.up * prefab.transform.localScale.y / 2;
-            var tower = Instantiate(prefab, position, Quaternion.identity);
-            tower.TowerSlot = this;
-            tower.InstantiateTowerUIMenu();
+            Instantiate(prefab, position, Quaternion.identity);
             IsOccupied = true;
         }
         

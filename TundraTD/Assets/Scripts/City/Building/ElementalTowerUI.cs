@@ -8,13 +8,14 @@ namespace City.Building
     {
         [SerializeField] private UpgradeUI upgradeButtonPrefab;
         [SerializeField] private GridLayoutGroup[] upgradeLevels;
-
+        private ElementalTower _elementalTower;
+        
         private void Start()
         {
             gameObject.SetActive(false);
         }
 
-        public void LoadUpgradesInTowerMenu(IUpgrade[][] upgradesLists)
+        public void LoadUpgradesInTowerMenu(Upgrade[][] upgradesLists)
         {
             int i = 0;
             foreach (var upgradesList in upgradesLists)
@@ -23,12 +24,16 @@ namespace City.Building
                 foreach (var upgrade in upgradesList)
                 {
                     var upgradeUI = Instantiate(upgradeButtonPrefab, level.transform);
-                    upgradeUI.Button.onClick.AddListener(() => ElementalTower.HandleUpgradePurchase(upgrade));
-                    var sprite = Resources.Load<Sprite>("UpgradeIcons/Arcanist1");
-                    upgradeUI.UpgradeIcon.sprite = sprite;
+                    upgradeUI.Button.onClick.AddListener(() => ElementalTower.HandleUpgradePurchase(upgrade, _elementalTower));
+                    upgradeUI.UpgradeIcon.sprite = upgrade.Sprite;
                 }
-                i += 1;
+                i++;
             }
+        }
+
+        public void SetLinkedTower(ElementalTower tower)
+        {
+            _elementalTower = tower;
         }
 
         public void OpenTowerMenu()

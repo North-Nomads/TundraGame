@@ -1,45 +1,67 @@
 ﻿using System;
 using System.Linq;
+using City.Building.Upgrades;
 using Spells;
 using UnityEngine;
 
 namespace City.Building
 {
     /// <summary>
-    /// Orders slots to build towers
+    /// Manages the transaction to buy towers and upgrades
     /// </summary>
-    public class Architect : MonoBehaviour
+    public static class Architect
     {
-        [SerializeField] private Transform canvasesParent;
-        [SerializeField] private int influencePoints; // temporary SF
-        [SerializeField] private CityGatesUI influencePointsHolder;
-        [SerializeField] private TowerPlacementSlot[] placementSlots; 
-        [SerializeField] private ElementalTower[] elementalTowerPrefabs;
-
-        public Transform CanvasesParent => canvasesParent;
-
-        private void Start()
+        private static int _influencePoints;
+        
+        public static Transform CanvasesParent { get; set; }
+        public static CityGatesUI InfluencePointsHolder { get; set; }
+        public static TowerPlacementSlot[] PlacementSlots { get; set; } 
+        public static ElementalTower[] ElementalTowerPrefabs { get; set; }
+        private static int InfluencePoints
         {
-            influencePointsHolder.UpdateInfluencePointsText(influencePoints.ToString());
+            get => _influencePoints;
+            set
+            {
+                if (value < 0)
+                    throw new Exception("Influence Points now below zero");
+                InfluencePointsHolder.UpdateInfluencePointsText(value.ToString());
+                _influencePoints = value;  
+            } 
         }
 
-        public void BuildNewTower(int slotID, BasicElement element)
+        public static void BuildNewTower(int slotID, BasicElement element)
         {
-            var elementalTower = elementalTowerPrefabs.FirstOrDefault(x => x.TowerElement == element);
+            var elementalTower = ElementalTowerPrefabs.FirstOrDefault(x => x.TowerElement == element);
             if (elementalTower is null)
                 throw new Exception("Tower or slot is null");
-            if (influencePoints < elementalTower.TowerPurchasePrice)
+            if (InfluencePoints < elementalTower.TowerPurchasePrice)
                 return;
 
-            var placementSlot = placementSlots.FirstOrDefault(x => x.SlotID == slotID);
+            var placementSlot = PlacementSlots.FirstOrDefault(x => x.SlotID == slotID);
             if (placementSlot is null)
                 throw new Exception("Tower or slot is null");
             if (placementSlot.IsOccupied)
                 return;
             
             placementSlot.BuildElementalTowerOnThisSlot(elementalTower);
-            influencePoints -= elementalTower.TowerPurchasePrice;
-            influencePointsHolder.UpdateInfluencePointsText(influencePoints.ToString());
+            InfluencePoints -= elementalTower.TowerPurchasePrice;
+            InfluencePointsHolder.UpdateInfluencePointsText(InfluencePoints.ToString());
+        }
+
+        public static bool CanUpgradeBeBought(Upgrade upgrade, int towerUpgradeLevel)
+        {
+            Debug.Log($"{upgrade.Price} and {InfluencePoints}\n{towerUpgradeLevel} and {upgrade.RequiredLevel}");
+            return InfluencePoints >= upgrade.Price && towerUpgradeLevel == upgrade.RequiredLevel;
+        }
+
+        public static void DEBUG_GetStartPoints()
+        {
+            InfluencePoints = 100;
+        }
+
+        public static void ProceedUpgradePurchase(Upgrade upgrade)
+        {
+            InfluencePoints -= upgrade.Price;
         }
     }
 }

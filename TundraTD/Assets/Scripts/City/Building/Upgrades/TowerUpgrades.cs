@@ -5,31 +5,31 @@ namespace City.Building.Upgrades
 {
     public static class TowerUpgrades
     {
-        private static readonly IUpgrade[][] FireTowerUpgrades = new IUpgrade[4][];
+        private static readonly Upgrade[][] FireTowerUpgrades = new Upgrade[4][];
 
         static TowerUpgrades()
         {
-            InitializeTowerUpgrades();
+            InitializeFireTowerUpgrades();
         }
 
-        private static void InitializeTowerUpgrades()
+        private static void InitializeFireTowerUpgrades()
         {
-            FireTowerUpgrades[0] = new IUpgrade[]
+            FireTowerUpgrades[0] = new Upgrade[]
             {
                 new WaterEnemiesDamageUpgrade(),
                 new WaterEnemiesDamageUpgrade()
             };
-            FireTowerUpgrades[1] = new IUpgrade[]
+            FireTowerUpgrades[1] = new Upgrade[]
             {
                 new WaterEnemiesDamageUpgrade(),
                 new WaterEnemiesDamageUpgrade(),
                 new WaterEnemiesDamageUpgrade()
             };
-            FireTowerUpgrades[2] = new IUpgrade[]
+            FireTowerUpgrades[2] = new Upgrade[]
             {
                 new WaterEnemiesDamageUpgrade()
             };
-            FireTowerUpgrades[3] = new IUpgrade[]
+            FireTowerUpgrades[3] = new Upgrade[]
             {
                 new WaterEnemiesDamageUpgrade(),
                 new WaterEnemiesDamageUpgrade(),
@@ -38,8 +38,8 @@ namespace City.Building.Upgrades
             };
         }
         
-        public static readonly Dictionary<BasicElement, IUpgrade[][]> UpgradesMap 
-            = new Dictionary<BasicElement, IUpgrade[][]>
+        public static readonly Dictionary<BasicElement, Upgrade[][]> UpgradesMap 
+            = new Dictionary<BasicElement, Upgrade[][]>
             {
                 { BasicElement.Fire, FireTowerUpgrades },
                 { BasicElement.Air , FireTowerUpgrades },

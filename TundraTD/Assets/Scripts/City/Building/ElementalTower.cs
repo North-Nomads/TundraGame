@@ -2,7 +2,6 @@ using City.Building.ElementPools;
 using City.Building.Upgrades;
 using Spells;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace City.Building
 {
@@ -13,42 +12,41 @@ namespace City.Building
         [SerializeField] private ElementalTowerUI elementalTowerUIPrefab;
         
         private ElementalTowerUI _elementalTowerUI;
-        private TowerPlacementSlot _towerSlot;
-        private IUpgrade[][] _towerUpgrades;
-        private int _towerCurrentUpgradeLevel;
-        
-        public TowerPlacementSlot TowerSlot { get; set; }
+        private Upgrade[][] _towerUpgrades;
+        private int _towerUpgradeLevel;
+
         public BasicElement TowerElement => towerElement;
         public int TowerPurchasePrice => towerPurchasePrice;
 
-        // + HandleUpgradePurchase(IUpgrade upgrade):  void
-        
         private void Start()
         {
-            InstantiateUpgradesList();
-        }
-
-        private void InstantiateUpgradesList()
-        {
+            _towerUpgradeLevel = 1;
             _towerUpgrades = TowerUpgrades.UpgradesMap[towerElement];
-            _elementalTowerUI.LoadUpgradesInTowerMenu(_towerUpgrades);
+            InitializeTowerUIOnTowerBuild();
         }
 
         private void OnMouseDown()
         {
             _elementalTowerUI.OpenTowerMenu();
         }
-        
-        public void InstantiateTowerUIMenu()
+
+        private void InitializeTowerUIOnTowerBuild()
         {
-            _elementalTowerUI = Instantiate(elementalTowerUIPrefab, TowerSlot.Architect.CanvasesParent);
+            _elementalTowerUI = Instantiate(elementalTowerUIPrefab, Architect.CanvasesParent);
+            _elementalTowerUI.SetLinkedTower(this);
+            _elementalTowerUI.LoadUpgradesInTowerMenu(_towerUpgrades);
         }
         
-        public static void HandleUpgradePurchase(IUpgrade upgrade)
+        public static void HandleUpgradePurchase(Upgrade upgrade, ElementalTower tower)
         {
-            print(FirePool.DamageAgainstWaterMultiplier);
+            if (!Architect.CanUpgradeBeBought(upgrade, tower._towerUpgradeLevel))
+                return;
+            
             upgrade.ExecuteOnUpgradeBought();
-            print(FirePool.DamageAgainstWaterMultiplier);
+            Architect.ProceedUpgradePurchase(upgrade);
+            tower._towerUpgradeLevel += 1;
+            
+            Debug.Log(FirePool.DamageAgainstWaterMultiplier);
         }
     }
 }
