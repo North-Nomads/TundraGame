@@ -15,7 +15,7 @@ namespace City.Building
             gameObject.SetActive(false);
         }
 
-        public void LoadUpgradesInTowerMenu(Upgrade[][] upgradesLists)
+        public void LoadUpgradesInTowerMenu(IUpgrade[][] upgradesLists)
         {
             int i = 0;
             foreach (var upgradesList in upgradesLists)
@@ -24,7 +24,7 @@ namespace City.Building
                 foreach (var upgrade in upgradesList)
                 {
                     var upgradeUI = Instantiate(upgradeButtonPrefab, level.transform);
-                    upgradeUI.Button.onClick.AddListener(() => ElementalTower.HandleUpgradePurchase(upgrade, _elementalTower));
+                    upgradeUI.Button.onClick.AddListener(() => _elementalTower.HandleUpgradePurchase(upgrade));
                     upgradeUI.UpgradeIcon.sprite = upgrade.Sprite;
                 }
                 i++;

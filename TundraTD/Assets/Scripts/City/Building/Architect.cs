@@ -48,10 +48,10 @@ namespace City.Building
             InfluencePointsHolder.UpdateInfluencePointsText(InfluencePoints.ToString());
         }
 
-        public static bool CanUpgradeBeBought(Upgrade upgrade, int towerUpgradeLevel)
+        public static bool CanUpgradeBeBought(IUpgrade upgrade)
         {
-            Debug.Log($"{upgrade.Price} and {InfluencePoints}\n{towerUpgradeLevel} and {upgrade.RequiredLevel}");
-            return InfluencePoints >= upgrade.Price && towerUpgradeLevel == upgrade.RequiredLevel;
+            Debug.Log("Upgrade");
+            return InfluencePoints >= upgrade.Price;
         }
 
         public static void DEBUG_GetStartPoints()
@@ -59,7 +59,7 @@ namespace City.Building
             InfluencePoints = 100;
         }
 
-        public static void ProceedUpgradePurchase(Upgrade upgrade)
+        public static void ProceedUpgradePurchase(IUpgrade upgrade)
         {
             InfluencePoints -= upgrade.Price;
         }

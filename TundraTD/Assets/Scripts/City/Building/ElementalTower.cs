@@ -12,7 +12,7 @@ namespace City.Building
         [SerializeField] private ElementalTowerUI elementalTowerUIPrefab;
         
         private ElementalTowerUI _elementalTowerUI;
-        private Upgrade[][] _towerUpgrades;
+        private IUpgrade[][] _towerUpgrades;
         private int _towerUpgradeLevel;
 
         public BasicElement TowerElement => towerElement;
@@ -37,14 +37,17 @@ namespace City.Building
             _elementalTowerUI.LoadUpgradesInTowerMenu(_towerUpgrades);
         }
         
-        public static void HandleUpgradePurchase(Upgrade upgrade, ElementalTower tower)
+        public void HandleUpgradePurchase(IUpgrade upgrade)
         {
-            if (!Architect.CanUpgradeBeBought(upgrade, tower._towerUpgradeLevel))
+            if (!Architect.CanUpgradeBeBought(upgrade))
+                return;
+
+            if (_towerUpgradeLevel == upgrade.RequiredLevel)
                 return;
             
             upgrade.ExecuteOnUpgradeBought();
             Architect.ProceedUpgradePurchase(upgrade);
-            tower._towerUpgradeLevel += 1;
+            _towerUpgradeLevel += 1;
             
             Debug.Log(FirePool.DamageAgainstWaterMultiplier);
         }
