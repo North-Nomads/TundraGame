@@ -12,7 +12,7 @@ namespace City.Building
         [SerializeField] private ElementalTowerUI elementalTowerUIPrefab;
         
         private ElementalTowerUI _elementalTowerUI;
-        private IUpgrade[][] _towerUpgrades;
+        private IUpgrade[,] _towerUpgrades;
         private int _towerUpgradeLevel;
 
         public BasicElement TowerElement => towerElement;
@@ -21,8 +21,13 @@ namespace City.Building
         private void Start()
         {
             _towerUpgradeLevel = 1;
-            _towerUpgrades = TowerUpgrades.UpgradesMap[towerElement];
+            _towerUpgrades = SortUpgrades(TowerUpgrades.UpgradesMap[towerElement]);
             InitializeTowerUIOnTowerBuild();
+        }
+
+        private IUpgrade[,] SortUpgrades(IUpgrade[,] upgrades)
+        {
+            return upgrades;
         }
 
         private void OnMouseDown()

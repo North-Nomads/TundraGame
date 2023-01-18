@@ -1,13 +1,18 @@
+using Spells;
 using UnityEngine;
 
 namespace City.Building.Upgrades
 {
-    public abstract class Upgrade
+    /// <summary>
+    /// Describes the behaviour of any Upgrade in a game
+    /// </summary>
+    public interface IUpgrade
     {
-        public abstract int Price { get; }
-        public abstract int RequiredLevel { get; }
-        public abstract Sprite Sprite { get; }
+        BasicElement Element { get; }
+        int Price { get; }
+        int RequiredLevel { get; }
+        Sprite Sprite { get; }
         
-        public abstract void ExecuteOnUpgradeBought();
+        void ExecuteOnUpgradeBought();
     }
 }

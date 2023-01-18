@@ -15,19 +15,19 @@ namespace City.Building
             gameObject.SetActive(false);
         }
 
-        public void LoadUpgradesInTowerMenu(IUpgrade[][] upgradesLists)
+        public void LoadUpgradesInTowerMenu(IUpgrade[,] upgrades)
         {
             int i = 0;
-            foreach (var upgradesList in upgradesLists)
+            for (int x = 0; x < upgrades.GetLength(0); x++)
             {
-                var level = upgradeLevels[i];
-                foreach (var upgrade in upgradesList)
+                for (int y = 0; y < upgrades.GetLength(1); y++)
                 {
-                    var upgradeUI = Instantiate(upgradeButtonPrefab, level.transform);
+                    var upgradeUI = Instantiate(upgradeButtonPrefab, upgradeLevels[i].transform);
+                    var upgrade = upgrades[x, y];
                     upgradeUI.Button.onClick.AddListener(() => _elementalTower.HandleUpgradePurchase(upgrade));
-                    upgradeUI.UpgradeIcon.sprite = upgrade.Sprite;
+                    if (!(upgrade is null))
+                        upgradeUI.UpgradeIcon.sprite = upgrade.Sprite;
                 }
-                i++;
             }
         }
 
