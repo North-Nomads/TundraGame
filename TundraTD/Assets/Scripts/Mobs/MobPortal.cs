@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Mobs.MobsBehaviour;
 using UnityEngine;
 
@@ -18,17 +19,30 @@ namespace Mobs
 
         public void SpawnNextMob()
         {
-            foreach (var mobWave in mobWaves)
+            IEnumerator Waits()
             {
-                foreach (var mobProperty in mobWave.MobProperties)
+                bool _isFirstWave = true;
+                foreach (var mobWave in mobWaves)
                 {
-                    for (int i = 0; i < mobProperty.MobQuantity; i++)
+                    if (!_isFirstWave)
                     {
-                        var mob = Instantiate(mobProperty.Mob, mobSpawner.position, Quaternion.identity, mobSpawner.transform);
-                        mob.ExecuteOnMobSpawn(gates);                    
+                        yield return new WaitForSeconds(10);
                     }
-                }                
+                    else{
+                        _isFirstWave = false;
+                    }
+                    foreach (var mobProperty in mobWave.MobProperties)
+                    {                        
+                        for (int i = 0; i < mobProperty.MobQuantity; i++)
+                        {
+                            yield return new WaitForSeconds(1.5f);
+                            var mob = Instantiate(mobProperty.Mob, mobSpawner.position, Quaternion.identity, mobSpawner.transform);
+                            mob.ExecuteOnMobSpawn(gates);                    
+                        }
+                    }      
+                }          
             }
+            StartCoroutine(Waits());
         }
         
         [Serializable]
