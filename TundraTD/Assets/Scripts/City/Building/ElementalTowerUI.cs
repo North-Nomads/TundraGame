@@ -28,6 +28,8 @@ namespace City.Building
                     if (!(upgrade is null))
                         upgradeUI.UpgradeIcon.sprite = upgrade.Sprite;
                 }
+
+                i++;
             }
         }
 
