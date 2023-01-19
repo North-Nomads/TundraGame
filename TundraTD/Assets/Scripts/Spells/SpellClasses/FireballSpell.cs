@@ -1,6 +1,7 @@
 ﻿using Mobs;
 using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
+using System.Collections;
 using UnityEngine;
 
 namespace Spells.SpellClasses
@@ -13,6 +14,9 @@ namespace Spells.SpellClasses
         private readonly float flyDistance = 30;
         private float currentHitTime;
         private Vector3 target;
+
+        [SerializeField] private GameObject explosionPrefab;
+        [SerializeField] private float explosionDelay;
 
         /// <summary>
         /// The radius of the hit area
@@ -57,6 +61,7 @@ namespace Spells.SpellClasses
                 target = hit.point;
                 var reflect = Vector3.Reflect(Quaternion.Euler(0, -90, 0) * Camera.main.transform.forward, hit.normal).normalized;
                 transform.position = hit.point + (reflect * flyDistance);
+                transform.forward = target;
                 Debug.DrawLine(transform.position, target, Color.red, 2);
                 Debug.DrawRay(target, Vector3.up * HitDamageRadius, Color.blue, 2);
             }
@@ -73,7 +78,7 @@ namespace Spells.SpellClasses
                 var targets = Physics.OverlapSphere(transform.position, HitDamageRadius, MobsLayerMask);
                 var effects = new Effect[]
                 {
-                    new MeteoriteBurningEffect()
+                    new MeteoriteBurningEffect(BurnDamage, (int)BurnDuration)
                 };
                 foreach (var target in targets)
                 {
@@ -83,8 +88,18 @@ namespace Spells.SpellClasses
                     mob.HandleIncomeDamage(damage, BasicElement.Fire);
                     mob.AddReceivedEffects(effects);
                 }
+                StartCoroutine(RunExplosionAnimation());
                 Destroy(gameObject);
             }
+        }
+
+        private IEnumerator RunExplosionAnimation()
+        {
+            var obj = Instantiate(explosionPrefab);
+            obj.transform.position = target;
+            obj.transform.localScale = new Vector3(5, 5, 5);
+            yield return new WaitForSecondsRealtime(explosionDelay);
+            Destroy(obj);
         }
 
         private void OnDrawGizmosSelected()

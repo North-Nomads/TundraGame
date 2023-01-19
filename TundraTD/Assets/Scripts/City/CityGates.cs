@@ -33,6 +33,15 @@ namespace City
             _grimoire = GetComponent<Grimoire>();
         }
 
+        private void Update()
+        {
+            // HACK: made here fireball casting to test, remove later
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                _grimoire.TurnElementsIntoSpell(new BasicElement[] { BasicElement.Fire, BasicElement.Fire, BasicElement.Fire, BasicElement.Earth, BasicElement.Earth });
+            }
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             if (!other.CompareTag("Mob"))
@@ -42,9 +51,7 @@ namespace City
             var mobAttack = mob.GetComponent<MobModel>().CurrentMobDamage;
 
             CityGatesHealthPoints -= mobAttack;
-            // HACK: made here fireball casting to test, remove later
-            _grimoire.TurnElementsIntoSpell(new BasicElement[] { BasicElement.Fire, BasicElement.Fire, BasicElement.Fire, BasicElement.Earth, BasicElement.Earth });
-            //mob.KillThisMob();
+            mob.KillThisMob();
         }
     }
 }
