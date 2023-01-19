@@ -16,7 +16,7 @@ public class CameraMotion : MonoBehaviour
     private float _zDistance;
     private float _xDistanceToMove;
     private float _zDistanceToMove;
-    private const float _denominatorOfMovementSpeedOnScreen = 300;
+    private const float _denominatorOfMovementSpeedOnScreen = 600;
     private const float _cameraMaxSize = 16;
     private const float _cameraMinSize = 3;
     private const float _pixelDifferenceToMove = 15;
@@ -102,15 +102,10 @@ public class CameraMotion : MonoBehaviour
                 _cordsOfFirstFinger.position - _cordsOfFirstFinger.deltaPosition,
                 _cordsOfSecondFinger.position - _cordsOfSecondFinger.deltaPosition
             );
-            if (
-                _previousCordsOfFirstFinger != _cordsOfFirstFinger.position
-                || _previousCordsOfSecondFinger != _cordsOfSecondFinger.position
-            )
+            if (_previousCordsOfFirstFinger != _cordsOfFirstFinger.position 
+                || _previousCordsOfSecondFinger != _cordsOfSecondFinger.position)
             {
-                if (
-                    Mathf.Abs(_previousDistanceBetweenTouch - _distanceBetweenTouch)
-                    > _pixelDifferenceToMove
-                )
+                if (Mathf.Abs(_previousDistanceBetweenTouch - _distanceBetweenTouch) > _pixelDifferenceToMove)
                 {
                     _zoom = _distanceBetweenTouch - _distanceBetweenMovedFingers;
                     float _cameraZoomSize = _mainCamera.orthographicSize;
