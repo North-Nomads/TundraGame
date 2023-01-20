@@ -33,6 +33,11 @@ namespace City.Building
             }
         }
 
+        public void UpdateUpgradesPage()
+        {
+            upgradeLevels[_elementalTower.TowerUpgradeLevel - 1].gameObject.SetActive(true);
+            upgradeLevels[_elementalTower.TowerUpgradeLevel - 2].gameObject.SetActive(false);
+        }
 
         public void LoadUpgradesInTowerMenu(IUpgrade[,] upgrades)
         {

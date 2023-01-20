@@ -17,6 +17,7 @@ namespace City.Building
         
         public BasicElement TowerElement => towerElement;
         public int TowerPurchasePrice => towerPurchasePrice;
+
         public int TowerUpgradeLevel => _towerUpgradeLevel;
 
         private void Start()
@@ -54,8 +55,7 @@ namespace City.Building
             upgrade.ExecuteOnUpgradeBought();
             Architect.ProceedUpgradePurchase(upgrade);
             _towerUpgradeLevel += 1;
-            
-            Debug.Log(FirePool.DamageAgainstWaterMultiplier);
+            _elementalTowerUI.UpdateUpgradesPage();            
         }
     }
 }
