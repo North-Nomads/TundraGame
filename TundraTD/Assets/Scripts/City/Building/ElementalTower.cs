@@ -14,9 +14,10 @@ namespace City.Building
         private ElementalTowerUI _elementalTowerUI;
         private IUpgrade[,] _towerUpgrades;
         private int _towerUpgradeLevel;
-
+        
         public BasicElement TowerElement => towerElement;
         public int TowerPurchasePrice => towerPurchasePrice;
+        public int TowerUpgradeLevel => _towerUpgradeLevel;
 
         private void Start()
         {
@@ -47,7 +48,7 @@ namespace City.Building
             if (!Architect.CanUpgradeBeBought(upgrade))
                 return;
 
-            if (_towerUpgradeLevel == upgrade.RequiredLevel)
+            if (_towerUpgradeLevel != upgrade.RequiredLevel)
                 return;
             
             upgrade.ExecuteOnUpgradeBought();

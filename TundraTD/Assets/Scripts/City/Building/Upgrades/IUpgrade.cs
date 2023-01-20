@@ -8,10 +8,11 @@ namespace City.Building.Upgrades
     /// </summary>
     public interface IUpgrade
     {
+        Sprite Sprite { get; }
         BasicElement Element { get; }
         int Price { get; }
         int RequiredLevel { get; }
-        Sprite Sprite { get; }
+        string UpgradeDescriptionText { get; }
         
         void ExecuteOnUpgradeBought();
     }

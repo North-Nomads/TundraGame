@@ -6,7 +6,7 @@ namespace City.Building.ElementPools
     public static class FirePool
     {
         public static float DamageAgainstWaterMultiplier { get; set; }
-        public static float GeneralizedFireDamageMultiplier { get; set; }
+        public static float DamageAgainstFireMultiplier { get; set; }
         public static float MeteoriteRadiusMultiplier { get; set; }
         public static float AfterburningDamageMultiplier { get; set; }
         public static float MeteoriteLandingDelayReductionInSeconds { get; set; }
