@@ -1,20 +1,29 @@
-using System;
 using City.Building.Upgrades;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace City.Building
 {
     public class ElementalTowerUI : MonoBehaviour
     {
         [SerializeField] private RectTransform[] upgradeLevels;
+        [SerializeField] private Image[] upgradeLevelIndicators;
         [SerializeField] private UpgradeCard rightUpgradeCard;
         [SerializeField] private UpgradeCard leftUpgradeCard;
+        
         private ElementalTower _elementalTower;
+        private Sprite _achievedLevelIndicator;
+        private Sprite _unachievedLevelIndicator;
         
         private void Start()
         {
             gameObject.SetActive(false);
+            _achievedLevelIndicator = Resources.Load<Sprite>("UpgradeIcons/Green");
+            _unachievedLevelIndicator = Resources.Load<Sprite>("UpgradeIcons/White");
 
+            foreach (var levelIndicator in upgradeLevelIndicators)
+                levelIndicator.sprite = _unachievedLevelIndicator;
+                
             foreach (var upgradeLevel in upgradeLevels)
                 upgradeLevel.gameObject.SetActive(false);
         }
@@ -37,6 +46,7 @@ namespace City.Building
         {
             upgradeLevels[_elementalTower.TowerUpgradeLevel - 1].gameObject.SetActive(true);
             upgradeLevels[_elementalTower.TowerUpgradeLevel - 2].gameObject.SetActive(false);
+            upgradeLevelIndicators[_elementalTower.TowerUpgradeLevel - 2].sprite = _achievedLevelIndicator;
         }
 
         public void LoadUpgradesInTowerMenu(IUpgrade[,] upgrades)
