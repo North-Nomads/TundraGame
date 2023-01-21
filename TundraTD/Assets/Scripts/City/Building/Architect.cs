@@ -23,7 +23,7 @@ namespace City.Building
             set
             {
                 if (value < 0)
-                    throw new Exception("Influence Points now below zero");
+                    throw new ArgumentOutOfRangeException(nameof(value), "Influence Points now  below zero");
                 InfluencePointsHolder.UpdateInfluencePointsText(value.ToString());
                 _influencePoints = value;  
             } 
@@ -31,15 +31,11 @@ namespace City.Building
 
         public static void BuildNewTower(int slotID, BasicElement element)
         {
-            var elementalTower = ElementalTowerPrefabs.FirstOrDefault(x => x.TowerElement == element);
-            if (elementalTower is null)
-                throw new Exception("Tower or slot is null");
+            var elementalTower = ElementalTowerPrefabs.First(x => x.TowerElement == element);
             if (InfluencePoints < elementalTower.TowerPurchasePrice)
                 return;
 
-            var placementSlot = PlacementSlots.FirstOrDefault(x => x.SlotID == slotID);
-            if (placementSlot is null)
-                throw new Exception("Tower or slot is null");
+            var placementSlot = PlacementSlots.First(x => x.SlotID == slotID);
             if (placementSlot.IsOccupied)
                 return;
             
@@ -48,11 +44,7 @@ namespace City.Building
             InfluencePointsHolder.UpdateInfluencePointsText(InfluencePoints.ToString());
         }
 
-        public static bool CanUpgradeBeBought(IUpgrade upgrade)
-        {
-            Debug.Log("Upgrade");
-            return InfluencePoints >= upgrade.Price;
-        }
+        public static bool CanUpgradeBeBought(IUpgrade upgrade) => InfluencePoints >= upgrade.Price;
 
         public static void DEBUG_GetStartPoints()
         {
