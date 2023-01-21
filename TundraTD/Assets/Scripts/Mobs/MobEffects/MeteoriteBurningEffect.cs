@@ -5,14 +5,22 @@ namespace Mobs.MobEffects
 {
     public class MeteoriteBurningEffect : Effect
     {
-        private const float BurningDamage = 3f;
+        private float BurningDamage { get; }
         
-        public override int MaxTicksAmount => 3;
+        public override int MaxTicksAmount { get; }
+
+        public override EffectCode Code => EffectCode.MeteoriteBurning;
+
+        public MeteoriteBurningEffect(float burningDamage, int maxTicksAmount)
+        {
+            BurningDamage = burningDamage;
+            MaxTicksAmount = maxTicksAmount;
+        }
 
         public override void HandleTick(MobBehaviour mob)
         {
             mob.HandleIncomeDamage(BurningDamage, BasicElement.Fire);
-            TicksAmountLeft++;
+            CurrentTicksAmount++;
         }
     }
 }

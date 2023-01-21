@@ -25,7 +25,7 @@ namespace Mobs.MobsBehaviour.Boar
                 multiplier = 1.2f;
 
             _mobModel.CurrentMobHealth -= damage * multiplier;
-            print($"{name}: {_mobModel.CurrentMobHealth}");
+            print($"{name}: {_mobModel.CurrentMobHealth}, Damage dealt: {damage}, element: {damageElement}");
 
             if (_mobModel.CurrentMobHealth <= 0)
                 KillThisMob();
