@@ -19,30 +19,26 @@ namespace Mobs
 
         public void SpawnNextMob()
         {
-            IEnumerator Waits()
+            IEnumerator IntervalsBetweenWaves()
             {
                 bool _isFirstWave = true;
                 foreach (var mobWave in mobWaves)
                 {
                     if (!_isFirstWave)
-                    {
                         yield return new WaitForSeconds(10);
-                    }
-                    else{
-                        _isFirstWave = false;
-                    }
+                    _isFirstWave = false;
                     foreach (var mobProperty in mobWave.MobProperties)
                     {                        
                         for (int i = 0; i < mobProperty.MobQuantity; i++)
                         {
                             yield return new WaitForSeconds(1.5f);
                             var mob = Instantiate(mobProperty.Mob, mobSpawner.position, Quaternion.identity, mobSpawner.transform);
-                            mob.ExecuteOnMobSpawn(gates);                    
+                            mob.ExecuteOnMobSpawn(gates);                  
                         }
-                    }      
-                }          
+                    }
+                }   
             }
-            StartCoroutine(Waits());
+            StartCoroutine(IntervalsBetweenWaves());
         }
         
         [Serializable]
