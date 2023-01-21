@@ -22,13 +22,8 @@ namespace City.Building
         private void Start()
         {
             _towerUpgradeLevel = 1;
-            _towerUpgrades = SortUpgrades(TowerUpgrades.UpgradesMap[towerElement]);
+            _towerUpgrades = TowerUpgrades.UpgradesMap[towerElement];
             InitializeTowerUIOnTowerBuild();
-        }
-
-        private IUpgrade[,] SortUpgrades(IUpgrade[,] upgrades)
-        {
-            return upgrades;
         }
 
         private void OnMouseDown()
@@ -53,7 +48,7 @@ namespace City.Building
             
             upgrade.ExecuteOnUpgradeBought();
             Architect.ProceedUpgradePurchase(upgrade);
-            _towerUpgradeLevel += 1;
+            _towerUpgradeLevel++;
             _elementalTowerUI.UpdateUpgradesPage();            
         }
     }

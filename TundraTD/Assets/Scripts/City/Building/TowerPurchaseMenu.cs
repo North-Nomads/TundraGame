@@ -15,30 +15,10 @@ namespace City.Building
         
         public void BuildTower(string elementName)
         {
-            BasicElement element = TransformStringIntoBasicElement(elementName);
+            BasicElement element = (BasicElement)Enum.Parse(typeof(BasicElement), elementName, true);
             if (element == BasicElement.None)
-                throw new Exception("No element found for tower"); 
+                throw new ArgumentException("No element found for tower"); 
             Architect.BuildNewTower(SelectedTowerID, element);
-            
-            BasicElement TransformStringIntoBasicElement(string rawElementName)
-            {
-                var loweredElementName = rawElementName.ToLower();
-                switch (loweredElementName)
-                {
-                    case "water":
-                        return BasicElement.Water;
-                    case "earth":
-                        return BasicElement.Earth;
-                    case "fire":
-                        return BasicElement.Fire;
-                    case "lightning":
-                        return BasicElement.Lightning;
-                    case "air":
-                        return BasicElement.Air;
-                    default:
-                        return BasicElement.None;
-                }
-            }
         }
 
         public void ClosePurchaseMenu()

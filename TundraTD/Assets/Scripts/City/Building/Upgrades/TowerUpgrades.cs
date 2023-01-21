@@ -8,10 +8,7 @@ namespace City.Building.Upgrades
 {
     public static class TowerUpgrades
     {
-        private static readonly Dictionary<BasicElement, IUpgrade[,]> upgradesMap = new Dictionary<BasicElement, IUpgrade[,]>();
-
-        public static Dictionary<BasicElement, IUpgrade[,]> UpgradesMap => upgradesMap;
-
+        public static Dictionary<BasicElement, IUpgrade[,]> UpgradesMap { get; } = new Dictionary<BasicElement, IUpgrade[,]>();
 
         static TowerUpgrades()
         {
@@ -22,7 +19,7 @@ namespace City.Building.Upgrades
         {
             foreach (BasicElement element in Enum.GetValues(typeof(BasicElement)))
                 if (element != BasicElement.None)
-                    upgradesMap.Add(element, new IUpgrade[4, 2]);
+                    UpgradesMap.Add(element, new IUpgrade[4, 2]);
             
             var upgradeClasses = Assembly.GetExecutingAssembly().GetTypes().Where(x => typeof(IUpgrade).IsAssignableFrom(x) && !x.IsAbstract);
 
@@ -31,7 +28,7 @@ namespace City.Building.Upgrades
                 if (!(Activator.CreateInstance(upgradeClass) is IUpgrade upgrade))
                     throw new Exception("Upgrade is null");
 
-                var elementUpgrades = upgradesMap[upgrade.Element];
+                var elementUpgrades = UpgradesMap[upgrade.Element]; 
                 if (elementUpgrades[upgrade.RequiredLevel - 1, 0] is null)
                     elementUpgrades[upgrade.RequiredLevel - 1, 0] = upgrade;
                 else
