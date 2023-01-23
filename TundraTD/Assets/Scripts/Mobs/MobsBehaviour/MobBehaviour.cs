@@ -1,9 +1,7 @@
 ﻿using Mobs.MobEffects;
-using UnityEngine;
-using System.Collections.Generic;
 using Spells;
-using System.Linq;
-using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Mobs.MobsBehaviour
 {
@@ -20,6 +18,7 @@ namespace Mobs.MobsBehaviour
 
         protected List<Effect> CurrentEffects { get; } = new List<Effect>();
         public Transform DefaultDestinationPoint { get; protected set; }
+
         public Transform CurrentDestinationPoint
         {
             get => _currentDestinationPoint;
@@ -41,16 +40,23 @@ namespace Mobs.MobsBehaviour
                 _tickTimer = value;
             }
         }
+
         public abstract BasicElement MobBasicElement { get; }
         public abstract BasicElement MobCounterElement { get; }
 
         public void AddReceivedEffects(IEnumerable<Effect> effectsToApply)
         {
-            CurrentEffects.AddRange(effectsToApply);
+            foreach (var effect in effectsToApply)
+            {
+                CurrentEffects.Add(effect);
+                effect.OnAttach(this);
+            }
         }
-        
+
         public abstract void MoveTowards(Vector3 point);
+
         public abstract void HandleIncomeDamage(float damage, BasicElement damageElement);
+
         public abstract void KillThisMob();
 
         protected virtual void Start()
@@ -65,12 +71,18 @@ namespace Mobs.MobsBehaviour
         {
             for (int i = 0; i < CurrentEffects.Count;)
             {
-                CurrentEffects[i].HandleTick(this);
+                var effect = CurrentEffects[i];
+                effect.HandleTick(this);
 
-                if (CurrentEffects[i].CurrentTicksAmount == CurrentEffects[i].MaxTicksAmount)
+                if (effect.CurrentTicksAmount == effect.MaxTicksAmount)
+                {
                     CurrentEffects.RemoveAt(i);
+                    effect.OnDetach(this);
+                }
                 else
+                {
                     i++;
+                }
             }
             foreach (var prefab in effectPrefabs)
                 if (prefab != null) prefab.SetActive(false);
