@@ -394,6 +394,12 @@ MonoBehaviour:
   - {fileID: 426899731}
   elementalTowerPrefabs:
   - {fileID: 3935613805362002618, guid: 7aedc6d7bb8373d4fa477be0048632d5, type: 3}
+  spellPrefabs:
+  - {fileID: 7913506393892522128, guid: 4c9b0db6e89c5d5478a5d9554eef8b15, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &882465137
 GameObject:
   m_ObjectHideFlags: 0

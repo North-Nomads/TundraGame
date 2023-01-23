@@ -14,7 +14,7 @@ namespace City.Building.Upgrades.FireTowerUpgrades
 
         public void ExecuteOnUpgradeBought()
         {
-            FirePool.DamageAgainstWaterMultiplier += 1.05f;
+            FirePool.DamageMultipliers[BasicElement.Water] += 0.05f;
         }
     }
 }

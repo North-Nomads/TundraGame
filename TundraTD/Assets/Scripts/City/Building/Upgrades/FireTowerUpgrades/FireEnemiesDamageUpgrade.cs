@@ -14,7 +14,7 @@ namespace City.Building.Upgrades.FireTowerUpgrades
 
         public void ExecuteOnUpgradeBought()
         {
-            FirePool.DamageAgainstFireMultiplier += 1.05f;
+            FirePool.DamageMultipliers[BasicElement.Fire] += 0.05f;
         }
     }
 }

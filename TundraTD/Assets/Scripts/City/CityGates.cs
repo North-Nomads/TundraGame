@@ -13,7 +13,6 @@ namespace City
     {
         [SerializeField] private float cityGatesHealthPoints;
         private CityGatesUI _cityGatesUI;
-        private Grimoire _grimoire;
 
         public float CityGatesHealthPoints
         {
@@ -30,7 +29,6 @@ namespace City
         private void Start()
         {
             _cityGatesUI = GetComponent<CityGatesUI>();
-            _grimoire = GetComponent<Grimoire>();
         }
 
         private void Update()
@@ -38,7 +36,7 @@ namespace City
             // HACK: made here fireball casting to test, remove later
             if (Input.GetKeyDown(KeyCode.C))
             {
-                _grimoire.TurnElementsIntoSpell(new BasicElement[] { BasicElement.Fire, BasicElement.Fire, BasicElement.Fire, BasicElement.Earth, BasicElement.Earth });
+                Grimoire.TurnElementsIntoSpell(new BasicElement[] { BasicElement.Fire, BasicElement.Fire, BasicElement.Fire, BasicElement.Earth, BasicElement.Earth });
             }
         }
 
