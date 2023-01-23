@@ -1,7 +1,9 @@
-﻿using Mobs;
+﻿using City.Building.ElementPools;
+using Mobs;
 using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Spells.SpellClasses
@@ -11,11 +13,14 @@ namespace Spells.SpellClasses
     {
         private const float HitDelay = 0.5f;
         private const int MobsLayerMask = 1 << 8;
+        private const int LavaLifetime = 5;
         private readonly float flyDistance = 30;
         private float currentHitTime;
         private Vector3 target;
+        private static readonly Collider[] availableTargetsPool = new Collider[1000];
 
         [SerializeField] private GameObject explosionPrefab;
+        [SerializeField] private GameObject lavaPrefab;
         [SerializeField] private float explosionDelay;
 
         /// <summary>
@@ -62,35 +67,65 @@ namespace Spells.SpellClasses
                 var reflect = Vector3.Reflect(Quaternion.Euler(0, -90, 0) * Camera.main.transform.forward, hit.normal).normalized;
                 transform.position = hit.point + (reflect * flyDistance);
                 transform.forward = target;
-                Debug.DrawLine(transform.position, target, Color.red, 2);
-                Debug.DrawRay(target, Vector3.up * HitDamageRadius, Color.blue, 2);
+                HitDamageRadius *= FirePool.MeteorRadiusMultiplier;
             }
         }
 
         private void Update()
         {
             // Performs flight towards target.
-            transform.position += Vector3.Normalize(target - transform.position) * (Time.deltaTime * flyDistance / HitDelay);
+            transform.position += Vector3.Normalize(target - transform.position) * (Time.deltaTime * flyDistance / (HitDelay - FirePool.MeteorLandingReduction));
 
             currentHitTime += Time.deltaTime;
             if (currentHitTime > HitDelay)
             {
-                var targets = Physics.OverlapSphere(transform.position, HitDamageRadius, MobsLayerMask);
-                var effects = new Effect[]
+                int hits = Physics.OverlapSphereNonAlloc(transform.position, HitDamageRadius, availableTargetsPool, MobsLayerMask);
+                var effects = new List<Effect>()
                 {
-                    new MeteoriteBurningEffect(BurnDamage, (int)BurnDuration)
+                    new MeteoriteBurningEffect(BurnDamage * FirePool.AfterburnDamageMultiplier, (int)BurnDuration)
                 };
-                foreach (var target in targets)
+                if (FirePool.HasLandingStun)
                 {
+                    effects.Add(new StunEffect());// TODO: implement stun effect.
+                }
+                for (int i = 0; i < hits; i++)
+                {
+                    var target = availableTargetsPool[i];
                     var mob = target.GetComponent<MobBehaviour>();
                     float damage = HitDamageValue * Vector3.Distance(target.transform.position, transform.position) / HitDamageRadius;
                     Debug.Log($"Target {target}, Damage: {damage}");
-                    mob.HandleIncomeDamage(damage, BasicElement.Fire);
+                    mob.HandleIncomeDamage(damage * FirePool.DamageMultipliers[mob.MobBasicElement], BasicElement.Fire);
                     mob.AddReceivedEffects(effects);
+                    if (FirePool.HasLandingImpulse)
+                    {
+                        mob.GetComponent<Rigidbody>().AddExplosionForce(damage, this.target, HitDamageRadius);
+                    }
                 }
                 StartCoroutine(RunExplosionAnimation());
-                Destroy(gameObject);
+                if (FirePool.HasLandingLavaPool)
+                    StartCoroutine(RunLavaPool());
+                gameObject.SetActive(false);
             }
+        }
+
+        private IEnumerator RunLavaPool()
+        {
+            var lava = Instantiate(lavaPrefab);
+            lava.transform.parent = transform;
+            lava.transform.position = target;
+            lava.transform.localScale = new Vector3(HitDamageRadius, 1, HitDamageRadius);
+            for (int i = 0; i < LavaLifetime; i++)
+            {
+                int hits = Physics.OverlapBoxNonAlloc(target, new Vector3(HitDamageRadius, 1, HitDamageRadius), availableTargetsPool);
+                for (int j = 0; j < hits; j++)
+                {
+                    var target = availableTargetsPool[j];
+                    var mob = target.GetComponent<MobBehaviour>();
+                    mob.HandleIncomeDamage(BurnDamage * FirePool.AfterburnDamageMultiplier, BasicElement.Fire);
+                }
+                yield return new WaitForSecondsRealtime(1f);
+            }
+            Destroy(lava);
         }
 
         private IEnumerator RunExplosionAnimation()
@@ -100,6 +135,7 @@ namespace Spells.SpellClasses
             obj.transform.localScale = new Vector3(5, 5, 5);
             yield return new WaitForSecondsRealtime(explosionDelay);
             Destroy(obj);
+            Destroy(gameObject);
         }
 
         private void OnDrawGizmosSelected()
