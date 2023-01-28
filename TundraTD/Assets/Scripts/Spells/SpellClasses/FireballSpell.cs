@@ -1,5 +1,4 @@
-﻿using Mobs;
-using Mobs.MobEffects;
+﻿using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
 using System.Collections;
 using UnityEngine;
@@ -11,9 +10,10 @@ namespace Spells.SpellClasses
     {
         private const float HitDelay = 0.5f;
         private const int MobsLayerMask = 1 << 8;
-        private readonly float flyDistance = 30;
-        private float currentHitTime;
-        private Vector3 target;
+        private const float FlyDistance = 30;
+        private float _currentHitTime;
+        private Vector3 _target;
+        private UnityEngine.Camera _mainCamera;
 
         [SerializeField] private GameObject explosionPrefab;
         [SerializeField] private float explosionDelay;
@@ -53,27 +53,32 @@ namespace Spells.SpellClasses
         [IncreasableProperty(BasicElement.Lightning, 2f)]
         public float SlownessDuration { get; set; }
 
+        private void Start()
+        {
+            _mainCamera = UnityEngine.Camera.main;
+        }
+
         public override void ExecuteSpell()
         {
             Debug.Log("Fireball has been executed!");
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out var hit))
+            if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out var hit))
             {
-                target = hit.point;
-                var reflect = Vector3.Reflect(Quaternion.Euler(0, -90, 0) * Camera.main.transform.forward, hit.normal).normalized;
-                transform.position = hit.point + (reflect * flyDistance);
-                transform.forward = target;
-                Debug.DrawLine(transform.position, target, Color.red, 2);
-                Debug.DrawRay(target, Vector3.up * HitDamageRadius, Color.blue, 2);
+                _target = hit.point;
+                var reflect = Vector3.Reflect(Quaternion.Euler(0, -90, 0) * _mainCamera.transform.forward, hit.normal).normalized;
+                transform.position = hit.point + (reflect * FlyDistance);
+                transform.forward = _target;
+                Debug.DrawLine(transform.position, _target, Color.red, 2);
+                Debug.DrawRay(_target, Vector3.up * HitDamageRadius, Color.blue, 2);
             }
         }
 
         private void Update()
         {
             // Performs flight towards target.
-            transform.position += Vector3.Normalize(target - transform.position) * (Time.deltaTime * flyDistance / HitDelay);
+            transform.position += Vector3.Normalize(_target - transform.position) * (Time.deltaTime * FlyDistance / HitDelay);
 
-            currentHitTime += Time.deltaTime;
-            if (currentHitTime > HitDelay)
+            _currentHitTime += Time.deltaTime;
+            if (_currentHitTime > HitDelay)
             {
                 var targets = Physics.OverlapSphere(transform.position, HitDamageRadius, MobsLayerMask);
                 var effects = new Effect[]
@@ -96,7 +101,7 @@ namespace Spells.SpellClasses
         private IEnumerator RunExplosionAnimation()
         {
             var obj = Instantiate(explosionPrefab);
-            obj.transform.position = target;
+            obj.transform.position = _target;
             obj.transform.localScale = new Vector3(5, 5, 5);
             yield return new WaitForSecondsRealtime(explosionDelay);
             Destroy(obj);
