@@ -92,5 +92,6 @@ namespace Camera
                 _inertiaDirection = direction * inertiaMultiplier;
             }
         }
-    }
+	}
 }
+
