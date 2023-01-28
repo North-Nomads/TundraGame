@@ -4,6 +4,7 @@
     <list default="true" id="c3b8b373-6ed5-41b3-a53a-00a76377dc95" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TundraTD/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TundraTD/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/camera.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/camera.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Camera/CameraMovement2.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Camera/CameraMovement2.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +125,7 @@
       <workItem from="1674058219191" duration="6477000" />
       <workItem from="1674137930808" duration="974000" />
       <workItem from="1674756318191" duration="5659000" />
-      <workItem from="1674894276471" duration="3472000" />
+      <workItem from="1674894276471" duration="9426000" />
     </task>
     <servers />
   </component>

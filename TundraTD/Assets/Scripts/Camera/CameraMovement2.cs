@@ -4,13 +4,18 @@ namespace Camera
 {
     public class CameraMovement2 : MonoBehaviour
     {
+        
+        [SerializeField] private float minimalInertiaThreshold = .125f;
+        [SerializeField] private float maximalCameraMoveThreshold;
+        [SerializeField] private float inertiaMultiplier;
         [SerializeField] private float minimalCameraSize = 1;
         [SerializeField] private float maximumCameraSize = 8;
 
-        public bool IS_DEBUG = true;
-        
+        private Vector3 _inertiaDirection;
+        private Vector3 _cameraSpeed;
         private Vector3 _touchStart;
         private UnityEngine.Camera _mainCamera;
+        private float _timeSinceLastInput;
 
         private void Start()
         {
@@ -19,36 +24,32 @@ namespace Camera
 
         private void Update()
         {
+            HandleCameraInertialMovement();
 
-            // PC controls
-            if (IS_DEBUG)
+            if (Input.touchCount == 1)
             {
-                MoveCameraUsingPinch(); // works both for PC and mobile
-                var scrollDifference = CalculateMouseWheelDifference(); 
-                // Zoom doesn't work (I suppose it's because we are in android mode)
-                Debug.Log(scrollDifference);
-                ApplyZoomOnCamera(scrollDifference);
-
+                MoveCameraUsingPinch();
             }
-            else {
-                switch (Input.touchCount)
-                {
-                    case 1:
-                        MoveCameraUsingPinch();
-                        return;
-                    case 2:
-                        var pinchDifference = CalculatePinchDifference();
-                        ApplyZoomOnCamera(pinchDifference);
-                        return;
-                }
+            else if (Input.touchCount == 2)
+            {
+                var pinchDifference = CalculatePinchDifference();
+                ApplyZoomOnCamera(pinchDifference);
             }
         }
 
-        private float CalculateMouseWheelDifference()
+        private void HandleCameraInertialMovement()
         {
-            return Input.GetAxis("Mouse ScrollWheel");
+            if (_inertiaDirection.magnitude < minimalInertiaThreshold)
+            {
+                _inertiaDirection = Vector3.zero;
+                return;
+            }
+            
+            var insertionOffset = _inertiaDirection * Time.deltaTime;
+            _mainCamera.transform.position += insertionOffset;
+            _inertiaDirection -= insertionOffset;
         }
-        
+
         private float CalculatePinchDifference()
         {
             var touchOne = Input.GetTouch(0);
@@ -65,34 +66,32 @@ namespace Camera
 
         private void ApplyZoomOnCamera(float zoomDifference)
         {
-            _mainCamera.orthographicSize = 
+            _mainCamera.orthographicSize =
                 Mathf.Clamp(_mainCamera.orthographicSize - zoomDifference, minimalCameraSize, maximumCameraSize);
         }
 
         private void MoveCameraUsingPinch()
         {
             var worldPoint = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
-
             if (Input.GetMouseButtonDown(0))
+            {
+                _inertiaDirection = Vector3.zero;
                 _touchStart = worldPoint;
-
+            }
+            
+            var direction = _touchStart - worldPoint;
+            if (direction.magnitude > maximalCameraMoveThreshold)
+                return;
+            
             if (Input.GetMouseButton(0))
-                _mainCamera.transform.position += _touchStart - worldPoint;
+            {
+                _mainCamera.transform.position += direction;
+            }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                _inertiaDirection = direction * inertiaMultiplier;
+            }
         }
     }
 }
-
-/*private void Update()
-{
-    var touch = Input.GetTouch(0);
-    if (touch.phase != TouchPhase.Moved)
-        return;
-
-    MoveCamera(touch);
-}
-
-private void MoveCamera(Touch touch)
-{
-    _touchStart = _mainCamera.ScreenToWorldPoint(touch.position);
-}*/
-
