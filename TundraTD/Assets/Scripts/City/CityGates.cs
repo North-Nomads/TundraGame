@@ -44,7 +44,7 @@ namespace City
             CityGatesHealthPoints -= mobAttack;
             // HACK: made here fireball casting to test, remove later
             _grimoire.TurnElementsIntoSpell(new BasicElement[] { BasicElement.Fire, BasicElement.Fire, BasicElement.Fire, BasicElement.Earth, BasicElement.Earth });
-            //mob.KillThisMob();
+            mob.KillThisMob();
         }
     }
 }

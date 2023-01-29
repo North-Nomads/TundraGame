@@ -36,13 +36,9 @@ namespace Mobs.MobsBehaviour.Boar
             _mobModel.MobNavMeshAgent.SetDestination(point);
         }
 
-        public override void KillThisMob()
+        public override void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal)
         {
-            Destroy(gameObject);
-        }
-
-        public override void ExecuteOnMobSpawn(Transform gates)
-        {
+            MobPortal = mobPortal;
             _mobModel = GetComponent<MobModel>();
             _mobModel.InstantiateMobModel();
             _canDistractFromCurrentTarget = true;

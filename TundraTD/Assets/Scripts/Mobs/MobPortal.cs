@@ -10,35 +10,48 @@ namespace Mobs
         [SerializeField] private Transform gates;
         [SerializeField] private MobWave[] mobWaves;
         [SerializeField] private Transform mobSpawner;
+        public int _allMobs;
         
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.B))
                 SpawnNextMob();
         }
-
+        public void DecreaseMobsCountByOne()
+        {
+            _allMobs -= 1;
+        }
         public void SpawnNextMob()
         {
-            IEnumerator IntervalsBetweenWaves()
-            {
-                bool _isFirstWave = true;
-                foreach (var mobWave in mobWaves)
-                {
-                    if (!_isFirstWave)
-                        yield return new WaitForSeconds(10);
-                    _isFirstWave = false;
-                    foreach (var mobProperty in mobWave.MobProperties)
-                    {                        
-                        for (int i = 0; i < mobProperty.MobQuantity; i++)
-                        {
-                            yield return new WaitForSeconds(1.5f);
-                            var mob = Instantiate(mobProperty.Mob, mobSpawner.position, Quaternion.identity, mobSpawner.transform);
-                            mob.ExecuteOnMobSpawn(gates);                  
-                        }
-                    }
-                }   
-            }
             StartCoroutine(IntervalsBetweenWaves());
+        }
+
+
+        IEnumerator IntervalsBetweenWaves()
+        {
+            bool _firstWave = true;
+            foreach (var mobWave in mobWaves)
+            {
+                while (_allMobs != 0)
+                {
+                    yield return new WaitForSeconds(1);
+                }
+                if (!_firstWave)
+                {
+                    yield return new WaitForSeconds(5);
+                }
+                _firstWave = false;
+                foreach (var mobProperty in mobWave.MobProperties)
+                {
+                    for (int i = 0; i < mobProperty.MobQuantity; i++)
+                    {
+                        yield return new WaitForSeconds(1.5f);
+                        _allMobs += 1;
+                        var mob = Instantiate(mobProperty.Mob, mobSpawner.position, Quaternion.identity, mobSpawner.transform);
+                        mob.ExecuteOnMobSpawn(gates, this);
+                    }
+                }
+            }   
         }
         
         [Serializable]
