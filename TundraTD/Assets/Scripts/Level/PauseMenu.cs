@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Level
 {
@@ -44,6 +45,12 @@ namespace Level
             Time.timeScale = IsGamePaused ? 0 : 1;
             pauseMenu.SetActive(IsGamePaused);
             Debug.Log(IsGamePaused);
+        }
+
+        public void ToMainMenu()
+        {
+            // TODO: uncomment it and make scene changing when the main menu scene is ready
+            //SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
         }
     }
 }
