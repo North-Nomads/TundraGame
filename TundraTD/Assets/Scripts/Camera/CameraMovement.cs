@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Camera
 {
@@ -15,11 +16,12 @@ namespace Camera
         private Vector3 _cameraSpeed;
         private Vector3 _touchStart;
         private UnityEngine.Camera _mainCamera;
-        private float _timeSinceLastInput;
 
         private void Start()
         {
             _mainCamera = GetComponent<UnityEngine.Camera>();
+            if (!_mainCamera.orthographic)
+                throw new Exception("Camera must be in orthographic mode");
         }
 
         private void Update()
@@ -32,7 +34,10 @@ namespace Camera
             }
             else if (Input.touchCount == 2)
             {
-                var pinchDifference = CalculatePinchDifference();
+                var touchOne = Input.GetTouch(0);
+                var touchTwo = Input.GetTouch(1);
+                var pinchDifference = CalculatePinchDifference(touchOne, touchTwo);
+                MoveCameraUsingPinch();
                 ApplyZoomOnCamera(pinchDifference);
             }
         }
@@ -50,11 +55,8 @@ namespace Camera
             _inertiaDirection -= insertionOffset;
         }
 
-        private float CalculatePinchDifference()
+        private float CalculatePinchDifference(Touch touchOne, Touch touchTwo)
         {
-            var touchOne = Input.GetTouch(0);
-            var touchTwo = Input.GetTouch(1);
-
             var touchOnePositionBefore = touchOne.position - touchOne.deltaPosition;
             var touchTwoPositionBefore = touchTwo.position - touchTwo.deltaPosition;
 
