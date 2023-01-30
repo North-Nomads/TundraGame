@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Camera
 {
+	/// <summary>
+	///	Controls: zoom & movement of the camera
+	/// <summary>
     public class CameraMovement : MonoBehaviour
     {
         
