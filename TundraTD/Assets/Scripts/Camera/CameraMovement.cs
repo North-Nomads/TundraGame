@@ -8,7 +8,6 @@ namespace Camera
     /// </summary>
     public class CameraMovement : MonoBehaviour
     {
-        
         [SerializeField] private float minimalInertiaThreshold = .125f;
         [SerializeField] private float maximalCameraMoveThreshold;
         [SerializeField] private float inertiaMultiplier;
@@ -122,5 +121,6 @@ namespace Camera
                 _inertiaDirection = direction * inertiaMultiplier;
             }
         }
-    }
+	}
 }
+
