@@ -10,43 +10,40 @@ namespace Mobs
         [SerializeField] private Transform gates;
         [SerializeField] private MobWave[] mobWaves;
         [SerializeField] private Transform mobSpawner;
-        public int _allMobs;
+        [SerializeField] private float _secondsUntilNextWave;
+        [SerializeField] private float _secondsBetweenMobSpawn;
+        public int _mobAmountOnWave;
         
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.B))
-                SpawnNextMob();
+                StartWavesOfMobs();
         }
         public void DecreaseMobsCountByOne()
         {
-            _allMobs -= 1;
+            _mobAmountOnWave--;
         }
-        public void SpawnNextMob()
+        public void StartWavesOfMobs()
         {
-            StartCoroutine(IntervalsBetweenWaves());
+            StartCoroutine(MakeWavesOfMobs());
         }
 
 
-        IEnumerator IntervalsBetweenWaves()
+        IEnumerator MakeWavesOfMobs()
         {
             bool _firstWave = true;
             foreach (var mobWave in mobWaves)
             {
-                while (_allMobs != 0)
-                {
-                    yield return new WaitForSeconds(1);
-                }
+                yield return new WaitUntil(() => _mobAmountOnWave == 0);
                 if (!_firstWave)
-                {
-                    yield return new WaitForSeconds(5);
-                }
+                    yield return new WaitForSeconds(_secondsUntilNextWave);
                 _firstWave = false;
                 foreach (var mobProperty in mobWave.MobProperties)
                 {
                     for (int i = 0; i < mobProperty.MobQuantity; i++)
                     {
-                        yield return new WaitForSeconds(1.5f);
-                        _allMobs += 1;
+                        yield return new WaitForSeconds(_secondsBetweenMobSpawn);
+                        _mobAmountOnWave++;
                         var mob = Instantiate(mobProperty.Mob, mobSpawner.position, Quaternion.identity, mobSpawner.transform);
                         mob.ExecuteOnMobSpawn(gates, this);
                     }
