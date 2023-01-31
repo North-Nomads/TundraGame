@@ -14,9 +14,6 @@ namespace City
         [SerializeField] private float cityGatesHealthPoints;
         private CityGatesUI _cityGatesUI;
 
-        // HACK: made here temporary fireball
-        [SerializeField] private GameObject fireball;
-
         public float CityGatesHealthPoints
         {
             get => cityGatesHealthPoints;
@@ -32,8 +29,15 @@ namespace City
         private void Start()
         {
             _cityGatesUI = GetComponent<CityGatesUI>();
-            // HACK: temp addition
-            Grimoire._spellPrefabs = new GameObject[] { fireball };
+        }
+
+        private void Update()
+        {
+            // HACK: made here fireball casting to test, remove later
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                Grimoire.TurnElementsIntoSpell(new BasicElement[] { BasicElement.Fire, BasicElement.Fire, BasicElement.Fire, BasicElement.Earth, BasicElement.Earth });
+            }
         }
 
         private void OnTriggerEnter(Collider other)
@@ -45,8 +49,7 @@ namespace City
             var mobAttack = mob.GetComponent<MobModel>().CurrentMobDamage;
 
             CityGatesHealthPoints -= mobAttack;
-            // HACK: made here fireball casting to test, remove later
-            //mob.KillThisMob();
+            mob.KillThisMob();
         }
     }
 }
