@@ -32,10 +32,7 @@ namespace Mobs
             bool _firstWave = true;
             foreach (var mobWave in mobWaves)
             {
-                while (_allMobs != 0)
-                {
-                    yield return new WaitForSeconds(1);
-                }
+                yield return WaitUntil(() => _allMobs == 0);
                 if (!_firstWave)
                 {
                     yield return new WaitForSeconds(5);
