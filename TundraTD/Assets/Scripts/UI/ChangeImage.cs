@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Spells;
 
 public class ChangeImage : MonoBehaviour
 {
+    [SerializeField] private BasicElement element;
     [SerializeField] private UseElements buttonsHolder;
     private Image elementIcon;
     private Image startIcon;
@@ -21,9 +23,10 @@ public class ChangeImage : MonoBehaviour
 
         for (int i = 0; i < 5; i++)
         {
-            if (buttonsHolder.elementIcons[i].sprite == buttonsHolder.elementIcons[i + 1].sprite)
+            if (buttonsHolder.Buttons[i].GetComponent<DeleteSprite>().Elemental == BasicElement.None)
             {
                 buttonsHolder.elementIcons[i].sprite = elementIcon.sprite;
+                buttonsHolder.Buttons[i].GetComponent<DeleteSprite>().Elemental = element;
                 break;
             }
         }
