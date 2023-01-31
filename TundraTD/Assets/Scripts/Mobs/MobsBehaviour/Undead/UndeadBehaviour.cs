@@ -34,18 +34,15 @@ namespace Mobs.MobsBehaviour.Undead
                 KillThisMob();
         }
 
-        public override void KillThisMob()
+        public override void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal)
         {
-            Destroy(gameObject);
-        }
-
-        public override void ExecuteOnMobSpawn(Transform gates)
-        {
+            MobPortal = mobPortal;
             _mobModel = GetComponent<MobModel>();
             _mobModel.InstantiateMobModel();
             
             DefaultDestinationPoint = gates;
             _mobModel.MobNavMeshAgent.SetDestination(DefaultDestinationPoint.position);
+
         }
 
         private void FixedUpdate()

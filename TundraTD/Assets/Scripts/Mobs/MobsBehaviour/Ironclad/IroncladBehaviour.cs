@@ -53,13 +53,10 @@ namespace Mobs.MobsBehaviour.Ironclad
                 KillThisMob();
         }
 
-        public override void KillThisMob()
-        {
-            Destroy(gameObject);
-        }
 
-        public override void ExecuteOnMobSpawn(Transform gates)
+        public override void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal)
         {
+            MobPortal = mobPortal;
             _mobModel = GetComponent<MobModel>();
             _mobModel.InstantiateMobModel();
             

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Mobs.MobsBehaviour;
 using UnityEngine;
 
@@ -9,26 +10,45 @@ namespace Mobs
         [SerializeField] private Transform gates;
         [SerializeField] private MobWave[] mobWaves;
         [SerializeField] private Transform mobSpawner;
+        [SerializeField] private float secondsUntilNextWave;
+        [SerializeField] private float secondsBetweenMobSpawn;
+        public int _mobAmountOnWave;
         
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.B))
-                SpawnNextMob();
+                StartWavesOfMobs();
+        }
+        public void DecreaseMobsCountByOne()
+        {
+            _mobAmountOnWave--;
+        }
+        public void StartWavesOfMobs()
+        {
+            StartCoroutine(MakeWavesOfMobs());
         }
 
-        public void SpawnNextMob()
+
+        IEnumerator MakeWavesOfMobs()
         {
+            bool _firstWave = true;
             foreach (var mobWave in mobWaves)
             {
+                yield return new WaitUntil(() => _mobAmountOnWave == 0);
+                if (!_firstWave)
+                    yield return new WaitForSeconds(secondsUntilNextWave);
+                _firstWave = false;
                 foreach (var mobProperty in mobWave.MobProperties)
                 {
                     for (int i = 0; i < mobProperty.MobQuantity; i++)
                     {
+                        yield return new WaitForSeconds(secondsBetweenMobSpawn);
+                        _mobAmountOnWave++;
                         var mob = Instantiate(mobProperty.Mob, mobSpawner.position, Quaternion.identity, mobSpawner.transform);
-                        mob.ExecuteOnMobSpawn(gates);                    
+                        mob.ExecuteOnMobSpawn(gates, this);
                     }
-                }                
-            }
+                }
+            }   
         }
         
         [Serializable]

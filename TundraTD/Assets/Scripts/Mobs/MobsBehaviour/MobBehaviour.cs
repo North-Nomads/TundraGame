@@ -13,12 +13,18 @@ namespace Mobs.MobsBehaviour
     public abstract class MobBehaviour : MonoBehaviour
     {
         private float _tickTimer;
+        private MobPortal _mobPortal;
         private Transform _defaultDestinationPoint;
         private Transform _currentDestinationPoint;
 
         [SerializeField] private GameObject[] effectPrefabs;
 
         protected List<Effect> CurrentEffects { get; } = new List<Effect>();
+        public MobPortal MobPortal 
+        {
+            get => _mobPortal;
+            set => _mobPortal = value;
+        }
         public Transform DefaultDestinationPoint { get; protected set; }
         public Transform CurrentDestinationPoint
         {
@@ -41,17 +47,24 @@ namespace Mobs.MobsBehaviour
                 _tickTimer = value;
             }
         }
+
         public abstract BasicElement MobBasicElement { get; }
         public abstract BasicElement MobCounterElement { get; }
+
+        public abstract void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal);
+        public abstract void MoveTowards(Vector3 point);
+        public abstract void HandleIncomeDamage(float damage, BasicElement damageElement);
 
         public void AddReceivedEffects(IEnumerable<Effect> effectsToApply)
         {
             CurrentEffects.AddRange(effectsToApply);
         }
         
-        public abstract void MoveTowards(Vector3 point);
-        public abstract void HandleIncomeDamage(float damage, BasicElement damageElement);
-        public abstract void KillThisMob();
+        public void KillThisMob()
+        {
+            Destroy(gameObject);
+            _mobPortal.DecreaseMobsCountByOne();
+        }
 
         protected virtual void Start()
         {
@@ -80,7 +93,5 @@ namespace Mobs.MobsBehaviour
                 if (effectPrefabs[effectIndex] != null) effectPrefabs[effectIndex].SetActive(true);
             }
         }
-
-        public abstract void ExecuteOnMobSpawn(Transform gates);
     }
 }
