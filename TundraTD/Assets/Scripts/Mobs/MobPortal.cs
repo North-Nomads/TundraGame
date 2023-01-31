@@ -10,8 +10,8 @@ namespace Mobs
         [SerializeField] private Transform gates;
         [SerializeField] private MobWave[] mobWaves;
         [SerializeField] private Transform mobSpawner;
-        [SerializeField] private float _secondsUntilNextWave;
-        [SerializeField] private float _secondsBetweenMobSpawn;
+        [SerializeField] private float secondsUntilNextWave;
+        [SerializeField] private float secondsBetweenMobSpawn;
         public int _mobAmountOnWave;
         
         private void Update()
@@ -36,13 +36,13 @@ namespace Mobs
             {
                 yield return new WaitUntil(() => _mobAmountOnWave == 0);
                 if (!_firstWave)
-                    yield return new WaitForSeconds(_secondsUntilNextWave);
+                    yield return new WaitForSeconds(secondsUntilNextWave);
                 _firstWave = false;
                 foreach (var mobProperty in mobWave.MobProperties)
                 {
                     for (int i = 0; i < mobProperty.MobQuantity; i++)
                     {
-                        yield return new WaitForSeconds(_secondsBetweenMobSpawn);
+                        yield return new WaitForSeconds(secondsBetweenMobSpawn);
                         _mobAmountOnWave++;
                         var mob = Instantiate(mobProperty.Mob, mobSpawner.position, Quaternion.identity, mobSpawner.transform);
                         mob.ExecuteOnMobSpawn(gates, this);
