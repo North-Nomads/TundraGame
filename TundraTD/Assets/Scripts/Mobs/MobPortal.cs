@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Linq;
 using Mobs.MobsBehaviour;
 using UnityEngine;
 
@@ -31,7 +30,7 @@ namespace Mobs
                 if (!_firstWave)
                     yield return new WaitForSeconds(secondsUntilNextWave);
                 _firstWave = false;
-                var totalScore = 0;
+                var totalScore = 0f;
                 
                 foreach (var mobProperty in mobWave.MobProperties)
                 {
@@ -47,7 +46,7 @@ namespace Mobs
                 }
 
                 if (totalScore <= 0)
-                    throw new Exception("TotalScore ");
+                    throw new Exception("TotalScore is below zero");
                 mobWaveBar.ResetValuesOnWaveStarts(totalScore);
             }
         }

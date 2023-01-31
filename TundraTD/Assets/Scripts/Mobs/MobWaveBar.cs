@@ -7,10 +7,10 @@ namespace Mobs
     public class MobWaveBar : MonoBehaviour
     {
         private Image _waveFiller;
-        private int _mobsWaveTotalScore;
-        private int _mobWaveCurrentScore;
+        private float _mobsWaveTotalScore;
+        private float _mobWaveCurrentScore;
 
-        public int MobWaveCurrentScore
+        public float MobWaveCurrentScore
         {
             get => _mobWaveCurrentScore;
             set
@@ -31,7 +31,7 @@ namespace Mobs
             _waveFiller.fillAmount = _mobWaveCurrentScore / _mobsWaveTotalScore;
         }
 
-        public void ResetValuesOnWaveStarts(int totalScore)
+        public void ResetValuesOnWaveStarts(float totalScore)
         {
             Debug.Log(totalScore);
             _mobsWaveTotalScore = totalScore;
@@ -39,10 +39,11 @@ namespace Mobs
             UpdateFillerStatus();
         }
 
-        public void DecreaseCurrentMobScore(int score)
+        public void DecreaseCurrentMobScore(float score)
         {
             _mobWaveCurrentScore -= score;
             UpdateFillerStatus();
+            Debug.Log(_mobsWaveTotalScore);
         }
     }
 }
