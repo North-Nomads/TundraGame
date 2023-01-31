@@ -1,26 +1,24 @@
 ﻿using Spells;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using UnityEngine;
 
-public class SpellCaster : MonoBehaviour
+namespace UI.MagicScreen
 {
-    [SerializeField] private UseElements buttonsHolder;
-    BasicElement [] HoldSpells = new BasicElement[5];
-    // Start is called before the first frame update
-    void Start()
+    public class SpellCaster : MonoBehaviour
     {
-        
-    }
+        [SerializeField] private UpperButtonElements buttonsHolder;
+        readonly BasicElement[] HoldSpells = new BasicElement[5];
 
-    // Update is called once per frame
-    public void OnButtonClick()
-    {
-        for (int i = 0; i < 5; i++)
+        public void OnButtonClick()
         {
-            HoldSpells[i] = buttonsHolder.Buttons[i].GetComponent<DeleteSprite>().Elemental;
+            for (int i = 0; i < 5; i++)
+            {
+                HoldSpells[i] = buttonsHolder.ElementScripts[i].Element;
+            }
+            Grimoire.TurnElementsIntoSpell(HoldSpells);
         }
-        Grimoire.TurnElementsIntoSpell(HoldSpells);
     }
 }
