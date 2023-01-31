@@ -4,17 +4,17 @@ using UnityEngine;
 
 namespace City.Building.Upgrades.FireTowerUpgrades
 {
-    public class WaterEnemiesDamageUpgrade : IUpgrade
+    public class AfterburnDamageUpgrade : IUpgrade
     {
         public BasicElement Element => BasicElement.Fire;
-        public int Price => 25;
-        public int RequiredLevel => 1;
-        public string UpgradeDescriptionText => "Increase damege on water mobs by 5%";
+        public int Price => 200;
+        public int RequiredLevel => 2;
+        public string UpgradeDescriptionText => "Increse afterburn damage by 7%";
         public Sprite Sprite => Resources.Load<Sprite>("UpgradeIcons/Arcanist1");
 
         public void ExecuteOnUpgradeBought()
         {
-            FirePool.DamageMultipliers[BasicElement.Water] += 0.05f;
+            FirePool.AfterburnDamageMultiplier *= 1.07f;
         }
     }
 }

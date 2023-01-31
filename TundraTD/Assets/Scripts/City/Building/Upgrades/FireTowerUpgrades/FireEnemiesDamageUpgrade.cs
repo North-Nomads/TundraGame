@@ -9,7 +9,7 @@ namespace City.Building.Upgrades.FireTowerUpgrades
         public BasicElement Element => BasicElement.Fire;
         public int Price => 30;
         public int RequiredLevel => 1;
-        public string UpgradeDescriptionText => "MY DIFFERENT TEXT";
+        public string UpgradeDescriptionText => "Increase damege on fire mobs by 5%";
         public Sprite Sprite => Resources.Load<Sprite>("UpgradeIcons/Arcanist1");
 
         public void ExecuteOnUpgradeBought()
