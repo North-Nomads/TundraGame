@@ -34,9 +34,8 @@ namespace Mobs
             {
                 yield return WaitUntil(() => _allMobs == 0);
                 if (!_firstWave)
-                {
                     yield return new WaitForSeconds(5);
-                }
+                
                 _firstWave = false;
                 foreach (var mobProperty in mobWave.MobProperties)
                 {
