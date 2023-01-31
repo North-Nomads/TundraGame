@@ -31,6 +31,8 @@ namespace Mobs
                 if (!_firstWave)
                     yield return new WaitForSeconds(secondsUntilNextWave);
                 _firstWave = false;
+                var totalScore = 0;
+                
                 foreach (var mobProperty in mobWave.MobProperties)
                 {
                     for (int i = 0; i < mobProperty.MobQuantity; i++)
@@ -40,9 +42,13 @@ namespace Mobs
                         var mob = Instantiate(mobProperty.Mob, mobSpawner.position, Quaternion.identity,
                             mobSpawner.transform);
                         mob.ExecuteOnMobSpawn(gates, this);
+                        totalScore += mob.MobModel.MobWaveWeight;
                     }
                 }
-                mobWaveBar.ResetValuesOnWaveStarts(mobWave.MobProperties.Sum(x => x.Mob.MobModel.MobWaveWeight));
+
+                if (totalScore <= 0)
+                    throw new Exception("TotalScore ");
+                mobWaveBar.ResetValuesOnWaveStarts(totalScore);
             }
         }
 
