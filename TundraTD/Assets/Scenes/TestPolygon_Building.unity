@@ -542,6 +542,8 @@ MonoBehaviour:
   inertiaMultiplier: 5
   minimalCameraSize: 8
   maximumCameraSize: 16
+  usingWASD: 1
+  wasdCameraMoveSpeed: 10
 --- !u!1 &1505798931
 GameObject:
   m_ObjectHideFlags: 0
