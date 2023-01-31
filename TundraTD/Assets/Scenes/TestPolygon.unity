@@ -698,7 +698,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: CustSpell
+  m_Text: CastSpell
 --- !u!222 &526616711
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2024,12 +2024,6 @@ MonoBehaviour:
   - {fileID: 1569468808}
   - {fileID: 736289980}
   - {fileID: 656884176}
-  elementIcons:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &1280334404
 MonoBehaviour:
   m_ObjectHideFlags: 0
