@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using Mobs.MobsBehaviour;
 using UnityEngine;
 
@@ -12,26 +13,18 @@ namespace Mobs
         [SerializeField] private Transform mobSpawner;
         [SerializeField] private float secondsUntilNextWave;
         [SerializeField] private float secondsBetweenMobSpawn;
-        public int _mobAmountOnWave;
+        [SerializeField] private MobWaveBar mobWaveBar;
+        private bool _firstWave = true;
+        private int _mobAmountOnWave;
         
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.B))
-                StartWavesOfMobs();
-        }
-        public void DecreaseMobsCountByOne()
-        {
-            _mobAmountOnWave--;
-        }
-        public void StartWavesOfMobs()
-        {
-            StartCoroutine(MakeWavesOfMobs());
+                StartCoroutine(StartWavesLoop());
         }
 
-
-        IEnumerator MakeWavesOfMobs()
+        private IEnumerator StartWavesLoop()
         {
-            bool _firstWave = true;
             foreach (var mobWave in mobWaves)
             {
                 yield return new WaitUntil(() => _mobAmountOnWave == 0);
@@ -44,13 +37,25 @@ namespace Mobs
                     {
                         yield return new WaitForSeconds(secondsBetweenMobSpawn);
                         _mobAmountOnWave++;
-                        var mob = Instantiate(mobProperty.Mob, mobSpawner.position, Quaternion.identity, mobSpawner.transform);
+                        var mob = Instantiate(mobProperty.Mob, mobSpawner.position, Quaternion.identity,
+                            mobSpawner.transform);
                         mob.ExecuteOnMobSpawn(gates, this);
                     }
                 }
-            }   
+                mobWaveBar.ResetValuesOnWaveStarts(mobWave.MobProperties.Sum(x => x.Mob.MobModel.MobWaveWeight));
+            }
+        }
+
+        public void NotifyPortalOnMobDeath(MobBehaviour mob)
+        {
+            mobWaveBar.DecreaseCurrentMobScore(mob.MobModel.MobWaveWeight);
         }
         
+        public void DecreaseMobsCountByOne()
+        {
+            _mobAmountOnWave--;
+        }
+
         [Serializable]
         class MobWave
         {

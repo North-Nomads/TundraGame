@@ -9,46 +9,12 @@ namespace Mobs.MobsBehaviour.Boar
     [RequireComponent(typeof(MobModel))]
     public class BoarBehavior : MobBehaviour
     {
-        private MobModel _mobModel;
         private bool _canDistractFromCurrentTarget;
         private float _chargeLeftTime;
 
         public override BasicElement MobBasicElement => BasicElement.Earth;
         public override BasicElement MobCounterElement => BasicElement.Air;
-
-        public override void HandleIncomeDamage(float damage, BasicElement damageElement)
-        {
-            var multiplier = 1f;
-            if (damageElement == MobBasicElement)
-                multiplier = 0.8f;
-            else if (damageElement == MobCounterElement)
-                multiplier = 1.2f;
-
-            _mobModel.CurrentMobHealth -= damage * multiplier;
-            print($"{name}: {_mobModel.CurrentMobHealth}, Damage dealt: {damage}, element: {damageElement}");
-
-            if (_mobModel.CurrentMobHealth <= 0)
-                KillThisMob();
-        }
-
-        public override void MoveTowards(Vector3 point)
-        {
-            _mobModel.MobNavMeshAgent.SetDestination(point);
-        }
-
-        public override void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal)
-        {
-            MobPortal = mobPortal;
-            _mobModel = GetComponent<MobModel>();
-            _mobModel.InstantiateMobModel();
-            _canDistractFromCurrentTarget = true;
-            _chargeLeftTime = 3f;
-            
-            DefaultDestinationPoint = gates;
-            _mobModel.MobNavMeshAgent.SetDestination(DefaultDestinationPoint.position);
-        }
-    
-
+        
         private void FixedUpdate()
         {
             if (_chargeLeftTime > 0)
@@ -64,8 +30,40 @@ namespace Mobs.MobsBehaviour.Boar
         private void TakeChargeMode()
         {
             _canDistractFromCurrentTarget = false;
-            _mobModel.CurrentMobSpeed *= 1.5f;
-            _mobModel.CurrentMobDamage *= 2f;
+            MobModel.CurrentMobSpeed *= 1.5f;
+            MobModel.CurrentMobDamage *= 2f;
+        }
+
+        public override void HandleIncomeDamage(float damage, BasicElement damageElement)
+        {
+            var multiplier = 1f;
+            if (damageElement == MobBasicElement)
+                multiplier = 0.8f;
+            else if (damageElement == MobCounterElement)
+                multiplier = 1.2f;
+
+            MobModel.CurrentMobHealth -= damage * multiplier;
+            print($"{name}: {MobModel.CurrentMobHealth}, Damage dealt: {damage}, element: {damageElement}");
+
+            if (MobModel.CurrentMobHealth <= 0)
+                KillThisMob();
+        }
+
+        public override void MoveTowards(Vector3 point)
+        {
+            MobModel.MobNavMeshAgent.SetDestination(point);
+        }
+
+        public override void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal)
+        {
+            MobModel = GetComponent<MobModel>();
+            MobModel.InstantiateMobModel();
+            MobPortal = mobPortal;
+            _canDistractFromCurrentTarget = true;
+            _chargeLeftTime = 3f;
+            
+            DefaultDestinationPoint = gates;
+            MobModel.MobNavMeshAgent.SetDestination(DefaultDestinationPoint.position);
         }
     }
 }
