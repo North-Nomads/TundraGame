@@ -10,7 +10,7 @@ namespace Mobs
         private float _mobsWaveTotalScore;
         private float _mobWaveCurrentScore;
 
-        public float MobWaveCurrentScore
+        private float MobWaveCurrentScore
         {
             get => _mobWaveCurrentScore;
             set
@@ -28,22 +28,20 @@ namespace Mobs
 
         private void UpdateFillerStatus()
         {
-            _waveFiller.fillAmount = _mobWaveCurrentScore / _mobsWaveTotalScore;
+            _waveFiller.fillAmount = MobWaveCurrentScore / _mobsWaveTotalScore;
         }
 
         public void ResetValuesOnWaveStarts(float totalScore)
         {
-            Debug.Log(totalScore);
             _mobsWaveTotalScore = totalScore;
-            _mobWaveCurrentScore = totalScore;
+            MobWaveCurrentScore = totalScore;
             UpdateFillerStatus();
         }
 
         public void DecreaseCurrentMobScore(float score)
         {
-            _mobWaveCurrentScore -= score;
+            MobWaveCurrentScore -= score;
             UpdateFillerStatus();
-            Debug.Log(_mobsWaveTotalScore);
         }
     }
 }

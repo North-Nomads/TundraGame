@@ -46,7 +46,7 @@ namespace Mobs
                 }
 
                 if (totalScore <= 0)
-                    throw new Exception("TotalScore is below zero");
+                    throw new Exception($"TotalScore is unacceptable: {totalScore}");
                 mobWaveBar.ResetValuesOnWaveStarts(totalScore);
             }
         }
