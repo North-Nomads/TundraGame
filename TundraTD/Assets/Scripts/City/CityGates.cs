@@ -14,6 +14,9 @@ namespace City
         [SerializeField] private float cityGatesHealthPoints;
         private CityGatesUI _cityGatesUI;
 
+        // HACK: made here temporary fireball
+        [SerializeField] private GameObject fireball;
+
         public float CityGatesHealthPoints
         {
             get => cityGatesHealthPoints;
@@ -29,6 +32,8 @@ namespace City
         private void Start()
         {
             _cityGatesUI = GetComponent<CityGatesUI>();
+            // HACK: temp addition
+            Grimoire._spellPrefabs = new GameObject[] { fireball };
         }
 
         private void OnTriggerEnter(Collider other)

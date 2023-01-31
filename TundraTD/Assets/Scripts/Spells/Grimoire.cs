@@ -12,8 +12,8 @@ namespace Spells
     public static class Grimoire
     {
         private static readonly Dictionary<BasicElement, Type> _spellTypes;
-
-        [SerializeField] private static GameObject[] _spellPrefabs;
+        // HACK: temporary solution to avoid errors
+        [SerializeField] public static GameObject[] _spellPrefabs;
 
         static Grimoire()
         {
