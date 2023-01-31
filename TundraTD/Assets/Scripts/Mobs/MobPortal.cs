@@ -19,7 +19,7 @@ namespace Mobs
         }
         public void DecreaseMobsCountByOne()
         {
-            _allMobs -= 1;
+            _allMobs--;
         }
         public void SpawnNextMob()
         {
