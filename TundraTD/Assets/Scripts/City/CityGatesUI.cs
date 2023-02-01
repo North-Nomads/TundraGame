@@ -11,9 +11,6 @@ namespace City
     {
         [SerializeField] private Text influencePointsHolder;
         [SerializeField] private Text healthPointsHolder;
-        [SerializeField] private Text resultOnEndScreen;
-        [SerializeField] private Text endscreenPlayButtonText;
-        [SerializeField] private Canvas endScreen;
         private CityGates _cityGates;
         
 
@@ -31,15 +28,6 @@ namespace City
         {
             _cityGates = GetComponent<CityGates>();
             healthPointsHolder.text = _cityGates.CityGatesHealthPoints.ToString();
-        }
-        /// <summary>
-        /// Displays Victory or Loss screen
-        /// </summary>
-        public void DisplayEndScreed(bool victorious)
-        {
-            endscreenPlayButtonText.text = victorious ? "Следующий уровень" : "Повторить";
-            resultOnEndScreen.text = victorious ? "Победа" : "Поражение";
-            endScreen.enabled = true;
         }
 
     }

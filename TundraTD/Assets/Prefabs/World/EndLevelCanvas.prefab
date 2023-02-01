@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5278091744323234886}
   - component: {fileID: 7825424866393852983}
   - component: {fileID: 3747870291737504310}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Keep Playing Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 1802061035748874301}
   - component: {fileID: 1180774356069950386}
   - component: {fileID: 6727683424728350792}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: EndScreen Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -209,7 +209,7 @@ GameObject:
   - component: {fileID: 542385166369968066}
   - component: {fileID: 4808167685298012395}
   - component: {fileID: 5081982166012921495}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: EndLevelCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -308,7 +308,7 @@ GameObject:
   - component: {fileID: 6638869524943448400}
   - component: {fileID: 1639329528709038888}
   - component: {fileID: 1759128789791913252}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Levels Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -426,7 +426,7 @@ GameObject:
   - component: {fileID: 9216994987256900381}
   - component: {fileID: 8879596292245911423}
   - component: {fileID: 3003299943235621705}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -503,7 +503,7 @@ GameObject:
   - component: {fileID: 7239793277299092638}
   - component: {fileID: 2391353785798206686}
   - component: {fileID: 387164768673741031}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Levels Button Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -581,7 +581,7 @@ GameObject:
   - component: {fileID: 79356205328540995}
   - component: {fileID: 5467503986528378167}
   - component: {fileID: 1416858259040460959}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Keep Playing Button Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
