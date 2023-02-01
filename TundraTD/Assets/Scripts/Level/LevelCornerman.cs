@@ -38,25 +38,32 @@ namespace Level
 
         private IEnumerator StartWavesLoop()
         {
-            StartCoroutine(new WaitUntil(() => mobPortals.All(x => x.IsInstantiated)));
+            yield return new WaitUntil(() => mobPortals.All(x => x.IsInstantiated));
+            
             for (int i = 0; i < _maxWavesAmongPortals; i++)
             {
                 foreach (var mobPortal in mobPortals)
                 {
                     mobPortal.EquipNextWave();
-                    StartCoroutine(StartMobSpawning(mobPortal));
+                    yield return StartMobSpawning(mobPortal);
                 }
                 yield return new WaitUntil(() => mobPortals.Sum(x => x.MobsLeftThisWave) == 0);
-                
-                waveStartTimer.gameObject.SetActive(true);
-                for (int j = mobWaveDelay; j > 0; j--)
-                {
-                    waveStartTimer.text = j.ToString();
-                    yield return new WaitForSeconds(1f);
-                }
-                waveStartTimer.gameObject.SetActive(false);
+
+                if (i != _maxWavesAmongPortals - 1)
+                    yield return ShowTimerBetweenWaves();
             }
             levelJudge.HandlePlayerVictory();
+        }
+
+        private IEnumerator ShowTimerBetweenWaves()
+        {
+            waveStartTimer.gameObject.SetActive(true);
+            for (int j = mobWaveDelay; j > 0; j--)
+            {
+                waveStartTimer.text = j.ToString();
+                yield return new WaitForSeconds(1f);
+            }
+            waveStartTimer.gameObject.SetActive(false);
         }
 
         private IEnumerator StartMobSpawning(MobPortal portal)
