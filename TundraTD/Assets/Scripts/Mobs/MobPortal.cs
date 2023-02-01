@@ -1,13 +1,17 @@
 using System;
 using System.Collections;
+using City;
+using City.Building;
+using Level;
 using Mobs.MobsBehaviour;
 using UnityEngine;
 
 namespace Mobs
 {
     public class MobPortal : MonoBehaviour
-    {
-        [SerializeField] private Transform gates;
+    { 
+        [SerializeField] private LevelJudge levelJudge;
+        [SerializeField] private CityGates gates;
         [SerializeField] private MobWave[] mobWaves;
         [SerializeField] private Transform mobSpawner;
         [SerializeField] private float secondsUntilNextWave;
@@ -26,12 +30,11 @@ namespace Mobs
         {
             foreach (var mobWave in mobWaves)
             {
-                yield return new WaitUntil(() => _mobAmountOnWave == 0);
                 if (!_firstWave)
                     yield return new WaitForSeconds(secondsUntilNextWave);
                 _firstWave = false;
-                var totalScore = 0f;
                 
+                var totalScore = 0f;
                 foreach (var mobProperty in mobWave.MobProperties)
                 {
                     for (int i = 0; i < mobProperty.MobQuantity; i++)
@@ -40,15 +43,19 @@ namespace Mobs
                         _mobAmountOnWave++;
                         var mob = Instantiate(mobProperty.Mob, mobSpawner.position, Quaternion.identity,
                             mobSpawner.transform);
-                        mob.ExecuteOnMobSpawn(gates, this);
+                        mob.ExecuteOnMobSpawn(gates.transform, this);
                         totalScore += mob.MobModel.MobWaveWeight;
                     }
                 }
-
+                
                 if (totalScore <= 0)
                     throw new Exception($"TotalScore is unacceptable: {totalScore}");
                 mobWaveBar.ResetValuesOnWaveStarts(totalScore);
+                
+                yield return new WaitUntil(() => _mobAmountOnWave == 0);
+                gates.HandleWaveEnding();
             }
+            levelJudge.HandlePlayerVictory();
         }
 
         public void NotifyPortalOnMobDeath(MobBehaviour mob)

@@ -563,12 +563,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92c5216ad5e0462fb914937482a374db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minWaveAward: 10
+  maxWaveAward: 100
   canvasesParent: {fileID: 503922768}
   influencePointsHolder: {fileID: 967182137}
   placementSlots:
   - {fileID: 426899731}
   elementalTowerPrefabs:
   - {fileID: 3935613805362002618, guid: 7aedc6d7bb8373d4fa477be0048632d5, type: 3}
+--- !u!114 &860444599 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7281453124406245003, guid: 2b4eec4f6c456dc4c88b4572ed764b8e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7281453124956040640}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e787731aa6a4a0147a3d7a04658387dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &882465137
 GameObject:
   m_ObjectHideFlags: 0
@@ -597,6 +611,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 579192448}
+  - {fileID: 1250796823}
   - {fileID: 991401484}
   - {fileID: 1505798933}
   - {fileID: 2027348768}
@@ -785,7 +800,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 882465138}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: 120, z: 0}
 --- !u!114 &991401485
 MonoBehaviour:
@@ -806,6 +821,49 @@ MonoBehaviour:
   maximumCameraSize: 8
   usingWASD: 1
   wasdCameraMoveSpeed: 10
+--- !u!1 &1250796822
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1250796823}
+  - component: {fileID: 1250796824}
+  m_Layer: 0
+  m_Name: Level Judge
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1250796823
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1250796822}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 882465138}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1250796824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1250796822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 129786794b0d4d8488c0e931024710ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1505798931
 GameObject:
   m_ObjectHideFlags: 0
@@ -896,7 +954,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 882465138}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &1600090611 stripped
 MonoBehaviour:
@@ -944,7 +1002,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 0800a5babc1a60740a9b86904c57f85e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0800a5babc1a60740a9b86904c57f85e,
         type: 3}
@@ -1077,12 +1135,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0800a5babc1a60740a9b86904c57f85e,
     type: 3}
   m_PrefabInstance: {fileID: 2027348763}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &543450652109487267 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7099452524227793251, guid: 2b4eec4f6c456dc4c88b4572ed764b8e,
-    type: 3}
-  m_PrefabInstance: {fileID: 7281453124956040640}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &985263542201047751
 PrefabInstance:
@@ -1233,12 +1285,17 @@ PrefabInstance:
         type: 3}
       propertyPath: gates
       value: 
-      objectReference: {fileID: 543450652109487267}
+      objectReference: {fileID: 860444599}
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
       propertyPath: amount
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
+        type: 3}
+      propertyPath: levelJudge
+      value: 
+      objectReference: {fileID: 1250796824}
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
       propertyPath: mobWaveBar
@@ -1425,7 +1482,7 @@ PrefabInstance:
     - target: {fileID: 6165614671432073510, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6165614671432073510, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
@@ -1710,6 +1767,16 @@ PrefabInstance:
       propertyPath: influencePointsHolder
       value: 
       objectReference: {fileID: 68777532}
+    - target: {fileID: 7281453124406245003, guid: 2b4eec4f6c456dc4c88b4572ed764b8e,
+        type: 3}
+      propertyPath: levelJudge
+      value: 
+      objectReference: {fileID: 1250796824}
+    - target: {fileID: 7281453124406245003, guid: 2b4eec4f6c456dc4c88b4572ed764b8e,
+        type: 3}
+      propertyPath: maxCityGatesHealthPoints
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7623893609857240025, guid: 2b4eec4f6c456dc4c88b4572ed764b8e,
         type: 3}
       propertyPath: m_Name
