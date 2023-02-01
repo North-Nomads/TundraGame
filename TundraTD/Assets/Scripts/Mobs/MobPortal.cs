@@ -7,18 +7,19 @@ using UnityEngine;
 
 namespace Mobs
 {
+    /// <summary>
+    /// Spawns mobs and manages waves
+    /// </summary>
     public class MobPortal : MonoBehaviour
     {
         [SerializeField] private CityGates gates;
         [SerializeField] private Transform mobSpawner;
         [SerializeField] private MobWave[] mobWaves;
         
-        
+        private MobWave _currentMobWave;
         private List<MobBehaviour> _allWaveMobs;
         private int _currentMobWaveIndex;
-        private MobWave _currentMobWave;
         private int _currentMobIndex;
-        
         
         public int WavesAmount { get; private set; } 
         public int MobsLeftThisWave { get; private set; }
