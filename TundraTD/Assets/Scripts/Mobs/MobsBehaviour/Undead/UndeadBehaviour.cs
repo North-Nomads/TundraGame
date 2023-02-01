@@ -9,14 +9,12 @@ namespace Mobs.MobsBehaviour.Undead
     [RequireComponent(typeof(MobModel))]
     public class UndeadBehaviour : MobBehaviour
     {
-        private MobModel _mobModel;
-
         public override BasicElement MobBasicElement => BasicElement.Water;
         public override BasicElement MobCounterElement => BasicElement.Lightning;
 
         public override void MoveTowards(Vector3 point)
         {
-            _mobModel.MobNavMeshAgent.SetDestination(point);
+            MobModel.MobNavMeshAgent.SetDestination(point);
         }
 
         public override void HandleIncomeDamage(float damage, BasicElement damageElement)
@@ -27,25 +25,21 @@ namespace Mobs.MobsBehaviour.Undead
             else if  (damageElement == MobCounterElement)
                 multiplier = 1.2f;
 
-            _mobModel.CurrentMobHealth -= damage * multiplier;
-            print($"{name}: {_mobModel.CurrentMobHealth}, Damage dealt: {damage}, element: {damageElement}");
+            MobModel.CurrentMobHealth -= damage * multiplier;
+            print($"{name}: {MobModel.CurrentMobHealth}, Damage dealt: {damage}, element: {damageElement}");
 
-            if (_mobModel.CurrentMobHealth <= 0)
+            if (MobModel.CurrentMobHealth <= 0)
                 KillThisMob();
         }
 
-        public override void KillThisMob()
+        public override void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal)
         {
-            Destroy(gameObject);
-        }
-
-        public override void ExecuteOnMobSpawn(Transform gates)
-        {
-            _mobModel = GetComponent<MobModel>();
-            _mobModel.InstantiateMobModel();
+            MobModel = GetComponent<MobModel>();
+            MobModel.InstantiateMobModel();
+            MobPortal = mobPortal;
             
             DefaultDestinationPoint = gates;
-            _mobModel.MobNavMeshAgent.SetDestination(DefaultDestinationPoint.position);
+            MobModel.MobNavMeshAgent.SetDestination(DefaultDestinationPoint.position);
         }
 
         private void FixedUpdate()

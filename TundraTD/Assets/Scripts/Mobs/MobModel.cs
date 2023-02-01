@@ -9,13 +9,15 @@ namespace Mobs
         [SerializeField] private float maxMobHealth;
         [SerializeField] private float defaultMobDamage;
         [SerializeField] private float defaultMobSpeed;
+        [SerializeField] private float mobWaveWeight;
         private float _currentMobHealth;
         private float _currentMobDamage;
         private float _currentMobSpeed;
         private NavMeshAgent _mobNavMeshAgent;
 
         public NavMeshAgent MobNavMeshAgent => _mobNavMeshAgent;
-
+        public float MobWaveWeight => mobWaveWeight;
+        
         public float CurrentMobHealth
         {
             get => _currentMobHealth;

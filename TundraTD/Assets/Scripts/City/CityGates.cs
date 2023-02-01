@@ -1,4 +1,6 @@
-﻿using Mobs;
+﻿using City.Building;
+using Level;
+using Mobs;
 using Spells;
 using Mobs.MobsBehaviour;
 using UnityEngine;
@@ -11,18 +13,23 @@ namespace City
     [RequireComponent(typeof(CityGatesUI))]
     public class CityGates : MonoBehaviour
     {
-        [SerializeField] private float cityGatesHealthPoints;
+        [SerializeField] private float maxCityGatesHealthPoints;
+        [SerializeField] private LevelJudge levelJudge;
+        private float _currentCityGatesHealthPoints;
         private CityGatesUI _cityGatesUI;
         private Grimoire _grimoire;
 
         public float CityGatesHealthPoints
         {
-            get => cityGatesHealthPoints;
+            get => maxCityGatesHealthPoints;
             private set
             {
                 if (value <= 0)
-                    cityGatesHealthPoints = 0;
-                cityGatesHealthPoints = value;
+                {
+                    maxCityGatesHealthPoints = 0;
+                    levelJudge.HandlePlayerDefeat();
+                }
+                maxCityGatesHealthPoints = value;
                 _cityGatesUI.UpdateHealthText(value.ToString());
             }
         }
@@ -31,6 +38,7 @@ namespace City
         {
             _cityGatesUI = GetComponent<CityGatesUI>();
             _grimoire = GetComponent<Grimoire>();
+            _currentCityGatesHealthPoints = maxCityGatesHealthPoints;
         }
 
         private void Update()
@@ -52,6 +60,11 @@ namespace City
 
             CityGatesHealthPoints -= mobAttack;
             mob.KillThisMob();
+        }
+
+        public void HandleWaveEnding()
+        {
+            Architect.RewardPlayerOnWaveEnd(_currentCityGatesHealthPoints / maxCityGatesHealthPoints);
         }
     }
 }

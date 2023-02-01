@@ -12,20 +12,14 @@ namespace Mobs.MobsBehaviour
     /// </summary>
     public abstract class MobBehaviour : MonoBehaviour
     {
+        [SerializeField] private GameObject[] effectPrefabs;
         private float _tickTimer;
+        private MobPortal _mobPortal;
         private Transform _defaultDestinationPoint;
         private Transform _currentDestinationPoint;
 
-        [SerializeField] private GameObject[] effectPrefabs;
-
         protected List<Effect> CurrentEffects { get; } = new List<Effect>();
-        public Transform DefaultDestinationPoint { get; protected set; }
-        public Transform CurrentDestinationPoint
-        {
-            get => _currentDestinationPoint;
-            set => _currentDestinationPoint = value;
-        }
-
+        protected Transform DefaultDestinationPoint { get; set; }
         protected float TickTimer
         {
             get => _tickTimer;
@@ -41,26 +35,27 @@ namespace Mobs.MobsBehaviour
                 _tickTimer = value;
             }
         }
+        public MobPortal MobPortal 
+        {
+            get => _mobPortal;
+            set => _mobPortal = value;
+        }
+        public MobModel MobModel { get; protected set; }
+        public Transform CurrentDestinationPoint
+        {
+            get => _currentDestinationPoint;
+            set => _currentDestinationPoint = value;
+        }
         public abstract BasicElement MobBasicElement { get; }
         public abstract BasicElement MobCounterElement { get; }
-
-        public void AddReceivedEffects(IEnumerable<Effect> effectsToApply)
-        {
-            CurrentEffects.AddRange(effectsToApply);
-        }
         
-        public abstract void MoveTowards(Vector3 point);
-        public abstract void HandleIncomeDamage(float damage, BasicElement damageElement);
-        public abstract void KillThisMob();
-
-        protected virtual void Start()
+        private void Start()
         {
             foreach (var prefab in effectPrefabs)
             {
                 if (prefab != null) prefab.SetActive(false);
             }
         }
-
         private void HandleAppliedEffects()
         {
             for (int i = 0; i < CurrentEffects.Count;)
@@ -80,7 +75,19 @@ namespace Mobs.MobsBehaviour
                 if (effectPrefabs[effectIndex] != null) effectPrefabs[effectIndex].SetActive(true);
             }
         }
-
-        public abstract void ExecuteOnMobSpawn(Transform gates);
+        public void AddReceivedEffects(IEnumerable<Effect> effectsToApply)
+        {
+            CurrentEffects.AddRange(effectsToApply);
+        }
+        public void KillThisMob()
+        {
+            Destroy(gameObject);
+            _mobPortal.DecreaseMobsCountByOne();
+            _mobPortal.NotifyPortalOnMobDeath(this);
+        }
+        
+        public abstract void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal);
+        public abstract void MoveTowards(Vector3 point);
+        public abstract void HandleIncomeDamage(float damage, BasicElement damageElement);
     }
 }

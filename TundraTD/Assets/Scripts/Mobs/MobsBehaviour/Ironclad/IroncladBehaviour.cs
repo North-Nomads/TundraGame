@@ -21,15 +21,19 @@ namespace Mobs.MobsBehaviour.Ironclad
                     _mobShield = value;
             }
         }
-
-        private MobModel _mobModel;
-
         public override BasicElement MobBasicElement => BasicElement.Earth;
         public override BasicElement MobCounterElement =>  BasicElement.Air;
-
+        
+        
         public override void MoveTowards(Vector3 point)
         {
-            _mobModel.MobNavMeshAgent.SetDestination(point);
+            MobModel.MobNavMeshAgent.SetDestination(point);
+        }
+        
+        private void FixedUpdate()
+        {
+            if (CurrentEffects.Count > 0)
+                TickTimer -= Time.fixedDeltaTime;
         }
 
         public override void HandleIncomeDamage(float damage, BasicElement damageElement)
@@ -46,35 +50,21 @@ namespace Mobs.MobsBehaviour.Ironclad
                 return;
             }
             
-            _mobModel.CurrentMobHealth -= damage * multiplier;
-            print($"{name}: {_mobModel.CurrentMobHealth}, Damage dealt: {damage}, element: {damageElement}");
+            MobModel.CurrentMobHealth -= damage * multiplier;
+            print($"{name}: {MobModel.CurrentMobHealth}, Damage dealt: {damage}, element: {damageElement}");
             
-            if (_mobModel.CurrentMobHealth <= 0)
+            if (MobModel.CurrentMobHealth <= 0)
                 KillThisMob();
         }
-
-        public override void KillThisMob()
+        
+        public override void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal)
         {
-            Destroy(gameObject);
-        }
-
-        public override void ExecuteOnMobSpawn(Transform gates)
-        {
-            _mobModel = GetComponent<MobModel>();
-            _mobModel.InstantiateMobModel();
-            
+            MobModel = GetComponent<MobModel>();
+            MobModel.InstantiateMobModel();
+            MobPortal = mobPortal;
             MobShield = 10;
             DefaultDestinationPoint = gates;
-            _mobModel.MobNavMeshAgent.SetDestination(DefaultDestinationPoint.position);
-        }
-
-        private void FixedUpdate()
-        {
-            if (_mobModel.CurrentMobHealth <= 0)
-                KillThisMob();
-            
-            if (CurrentEffects.Count > 0)
-                TickTimer -= Time.fixedDeltaTime;
+            MobModel.MobNavMeshAgent.SetDestination(DefaultDestinationPoint.position);
         }
     }
 }
