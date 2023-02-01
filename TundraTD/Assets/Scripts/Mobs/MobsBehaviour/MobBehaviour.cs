@@ -2,8 +2,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Spells;
-using System.Linq;
-using System;
 
 namespace Mobs.MobsBehaviour
 {
@@ -35,9 +33,9 @@ namespace Mobs.MobsBehaviour
                 _tickTimer = value;
             }
         }
-        public MobPortal MobPortal 
+
+        protected MobPortal MobPortal 
         {
-            get => _mobPortal;
             set => _mobPortal = value;
         }
         public MobModel MobModel { get; protected set; }
@@ -48,6 +46,9 @@ namespace Mobs.MobsBehaviour
         }
         public abstract BasicElement MobBasicElement { get; }
         public abstract BasicElement MobCounterElement { get; }
+        public abstract void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal);
+        public abstract void MoveTowards(Vector3 point);
+        public abstract void HandleIncomeDamage(float damage, BasicElement damageElement);
         
         private void Start()
         {
@@ -56,6 +57,7 @@ namespace Mobs.MobsBehaviour
                 if (prefab != null) prefab.SetActive(false);
             }
         }
+        
         private void HandleAppliedEffects()
         {
             for (int i = 0; i < CurrentEffects.Count;)
@@ -75,19 +77,16 @@ namespace Mobs.MobsBehaviour
                 if (effectPrefabs[effectIndex] != null) effectPrefabs[effectIndex].SetActive(true);
             }
         }
+        
         public void AddReceivedEffects(IEnumerable<Effect> effectsToApply)
         {
             CurrentEffects.AddRange(effectsToApply);
         }
+        
         public void KillThisMob()
         {
             Destroy(gameObject);
-            _mobPortal.DecreaseMobsCountByOne();
-            _mobPortal.NotifyPortalOnMobDeath(this);
+            _mobPortal.NotifyPortalOnMobDeath();
         }
-        
-        public abstract void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal);
-        public abstract void MoveTowards(Vector3 point);
-        public abstract void HandleIncomeDamage(float damage, BasicElement damageElement);
     }
 }

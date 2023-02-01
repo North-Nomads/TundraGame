@@ -464,18 +464,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &925211049 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2771025574024206016, guid: b98c0540fb41e2e4c9e3211b0ea7471b,
-    type: 3}
-  m_PrefabInstance: {fileID: 2771025573233413993}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6951b99341ee4db981f0c28b23b2ad69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &967182137 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7281453124406245002, guid: 2b4eec4f6c456dc4c88b4572ed764b8e,
@@ -645,7 +633,7 @@ GameObject:
   - component: {fileID: 1388093503}
   - component: {fileID: 1388093504}
   m_Layer: 0
-  m_Name: Wave Starter
+  m_Name: Level Cornerman
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -674,13 +662,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1388093502}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c9779cca144c9742bbc129f2fee4af7, type: 3}
+  m_Script: {fileID: 11500000, guid: 329a84b7897c45de81511c536192f60b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerBetweenWaves: {fileID: 2771025573233413994}
-  mobPortals: []
-  waveDelay: 0
-  mobDelay: 0
+  levelJudge: {fileID: 1250796824}
+  mobPortals:
+  - {fileID: 6165614669602294814}
+  mobWaveDelay: 3
+  mobSpawnDelay: 0.5
 --- !u!1 &1505798931
 GameObject:
   m_ObjectHideFlags: 0
@@ -1129,18 +1118,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b98c0540fb41e2e4c9e3211b0ea7471b, type: 3}
---- !u!114 &2771025573233413994 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1519892301023929430, guid: b98c0540fb41e2e4c9e3211b0ea7471b,
-    type: 3}
-  m_PrefabInstance: {fileID: 2771025573233413993}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3351246950834541522
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1236,7 +1213,17 @@ PrefabInstance:
         type: 3}
       propertyPath: mobWaveBar
       value: 
-      objectReference: {fileID: 925211049}
+      objectReference: {fileID: 0}
+    - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
+        type: 3}
+      propertyPath: mobWaveDelay
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
+        type: 3}
+      propertyPath: mobSpawnDelay
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
       propertyPath: mobWaves.Array.size
@@ -1271,7 +1258,7 @@ PrefabInstance:
         type: 3}
       propertyPath: mobWaves.Array.data[0].mobProperties.Array.data[1].mob
       value: 
-      objectReference: {fileID: 856308400567232162, guid: 2e6e26c50a4926049b096825079cacfa,
+      objectReference: {fileID: 4000996451007599641, guid: f5414b311da4f80499a5e14d23b10945,
         type: 3}
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
@@ -1283,7 +1270,7 @@ PrefabInstance:
         type: 3}
       propertyPath: mobWaves.Array.data[1].mobProperties.Array.data[0].mob
       value: 
-      objectReference: {fileID: 7987837108767728486, guid: b4f507c285d21a343a4592c444a51ddd,
+      objectReference: {fileID: 4000996451007599641, guid: f5414b311da4f80499a5e14d23b10945,
         type: 3}
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
@@ -1477,6 +1464,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82f908a53c183df4fb4dc007f98d738a, type: 3}
+--- !u!114 &6165614669602294814 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
+    type: 3}
+  m_PrefabInstance: {fileID: 6165614669602294813}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 419df6b04e4842e8af26804928477947, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6898345880750740892
 PrefabInstance:
   m_ObjectHideFlags: 0
