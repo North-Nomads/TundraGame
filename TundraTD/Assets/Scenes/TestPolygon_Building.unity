@@ -678,12 +678,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 329a84b7897c45de81511c536192f60b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelJudge: {fileID: 1250796824}
   mobPortals:
   - {fileID: 6165614669602294814}
   - {fileID: 861757219}
-  mobWaveDelay: 3
+  levelJudge: {fileID: 1250796824}
+  waveStartTimer: {fileID: 2081928669}
   mobSpawnDelay: 0.5
+  mobWaveDelay: 2
 --- !u!1 &1505798931
 GameObject:
   m_ObjectHideFlags: 0
@@ -944,6 +945,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2027348763}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2081928669 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1519892301023929430, guid: b98c0540fb41e2e4c9e3211b0ea7471b,
+    type: 3}
+  m_PrefabInstance: {fileID: 2771025573233413993}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &985263542201047751
 PrefabInstance:
   m_ObjectHideFlags: 0

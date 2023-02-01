@@ -1,21 +1,26 @@
-using System;
 using System.Collections;
 using System.Linq;
 using Mobs;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Level
 {
+    /// <summary>
+    /// Takes control over time related to portals
+    /// </summary>
     public class LevelCornerman : MonoBehaviour
     {
-        [SerializeField] private LevelJudge levelJudge;
         [SerializeField] private MobPortal[] mobPortals;
-        [SerializeField] private float mobWaveDelay;
+        [SerializeField] private LevelJudge levelJudge;
+        [SerializeField] private Text waveStartTimer; 
         [SerializeField] private float mobSpawnDelay;
+        [SerializeField] private int mobWaveDelay;
         private int _maxWavesAmongPortals;
 
         private void Start()
         {
+            waveStartTimer.gameObject.SetActive(false);
             StartCoroutine(WaitPortalsInstantiation());
         }
 
@@ -33,57 +38,34 @@ namespace Level
 
         private IEnumerator StartWavesLoop()
         {
-            Debug.Log(_maxWavesAmongPortals);
+            StartCoroutine(new WaitUntil(() => mobPortals.All(x => x.IsInstantiated)));
             for (int i = 0; i < _maxWavesAmongPortals; i++)
             {
-                Debug.Log($"Wave {i} started");
                 foreach (var mobPortal in mobPortals)
                 {
                     mobPortal.EquipNextWave();
                     StartCoroutine(StartMobSpawning(mobPortal));
                 }
-                print("Print1");
                 yield return new WaitUntil(() => mobPortals.Sum(x => x.MobsLeftThisWave) == 0);
-                print("Print2");
-                yield return new WaitForSeconds(mobWaveDelay);
-                print("Print3");
+                
+                waveStartTimer.gameObject.SetActive(true);
+                for (int j = mobWaveDelay; j > 0; j--)
+                {
+                    waveStartTimer.text = j.ToString();
+                    yield return new WaitForSeconds(1f);
+                }
+                waveStartTimer.gameObject.SetActive(false);
             }
-            Debug.Log("Finished loop");
             levelJudge.HandlePlayerVictory();
         }
 
         private IEnumerator StartMobSpawning(MobPortal portal)
         {
-            Debug.Log(portal.TotalWaveMobQuantity);
             for (int i = 0; i < portal.TotalWaveMobQuantity; i++)
             {
                 yield return new WaitForSeconds(mobSpawnDelay);
                 portal.SpawnNextMob();
             }
         }
-
-        /*private IEnumerator StartWavesLoop1(MobPortal mobPortal)
-        {
-            
-            foreach (var mobWave in mobWaves)
-            {
-                if (!_isFirstWave)
-                    yield return new WaitForSeconds(mobWaveDelay);
-                _isFirstWave = false;
-
-                yield return SpawnWaveMobs(mobWave);
-                var waveMobs = mobWave.MobProperties;
-                _mobAmountOnWave += waveMobs.Sum(x => x.MobQuantity);
-                var totalScore = waveMobs.Sum(x => x.Mob.MobModel.MobWaveWeight);
-                
-                if (totalScore <= 0)
-                    throw new Exception($"TotalScore is unacceptable: {totalScore}");
-                mobWaveBar.ResetValuesOnWaveStarts(totalScore);
-                
-                yield return new WaitUntil(() => _mobAmountOnWave == 0);
-                gates.HandleWaveEnding();
-            }
-            levelJudge.HandlePlayerVictory();
-        }*/
     }
 }
