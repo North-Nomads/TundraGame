@@ -32,8 +32,8 @@ namespace City
                     levelJudge.HandlePlayerDefeat();
                 }
 
-                _cityGatesHealthPercent = _currentCurrentCityGatesHealthPoints / maxCityGatesHealthPoints;
                 _currentCurrentCityGatesHealthPoints = value;
+                _cityGatesHealthPercent = _currentCurrentCityGatesHealthPoints / maxCityGatesHealthPoints;
                 _cityGatesUI.UpdateHealthBar(_cityGatesHealthPercent);
             }
         }
