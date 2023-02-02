@@ -21,19 +21,15 @@ namespace Mobs.MobsBehaviour.Ironclad
                     _mobShield = value;
             }
         }
+
+        private MobModel _mobModel;
+
         public override BasicElement MobBasicElement => BasicElement.Earth;
         public override BasicElement MobCounterElement =>  BasicElement.Air;
-        
-        
+
         public override void MoveTowards(Vector3 point)
         {
-            MobModel.MobNavMeshAgent.SetDestination(point);
-        }
-        
-        private void FixedUpdate()
-        {
-            if (CurrentEffects.Count > 0)
-                TickTimer -= Time.fixedDeltaTime;
+            _mobModel.MobNavMeshAgent.SetDestination(point);
         }
 
         public override void HandleIncomeDamage(float damage, BasicElement damageElement)
@@ -50,21 +46,32 @@ namespace Mobs.MobsBehaviour.Ironclad
                 return;
             }
             
-            MobModel.CurrentMobHealth -= damage * multiplier;
-            print($"{name}: {MobModel.CurrentMobHealth}, Damage dealt: {damage}, element: {damageElement}");
+            _mobModel.CurrentMobHealth -= damage * multiplier;
+            print($"{name}: {_mobModel.CurrentMobHealth}, Damage dealt: {damage}, element: {damageElement}");
             
-            if (MobModel.CurrentMobHealth <= 0)
+            if (_mobModel.CurrentMobHealth <= 0)
                 KillThisMob();
         }
-        
+
+
         public override void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal)
         {
-            MobModel = GetComponent<MobModel>();
-            MobModel.InstantiateMobModel();
             MobPortal = mobPortal;
+            _mobModel = GetComponent<MobModel>();
+            _mobModel.InstantiateMobModel();
+            
             MobShield = 10;
             DefaultDestinationPoint = gates;
-            MobModel.MobNavMeshAgent.SetDestination(DefaultDestinationPoint.position);
+            _mobModel.MobNavMeshAgent.SetDestination(DefaultDestinationPoint.position);
+        }
+
+        private void FixedUpdate()
+        {
+            if (_mobModel.CurrentMobHealth <= 0)
+                KillThisMob();
+            
+            if (CurrentEffects.Count > 0)
+                TickTimer -= Time.fixedDeltaTime;
         }
     }
 }
