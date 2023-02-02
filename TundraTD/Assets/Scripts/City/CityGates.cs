@@ -4,6 +4,7 @@ using Mobs;
 using Spells;
 using Mobs.MobsBehaviour;
 using UnityEngine;
+using Level;
 
 namespace City
 {
@@ -46,7 +47,7 @@ namespace City
         private void Update()
         {
             // HACK: made here fireball casting to test, remove later
-            if (Input.GetKeyDown(KeyCode.C))
+            if (Input.GetKeyDown(KeyCode.C) && !PauseMenu.IsGamePaused)
             {
                 Grimoire.TurnElementsIntoSpell(new BasicElement[] { BasicElement.Fire, BasicElement.Fire, BasicElement.Fire, BasicElement.Earth, BasicElement.Earth });
             }
