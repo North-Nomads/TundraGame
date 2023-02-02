@@ -48,7 +48,7 @@ namespace City.Building
 
         public static void DEBUG_GetStartPoints()
         {
-            InfluencePoints = 100;
+            InfluencePoints = 10000;
         }
 
         public static void ProceedUpgradePurchase(IUpgrade upgrade)
