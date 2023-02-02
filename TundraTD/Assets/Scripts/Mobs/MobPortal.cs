@@ -1,75 +1,79 @@
 using System;
-using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using City;
-using City.Building;
-using Level;
 using Mobs.MobsBehaviour;
 using UnityEngine;
 
 namespace Mobs
 {
+    /// <summary>
+    /// Spawns mobs and manages waves
+    /// </summary>
     public class MobPortal : MonoBehaviour
-    { 
-        [SerializeField] private LevelJudge levelJudge;
+    {
         [SerializeField] private CityGates gates;
-        [SerializeField] private MobWave[] mobWaves;
         [SerializeField] private Transform mobSpawner;
-        [SerializeField] private float secondsUntilNextWave;
-        [SerializeField] private float secondsBetweenMobSpawn;
-        [SerializeField] private MobWaveBar mobWaveBar;
-        private bool _firstWave = true;
-        private int _mobAmountOnWave;
+        [SerializeField] private MobWave[] mobWaves;
         
-        private void Update()
+        private MobWave _currentMobWave;
+        private List<MobBehaviour> _allWaveMobs;
+        private int _currentMobWaveIndex;
+        private int _currentMobIndex;
+        
+        public int WavesAmount { get; private set; } 
+        public int MobsLeftThisWave { get; private set; }
+        private int MobsTotalCountOnWave { get; set; }
+        public bool IsInstantiated { get; private set; }
+
+        public int TotalWaveMobQuantity => _currentMobWave.MobProperties.Sum(x => x.MobQuantity); 
+        
+        private void Start()
         {
-            if (Input.GetKeyDown(KeyCode.B))
-                StartCoroutine(StartWavesLoop());
+            _currentMobWaveIndex = 0;
+            _allWaveMobs = new List<MobBehaviour>();
+            WavesAmount = mobWaves.Length;
+            IsInstantiated = true;
+            Debug.Log($"WavesAmount: {WavesAmount}");
         }
 
-        private IEnumerator StartWavesLoop()
+        public void EquipNextWave()
         {
-            foreach (var mobWave in mobWaves)
-            {
-                if (!_firstWave)
-                    yield return new WaitForSeconds(secondsUntilNextWave);
-                _firstWave = false;
-                
-                var totalScore = 0f;
-                foreach (var mobProperty in mobWave.MobProperties)
-                {
-                    for (int i = 0; i < mobProperty.MobQuantity; i++)
-                    {
-                        yield return new WaitForSeconds(secondsBetweenMobSpawn);
-                        _mobAmountOnWave++;
-                        var mob = Instantiate(mobProperty.Mob, mobSpawner.position, Quaternion.identity,
-                            mobSpawner.transform);
-                        mob.ExecuteOnMobSpawn(gates.transform, this);
-                        totalScore += mob.MobModel.MobWaveWeight;
-                    }
-                }
-                
-                if (totalScore <= 0)
-                    throw new Exception($"TotalScore is unacceptable: {totalScore}");
-                mobWaveBar.ResetValuesOnWaveStarts(totalScore);
-                
-                yield return new WaitUntil(() => _mobAmountOnWave == 0);
-                gates.HandleWaveEnding();
-            }
-            levelJudge.HandlePlayerVictory();
+            if (_currentMobWaveIndex >= mobWaves.Length)
+                return;
+            _allWaveMobs.Clear();
+            _currentMobIndex = 0;
+            
+            _currentMobWave = mobWaves[_currentMobWaveIndex];
+            foreach (var property in _currentMobWave.MobProperties)
+                for (int i = 0; i < property.MobQuantity; i++) 
+                    _allWaveMobs.Add(property.Mob);
+            
+            MobsLeftThisWave = _allWaveMobs.Count;
+            MobsTotalCountOnWave = MobsLeftThisWave;
+            
+            _currentMobWaveIndex++;
         }
 
-        public void NotifyPortalOnMobDeath(MobBehaviour mob)
+        public void SpawnNextMob()
         {
-            mobWaveBar.DecreaseCurrentMobScore(mob.MobModel.MobWaveWeight);
+            if (_currentMobIndex >= MobsTotalCountOnWave)
+                return;
+
+            var mobObject = _allWaveMobs[_currentMobIndex]; 
+            var mob = Instantiate(mobObject, mobSpawner.position, Quaternion.identity, mobSpawner.transform);
+            mob.ExecuteOnMobSpawn(gates.transform, this);
+            
+            _currentMobIndex++;
         }
-        
-        public void DecreaseMobsCountByOne()
+
+        public void NotifyPortalOnMobDeath()
         {
-            _mobAmountOnWave--;
+            MobsLeftThisWave--;
         }
 
         [Serializable]
-        class MobWave
+        private class MobWave
         {
             [SerializeField] private MobProperty[] mobProperties;
 
@@ -77,7 +81,7 @@ namespace Mobs
         }
 
         [Serializable]
-        class MobProperty
+        private class MobProperty
         {
             [SerializeField] private MobBehaviour mob;
             [SerializeField] private int mobQuantity;

@@ -3,6 +3,9 @@ using UnityEngine.UI;
 
 namespace Level
 {
+    /// <summary>
+    /// Handles the defeat and victory events and aftershocks
+    /// </summary>
     public class LevelJudge : MonoBehaviour
     {
         [SerializeField] private Text resultOnEndScreen;

@@ -15,30 +15,32 @@ namespace City
     {
         [SerializeField] private float maxCityGatesHealthPoints;
         [SerializeField] private LevelJudge levelJudge;
-        private float _currentCityGatesHealthPoints;
+        private float _currentCurrentCityGatesHealthPoints;
+        private float _cityGatesHealthPercent;
         private CityGatesUI _cityGatesUI;
-        private Grimoire _grimoire;
 
-        public float CityGatesHealthPoints
+        private float CurrentCityGatesHealthPoints
         {
-            get => maxCityGatesHealthPoints;
-            private set
+            get => _currentCurrentCityGatesHealthPoints;
+            set
             {
                 if (value <= 0)
                 {
-                    maxCityGatesHealthPoints = 0;
+                    _currentCurrentCityGatesHealthPoints = 0;
+                    _cityGatesHealthPercent = 0;
                     levelJudge.HandlePlayerDefeat();
                 }
-                maxCityGatesHealthPoints = value;
-                _cityGatesUI.UpdateHealthText(value.ToString());
+
+                _currentCurrentCityGatesHealthPoints = value;
+                _cityGatesHealthPercent = _currentCurrentCityGatesHealthPoints / maxCityGatesHealthPoints;
+                _cityGatesUI.UpdateHealthBar(_cityGatesHealthPercent);
             }
         }
 
         private void Start()
         {
             _cityGatesUI = GetComponent<CityGatesUI>();
-            _grimoire = GetComponent<Grimoire>();
-            _currentCityGatesHealthPoints = maxCityGatesHealthPoints;
+            _currentCurrentCityGatesHealthPoints = maxCityGatesHealthPoints;
         }
 
         private void Update()
@@ -46,7 +48,7 @@ namespace City
             // HACK: made here fireball casting to test, remove later
             if (Input.GetKeyDown(KeyCode.C))
             {
-                _grimoire.TurnElementsIntoSpell(new BasicElement[] { BasicElement.Fire, BasicElement.Fire, BasicElement.Fire, BasicElement.Earth, BasicElement.Earth });
+                Grimoire.TurnElementsIntoSpell(new BasicElement[] { BasicElement.Fire, BasicElement.Fire, BasicElement.Fire, BasicElement.Earth, BasicElement.Earth });
             }
         }
 
@@ -58,13 +60,13 @@ namespace City
             var mob = other.GetComponent<MobBehaviour>();
             var mobAttack = mob.GetComponent<MobModel>().CurrentMobDamage;
 
-            CityGatesHealthPoints -= mobAttack;
+            CurrentCityGatesHealthPoints -= mobAttack;
             mob.KillThisMob();
         }
 
         public void HandleWaveEnding()
         {
-            Architect.RewardPlayerOnWaveEnd(_currentCityGatesHealthPoints / maxCityGatesHealthPoints);
+            Architect.RewardPlayerOnWaveEnd(_cityGatesHealthPercent);
         }
     }
 }
