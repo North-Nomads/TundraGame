@@ -16,7 +16,8 @@ namespace Level
             Debug.Log("Player lost!");
             endscreenPlayButtonText.text =  "Повторить";
             resultOnEndScreen.text = "Поражение";
-            endScreen.enabled = true;
+            endScreen.gameObject.SetActive(true);
+            
         }
 
         public void HandlePlayerVictory()
@@ -24,7 +25,7 @@ namespace Level
             Debug.Log("Player won!");
             endscreenPlayButtonText.text =  "Следующий уровень";
             resultOnEndScreen.text = "Победа";
-            endScreen.enabled = true;
+            endScreen.gameObject.SetActive(true);
         }
     }
 }
