@@ -36,7 +36,7 @@ namespace City.Building
         private void CallPurchaseMenuOnEmptySlotClicked()
         {
             purchaseMenu.gameObject.SetActive(true);
-            purchaseMenu.SelectedTowerID = slotID;
+            purchaseMenu.SelectedSlotID = slotID;
         }
     }
 }
