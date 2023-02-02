@@ -4,10 +4,10 @@ using UnityEngine.SceneManagement;
 
 namespace Level
 {
-    public class PauseMenu : MonoBehaviour
+    public class PauseMode : MonoBehaviour
     {
         private static bool isGamePaused;
-        [SerializeField] private GameObject pauseMenu;
+        [SerializeField] private Canvas pauseMenu;
 
         /// <summary>
         /// Indicates if the game is paused.
@@ -43,7 +43,15 @@ namespace Level
         {
             IsGamePaused = !IsGamePaused;
             Time.timeScale = IsGamePaused ? 0 : 1;
-            pauseMenu.SetActive(IsGamePaused);
+            pauseMenu.gameObject.SetActive(IsGamePaused);
+            Debug.Log(IsGamePaused);
+        }
+
+        public void SetPause(bool setPause, bool enableCanvas = true)
+        {
+            isGamePaused = setPause;
+            Time.timeScale = setPause ? 0 : 1;
+            pauseMenu.gameObject.SetActive(IsGamePaused && enableCanvas);
             Debug.Log(IsGamePaused);
         }
 

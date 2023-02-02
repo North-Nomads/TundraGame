@@ -31,7 +31,7 @@ namespace City.Building
 
         private void OnMouseDown()
         {
-            if (!PauseMenu.IsGamePaused)
+            if (!PauseMode.IsGamePaused)
                 CallPurchaseMenuOnEmptySlotClicked();
         }
 
