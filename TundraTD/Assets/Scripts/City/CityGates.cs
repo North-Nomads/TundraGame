@@ -18,7 +18,6 @@ namespace City
         private float _currentCurrentCityGatesHealthPoints;
         private float _cityGatesHealthPercent;
         private CityGatesUI _cityGatesUI;
-        private Grimoire _grimoire;
 
         private float CurrentCityGatesHealthPoints
         {
@@ -41,7 +40,6 @@ namespace City
         private void Start()
         {
             _cityGatesUI = GetComponent<CityGatesUI>();
-            _grimoire = GetComponent<Grimoire>();
             _currentCurrentCityGatesHealthPoints = maxCityGatesHealthPoints;
         }
 
@@ -50,7 +48,7 @@ namespace City
             // HACK: made here fireball casting to test, remove later
             if (Input.GetKeyDown(KeyCode.C))
             {
-                _grimoire.TurnElementsIntoSpell(new BasicElement[] { BasicElement.Fire, BasicElement.Fire, BasicElement.Fire, BasicElement.Earth, BasicElement.Earth });
+                Grimoire.TurnElementsIntoSpell(new BasicElement[] { BasicElement.Fire, BasicElement.Fire, BasicElement.Fire, BasicElement.Earth, BasicElement.Earth });
             }
         }
 
