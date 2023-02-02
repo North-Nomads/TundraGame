@@ -9,24 +9,22 @@ namespace City
     [RequireComponent(typeof(CityGates))]
     public class CityGatesUI : MonoBehaviour
     {
+        [SerializeField] private Image topHealthBar;
         [SerializeField] private Text influencePointsHolder;
-        [SerializeField] private Text healthPointsHolder;
-        private CityGates _cityGates;
 
         public void UpdateInfluencePointsText(string text)
         {
             influencePointsHolder.text = text;
         }
         
-        public void UpdateHealthText(string text)
+        public void UpdateHealthBar(float percent)
         {
-            healthPointsHolder.text = text;
+            topHealthBar.fillAmount = percent;
         }
         
         private void Start()
         {
-            _cityGates = GetComponent<CityGates>();
-            healthPointsHolder.text = _cityGates.CityGatesHealthPoints.ToString();
+            topHealthBar.fillAmount = 1f;
         }
         
     }

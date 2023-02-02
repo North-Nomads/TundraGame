@@ -1,58 +1,79 @@
 using System;
-using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using City;
 using Mobs.MobsBehaviour;
 using UnityEngine;
 
 namespace Mobs
 {
+    /// <summary>
+    /// Spawns mobs and manages waves
+    /// </summary>
     public class MobPortal : MonoBehaviour
     {
-        [SerializeField] private Transform gates;
-        [SerializeField] private MobWave[] mobWaves;
+        [SerializeField] private CityGates gates;
         [SerializeField] private Transform mobSpawner;
-        [SerializeField] private float secondsUntilNextWave;
-        [SerializeField] private float secondsBetweenMobSpawn;
-        public int _mobAmountOnWave;
+        [SerializeField] private MobWave[] mobWaves;
         
-        private void Update()
+        private MobWave _currentMobWave;
+        private List<MobBehaviour> _allWaveMobs;
+        private int _currentMobWaveIndex;
+        private int _currentMobIndex;
+        
+        public int WavesAmount { get; private set; } 
+        public int MobsLeftThisWave { get; private set; }
+        private int MobsTotalCountOnWave { get; set; }
+        public bool IsInstantiated { get; private set; }
+
+        public int TotalWaveMobQuantity => _currentMobWave.MobProperties.Sum(x => x.MobQuantity); 
+        
+        private void Start()
         {
-            if (Input.GetKeyDown(KeyCode.B))
-                StartWavesOfMobs();
-        }
-        public void DecreaseMobsCountByOne()
-        {
-            _mobAmountOnWave--;
-        }
-        public void StartWavesOfMobs()
-        {
-            StartCoroutine(MakeWavesOfMobs());
+            _currentMobWaveIndex = 0;
+            _allWaveMobs = new List<MobBehaviour>();
+            WavesAmount = mobWaves.Length;
+            IsInstantiated = true;
+            Debug.Log($"WavesAmount: {WavesAmount}");
         }
 
-
-        IEnumerator MakeWavesOfMobs()
+        public void EquipNextWave()
         {
-            bool _firstWave = true;
-            foreach (var mobWave in mobWaves)
-            {
-                yield return new WaitUntil(() => _mobAmountOnWave == 0);
-                if (!_firstWave)
-                    yield return new WaitForSeconds(secondsUntilNextWave);
-                _firstWave = false;
-                foreach (var mobProperty in mobWave.MobProperties)
-                {
-                    for (int i = 0; i < mobProperty.MobQuantity; i++)
-                    {
-                        yield return new WaitForSeconds(secondsBetweenMobSpawn);
-                        _mobAmountOnWave++;
-                        var mob = Instantiate(mobProperty.Mob, mobSpawner.position, Quaternion.identity, mobSpawner.transform);
-                        mob.ExecuteOnMobSpawn(gates, this);
-                    }
-                }
-            }   
+            if (_currentMobWaveIndex >= mobWaves.Length)
+                return;
+            _allWaveMobs.Clear();
+            _currentMobIndex = 0;
+            
+            _currentMobWave = mobWaves[_currentMobWaveIndex];
+            foreach (var property in _currentMobWave.MobProperties)
+                for (int i = 0; i < property.MobQuantity; i++) 
+                    _allWaveMobs.Add(property.Mob);
+            
+            MobsLeftThisWave = _allWaveMobs.Count;
+            MobsTotalCountOnWave = MobsLeftThisWave;
+            
+            _currentMobWaveIndex++;
         }
-        
+
+        public void SpawnNextMob()
+        {
+            if (_currentMobIndex >= MobsTotalCountOnWave)
+                return;
+
+            var mobObject = _allWaveMobs[_currentMobIndex]; 
+            var mob = Instantiate(mobObject, mobSpawner.position, Quaternion.identity, mobSpawner.transform);
+            mob.ExecuteOnMobSpawn(gates.transform, this);
+            
+            _currentMobIndex++;
+        }
+
+        public void NotifyPortalOnMobDeath()
+        {
+            MobsLeftThisWave--;
+        }
+
         [Serializable]
-        class MobWave
+        private class MobWave
         {
             [SerializeField] private MobProperty[] mobProperties;
 
@@ -60,7 +81,7 @@ namespace Mobs
         }
 
         [Serializable]
-        class MobProperty
+        private class MobProperty
         {
             [SerializeField] private MobBehaviour mob;
             [SerializeField] private int mobQuantity;
