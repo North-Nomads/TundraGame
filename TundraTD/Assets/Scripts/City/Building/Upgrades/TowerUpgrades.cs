@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Spells;
+using UnityEngine;
 
 namespace City.Building.Upgrades
 {
@@ -27,8 +28,8 @@ namespace City.Building.Upgrades
             {
                 if (!(Activator.CreateInstance(upgradeClass) is IUpgrade upgrade))
                     throw new Exception("Upgrade is null");
-
-                var elementUpgrades = UpgradesMap[upgrade.Element]; 
+                
+                var elementUpgrades = UpgradesMap[upgrade.Element];
                 if (elementUpgrades[upgrade.RequiredLevel - 1, 0] is null)
                     elementUpgrades[upgrade.RequiredLevel - 1, 0] = upgrade;
                 else

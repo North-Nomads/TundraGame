@@ -1,7 +1,7 @@
 ﻿using Mobs.MobEffects;
-using UnityEngine;
-using System.Collections.Generic;
 using Spells;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Mobs.MobsBehaviour
 {
@@ -15,13 +15,21 @@ namespace Mobs.MobsBehaviour
         private MobPortal _mobPortal;
         private Transform _defaultDestinationPoint;
         private Transform _currentDestinationPoint;
-
+        
         protected List<Effect> CurrentEffects { get; } = new List<Effect>();
+        public Transform DefaultDestinationPoint { get; set; }
+
+        public Transform CurrentDestinationPoint
+        {
+            get => _currentDestinationPoint;
+            set => _currentDestinationPoint = value;
+        }
         protected MobPortal MobPortal 
         {
             get => _mobPortal;
             set => _mobPortal = value;
         }
+
         protected float TickTimer
         {
             get => _tickTimer;
@@ -37,24 +45,20 @@ namespace Mobs.MobsBehaviour
                 _tickTimer = value;
             }
         }
-        
-        public Transform DefaultDestinationPoint { get; protected set; }
-        public Transform CurrentDestinationPoint
-        {
-            get => _currentDestinationPoint;
-            set => _currentDestinationPoint = value;
-        }
-        public MobModel MobModel { get; protected set; }
-
 
         public abstract BasicElement MobBasicElement { get; }
         public abstract BasicElement MobCounterElement { get; }
         public abstract void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal);
         public abstract void MoveTowards(Vector3 point);
         public abstract void HandleIncomeDamage(float damage, BasicElement damageElement);
+
         public void AddReceivedEffects(IEnumerable<Effect> effectsToApply)
         {
-            CurrentEffects.AddRange(effectsToApply);
+            foreach (var effect in effectsToApply)
+            {
+                CurrentEffects.Add(effect);
+                effect.OnAttach(this);
+            }
         }
         
         public void KillThisMob()
@@ -71,17 +75,22 @@ namespace Mobs.MobsBehaviour
             }
         }
 
-        
         private void HandleAppliedEffects()
         {
             for (int i = 0; i < CurrentEffects.Count;)
             {
-                CurrentEffects[i].HandleTick(this);
+                var effect = CurrentEffects[i];
+                effect.HandleTick(this);
 
-                if (CurrentEffects[i].CurrentTicksAmount == CurrentEffects[i].MaxTicksAmount)
+                if (effect.CurrentTicksAmount == effect.MaxTicksAmount)
+                {
                     CurrentEffects.RemoveAt(i);
+                    effect.OnDetach(this);
+                }
                 else
+                {
                     i++;
+                }
             }
             foreach (var prefab in effectPrefabs)
                 if (prefab != null) prefab.SetActive(false);

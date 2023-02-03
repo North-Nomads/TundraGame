@@ -4,17 +4,17 @@ using UnityEngine;
 
 namespace City.Building.Upgrades.FireTowerUpgrades
 {
-    public class WaterEnemiesDamageUpgrade : IUpgrade
+    public class MeteorLandingReduction : IUpgrade
     {
         public BasicElement Element => BasicElement.Fire;
-        public int Price => 25;
-        public int RequiredLevel => 1;
-        public string UpgradeDescriptionText => "Increase damege on water mobs by 5%";
+        public int Price => 350;
+        public int RequiredLevel => 3;
+        public string UpgradeDescriptionText => "-2 seconds delay before meteorite impact";
         public Sprite Sprite => Resources.Load<Sprite>("UpgradeIcons/Arcanist1");
 
         public void ExecuteOnUpgradeBought()
         {
-            FirePool.DamageMultipliers[BasicElement.Water] += 0.05f;
+            FirePool.MeteorLandingReduction -= 2;
         }
     }
 }

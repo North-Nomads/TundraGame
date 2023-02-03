@@ -6,11 +6,10 @@ namespace City.Building
 {
     public class ElementalTowerUI : MonoBehaviour
     {
-        [SerializeField] private RectTransform[] upgradeLevels;
+        [SerializeField] private TowerUpgradeLevel[] upgradeLevels;
         [SerializeField] private Image[] upgradeLevelIndicators;
-        [SerializeField] private UpgradeCard rightUpgradeCard;
-        [SerializeField] private UpgradeCard leftUpgradeCard;
-        
+        [SerializeField] private Text allUpgradesBoughtPage;
+
         private ElementalTower _elementalTower;
         private Sprite _achievedLevelIndicator;
         private Sprite _unachievedLevelIndicator;
@@ -18,6 +17,7 @@ namespace City.Building
         private void Start()
         {
             gameObject.SetActive(false);
+            allUpgradesBoughtPage.gameObject.SetActive(false);
             _achievedLevelIndicator = Resources.Load<Sprite>("UpgradeIcons/Green");
             _unachievedLevelIndicator = Resources.Load<Sprite>("UpgradeIcons/White");
 
@@ -44,9 +44,14 @@ namespace City.Building
 
         public void UpdateUpgradesPage()
         {
-            upgradeLevels[_elementalTower.TowerUpgradeLevel - 1].gameObject.SetActive(true);
-            upgradeLevels[_elementalTower.TowerUpgradeLevel - 2].gameObject.SetActive(false);
-            upgradeLevelIndicators[_elementalTower.TowerUpgradeLevel - 2].sprite = _achievedLevelIndicator;
+            if (_elementalTower.TowerUpgradeLevel == upgradeLevels.Length)
+                allUpgradesBoughtPage.gameObject.SetActive(true);
+            else
+                upgradeLevels[_elementalTower.TowerUpgradeLevel].gameObject.SetActive(true);
+            
+            upgradeLevels[_elementalTower.TowerUpgradeLevel - 1].gameObject.SetActive(false);
+            upgradeLevelIndicators[_elementalTower.TowerUpgradeLevel - 1].sprite = _achievedLevelIndicator;
+            
         }
 
         public void LoadUpgradesInTowerMenu(IUpgrade[,] upgrades)
@@ -57,9 +62,9 @@ namespace City.Building
                 {
                     UpgradeCard card;
                     if ((x * upgrades.GetLength(0) + y) % 2 == 0)
-                        card = rightUpgradeCard;
+                        card = upgradeLevels[x].RightCard;
                     else
-                        card = leftUpgradeCard;
+                        card = upgradeLevels[x].LeftCard;
                     
                     var upgrade = upgrades[x, y];
                     

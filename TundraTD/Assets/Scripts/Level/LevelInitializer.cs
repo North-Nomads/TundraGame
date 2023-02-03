@@ -1,5 +1,6 @@
 using City;
 using City.Building;
+using Spells;
 using UnityEngine;
 
 namespace Level
@@ -15,6 +16,7 @@ namespace Level
         [SerializeField] private CityGatesUI influencePointsHolder;
         [SerializeField] private TowerPlacementSlot[] placementSlots; 
         [SerializeField] private ElementalTower[] elementalTowerPrefabs;
+        [SerializeField] private GameObject[] spellPrefabs;
 
         private void Start()
         {
@@ -30,6 +32,8 @@ namespace Level
             Architect.MinPointsAward = minWaveAward;
             Architect.MaxPointsAward = maxWaveAward;
 
+            Grimoire.SpellPrefabs = spellPrefabs;
+            
             // DEBUG: Temporary giving 100 points
             Architect.DEBUG_GetStartPoints();
         }

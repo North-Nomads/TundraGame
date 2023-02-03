@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Camera
+namespace Level
 {
     /// <summary>
     ///	Controls: zoom & movement of the camera

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:TundraTD/Assets/Prefabs/Mobs/UI.meta
 guid: 326f1df62ca4bc142809c8ac62aa044e
+========
+guid: e102092944e20c743964514c90df8854
+>>>>>>>> mobs:TundraTD/Assets/Scripts/UI.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
