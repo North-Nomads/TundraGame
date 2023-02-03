@@ -1,5 +1,4 @@
 ﻿using City.Building.ElementPools;
-using Mobs;
 using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
 using System.Collections;
@@ -18,11 +17,12 @@ namespace Spells.SpellClasses
         private float currentHitTime;
         private Vector3 target;
         private static readonly Collider[] availableTargetsPool = new Collider[1000];
+        private UnityEngine.Camera _mainCamera;
 
         [SerializeField] private GameObject explosionPrefab;
         [SerializeField] private GameObject lavaPrefab;
         [SerializeField] private float explosionDelay;
-
+        
         /// <summary>
         /// The radius of the hit area
         /// </summary>
@@ -58,16 +58,22 @@ namespace Spells.SpellClasses
         [IncreasableProperty(BasicElement.Lightning, 2f)]
         public float SlownessDuration { get; set; }
 
+        private void Start()
+        {
+            _mainCamera = UnityEngine.Camera.main;
+        }
+
         public override void ExecuteSpell()
         {
             Debug.Log("Fireball has been executed!");
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out var hit))
+            if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out var hit))
             {
                 target = hit.point;
                 var reflect = Vector3.Reflect(Quaternion.Euler(0, -90, 0) * Camera.main.transform.forward, hit.normal).normalized;
                 transform.position = hit.point + (reflect * flyDistance);
                 transform.forward = target;
                 HitDamageRadius *= FirePool.MeteorRadiusMultiplier;
+                
             }
         }
 
@@ -80,7 +86,7 @@ namespace Spells.SpellClasses
             if (currentHitTime > HitDelay)
             {
                 int hits = Physics.OverlapSphereNonAlloc(transform.position, HitDamageRadius, availableTargetsPool, MobsLayerMask);
-                var effects = new List<Effect>()
+                var effects = new List<Effect>
                 {
                     new MeteoriteBurningEffect(BurnDamage * FirePool.AfterburnDamageMultiplier, (int)BurnDuration)
                 };

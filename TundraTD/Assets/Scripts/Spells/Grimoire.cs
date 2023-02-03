@@ -12,9 +12,10 @@ namespace Spells
     public static class Grimoire
     {
         private static readonly Dictionary<BasicElement, Type> _spellTypes;
-
+        
+        // HACK: temporary solution to avoid errors
         public static GameObject[] SpellPrefabs { get; set; } 
-
+        
         static Grimoire()
         {
             _spellTypes = (from type in Assembly.GetExecutingAssembly().GetTypes()

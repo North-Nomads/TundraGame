@@ -10,19 +10,24 @@ namespace Mobs.MobsBehaviour
     /// </summary>
     public abstract class MobBehaviour : MonoBehaviour
     {
+        [SerializeField] private GameObject[] effectPrefabs;
         private float _tickTimer;
+        private MobPortal _mobPortal;
         private Transform _defaultDestinationPoint;
         private Transform _currentDestinationPoint;
-
-        [SerializeField] private GameObject[] effectPrefabs;
-
+        
         protected List<Effect> CurrentEffects { get; } = new List<Effect>();
-        public Transform DefaultDestinationPoint { get; protected set; }
+        public Transform DefaultDestinationPoint { get; set; }
 
         public Transform CurrentDestinationPoint
         {
             get => _currentDestinationPoint;
             set => _currentDestinationPoint = value;
+        }
+        protected MobPortal MobPortal 
+        {
+            get => _mobPortal;
+            set => _mobPortal = value;
         }
 
         protected float TickTimer
@@ -43,6 +48,9 @@ namespace Mobs.MobsBehaviour
 
         public abstract BasicElement MobBasicElement { get; }
         public abstract BasicElement MobCounterElement { get; }
+        public abstract void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal);
+        public abstract void MoveTowards(Vector3 point);
+        public abstract void HandleIncomeDamage(float damage, BasicElement damageElement);
 
         public void AddReceivedEffects(IEnumerable<Effect> effectsToApply)
         {
@@ -52,12 +60,12 @@ namespace Mobs.MobsBehaviour
                 effect.OnAttach(this);
             }
         }
-
-        public abstract void MoveTowards(Vector3 point);
-
-        public abstract void HandleIncomeDamage(float damage, BasicElement damageElement);
-
-        public abstract void KillThisMob();
+        
+        public void KillThisMob()
+        {
+            Destroy(gameObject);
+            _mobPortal.NotifyPortalOnMobDeath();
+        }
 
         protected virtual void Start()
         {
@@ -92,7 +100,5 @@ namespace Mobs.MobsBehaviour
                 if (effectPrefabs[effectIndex] != null) effectPrefabs[effectIndex].SetActive(true);
             }
         }
-
-        public abstract void ExecuteOnMobSpawn(Transform gates);
     }
 }

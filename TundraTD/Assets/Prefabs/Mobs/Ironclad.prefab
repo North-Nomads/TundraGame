@@ -130,6 +130,7 @@ MonoBehaviour:
   maxMobHealth: 20
   defaultMobDamage: 5
   defaultMobSpeed: 5
+  mobWaveWeight: 10
 --- !u!195 &4000996451007599638
 NavMeshAgent:
   m_ObjectHideFlags: 0
