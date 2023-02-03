@@ -87,7 +87,6 @@ namespace Spells.SpellClasses
             // Performs flight towards target.
             do
             {
-                Debug.Log("Moving towards target");
                 transform.position += Vector3.Normalize(_target - transform.position) *
                                       (Time.deltaTime * FlyDistance / (HitDelay - FirePool.MeteorLandingReduction));
                 yield return new WaitForEndOfFrame();
