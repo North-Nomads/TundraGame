@@ -10,18 +10,19 @@ namespace Spells.SpellClasses
     [Spell(BasicElement.Fire, "Meteor", "Casts a fire meteor on heads of your enemies.")]
     public class FireballSpell : MagicSpell
     {
+        private const float FlyDistance = 30;
         private const float HitDelay = 0.5f;
         private const int MobsLayerMask = 1 << 8;
         private const int LavaLifetime = 5;
-        private readonly float flyDistance = 30;
-        private float currentHitTime;
-        private Vector3 target;
-        private static readonly Collider[] availableTargetsPool = new Collider[1000];
-        private UnityEngine.Camera _mainCamera;
-
+        
+        private static readonly Collider[] AvailableTargetsPool = new Collider[1000];
+        
         [SerializeField] private GameObject explosionPrefab;
         [SerializeField] private GameObject lavaPrefab;
         [SerializeField] private float explosionDelay;
+        private float _currentHitTime;
+        private Vector3 _target;
+        //private Camera _mainCamera;
         
         /// <summary>
         /// The radius of the hit area
@@ -60,18 +61,18 @@ namespace Spells.SpellClasses
 
         private void Start()
         {
-            _mainCamera = UnityEngine.Camera.main;
+            //_mainCamera = Camera.main;
         }
 
         public override void ExecuteSpell()
         {
             Debug.Log("Fireball has been executed!");
-            if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out var hit))
+            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out var hit))
             {
-                target = hit.point;
+                _target = hit.point;
                 var reflect = Vector3.Reflect(Quaternion.Euler(0, -90, 0) * Camera.main.transform.forward, hit.normal).normalized;
-                transform.position = hit.point + (reflect * flyDistance);
-                transform.forward = target;
+                transform.position = hit.point + (reflect * FlyDistance);
+                transform.forward = _target;
                 HitDamageRadius *= FirePool.MeteorRadiusMultiplier;
                 
             }
@@ -80,12 +81,12 @@ namespace Spells.SpellClasses
         private void Update()
         {
             // Performs flight towards target.
-            transform.position += Vector3.Normalize(target - transform.position) * (Time.deltaTime * flyDistance / (HitDelay - FirePool.MeteorLandingReduction));
+            transform.position += Vector3.Normalize(_target - transform.position) * (Time.deltaTime * FlyDistance / (HitDelay - FirePool.MeteorLandingReduction));
 
-            currentHitTime += Time.deltaTime;
-            if (currentHitTime > HitDelay)
+            _currentHitTime += Time.deltaTime;
+            if (_currentHitTime > HitDelay)
             {
-                int hits = Physics.OverlapSphereNonAlloc(transform.position, HitDamageRadius, availableTargetsPool, MobsLayerMask);
+                int hits = Physics.OverlapSphereNonAlloc(transform.position, HitDamageRadius, AvailableTargetsPool, MobsLayerMask);
                 var effects = new List<Effect>
                 {
                     new MeteoriteBurningEffect(BurnDamage * FirePool.AfterburnDamageMultiplier, (int)BurnDuration)
@@ -96,7 +97,7 @@ namespace Spells.SpellClasses
                 }
                 for (int i = 0; i < hits; i++)
                 {
-                    var target = availableTargetsPool[i];
+                    var target = AvailableTargetsPool[i];
                     var mob = target.GetComponent<MobBehaviour>();
                     float damage = HitDamageValue * Vector3.Distance(target.transform.position, transform.position) / HitDamageRadius;
                     Debug.Log($"Target {target}, Damage: {damage}");
@@ -104,7 +105,7 @@ namespace Spells.SpellClasses
                     mob.AddReceivedEffects(effects);
                     if (FirePool.HasLandingImpulse)
                     {
-                        mob.GetComponent<Rigidbody>().AddExplosionForce(damage, this.target, HitDamageRadius);
+                        mob.GetComponent<Rigidbody>().AddExplosionForce(damage, this._target, HitDamageRadius);
                     }
                 }
                 StartCoroutine(RunExplosionAnimation());
@@ -118,14 +119,14 @@ namespace Spells.SpellClasses
         {
             var lava = Instantiate(lavaPrefab);
             lava.transform.parent = transform;
-            lava.transform.position = target;
+            lava.transform.position = _target;
             lava.transform.localScale = new Vector3(HitDamageRadius, 1, HitDamageRadius);
             for (int i = 0; i < LavaLifetime; i++)
             {
-                int hits = Physics.OverlapBoxNonAlloc(target, new Vector3(HitDamageRadius, 1, HitDamageRadius), availableTargetsPool);
+                int hits = Physics.OverlapBoxNonAlloc(_target, new Vector3(HitDamageRadius, 1, HitDamageRadius), AvailableTargetsPool);
                 for (int j = 0; j < hits; j++)
                 {
-                    var target = availableTargetsPool[j];
+                    var target = AvailableTargetsPool[j];
                     var mob = target.GetComponent<MobBehaviour>();
                     mob.HandleIncomeDamage(BurnDamage * FirePool.AfterburnDamageMultiplier, BasicElement.Fire);
                 }
@@ -137,7 +138,7 @@ namespace Spells.SpellClasses
         private IEnumerator RunExplosionAnimation()
         {
             var obj = Instantiate(explosionPrefab);
-            obj.transform.position = target;
+            obj.transform.position = _target;
             obj.transform.localScale = new Vector3(5, 5, 5);
             yield return new WaitForSecondsRealtime(explosionDelay);
             Destroy(obj);
