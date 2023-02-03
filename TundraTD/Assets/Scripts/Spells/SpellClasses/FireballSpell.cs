@@ -1,9 +1,11 @@
-﻿using City.Building.ElementPools;
+﻿using System;
+using City.Building.ElementPools;
 using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Spells.SpellClasses
 {
@@ -16,12 +18,14 @@ namespace Spells.SpellClasses
         private const int LavaLifetime = 5;
         
         private static readonly Collider[] AvailableTargetsPool = new Collider[1000];
-        
+
+        [SerializeField] private MeshRenderer meteoriteMesh;
         [SerializeField] private GameObject explosionPrefab;
         [SerializeField] private GameObject lavaPrefab;
         [SerializeField] private float explosionDelay;
         private float _currentHitTime;
         private Vector3 _target;
+        private bool _isLanded;
         //private Camera _mainCamera;
         
         /// <summary>
@@ -74,51 +78,57 @@ namespace Spells.SpellClasses
                 transform.position = hit.point + (reflect * FlyDistance);
                 transform.forward = _target;
                 HitDamageRadius *= FirePool.MeteorRadiusMultiplier;
-                
+                StartCoroutine(LaunchFireball());
             }
         }
 
-        private void Update()
+        private IEnumerator LaunchFireball()
         {
             // Performs flight towards target.
-            transform.position += Vector3.Normalize(_target - transform.position) * (Time.deltaTime * FlyDistance / (HitDelay - FirePool.MeteorLandingReduction));
-
-            _currentHitTime += Time.deltaTime;
-            if (_currentHitTime > HitDelay)
+            do
             {
-                int hits = Physics.OverlapSphereNonAlloc(transform.position, HitDamageRadius, AvailableTargetsPool, MobsLayerMask);
-                var effects = new List<Effect>
+                Debug.Log("Moving towards target");
+                transform.position += Vector3.Normalize(_target - transform.position) *
+                                      (Time.deltaTime * FlyDistance / (HitDelay - FirePool.MeteorLandingReduction));
+                yield return new WaitForEndOfFrame();
+                _currentHitTime += Time.deltaTime;
+            } while (_currentHitTime <= HitDelay);
+            
+            // Register hit effects on mobs
+            int hits = Physics.OverlapSphereNonAlloc(transform.position, HitDamageRadius, AvailableTargetsPool, MobsLayerMask);
+            var effects = new List<Effect>
+            {
+                new MeteoriteBurningEffect(BurnDamage * FirePool.AfterburnDamageMultiplier, (int)BurnDuration)
+            };
+            
+            if (FirePool.HasLandingStun)
+                effects.Add(new StunEffect()); // TODO: implement stun effect.
+            
+            for (int i = 0; i < hits; i++)
+            {
+                var target = AvailableTargetsPool[i];
+                var mob = target.GetComponent<MobBehaviour>();
+                float damage = HitDamageValue * Vector3.Distance(target.transform.position, transform.position) / HitDamageRadius;
+                
+                Debug.Log($"Target {target}, Damage: {damage}");
+                mob.HandleIncomeDamage(damage * FirePool.DamageMultipliers[mob.MobBasicElement], BasicElement.Fire);
+                mob.AddReceivedEffects(effects);
+                if (FirePool.HasLandingImpulse)
                 {
-                    new MeteoriteBurningEffect(BurnDamage * FirePool.AfterburnDamageMultiplier, (int)BurnDuration)
-                };
-                if (FirePool.HasLandingStun)
-                {
-                    effects.Add(new StunEffect());// TODO: implement stun effect.
+                    mob.GetComponent<Rigidbody>().AddExplosionForce(damage, _target, HitDamageRadius);
                 }
-                for (int i = 0; i < hits; i++)
-                {
-                    var target = AvailableTargetsPool[i];
-                    var mob = target.GetComponent<MobBehaviour>();
-                    float damage = HitDamageValue * Vector3.Distance(target.transform.position, transform.position) / HitDamageRadius;
-                    Debug.Log($"Target {target}, Damage: {damage}");
-                    mob.HandleIncomeDamage(damage * FirePool.DamageMultipliers[mob.MobBasicElement], BasicElement.Fire);
-                    mob.AddReceivedEffects(effects);
-                    if (FirePool.HasLandingImpulse)
-                    {
-                        mob.GetComponent<Rigidbody>().AddExplosionForce(damage, this._target, HitDamageRadius);
-                    }
-                }
-                StartCoroutine(RunExplosionAnimation());
-                if (FirePool.HasLandingLavaPool)
-                    StartCoroutine(RunLavaPool());
-                gameObject.SetActive(false);
             }
+
+            // Aftershock animations & stuff
+            StartCoroutine(RunExplosionAnimation());
+            if (FirePool.HasLandingLavaPool)
+                StartCoroutine(RunLavaPool());
+            meteoriteMesh.enabled = false;
         }
 
         private IEnumerator RunLavaPool()
         {
-            var lava = Instantiate(lavaPrefab);
-            lava.transform.parent = transform;
+            var lava = Instantiate(lavaPrefab, transform, true);
             lava.transform.position = _target;
             lava.transform.localScale = new Vector3(HitDamageRadius, 1, HitDamageRadius);
             for (int i = 0; i < LavaLifetime; i++)
@@ -137,12 +147,20 @@ namespace Spells.SpellClasses
 
         private IEnumerator RunExplosionAnimation()
         {
-            var obj = Instantiate(explosionPrefab);
+            var obj = Instantiate(explosionPrefab, transform);
+            DisableEmissionOnChildren();
             obj.transform.position = _target;
             obj.transform.localScale = new Vector3(5, 5, 5);
             yield return new WaitForSecondsRealtime(explosionDelay);
-            Destroy(obj);
             Destroy(gameObject);
+        }
+
+        // харчок
+        #pragma warning disable CS0618
+        private void DisableEmissionOnChildren()
+        {
+            foreach (var system in meteoriteMesh.GetComponentsInChildren<ParticleSystem>())
+                system.enableEmission = false;
         }
 
         private void OnDrawGizmosSelected()
