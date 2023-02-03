@@ -1,8 +1,8 @@
 ---
 name: Bug report
 about: Отчет о баге
-title: "[BUG] "
-labels: bug
+title: "[BUG]"
+labels: [BUG]
 assignees: ''
 
 ---
@@ -10,7 +10,7 @@ assignees: ''
 **Описание бага**
 Описание того, что происходит в баге
 
-**To Reproduce**
+**Воспроизведение**
 Шаги для воспроизведения бага:
 1. ...
 2. ...
