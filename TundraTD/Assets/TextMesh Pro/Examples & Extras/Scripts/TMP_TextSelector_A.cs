@@ -10,7 +10,7 @@ namespace TMPro.Examples
     {
         private TextMeshPro m_TextMeshPro;
 
-        private Camera m_Camera;
+        private UnityEngine.Camera m_Camera;
 
         private bool m_isHoveringObject;
         private int m_selectedLink = -1;
@@ -20,7 +20,7 @@ namespace TMPro.Examples
         void Awake()
         {
             m_TextMeshPro = gameObject.GetComponent<TextMeshPro>();
-            m_Camera = Camera.main;
+            m_Camera = UnityEngine.Camera.main;
 
             // Force generation of the text object so we have valid data to work with. This is needed since LateUpdate() will be called before the text object has a chance to generated when entering play mode.
             m_TextMeshPro.ForceMeshUpdate();
