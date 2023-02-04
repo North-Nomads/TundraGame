@@ -8,11 +8,14 @@ using UnityEngine.UI;
 
 namespace UI.MagicScreen
 {
-    public class UpperButton : MonoBehaviour
+    /// <summary>
+    /// A button that shows a part of player's current deck 
+    /// </summary>
+    public class DeckButton : MonoBehaviour
     {
         [SerializeField] private UpperButtonElements buttonsHolder;
 
-        private Sprite startIcon;
+        private Sprite _startIcon;
 
         public BasicElement Element { get; set; }
 
@@ -21,7 +24,7 @@ namespace UI.MagicScreen
         private void Start()
         {
             ElementIcon = GetComponent<Image>();
-            startIcon = ElementIcon.sprite;
+            _startIcon = ElementIcon.sprite;
         }
 
         public void OnButtonClick()
@@ -33,16 +36,16 @@ namespace UI.MagicScreen
             }
             else
             {
-                var NextButton = buttonsHolder.ElementScripts[index + 1];
-                ElementIcon.sprite = NextButton.ElementIcon.sprite;
-                Element = NextButton.Element;
-                NextButton.OnButtonClick();
+                var nextButton = buttonsHolder.ElementScripts[index + 1];
+                ElementIcon.sprite = nextButton.ElementIcon.sprite;
+                Element = nextButton.Element;
+                nextButton.OnButtonClick();
             }
         }
 
         public void Clear()
         {
-            ElementIcon.sprite = startIcon;
+            ElementIcon.sprite = _startIcon;
             Element = BasicElement.None;
         }
 
