@@ -17,6 +17,7 @@ namespace UI.MagicScreen
             for (int i = 0; i < 5; i++)
             {
                 HoldSpells[i] = buttonsHolder.ElementScripts[i].Element;
+                buttonsHolder.ElementScripts[i].Clear();
             }
             Grimoire.TurnElementsIntoSpell(HoldSpells);
         }
