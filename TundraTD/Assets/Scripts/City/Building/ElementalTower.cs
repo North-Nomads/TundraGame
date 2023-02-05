@@ -48,8 +48,8 @@ namespace City.Building
             
             upgrade.ExecuteOnUpgradeBought();
             Architect.ProceedUpgradePurchase(upgrade);
-            _towerUpgradeLevel++;
             _elementalTowerUI.UpdateUpgradesPage();            
+            _towerUpgradeLevel++;
         }
     }
 }

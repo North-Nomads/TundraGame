@@ -17,6 +17,10 @@ namespace Mobs.MobEffects
         public abstract EffectCode Code { get; }
 
         public abstract void HandleTick(MobBehaviour mob);
+
+        public virtual void OnAttach(MobBehaviour mob) { }
+
+        public virtual void OnDetach(MobBehaviour mob) { }
     }
 
     /// <summary>
@@ -33,5 +37,9 @@ namespace Mobs.MobEffects
         /// Represents the meteorite burning effect.
         /// </summary>
         MeteoriteBurning = 1 << 0,
+        /// <summary>
+        /// Represents the stun effect.
+        /// </summary>
+        Stun = 1 << 1,
     }
 }
