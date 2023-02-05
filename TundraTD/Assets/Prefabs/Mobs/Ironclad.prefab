@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e88288a9ff9e96844800a3a94fc6b435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mobSprite: {fileID: 21300076, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
   maxMobHealth: 20
   defaultMobDamage: 5
   defaultMobSpeed: 5
@@ -169,6 +170,7 @@ MonoBehaviour:
   - {fileID: 5558122282592001586}
   - {fileID: 0}
   - {fileID: 0}
+  mobModel: {fileID: 4000996451007599640}
 --- !u!1 &7985978790672266077
 GameObject:
   m_ObjectHideFlags: 0
