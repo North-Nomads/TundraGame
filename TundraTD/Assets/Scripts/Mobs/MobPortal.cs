@@ -59,15 +59,20 @@ namespace Mobs
             _allWaveMobs.Clear();
             _currentMobIndex = 0;
 
-            _currentMobWave = mobWaves[_currentMobWaveIndex];
             foreach (var property in _currentMobWave.MobProperties)
                 for (int i = 0; i < property.MobQuantity; i++)
                     _allWaveMobs.Add(property.Mob);
 
             MobsLeftThisWave = _allWaveMobs.Count;
             MobsTotalCountOnWave = MobsLeftThisWave;
+        }
 
+        public void OnWaveEnded()
+        {
             _currentMobWaveIndex++;
+            if (_currentMobWaveIndex >= mobWaves.Length)
+                return;
+            _currentMobWave = mobWaves[_currentMobWaveIndex];
         }
 
         public void SpawnNextMob()

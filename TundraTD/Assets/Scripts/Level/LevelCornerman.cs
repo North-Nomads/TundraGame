@@ -48,7 +48,10 @@ namespace Level
                     yield return StartMobSpawning(mobPortal);
                 }
                 yield return new WaitUntil(() => mobPortals.Sum(x => x.MobsLeftThisWave) == 0);
-
+                
+                foreach (var mobPortal in mobPortals) 
+                    mobPortal.OnWaveEnded();
+                
                 if (i != _maxWavesAmongPortals - 1)
                     yield return ShowTimerBetweenWaves();
             }

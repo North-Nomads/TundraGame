@@ -9,14 +9,23 @@ public class PortalInfoCanvas : MonoBehaviour
     private void Start()
     {
         _mobCards = mobCardsContent.GetComponentsInChildren<Image>();
+        gameObject.SetActive(false);
     }
 
     public void LoadImagesInCards(Sprite[] images)
     {
         for (int i = 0; i < _mobCards.Length; i++)
         {
-            print(images);
-            _mobCards[i].sprite = images[i];
+            if (images[i] is null)
+            {
+                _mobCards[i].gameObject.SetActive(false);
+            }
+            else
+            {
+                _mobCards[i].gameObject.SetActive(true);
+                _mobCards[i].sprite = images[i];
+            }
+                
         }
     }
 }
