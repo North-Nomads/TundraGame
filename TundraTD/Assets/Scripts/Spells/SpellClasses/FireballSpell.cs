@@ -1,14 +1,15 @@
-﻿using System;
-using City.Building.ElementPools;
+﻿using City.Building.ElementPools;
 using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Spells.SpellClasses
 {
+    /// <summary>
+    /// Fireball (or meteorite) spell. Manages the behaviour of the spell on execution and until it's destruction
+    /// </summary>
     [Spell(BasicElement.Fire, "Meteor", "Casts a fire meteor on heads of your enemies.")]
     public class FireballSpell : MagicSpell
     {
@@ -62,11 +63,6 @@ namespace Spells.SpellClasses
         /// </summary>
         [IncreasableProperty(BasicElement.Lightning, 2f)]
         public float SlownessDuration { get; set; }
-
-        private void Start()
-        {
-            //_mainCamera = Camera.main;
-        }
 
         public override void ExecuteSpell()
         {

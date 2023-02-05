@@ -17,6 +17,7 @@ namespace Level
         [SerializeField] private TowerPlacementSlot[] placementSlots; 
         [SerializeField] private ElementalTower[] elementalTowerPrefabs;
         [SerializeField] private GameObject[] spellPrefabs;
+        [SerializeField] private LaunchWaveButton LaunchWaveButton;
 
         private void Start()
         {

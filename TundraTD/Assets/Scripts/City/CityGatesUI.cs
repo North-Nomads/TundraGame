@@ -12,6 +12,7 @@ namespace City
     {
         [SerializeField] private Image topHealthBar;
         [SerializeField] private Text influencePointsHolder;
+
         private void Start()
         {
             if (topHealthBar.sprite is null)
@@ -28,7 +29,6 @@ namespace City
         {
             topHealthBar.fillAmount = percent;
         }
-        
         
     }
 }
