@@ -4,7 +4,6 @@ using System.Linq;
 using City;
 using Mobs.MobsBehaviour;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Mobs
 {
@@ -13,16 +12,10 @@ namespace Mobs
     /// </summary>
     public class MobPortal : MonoBehaviour
     {
-        public PortalInfoCanvas InfoPanel;
-
-        [SerializeField]
-        private CityGates gates;
-
-        [SerializeField]
-        private Transform mobSpawner;
-
-        [SerializeField]
-        private MobWave[] mobWaves;
+        [SerializeField] private PortalInfoCanvas infoPanel;
+        [SerializeField] private CityGates gates;
+        [SerializeField] private Transform mobSpawner;
+        [SerializeField] private MobWave[] mobWaves;
 
         private MobWave _currentMobWave;
         private List<MobBehaviour> _allWaveMobs;
@@ -39,6 +32,7 @@ namespace Mobs
         private void Start()
         {
             _currentMobWaveIndex = 0;
+            _currentMobWave = mobWaves[_currentMobWaveIndex];
             _allWaveMobs = new List<MobBehaviour>();
             WavesAmount = mobWaves.Length;
             IsInstantiated = true;
@@ -54,8 +48,8 @@ namespace Mobs
                 mBox[count] = mob.Mob.MobModel.MobSprite;
                 count++;
             }
-            InfoPanel.gameObject.SetActive(true);
-            InfoPanel.LoadImagesInCards(mBox);
+            infoPanel.gameObject.SetActive(true);
+            infoPanel.LoadImagesInCards(mBox);
         }
 
         public void EquipNextWave()
@@ -110,11 +104,8 @@ namespace Mobs
         [Serializable]
         private class MobProperty
         {
-            [SerializeField]
-            private MobBehaviour mob;
-
-            [SerializeField]
-            private int mobQuantity;
+            [SerializeField] private MobBehaviour mob;
+            [SerializeField] private int mobQuantity;
 
             public MobBehaviour Mob => mob;
             public int MobQuantity => mobQuantity;

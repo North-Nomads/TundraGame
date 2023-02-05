@@ -2,25 +2,26 @@
 using Spells;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Mobs.MobsBehaviour
 {
     /// <summary>
     /// An abstract class that represents the basic behavior of every mob on the map
     /// </summary>
+    [RequireComponent(typeof(MobModel))]
     public abstract class MobBehaviour : MonoBehaviour
     {
-        [SerializeField]
-        private GameObject[] effectPrefabs;
+        [SerializeField] private GameObject[] effectPrefabs;
+        [SerializeField] private MobModel mobModel;
         private float _tickTimer;
         private MobPortal _mobPortal;
-        private MobModel _mobModel;
         private Transform _defaultDestinationPoint;
         private Transform _currentDestinationPoint;
         protected List<Effect> CurrentEffects { get; } = new List<Effect>();
 
         public Transform DefaultDestinationPoint { get; set; }
-        public MobModel MobModel => _mobModel;
+        public MobModel MobModel => mobModel;
         public Transform CurrentDestinationPoint
         {
             get => _currentDestinationPoint;
@@ -71,7 +72,7 @@ namespace Mobs.MobsBehaviour
 
         protected virtual void Start()
         {
-            _mobModel = GetComponent<MobModel>();
+            mobModel = GetComponent<MobModel>();
             foreach (var prefab in effectPrefabs)
             {
                 if (prefab != null)

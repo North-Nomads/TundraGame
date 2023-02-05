@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43667555, g: 0.48427182, b: 0.5645241, a: 1}
+  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -131,6 +131,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &131339575 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3047909844035614188, guid: 37cbc575cd4aa10498755ec408447c45,
+    type: 3}
+  m_PrefabInstance: {fileID: 3047909844571616806}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &207745512
@@ -870,6 +882,25 @@ Transform:
   m_Father: {fileID: 882465138}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!1 &1575486446 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3047909843090823640, guid: 37cbc575cd4aa10498755ec408447c45,
+    type: 3}
+  m_PrefabInstance: {fileID: 3047909844571616806}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1575486447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1575486446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26db2e45b6c90384e9d0a09d308389d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mobCardsContent: {fileID: 131339575}
 --- !u!224 &1773886432 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6898345882200444540, guid: 79fe965c09f9a5b4c893997b57de3098,
@@ -1779,6 +1810,11 @@ PrefabInstance:
       propertyPath: InfoPanel
       value: 
       objectReference: {fileID: 2042834946}
+    - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
+        type: 3}
+      propertyPath: infoPanel
+      value: 
+      objectReference: {fileID: 1575486447}
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
       propertyPath: mobWaves.Array.size

@@ -162,6 +162,7 @@ MonoBehaviour:
   - {fileID: 6446106215775433426}
   - {fileID: 0}
   - {fileID: 0}
+  mobModel: {fileID: 4000996451007599640}
 --- !u!114 &4000996451007599640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,7 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e88288a9ff9e96844800a3a94fc6b435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mobSprite: {fileID: 21300000, guid: ea911d01968370043967fd769fe56573, type: 3}
+  mobSprite: {fileID: 21300062, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
   maxMobHealth: 100
   defaultMobDamage: 5
   defaultMobSpeed: 5

@@ -1,17 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class PortalInfoCanvas : MonoBehaviour
 {
-    public Image[] MobCards;
+    [SerializeField] private GridLayoutGroup mobCardsContent;
+    private Image[] _mobCards;
+    
+    private void Start()
+    {
+        _mobCards = mobCardsContent.GetComponentsInChildren<Image>();
+    }
 
     public void LoadImagesInCards(Sprite[] images)
     {
-        for (int i = 0; i < MobCards.Length; i++)
+        for (int i = 0; i < _mobCards.Length; i++)
         {
-            MobCards[i].sprite = images[i];
+            print(images);
+            _mobCards[i].sprite = images[i];
         }
     }
 }
