@@ -10,21 +10,23 @@ namespace Mobs.MobsBehaviour
     /// </summary>
     public abstract class MobBehaviour : MonoBehaviour
     {
-        [SerializeField] private GameObject[] effectPrefabs;
+        [SerializeField]
+        private GameObject[] effectPrefabs;
         private float _tickTimer;
         private MobPortal _mobPortal;
+        private MobModel _mobModel;
         private Transform _defaultDestinationPoint;
         private Transform _currentDestinationPoint;
-        
         protected List<Effect> CurrentEffects { get; } = new List<Effect>();
-        public Transform DefaultDestinationPoint { get; set; }
 
+        public Transform DefaultDestinationPoint { get; set; }
+        public MobModel MobModel => _mobModel;
         public Transform CurrentDestinationPoint
         {
             get => _currentDestinationPoint;
             set => _currentDestinationPoint = value;
         }
-        protected MobPortal MobPortal 
+        protected MobPortal MobPortal
         {
             get => _mobPortal;
             set => _mobPortal = value;
@@ -60,7 +62,7 @@ namespace Mobs.MobsBehaviour
                 effect.OnAttach(this);
             }
         }
-        
+
         public void KillThisMob()
         {
             Destroy(gameObject);
@@ -69,15 +71,17 @@ namespace Mobs.MobsBehaviour
 
         protected virtual void Start()
         {
+            _mobModel = GetComponent<MobModel>();
             foreach (var prefab in effectPrefabs)
             {
-                if (prefab != null) prefab.SetActive(false);
+                if (prefab != null)
+                    prefab.SetActive(false);
             }
         }
 
         private void HandleAppliedEffects()
         {
-            for (int i = 0; i < CurrentEffects.Count;)
+            for (int i = 0; i < CurrentEffects.Count; )
             {
                 var effect = CurrentEffects[i];
                 effect.HandleTick(this);
@@ -93,11 +97,13 @@ namespace Mobs.MobsBehaviour
                 }
             }
             foreach (var prefab in effectPrefabs)
-                if (prefab != null) prefab.SetActive(false);
+                if (prefab != null)
+                    prefab.SetActive(false);
             foreach (var effect in CurrentEffects)
             {
                 int effectIndex = (int)Mathf.Log((int)effect.Code, 2);
-                if (effectPrefabs[effectIndex] != null) effectPrefabs[effectIndex].SetActive(true);
+                if (effectPrefabs[effectIndex] != null)
+                    effectPrefabs[effectIndex].SetActive(true);
             }
         }
     }

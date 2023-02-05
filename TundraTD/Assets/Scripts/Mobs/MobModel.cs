@@ -6,18 +6,29 @@ namespace Mobs
     [RequireComponent(typeof(NavMeshAgent))]
     public class MobModel : MonoBehaviour
     {
-        [SerializeField] private float maxMobHealth;
-        [SerializeField] private float defaultMobDamage;
-        [SerializeField] private float defaultMobSpeed;
-        [SerializeField] private float mobWaveWeight;
+        [SerializeField]
+        private Sprite mobSprite;
+
+        [SerializeField]
+        private float maxMobHealth;
+
+        [SerializeField]
+        private float defaultMobDamage;
+
+        [SerializeField]
+        private float defaultMobSpeed;
+
+        [SerializeField]
+        private float mobWaveWeight;
         private float _currentMobHealth;
         private float _currentMobDamage;
         private float _currentMobSpeed;
         private NavMeshAgent _mobNavMeshAgent;
 
+        public Sprite MobSprite => mobSprite;
         public NavMeshAgent MobNavMeshAgent => _mobNavMeshAgent;
         public float MobWaveWeight => mobWaveWeight;
-        
+
         public float CurrentMobHealth
         {
             get => _currentMobHealth;
@@ -26,7 +37,7 @@ namespace Mobs
                 if (value < 0)
                     _currentMobHealth = 0;
                 else
-                    _currentMobHealth = value;   
+                    _currentMobHealth = value;
             }
         }
         public float CurrentMobDamage
@@ -43,7 +54,7 @@ namespace Mobs
                 _mobNavMeshAgent.speed = _currentMobSpeed;
             }
         }
-        
+
         public void InstantiateMobModel()
         {
             _mobNavMeshAgent = GetComponent<NavMeshAgent>();
