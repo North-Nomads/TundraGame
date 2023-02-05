@@ -3,7 +3,7 @@
 namespace Spells
 {
     /// <summary>
-    /// Used to detect the element used to create a spell.
+    /// A struct that has every element used in game
     /// </summary>
     [Flags]
     public enum BasicElement

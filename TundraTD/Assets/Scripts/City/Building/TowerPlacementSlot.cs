@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Level;
+using UnityEngine;
 
 namespace City.Building
 {
@@ -16,7 +17,7 @@ namespace City.Building
 
         public void BuildElementalTowerOnThisSlot(ElementalTower prefab)
         {
-            // we define new spawn position higher than the anchor because unity defines axis in the centre of a model
+            // we define new spawn position higher than the anchor because unity defines axis in the center of a model
             var position = _bottomCentreBuildingAnchor + Vector3.up * prefab.transform.localScale.y / 2;
             Instantiate(prefab, position, Quaternion.identity);
             IsOccupied = true;
@@ -30,7 +31,8 @@ namespace City.Building
 
         private void OnMouseDown()
         {
-            CallPurchaseMenuOnEmptySlotClicked();
+            if (!PauseMode.IsGamePaused)
+                CallPurchaseMenuOnEmptySlotClicked();
         }
 
         private void CallPurchaseMenuOnEmptySlotClicked()

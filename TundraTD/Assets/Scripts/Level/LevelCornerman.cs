@@ -30,12 +30,6 @@ namespace Level
             _maxWavesAmongPortals = mobPortals.Max(x => x.WavesAmount);
         }
         
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.B))
-                StartCoroutine(StartWavesLoop());
-        }
-
         private IEnumerator StartWavesLoop()
         {
             yield return new WaitUntil(() => mobPortals.All(x => x.IsInstantiated));
@@ -76,6 +70,11 @@ namespace Level
                 yield return new WaitForSeconds(mobSpawnDelay);
                 portal.SpawnNextMob();
             }
+        }
+        
+        public void StartFirstWave()
+        {
+            StartCoroutine(StartWavesLoop());
         }
     }
 }
