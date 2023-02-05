@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 3047909843090818599}
   - component: {fileID: 3047909843090818598}
   - component: {fileID: 3047909843090823641}
+  - component: {fileID: 1633005625852089126}
   m_Layer: 5
   m_Name: PortalInfoCanvas
   m_TagString: Untagged
@@ -173,6 +174,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1633005625852089126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3047909843090823640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26db2e45b6c90384e9d0a09d308389d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mobCardsContent: {fileID: 3047909844035614188}
 --- !u!1 &3047909843247346450
 GameObject:
   m_ObjectHideFlags: 0
