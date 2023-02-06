@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace City.Building.Upgrades.FireTowerUpgrades
 {
-    public class MeteorLandingStanUpgrade : IUpgrade
+    public class MeteorLandingStunUpgrade : IUpgrade
     {
         public BasicElement Element => BasicElement.Fire;
         public int Price => 700;
