@@ -29,11 +29,11 @@ namespace City.Building.Upgrades
                 if (!(Activator.CreateInstance(upgradeClass) is IUpgrade upgrade))
                     throw new Exception("Upgrade is null");
                 
-                var elementUpgrades = UpgradesMap[upgrade.Element];
-                if (elementUpgrades[upgrade.RequiredLevel - 1, 0] is null)
-                    elementUpgrades[upgrade.RequiredLevel - 1, 0] = upgrade;
+                var elementUpgrades = UpgradesMap[upgrade.UpgradeTowerElement];
+                if (elementUpgrades[upgrade.SpellPurchaseRequiredLevel - 1, 0] is null)
+                    elementUpgrades[upgrade.SpellPurchaseRequiredLevel - 1, 0] = upgrade;
                 else
-                    elementUpgrades[upgrade.RequiredLevel - 1, 1] = upgrade;
+                    elementUpgrades[upgrade.SpellPurchaseRequiredLevel - 1, 1] = upgrade;
             }
         }
         

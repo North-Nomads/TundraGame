@@ -46,7 +46,7 @@ namespace City.Building
             InfluencePointsHolder.UpdateInfluencePointsText(InfluencePoints.ToString());
         }
 
-        public static bool CanUpgradeBeBought(IUpgrade upgrade) => InfluencePoints >= upgrade.Price;
+        public static bool CanUpgradeBeBought(IUpgrade upgrade) => InfluencePoints >= upgrade.PurchasePriceInTowerMenu;
 
         public static void DEBUG_GetStartPoints()
         {
@@ -55,7 +55,7 @@ namespace City.Building
 
         public static void ProceedUpgradePurchase(IUpgrade upgrade)
         {
-            InfluencePoints -= upgrade.Price;
+            InfluencePoints -= upgrade.PurchasePriceInTowerMenu;
         }
 
         public static void RewardPlayerOnWaveEnd(float cityGatesHPPercent)

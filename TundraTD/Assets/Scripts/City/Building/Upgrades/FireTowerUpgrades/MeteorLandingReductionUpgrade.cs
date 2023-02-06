@@ -6,11 +6,11 @@ namespace City.Building.Upgrades.FireTowerUpgrades
 {
     public class MeteorLandingReduction : IUpgrade
     {
-        public BasicElement Element => BasicElement.Fire;
-        public int Price => 350;
-        public int RequiredLevel => 3;
+        public BasicElement UpgradeTowerElement => BasicElement.Fire;
+        public int PurchasePriceInTowerMenu => 350;
+        public int SpellPurchaseRequiredLevel => 3;
         public string UpgradeDescriptionText => "-0.4 seconds delay before meteorite impact";
-        public Sprite Sprite => Resources.Load<Sprite>("UpgradeIcons/Arcanist1");
+        public Sprite UpgradeShowcaseSprite => Resources.Load<Sprite>("UpgradeIcons/Arcanist1");
 
         public void ExecuteOnUpgradeBought()
         {

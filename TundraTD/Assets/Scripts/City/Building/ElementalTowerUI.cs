@@ -71,7 +71,7 @@ namespace City.Building
                         throw new NullReferenceException($"Upgrade in dictionary on [{x}, {y}] is null");
                     
                     card.UpgradeDescriptionTextfield.text = upgrade.UpgradeDescriptionText;
-                    card.SkillIcon.sprite = upgrade.Sprite;
+                    card.SkillIcon.sprite = upgrade.UpgradeShowcaseSprite;
                     card.PurchaseButton.onClick.AddListener(() => _elementalTower.HandleUpgradePurchase(upgrade));
                 }
             }

@@ -6,11 +6,11 @@ namespace City.Building.Upgrades.EarthTowerUpgrades
 {
     public class EarthSlowingEnemiesUpgrade : IUpgrade
     {
-        public BasicElement Element => BasicElement.Earth;
-        public int Price => 200;
-        public int RequiredLevel => 2;
+        public BasicElement UpgradeTowerElement => BasicElement.Earth;
+        public int PurchasePriceInTowerMenu => 200;
+        public int SpellPurchaseRequiredLevel => 2;
         public string UpgradeDescriptionText => "Slows down enemies by 10%";
-        public Sprite Sprite => Resources.Load<Sprite>("UpgradeIcons/Arcanist1");
+        public Sprite UpgradeShowcaseSprite => Resources.Load<Sprite>("UpgradeIcons/Arcanist1");
 
         public void ExecuteOnUpgradeBought()
         {

@@ -6,11 +6,11 @@ namespace City.Building.Upgrades.EarthTowerUpgrades
 {
     public class TimeStunEnemiesUpgrade : IUpgrade
     {
-        public BasicElement Element => BasicElement.Earth;
-        public int Price => 350;
-        public int RequiredLevel => 3;
+        public BasicElement UpgradeTowerElement => BasicElement.Earth;
+        public int PurchasePriceInTowerMenu => 350;
+        public int SpellPurchaseRequiredLevel => 3;
         public string UpgradeDescriptionText => "Increase time stun of enemies by 0.5 second";
-        public Sprite Sprite => Resources.Load<Sprite>("UpgradeIcons/Arcanist1");
+        public Sprite UpgradeShowcaseSprite => Resources.Load<Sprite>("UpgradeIcons/Arcanist1");
 
         public void ExecuteOnUpgradeBought()
         {

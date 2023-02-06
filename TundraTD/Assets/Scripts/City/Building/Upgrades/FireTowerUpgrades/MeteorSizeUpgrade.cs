@@ -6,11 +6,11 @@ namespace City.Building.Upgrades.FireTowerUpgrades
 {
     public class MeteorSizeUpgrade : IUpgrade
     {
-        public BasicElement Element => BasicElement.Fire;
-        public int Price => 200;
-        public int RequiredLevel => 2;
+        public BasicElement UpgradeTowerElement => BasicElement.Fire;
+        public int PurchasePriceInTowerMenu => 200;
+        public int SpellPurchaseRequiredLevel => 2;
         public string UpgradeDescriptionText => "Increse size of meteor by 20%";
-        public Sprite Sprite => Resources.Load<Sprite>("UpgradeIcons/Arcanist1");
+        public Sprite UpgradeShowcaseSprite => Resources.Load<Sprite>("UpgradeIcons/Arcanist1");
 
         public void ExecuteOnUpgradeBought()
         {

@@ -43,7 +43,7 @@ namespace City.Building
             if (!Architect.CanUpgradeBeBought(upgrade))
                 return;
 
-            if (_towerUpgradeLevel != upgrade.RequiredLevel)
+            if (_towerUpgradeLevel != upgrade.SpellPurchaseRequiredLevel)
                 return;
             
             upgrade.ExecuteOnUpgradeBought();
