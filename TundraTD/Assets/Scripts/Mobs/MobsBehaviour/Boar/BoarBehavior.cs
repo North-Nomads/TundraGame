@@ -41,7 +41,6 @@ namespace Mobs.MobsBehaviour.Boar
         public override void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal)
         {
             MobPortal = mobPortal;
-            // MobModel = GetComponent<MobModel>();
             MobModel.InstantiateMobModel();
             _canDistractFromCurrentTarget = true;
             _chargeLeftTime = 3f;
