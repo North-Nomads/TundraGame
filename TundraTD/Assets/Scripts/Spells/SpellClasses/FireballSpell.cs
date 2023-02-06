@@ -87,7 +87,7 @@ namespace Spells.SpellClasses
                                       (Time.deltaTime * FlyDistance / (HitDelay - FirePool.MeteorLandingReduction));
                 yield return new WaitForEndOfFrame();
                 _currentHitTime += Time.deltaTime;
-            } while (_currentHitTime <= HitDelay);
+            } while (_currentHitTime <= HitDelay - FirePool.MeteorLandingReduction);
             
             // Register hit effects on mobs
             int hits = Physics.OverlapSphereNonAlloc(transform.position, HitDamageRadius, AvailableTargetsPool, MobsLayerMask);

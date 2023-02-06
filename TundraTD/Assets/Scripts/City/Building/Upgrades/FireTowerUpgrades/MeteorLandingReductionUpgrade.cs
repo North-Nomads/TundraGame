@@ -9,12 +9,12 @@ namespace City.Building.Upgrades.FireTowerUpgrades
         public BasicElement Element => BasicElement.Fire;
         public int Price => 350;
         public int RequiredLevel => 3;
-        public string UpgradeDescriptionText => "-2 seconds delay before meteorite impact";
+        public string UpgradeDescriptionText => "-0.4 seconds delay before meteorite impact";
         public Sprite Sprite => Resources.Load<Sprite>("UpgradeIcons/Arcanist1");
 
         public void ExecuteOnUpgradeBought()
         {
-            FirePool.MeteorLandingReduction -= 2;
+            FirePool.MeteorLandingReduction += 0.4f;
         }
     }
 }
