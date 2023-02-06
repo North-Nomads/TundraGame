@@ -5,6 +5,8 @@ namespace SceneManagement
 {
     public class EndLevelMenuScript : MonoBehaviour
     {
+        private const int LevelsSceneID = 0;
+        
         public void KeepPlaying(string result)
         {
             if (result == "victory" && SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCount)
@@ -15,9 +17,9 @@ namespace SceneManagement
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
-        public void Levels()
+        public void MoveToLevelsScene()
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(LevelsSceneID);
         }
     }
 }
