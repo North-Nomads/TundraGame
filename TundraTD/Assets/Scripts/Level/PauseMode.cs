@@ -6,7 +6,7 @@ namespace Level
 {
     public class PauseMode : MonoBehaviour
     {
-        private static bool isGamePaused;
+        private static bool _isGamePaused;
         [SerializeField] private Canvas pauseMenu;
 
         /// <summary>
@@ -14,10 +14,10 @@ namespace Level
         /// </summary>
         public static bool IsGamePaused
         {
-            get => isGamePaused;
+            get => _isGamePaused;
             private set
             {
-                isGamePaused = value;
+                _isGamePaused = value;
                 if (value)
                 {
                     PauseStateSwitched(null, null);
@@ -49,7 +49,7 @@ namespace Level
 
         public void SetPause(bool setPause, bool enableCanvas = true)
         {
-            isGamePaused = setPause;
+            _isGamePaused = setPause;
             Time.timeScale = setPause ? 0 : 1;
             pauseMenu.gameObject.SetActive(IsGamePaused && enableCanvas);
             Debug.Log(IsGamePaused);
