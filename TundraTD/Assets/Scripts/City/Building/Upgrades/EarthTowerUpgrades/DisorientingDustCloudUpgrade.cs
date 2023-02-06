@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace City.Building.Upgrades.EarthTowerUpgrades
 {
-    public class CloudDisorietingDustUpgrade : IUpgrade
+    public class DisorientingDustCloudUpgrade : IUpgrade
     {
         public BasicElement Element => BasicElement.Earth;
         public int Price => 700;
