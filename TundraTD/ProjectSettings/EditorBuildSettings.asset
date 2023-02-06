@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Menu.unity
     guid: 5ba9baceaa4a1454982a76531af6de4a
+  - enabled: 1
+    path: Assets/Scenes/TestPolygon.unity
+    guid: 88806fd733e9ee349849be1b88561834
   m_configObjects: {}
