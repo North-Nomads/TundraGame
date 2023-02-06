@@ -16,7 +16,7 @@ namespace City
         private void Start()
         {
             if (topHealthBar.sprite is null)
-                throw new Exception("No sprite was assigned");
+                throw new ArgumentNullException("topHealthBar sprite", "Value of healthbar sprite was not assigned");
             topHealthBar.fillAmount = 1f;
         }
         
