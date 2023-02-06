@@ -13,9 +13,9 @@ namespace City.Building
     {
         private static int _influencePoints;
         
-        public static int MaxPointsAward { get; set; }
-        public static int MinPointsAward { get; set; }
-        public static Transform CanvasesParent { get; set; }
+        public static int WaveCompletionMaxInfluencePointsAward { get; set; }
+        public static int WaveCompletionMinInfluencePointsAward { get; set; }
+        public static Transform CanvasesHierarchyParent { get; set; }
         public static CityGatesUI InfluencePointsHolder { get; set; }
         public static TowerPlacementSlot[] PlacementSlots { get; set; } 
         public static ElementalTower[] ElementalTowerPrefabs { get; set; }
@@ -60,7 +60,7 @@ namespace City.Building
 
         public static void RewardPlayerOnWaveEnd(float cityGatesHPPercent)
         {
-            InfluencePoints += MinPointsAward + (int)(MaxPointsAward * cityGatesHPPercent);
+            InfluencePoints += WaveCompletionMinInfluencePointsAward + (int)(WaveCompletionMaxInfluencePointsAward * cityGatesHPPercent);
         }
     }
 }

@@ -28,10 +28,10 @@ namespace Level
         {
             Architect.ElementalTowerPrefabs = elementalTowerPrefabs;
             Architect.InfluencePointsHolder = influencePointsHolder;
-            Architect.CanvasesParent = canvasesParent;
+            Architect.CanvasesHierarchyParent = canvasesParent;
             Architect.PlacementSlots = placementSlots;
-            Architect.MinPointsAward = minWaveAward;
-            Architect.MaxPointsAward = maxWaveAward;
+            Architect.WaveCompletionMinInfluencePointsAward = minWaveAward;
+            Architect.WaveCompletionMaxInfluencePointsAward = maxWaveAward;
 
             Grimoire.SpellPrefabs = spellPrefabs;
             

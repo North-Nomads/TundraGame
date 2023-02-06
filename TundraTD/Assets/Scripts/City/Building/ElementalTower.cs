@@ -33,7 +33,7 @@ namespace City.Building
 
         private void InitializeTowerUIOnTowerBuild()
         {
-            _elementalTowerUI = Instantiate(elementalTowerUIPrefab, Architect.CanvasesParent);
+            _elementalTowerUI = Instantiate(elementalTowerUIPrefab, Architect.CanvasesHierarchyParent);
             _elementalTowerUI.SetLinkedTower(this);
             _elementalTowerUI.LoadUpgradesInTowerMenu(_towerUpgrades);
         }
