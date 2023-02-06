@@ -11,7 +11,8 @@ namespace Level
         private void Start()
         {
             if (magicUI is null || levelCornerman is null)
-                throw new Exception("magicUI or levelCorner man were not assigned");
+                throw new ArgumentNullException("magicUI, levelCornerman",
+                    "magicUI or levelCorner man were not assigned");
             magicUI.gameObject.SetActive(false);
         }
 
