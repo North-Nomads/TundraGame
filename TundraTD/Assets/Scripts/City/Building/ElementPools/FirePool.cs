@@ -9,7 +9,7 @@ namespace City.Building.ElementPools
     /// </summary>
     public static class FirePool
     {
-        public static Dictionary<BasicElement, float> DamageMultipliers { get; set; } = new Dictionary<BasicElement, float>();
+        public static Dictionary<BasicElement, float> DamageAgainstElementMultipliers { get; set; } = new Dictionary<BasicElement, float>();
         public static float MeteorRadiusMultiplier { get; set; } = 1f;
         public static float AfterburnDamageMultiplier { get; set; } = 1f;
         public static float MeteorLandingReduction { get; set; }
@@ -21,7 +21,7 @@ namespace City.Building.ElementPools
         {
             foreach (BasicElement element in Enum.GetValues(typeof(BasicElement)))
             {
-                if (element != BasicElement.None) DamageMultipliers.Add(element, 1f);
+                if (element != BasicElement.None) DamageAgainstElementMultipliers.Add(element, 1f);
             }
         }
     }

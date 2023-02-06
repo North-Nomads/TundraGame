@@ -14,7 +14,7 @@ namespace City.Building.Upgrades.EarthTowerUpgrades
 
         public void ExecuteOnUpgradeBought()
         {
-            EarthPool.DamageMultipliers[BasicElement.Air] *= 1.05f;
+            EarthPool.DamageAgainstElementMultipliers[BasicElement.Air] *= 1.05f;
         }
     }
 }

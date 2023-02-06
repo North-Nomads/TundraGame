@@ -106,7 +106,7 @@ namespace Spells.SpellClasses
                 float damage = HitDamageValue * Vector3.Distance(target.transform.position, transform.position) / HitDamageRadius;
                 
                 Debug.Log($"Target {target}, Damage: {damage}");
-                mob.HandleIncomeDamage(damage * FirePool.DamageMultipliers[mob.MobBasicElement], BasicElement.Fire);
+                mob.HandleIncomeDamage(damage * FirePool.DamageAgainstElementMultipliers[mob.MobBasicElement], BasicElement.Fire);
                 mob.AddReceivedEffects(effects);
                 if (FirePool.HasLandingImpulse)
                 {
