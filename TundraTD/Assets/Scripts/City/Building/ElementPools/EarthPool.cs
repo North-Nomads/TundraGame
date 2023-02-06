@@ -4,7 +4,10 @@ using System;
 
 namespace City.Building.ElementPools
 {
-    public class EarthPool
+    /// <summary>
+    /// Contains all modifications that can be brought by Earth Tower upgrades
+    /// </summary>
+    public static class EarthPool
     {
         public static Dictionary<BasicElement, float> DamageMultipliers { get; set; } = new Dictionary<BasicElement, float>();
         public static float SlowDownEnemiesTime { get; set; } = 2f;
