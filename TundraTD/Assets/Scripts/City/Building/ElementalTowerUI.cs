@@ -1,9 +1,13 @@
+using System;
 using City.Building.Upgrades;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace City.Building
 {
+    /// <summary>
+    /// UI component of any elemental tower
+    /// </summary>
     public class ElementalTowerUI : MonoBehaviour
     {
         [SerializeField] private TowerUpgradeLevel[] upgradeLevels;
@@ -34,12 +38,7 @@ namespace City.Building
                 return;
             
             for (int i = 0; i < upgradeLevels.Length; i++)
-            {
-                if (i != _elementalTower.TowerUpgradeLevel - 1)
-                    upgradeLevels[i].gameObject.SetActive(false);
-                else
-                    upgradeLevels[i].gameObject.SetActive(true);
-            }
+                upgradeLevels[i].gameObject.SetActive(i == _elementalTower.TowerUpgradeLevel - 1);
         }
 
         public void UpdateUpgradesPage()
@@ -56,21 +55,20 @@ namespace City.Building
 
         public void LoadUpgradesInTowerMenu(IUpgrade[,] upgrades)
         {
-            for (int x = 0; x < upgrades.GetLength(0); x++)
+            var xSize = upgrades.GetLength(0);
+            var ySize = upgrades.GetLength(1);
+            for (int x = 0; x < xSize; x++)
             {
-                for (int y = 0; y < upgrades.GetLength(1); y++)
+                for (int y = 0; y < ySize; y++)
                 {
-                    UpgradeCard card;
-                    if ((x * upgrades.GetLength(0) + y) % 2 == 0)
-                        card = upgradeLevels[x].RightCard;
-                    else
-                        card = upgradeLevels[x].LeftCard;
+                    // Choose card using the parity of the current index
+                    var card = (x * xSize + y) % 2 == 0
+                        ? upgradeLevels[x].RightCard
+                        : upgradeLevels[x].LeftCard;
                     
                     var upgrade = upgrades[x, y];
-                    
-                    // temporary skips null upgrades
                     if (upgrade is null)
-                        continue;
+                        throw new NullReferenceException($"Upgrade in dictionary on [{x}, {y}] is null");
                     
                     card.UpgradeDescriptionTextfield.text = upgrade.UpgradeDescriptionText;
                     card.SkillIcon.sprite = upgrade.Sprite;
