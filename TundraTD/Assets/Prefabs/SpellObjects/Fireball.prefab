@@ -128,7 +128,8 @@ MonoBehaviour:
   meteoriteMesh: {fileID: 5565542183782256543}
   explosionPrefab: {fileID: 8194992990867289339, guid: 99bc28c0d45f51c4fbac01080b73edc7,
     type: 3}
-  lavaPrefab: {fileID: 0}
+  lavaPrefab: {fileID: 3280519133390621005, guid: a71be3e7990efb040a07565c43cbb198,
+    type: 3}
   explosionDelay: 1
 --- !u!1001 &6053183400863595184
 PrefabInstance:

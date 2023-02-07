@@ -72,7 +72,7 @@ namespace Spells.SpellClasses
                 _target = hit.point;
                 var reflect = Vector3.Reflect(Quaternion.Euler(0, -90, 0) * Camera.main.transform.forward, hit.normal).normalized;
                 transform.position = hit.point + (reflect * FlyDistance);
-                transform.forward = _target;
+                transform.forward = (_target - transform.position).normalized;
                 HitDamageRadius *= FirePool.MeteorRadiusMultiplier;
                 StartCoroutine(LaunchFireball());
             }
@@ -124,16 +124,19 @@ namespace Spells.SpellClasses
         private IEnumerator RunLavaPool()
         {
             var lava = Instantiate(lavaPrefab, transform, true);
-            lava.transform.position = _target;
+            // The addition is performed to correctly display hit area.
+            lava.transform.position = _target + Vector3.up * 0.1f;
             lava.transform.localScale = new Vector3(HitDamageRadius, 1, HitDamageRadius);
             for (int i = 0; i < LavaLifetime; i++)
             {
-                int hits = Physics.OverlapBoxNonAlloc(_target, new Vector3(HitDamageRadius, 1, HitDamageRadius), AvailableTargetsPool);
+                int hits = Physics.OverlapCapsuleNonAlloc(_target, _target + Vector3.up * 5, HitDamageRadius, AvailableTargetsPool, MobsLayerMask);
                 for (int j = 0; j < hits; j++)
                 {
                     var target = AvailableTargetsPool[j];
                     var mob = target.GetComponent<MobBehaviour>();
-                    mob.HandleIncomeDamage(BurnDamage * FirePool.AfterburnDamageMultiplier, BasicElement.Fire);
+                    var damage = BurnDamage * FirePool.AfterburnDamageMultiplier;
+                    Debug.Log($"Lava damage: {damage}");
+                    mob.HandleIncomeDamage(damage, BasicElement.Fire);
                 }
                 yield return new WaitForSecondsRealtime(1f);
             }
@@ -146,7 +149,7 @@ namespace Spells.SpellClasses
             DisableEmissionOnChildren();
             obj.transform.position = _target;
             obj.transform.localScale = new Vector3(5, 5, 5);
-            yield return new WaitForSecondsRealtime(explosionDelay);
+            yield return new WaitForSecondsRealtime(FirePool.HasLandingLavaPool ? Mathf.Max(explosionDelay, LavaLifetime) : explosionDelay);
             Destroy(gameObject);
         }
 
@@ -156,12 +159,6 @@ namespace Spells.SpellClasses
         {
             foreach (var system in meteoriteMesh.GetComponentsInChildren<ParticleSystem>())
                 system.enableEmission = false;
-        }
-
-        private void OnDrawGizmosSelected()
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawSphere(transform.position, HitDamageRadius);
         }
     }
 }
