@@ -1,8 +1,8 @@
 ﻿using City.Building;
 using Level;
 using Mobs;
-using Spells;
 using Mobs.MobsBehaviour;
+using Spells;
 using UnityEngine;
 
 namespace City

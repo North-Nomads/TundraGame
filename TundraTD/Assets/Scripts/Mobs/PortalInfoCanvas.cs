@@ -7,7 +7,7 @@ namespace Mobs
     {
         [SerializeField] private GridLayoutGroup mobCardsContent;
         private Image[] _mobCards;
-    
+
         private void Start()
         {
             _mobCards = mobCardsContent.GetComponentsInChildren<Image>();
@@ -27,7 +27,6 @@ namespace Mobs
                     _mobCards[i].gameObject.SetActive(true);
                     _mobCards[i].sprite = images[i];
                 }
-                
             }
         }
     }

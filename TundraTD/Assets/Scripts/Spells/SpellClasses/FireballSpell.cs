@@ -17,7 +17,7 @@ namespace Spells.SpellClasses
         private const float HitDelay = 0.5f;
         private const int MobsLayerMask = 1 << 8;
         private const int LavaLifetime = 5;
-        
+
         private static readonly Collider[] AvailableTargetsPool = new Collider[1000];
 
         [SerializeField] private MeshRenderer meteoriteMesh;
@@ -28,7 +28,7 @@ namespace Spells.SpellClasses
         private Vector3 _target;
         private bool _isLanded;
         //private Camera _mainCamera;
-        
+
         /// <summary>
         /// The radius of the hit area
         /// </summary>
@@ -88,23 +88,23 @@ namespace Spells.SpellClasses
                 yield return new WaitForEndOfFrame();
                 _currentHitTime += Time.deltaTime;
             } while (_currentHitTime <= HitDelay - FirePool.MeteorLandingReduction);
-            
+
             // Register hit effects on mobs
             int hits = Physics.OverlapSphereNonAlloc(transform.position, HitDamageRadius, AvailableTargetsPool, MobsLayerMask);
             var effects = new List<Effect>
             {
                 new MeteoriteBurningEffect(BurnDamage * FirePool.AfterburnDamageMultiplier, (int)BurnDuration)
             };
-            
+
             if (FirePool.HasLandingStun)
                 effects.Add(new StunEffect()); // TODO: implement stun effect.
-            
+
             for (int i = 0; i < hits; i++)
             {
                 var target = AvailableTargetsPool[i];
                 var mob = target.GetComponent<MobBehaviour>();
                 float damage = HitDamageValue * Vector3.Distance(target.transform.position, transform.position) / HitDamageRadius;
-                
+
                 Debug.Log($"Target {target}, Damage: {damage}");
                 mob.HandleIncomeDamage(damage * FirePool.DamageAgainstElementMultipliers[mob.MobBasicElement], BasicElement.Fire);
                 mob.AddReceivedEffects(effects);
@@ -154,7 +154,8 @@ namespace Spells.SpellClasses
         }
 
         // харчок
-        #pragma warning disable CS0618
+#pragma warning disable CS0618
+
         private void DisableEmissionOnChildren()
         {
             foreach (var system in meteoriteMesh.GetComponentsInChildren<ParticleSystem>())

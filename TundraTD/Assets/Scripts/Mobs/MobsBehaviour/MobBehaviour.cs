@@ -2,7 +2,6 @@
 using Spells;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Mobs.MobsBehaviour
 {
@@ -22,11 +21,13 @@ namespace Mobs.MobsBehaviour
 
         public Transform DefaultDestinationPoint { get; set; }
         public MobModel MobModel => mobModel;
+
         public Transform CurrentDestinationPoint
         {
             get => _currentDestinationPoint;
             set => _currentDestinationPoint = value;
         }
+
         protected MobPortal MobPortal
         {
             get => _mobPortal;
@@ -51,8 +52,11 @@ namespace Mobs.MobsBehaviour
 
         public abstract BasicElement MobBasicElement { get; }
         public abstract BasicElement MobCounterElement { get; }
+
         public abstract void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal);
+
         public abstract void MoveTowards(Vector3 point);
+
         public abstract void HandleIncomeDamage(float damage, BasicElement damageElement);
 
         public void AddReceivedEffects(IEnumerable<Effect> effectsToApply)
@@ -82,7 +86,7 @@ namespace Mobs.MobsBehaviour
 
         private void HandleAppliedEffects()
         {
-            for (int i = 0; i < CurrentEffects.Count; )
+            for (int i = 0; i < CurrentEffects.Count;)
             {
                 var effect = CurrentEffects[i];
                 effect.HandleTick(this);

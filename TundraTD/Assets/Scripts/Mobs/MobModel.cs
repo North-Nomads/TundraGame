@@ -20,6 +20,7 @@ namespace Mobs
 
         [SerializeField]
         private float mobWaveWeight;
+
         private float _currentMobHealth;
         private float _currentMobSpeed;
         private NavMeshAgent _mobNavMeshAgent;
@@ -39,7 +40,9 @@ namespace Mobs
                     _currentMobHealth = value;
             }
         }
+
         public float CurrentMobDamage { get; set; }
+
         public float CurrentMobSpeed
         {
             get => _currentMobSpeed;

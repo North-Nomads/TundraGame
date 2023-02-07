@@ -1,9 +1,8 @@
+using Spells;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Spells;
-using UnityEngine;
 
 namespace City.Building.Upgrades
 {
@@ -21,14 +20,14 @@ namespace City.Building.Upgrades
             foreach (BasicElement element in Enum.GetValues(typeof(BasicElement)))
                 if (element != BasicElement.None)
                     UpgradesMap.Add(element, new IUpgrade[4, 2]);
-            
+
             var upgradeClasses = Assembly.GetExecutingAssembly().GetTypes().Where(x => typeof(IUpgrade).IsAssignableFrom(x) && !x.IsAbstract);
 
             foreach (var upgradeClass in upgradeClasses)
             {
                 if (!(Activator.CreateInstance(upgradeClass) is IUpgrade upgrade))
                     throw new Exception("Upgrade is null");
-                
+
                 var elementUpgrades = UpgradesMap[upgrade.UpgradeTowerElement];
                 if (elementUpgrades[upgrade.SpellPurchaseRequiredLevel - 1, 0] is null)
                     elementUpgrades[upgrade.SpellPurchaseRequiredLevel - 1, 0] = upgrade;
@@ -36,7 +35,5 @@ namespace City.Building.Upgrades
                     elementUpgrades[upgrade.SpellPurchaseRequiredLevel - 1, 1] = upgrade;
             }
         }
-        
-        
     }
 }

@@ -1,15 +1,12 @@
 ﻿using Spells;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI.MagicScreen
 {
     /// <summary>
-    /// A button that shows a part of player's current deck 
+    /// A button that shows a part of player's current deck
     /// </summary>
     public class DeckButton : MonoBehaviour
     {
@@ -48,6 +45,5 @@ namespace UI.MagicScreen
             ElementIcon.sprite = _startIcon;
             Element = BasicElement.None;
         }
-
     }
 }

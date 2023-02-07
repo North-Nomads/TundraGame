@@ -18,4 +18,3 @@ namespace City.Building.Upgrades.EarthTowerUpgrades
         }
     }
 }
-

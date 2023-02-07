@@ -1,12 +1,11 @@
-﻿using UnityEngine;
+﻿using Spells;
+using UnityEngine;
 using UnityEngine.UI;
-using Spells;
-using System.Linq;
 
 namespace UI.MagicScreen
 {
     /// <summary>
-    /// A filler that connects the deck and the elements  
+    /// A filler that connects the deck and the elements
     /// </summary>
     [RequireComponent(typeof(Image))]
     public class DeckFiller : MonoBehaviour
@@ -19,7 +18,7 @@ namespace UI.MagicScreen
         {
             _elementIcon = GetComponent<Image>();
         }
-        
+
         public void OnButtonClick()
         {
             var empty = System.Array.Find(buttonsHolder.ElementScripts, x => x.Element == BasicElement.None);

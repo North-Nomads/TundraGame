@@ -1,7 +1,7 @@
-﻿using System;
-using System.Linq;
-using City.Building.Upgrades;
+﻿using City.Building.Upgrades;
 using Spells;
+using System;
+using System.Linq;
 using UnityEngine;
 
 namespace City.Building
@@ -12,13 +12,14 @@ namespace City.Building
     public static class Architect
     {
         private static int _influencePoints;
-        
+
         public static int WaveCompletionMaxInfluencePointsAward { get; set; }
         public static int WaveCompletionMinInfluencePointsAward { get; set; }
         public static Transform CanvasesHierarchyParent { get; set; }
         public static CityGatesUI InfluencePointsHolder { get; set; }
-        public static TowerPlacementSlot[] PlacementSlots { get; set; } 
+        public static TowerPlacementSlot[] PlacementSlots { get; set; }
         public static ElementalTower[] ElementalTowerPrefabs { get; set; }
+
         private static int InfluencePoints
         {
             get => _influencePoints;
@@ -27,8 +28,8 @@ namespace City.Building
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value), "Influence Points now  below zero");
                 InfluencePointsHolder.UpdateInfluencePointsText(value.ToString());
-                _influencePoints = value;  
-            } 
+                _influencePoints = value;
+            }
         }
 
         public static void BuildNewTower(int slotID, BasicElement element)
@@ -40,7 +41,7 @@ namespace City.Building
             var placementSlot = PlacementSlots.First(x => x.SlotID == slotID);
             if (placementSlot.IsOccupied)
                 return;
-            
+
             placementSlot.BuildElementalTowerOnThisSlot(elementalTower);
             InfluencePoints -= elementalTower.TowerPurchasePrice;
             InfluencePointsHolder.UpdateInfluencePointsText(InfluencePoints.ToString());

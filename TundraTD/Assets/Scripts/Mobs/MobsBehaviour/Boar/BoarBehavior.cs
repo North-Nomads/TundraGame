@@ -11,6 +11,7 @@ namespace Mobs.MobsBehaviour.Boar
     {
         // private MobModel MobModel;
         private bool _canDistractFromCurrentTarget;
+
         private float _chargeLeftTime;
 
         public override BasicElement MobBasicElement => BasicElement.Earth;

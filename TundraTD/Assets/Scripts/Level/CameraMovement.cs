@@ -13,11 +13,12 @@ namespace Level
         [SerializeField] private float inertiaMultiplier;
         [SerializeField] private float minimalCameraSize = 1;
         [SerializeField] private float maximumCameraSize = 8;
+
         // for debug
         [SerializeField] private bool usingWASD;
-        [SerializeField] private float wasdCameraMoveSpeed; 
-        
-        
+
+        [SerializeField] private float wasdCameraMoveSpeed;
+
         private Vector3 _inertiaDirection;
         private Vector3 _touchStart;
         private Camera _mainCamera;
@@ -32,7 +33,7 @@ namespace Level
         private void Update()
         {
             HandleCameraInertialMovement();
-            
+
             if (usingWASD)
             {
                 MoveCameraOnWASD();
@@ -74,7 +75,7 @@ namespace Level
                 _inertiaDirection = Vector3.zero;
                 return;
             }
-            
+
             var insertionOffset = _inertiaDirection * Time.deltaTime;
             _mainCamera.transform.position += insertionOffset;
             _inertiaDirection -= insertionOffset;
@@ -105,11 +106,11 @@ namespace Level
                 _inertiaDirection = Vector3.zero;
                 _touchStart = worldPoint;
             }
-            
+
             var direction = _touchStart - worldPoint;
             if (direction.magnitude > maximalCameraMoveThreshold)
                 return;
-            
+
             if (Input.GetMouseButton(0))
             {
                 _mainCamera.transform.position += direction;
@@ -120,6 +121,5 @@ namespace Level
                 _inertiaDirection = direction * inertiaMultiplier;
             }
         }
-	}
+    }
 }
-

@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Mobs.MobsBehaviour.Undead
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [RequireComponent(typeof(MobModel))]
     public class UndeadBehaviour : MobBehaviour
@@ -22,7 +22,7 @@ namespace Mobs.MobsBehaviour.Undead
             var multiplier = 1f;
             if (damageElement == MobBasicElement)
                 multiplier = 0.8f;
-            else if  (damageElement == MobCounterElement)
+            else if (damageElement == MobCounterElement)
                 multiplier = 1.2f;
 
             MobModel.CurrentMobHealth -= damage * multiplier;
@@ -36,10 +36,9 @@ namespace Mobs.MobsBehaviour.Undead
         {
             MobPortal = mobPortal;
             MobModel.InstantiateMobModel();
-            
+
             DefaultDestinationPoint = gates;
             MobModel.MobNavMeshAgent.SetDestination(DefaultDestinationPoint.position);
-
         }
 
         private void FixedUpdate()

@@ -4,13 +4,13 @@ using UnityEngine;
 namespace City.Building
 {
     /// <summary>
-    /// A slot to build a new tower 
+    /// A slot to build a new tower
     /// </summary>
     public class TowerPlacementSlot : MonoBehaviour
     {
         [SerializeField] private TowerPurchaseMenu purchaseMenu;
         [SerializeField] private int slotID;
-        
+
         private Vector3 _bottomCentreBuildingAnchor;
         public bool IsOccupied { get; private set; }
         public int SlotID => slotID;
@@ -22,7 +22,7 @@ namespace City.Building
             Instantiate(prefab, position, Quaternion.identity);
             IsOccupied = true;
         }
-        
+
         private void Start()
         {
             var position = transform.position;

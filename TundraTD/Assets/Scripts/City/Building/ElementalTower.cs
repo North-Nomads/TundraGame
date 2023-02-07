@@ -7,9 +7,9 @@ namespace City.Building
     public class ElementalTower : MonoBehaviour
     {
         [SerializeField] private BasicElement towerElement;
-        [SerializeField] private int towerPurchasePrice; 
+        [SerializeField] private int towerPurchasePrice;
         [SerializeField] private ElementalTowerUI elementalTowerUIPrefab;
-        
+
         private ElementalTowerUI _elementalTowerUI;
         private IUpgrade[,] _towerUpgrades;
 
@@ -36,7 +36,7 @@ namespace City.Building
             _elementalTowerUI.SetLinkedTower(this);
             _elementalTowerUI.LoadUpgradesInTowerMenu(_towerUpgrades);
         }
-        
+
         public void HandleUpgradePurchase(IUpgrade upgrade)
         {
             if (!Architect.CanUpgradeBeBought(upgrade))
@@ -44,10 +44,10 @@ namespace City.Building
 
             if (TowerUpgradeLevel != upgrade.SpellPurchaseRequiredLevel)
                 return;
-            
+
             upgrade.ExecuteOnUpgradeBought();
             Architect.ProceedUpgradePurchase(upgrade);
-            _elementalTowerUI.UpdateUpgradesPage();            
+            _elementalTowerUI.UpdateUpgradesPage();
             TowerUpgradeLevel++;
         }
     }

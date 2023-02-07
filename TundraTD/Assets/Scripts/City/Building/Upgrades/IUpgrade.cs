@@ -13,7 +13,7 @@ namespace City.Building.Upgrades
         int PurchasePriceInTowerMenu { get; }
         int SpellPurchaseRequiredLevel { get; }
         string UpgradeDescriptionText { get; }
-        
+
         void ExecuteOnUpgradeBought();
     }
 }

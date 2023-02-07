@@ -21,6 +21,6 @@ namespace Level
             magicUI.gameObject.SetActive(true);
             levelCornerman.StartFirstWave();
             gameObject.SetActive(false);
-        } 
+        }
     }
 }

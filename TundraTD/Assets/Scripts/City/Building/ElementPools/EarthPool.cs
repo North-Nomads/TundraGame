@@ -1,6 +1,6 @@
 using Spells;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 
 namespace City.Building.ElementPools
 {
@@ -16,7 +16,6 @@ namespace City.Building.ElementPools
         public static float TimeStunEnemies { get; set; } = 0.7f;
         public static bool AddMiniWallsAroundWall { get; set; }
         public static bool CloudDisorientingDust { get; set; }
-   
 
         static EarthPool()
         {

@@ -1,8 +1,4 @@
 ﻿using Spells;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
 using UnityEngine;
 
 namespace UI.MagicScreen
@@ -10,7 +6,7 @@ namespace UI.MagicScreen
     public class SpellCaster : MonoBehaviour
     {
         [SerializeField] private UpperButtonElements buttonsHolder;
-        readonly BasicElement[] HoldSpells = new BasicElement[5];
+        private readonly BasicElement[] HoldSpells = new BasicElement[5];
 
         public void OnButtonClick()
         {

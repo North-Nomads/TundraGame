@@ -13,6 +13,7 @@ namespace Level
         [SerializeField] private Button retryButton;
         [SerializeField] private Canvas endScreen;
         [SerializeField] private PauseMode pauseMenu;
+
         public void HandlePlayerDefeat()
         {
             Debug.Log("Player lost!");

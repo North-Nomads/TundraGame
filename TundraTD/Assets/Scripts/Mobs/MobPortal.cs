@@ -1,8 +1,8 @@
+using City;
+using Mobs.MobsBehaviour;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using City;
-using Mobs.MobsBehaviour;
 using UnityEngine;
 
 namespace Mobs

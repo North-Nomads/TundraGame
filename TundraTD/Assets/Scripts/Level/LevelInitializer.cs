@@ -14,7 +14,7 @@ namespace Level
         [SerializeField] private int maxWaveAward;
         [SerializeField] private Transform canvasesParent;
         [SerializeField] private CityGatesUI influencePointsHolder;
-        [SerializeField] private TowerPlacementSlot[] placementSlots; 
+        [SerializeField] private TowerPlacementSlot[] placementSlots;
         [SerializeField] private ElementalTower[] elementalTowerPrefabs;
         [SerializeField] private GameObject[] spellPrefabs;
         [SerializeField] private LaunchWaveButton LaunchWaveButton;
@@ -34,7 +34,7 @@ namespace Level
             Architect.WaveCompletionMaxInfluencePointsAward = maxWaveAward;
 
             Grimoire.SpellPrefabs = spellPrefabs;
-            
+
             // DEBUG: Temporary giving 100 points
             Architect.DEBUG_GetStartPoints();
         }

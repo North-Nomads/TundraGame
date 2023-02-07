@@ -19,16 +19,15 @@ namespace City
                 throw new ArgumentNullException("topHealthBar sprite", "Value of healthbar sprite was not assigned");
             topHealthBar.fillAmount = 1f;
         }
-        
+
         public void UpdateInfluencePointsText(string text)
         {
             influencePointsHolder.text = text;
         }
-        
+
         public void UpdateHealthBar(float percent)
         {
             topHealthBar.fillAmount = percent;
         }
-        
     }
 }
