@@ -12,16 +12,15 @@ namespace City.Building
         
         private ElementalTowerUI _elementalTowerUI;
         private IUpgrade[,] _towerUpgrades;
-        private int _towerUpgradeLevel;
-        
+
         public BasicElement TowerElement => towerElement;
         public int TowerPurchasePrice => towerPurchasePrice;
 
-        public int TowerUpgradeLevel => _towerUpgradeLevel;
+        public int TowerUpgradeLevel { get; private set; }
 
         private void Start()
         {
-            _towerUpgradeLevel = 1;
+            TowerUpgradeLevel = 1;
             _towerUpgrades = TowerUpgrades.UpgradesMap[towerElement];
             InitializeTowerUIOnTowerBuild();
         }
@@ -43,13 +42,13 @@ namespace City.Building
             if (!Architect.CanUpgradeBeBought(upgrade))
                 return;
 
-            if (_towerUpgradeLevel != upgrade.SpellPurchaseRequiredLevel)
+            if (TowerUpgradeLevel != upgrade.SpellPurchaseRequiredLevel)
                 return;
             
             upgrade.ExecuteOnUpgradeBought();
             Architect.ProceedUpgradePurchase(upgrade);
             _elementalTowerUI.UpdateUpgradesPage();            
-            _towerUpgradeLevel++;
+            TowerUpgradeLevel++;
         }
     }
 }
