@@ -2,7 +2,7 @@
 name: Bug report
 about: Отчет о баге
 title: "[BUG]"
-labels: [BUG]
+labels: "[BUG]"
 assignees: ''
 
 ---
