@@ -739,6 +739,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &648930796 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4648827190873921802, guid: 7af25049a8cccdb4f80a1404263cef87,
+    type: 3}
+  m_PrefabInstance: {fileID: 1889912599}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &701197037 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6727683424728350792, guid: 89171b4b3730ad846bf6d1a73c4ee2d9,
@@ -792,7 +804,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 276159e31526cd64b97667fbed22b249, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseMenu: {fileID: 1265180918}
+  pauseButton: {fileID: 1651245767}
+  resumeButton: {fileID: 648930796}
 --- !u!4 &745454640
 Transform:
   m_ObjectHideFlags: 0
@@ -1396,12 +1409,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26db2e45b6c90384e9d0a09d308389d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!223 &1265180918 stripped
-Canvas:
-  m_CorrespondingSourceObject: {fileID: 4648827191657142395, guid: 7af25049a8cccdb4f80a1404263cef87,
-    type: 3}
-  m_PrefabInstance: {fileID: 1889912599}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1265180921 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4648827191657142392, guid: 7af25049a8cccdb4f80a1404263cef87,
@@ -1619,6 +1626,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89171b4b3730ad846bf6d1a73c4ee2d9, type: 3}
+--- !u!114 &1651245767 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3429623911041747534, guid: 7af25049a8cccdb4f80a1404263cef87,
+    type: 3}
+  m_PrefabInstance: {fileID: 1889912599}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1667614113 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1014889799535269166, guid: 89171b4b3730ad846bf6d1a73c4ee2d9,
@@ -1845,16 +1864,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 503922768}
     m_Modifications:
-    - target: {fileID: 4648827190873921802, guid: 7af25049a8cccdb4f80a1404263cef87,
+    - target: {fileID: 3429623911041747534, guid: 7af25049a8cccdb4f80a1404263cef87,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 745454639}
     - target: {fileID: 4648827190873921802, guid: 7af25049a8cccdb4f80a1404263cef87,
         type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SwitchPause
-      objectReference: {fileID: 0}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 745454639}
     - target: {fileID: 4648827191657142391, guid: 7af25049a8cccdb4f80a1404263cef87,
         type: 3}
       propertyPath: m_Name
