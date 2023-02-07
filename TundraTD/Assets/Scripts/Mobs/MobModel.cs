@@ -21,7 +21,6 @@ namespace Mobs
         [SerializeField]
         private float mobWaveWeight;
         private float _currentMobHealth;
-        private float _currentMobDamage;
         private float _currentMobSpeed;
         private NavMeshAgent _mobNavMeshAgent;
 
@@ -40,11 +39,7 @@ namespace Mobs
                     _currentMobHealth = value;
             }
         }
-        public float CurrentMobDamage
-        {
-            get => _currentMobDamage;
-            set => _currentMobDamage = value;
-        }
+        public float CurrentMobDamage { get; set; }
         public float CurrentMobSpeed
         {
             get => _currentMobSpeed;
@@ -60,7 +55,7 @@ namespace Mobs
             _mobNavMeshAgent = GetComponent<NavMeshAgent>();
             _currentMobHealth = maxMobHealth;
             _currentMobSpeed = defaultMobSpeed;
-            _currentMobDamage = defaultMobDamage;
+            CurrentMobDamage = defaultMobDamage;
         }
     }
 }

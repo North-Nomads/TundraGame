@@ -19,13 +19,12 @@ namespace Level
         
         
         private Vector3 _inertiaDirection;
-        private Vector3 _cameraSpeed;
         private Vector3 _touchStart;
-        private UnityEngine.Camera _mainCamera;
+        private Camera _mainCamera;
 
         private void Start()
         {
-            _mainCamera = GetComponent<UnityEngine.Camera>();
+            _mainCamera = GetComponent<Camera>();
             if (!_mainCamera.orthographic)
                 throw new Exception("Camera must be in orthographic mode");
         }
@@ -59,13 +58,13 @@ namespace Level
         {
             var cameraTransform = _mainCamera.transform;
             if (Input.GetKey(KeyCode.A))
-                cameraTransform.position += -cameraTransform.right * Time.deltaTime * wasdCameraMoveSpeed;
+                cameraTransform.position += Time.deltaTime * wasdCameraMoveSpeed * -cameraTransform.right;
             if (Input.GetKey(KeyCode.D))
-                cameraTransform.position += cameraTransform.right * Time.deltaTime * wasdCameraMoveSpeed;
+                cameraTransform.position += Time.deltaTime * wasdCameraMoveSpeed * cameraTransform.right;
             if (Input.GetKey(KeyCode.W))
-                cameraTransform.position += cameraTransform.up * Time.deltaTime * wasdCameraMoveSpeed;
+                cameraTransform.position += Time.deltaTime * wasdCameraMoveSpeed * cameraTransform.up;
             if (Input.GetKey(KeyCode.S))
-                cameraTransform.position += -cameraTransform.up * Time.deltaTime * wasdCameraMoveSpeed;
+                cameraTransform.position += Time.deltaTime * wasdCameraMoveSpeed * -cameraTransform.up;
         }
 
         private void HandleCameraInertialMovement()

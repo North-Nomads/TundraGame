@@ -14,7 +14,7 @@ namespace City.Building.Upgrades.EarthTowerUpgrades
 
         public void ExecuteOnUpgradeBought()
         {
-            EarthPool.SpikesWallLifeTime += 1f;
+            EarthPool.SpikesWallLifeTime++;
         }
     }
 }

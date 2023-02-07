@@ -34,7 +34,7 @@ namespace City.Building
 
         private void OnEnable()
         {
-            if (_elementalTower is null)
+            if (_elementalTower == null)
                 return;
             
             for (int i = 0; i < upgradeLevels.Length; i++)

@@ -22,7 +22,7 @@ namespace UI.MagicScreen
         
         public void OnButtonClick()
         {
-            var empty = buttonsHolder.ElementScripts.FirstOrDefault(x => x.Element == BasicElement.None);
+            var empty = System.Array.Find(buttonsHolder.ElementScripts, x => x.Element == BasicElement.None);
             if (empty != null)
             {
                 empty.ElementIcon.sprite = _elementIcon.sprite;

@@ -18,7 +18,7 @@ namespace Mobs
         {
             for (int i = 0; i < _mobCards.Length; i++)
             {
-                if (images[i] is null)
+                if (images[i] == null)
                 {
                     _mobCards[i].gameObject.SetActive(false);
                 }
