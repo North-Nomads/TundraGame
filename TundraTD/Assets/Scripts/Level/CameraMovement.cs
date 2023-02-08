@@ -21,7 +21,7 @@ namespace Level
 
         private Vector3 _inertiaDirection;
         private Vector3 _touchStart;
-        private Camera _mainCamera;
+        [SerializeField] private Camera _mainCamera;
 
         private void Start()
         {
@@ -33,7 +33,7 @@ namespace Level
         private void Update()
         {
             HandleCameraInertialMovement();
-
+            
             if (usingWASD)
             {
                 MoveCameraOnWASD();

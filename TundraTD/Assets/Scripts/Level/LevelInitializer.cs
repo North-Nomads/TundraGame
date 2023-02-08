@@ -21,6 +21,7 @@ namespace Level
 
         private void Start()
         {
+            Time.timeScale = 1;
             InitializeArchitectValues();
         }
 

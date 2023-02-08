@@ -1378,6 +1378,7 @@ MonoBehaviour:
   maximumCameraSize: 8
   usingWASD: 1
   wasdCameraMoveSpeed: 10
+  _mainCamera: {fileID: 0}
 --- !u!224 &1075944420 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3047909843090818596, guid: 37cbc575cd4aa10498755ec408447c45,
@@ -2784,7 +2785,7 @@ PrefabInstance:
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
       propertyPath: mobWaves.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
@@ -2894,7 +2895,7 @@ PrefabInstance:
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
       propertyPath: mobWaves.Array.data[0].mobProperties.Array.data[0].mobQuantity
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
