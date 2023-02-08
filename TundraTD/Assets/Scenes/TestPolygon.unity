@@ -813,8 +813,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 745454638}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.8762255, y: -3.4955158, z: -1.2950058}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 882465138}
@@ -1389,9 +1389,8 @@ MonoBehaviour:
   inertiaMultiplier: 3
   minimalCameraSize: 5
   maximumCameraSize: 8
-  usingWASD: 1
   wasdCameraMoveSpeed: 10
-  _mainCamera: {fileID: 0}
+  usingWASD: 1
 --- !u!224 &1075944420 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3047909843090818596, guid: 37cbc575cd4aa10498755ec408447c45,
@@ -1879,6 +1878,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PauseCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 4648827191657142391, guid: 7af25049a8cccdb4f80a1404263cef87,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4648827191657142392, guid: 7af25049a8cccdb4f80a1404263cef87,
         type: 3}
