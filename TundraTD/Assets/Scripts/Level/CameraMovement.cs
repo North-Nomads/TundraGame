@@ -13,15 +13,15 @@ namespace Level
         [SerializeField] private float inertiaMultiplier;
         [SerializeField] private float minimalCameraSize = 1;
         [SerializeField] private float maximumCameraSize = 8;
+        [SerializeField] private float wasdCameraMoveSpeed;
 
         // for debug
         [SerializeField] private bool usingWASD;
 
-        [SerializeField] private float wasdCameraMoveSpeed;
 
         private Vector3 _inertiaDirection;
         private Vector3 _touchStart;
-        [SerializeField] private Camera _mainCamera;
+        private Camera _mainCamera;
 
         private void Start()
         {
