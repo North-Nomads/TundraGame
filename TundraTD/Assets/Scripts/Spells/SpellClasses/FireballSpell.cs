@@ -27,7 +27,6 @@ namespace Spells.SpellClasses
         private float _currentHitTime;
         private Vector3 _target;
         private bool _isLanded;
-        //private Camera _mainCamera;
 
         /// <summary>
         /// The radius of the hit area
@@ -38,20 +37,20 @@ namespace Spells.SpellClasses
         /// The damage of the hit epicenter.
         /// </summary>
         [MultiplictableProperty(BasicElement.Earth, 1.35f)]
-        public float HitDamageValue { get; set; } = 100f;
+        public float HitDamageValue { get; set; } = 40f;
 
         /// <summary>
         /// Duration of the burn effect.
         /// </summary>
         [IncreasableProperty(BasicElement.Air, 5f)]
-        public float BurnDuration { get; set; } = 5f;
+        public float BurnDuration { get; set; } = 3f;
 
         /// <summary>
         /// Damage of the burn effect.
         /// </summary>
         [MultiplictableProperty(BasicElement.Fire, 1.25f)]
         [MultiplictableProperty(BasicElement.Water, 0.75f)]
-        public float BurnDamage { get; set; } = 20f;
+        public float BurnDamage { get; set; } = 7f;
 
         /// <summary>
         /// Value of the slowness effect.

@@ -150,10 +150,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mobSprite: {fileID: 21300076, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
-  maxMobHealth: 20
-  defaultMobDamage: 5
-  defaultMobSpeed: 5
-  mobWaveWeight: 10
+  maxMobHealth: 400
+  defaultMobDamage: 10
+  defaultMobSpeed: 3.8
+  mobWaveWeight: 0
 --- !u!114 &7987837108767728486
 MonoBehaviour:
   m_ObjectHideFlags: 0

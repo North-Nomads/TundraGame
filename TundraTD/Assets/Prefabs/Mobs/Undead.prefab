@@ -176,10 +176,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mobSprite: {fileID: 21300100, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
-  maxMobHealth: 100
-  defaultMobDamage: 5
+  maxMobHealth: 65
+  defaultMobDamage: 8
   defaultMobSpeed: 5
-  mobWaveWeight: 2
+  mobWaveWeight: 0
 --- !u!195 &4000996451007599638
 NavMeshAgent:
   m_ObjectHideFlags: 0
