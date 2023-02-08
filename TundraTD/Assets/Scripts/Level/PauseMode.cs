@@ -1,12 +1,14 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Level
 {
     public class PauseMode : MonoBehaviour
     {
         private static bool _isGamePaused;
-        [SerializeField] private Canvas pauseMenu;
+        [SerializeField] private Button pauseButton;
+        [SerializeField] private Button resumeButton;
 
         /// <summary>
         /// Indicates if the game is paused.
@@ -31,7 +33,7 @@ namespace Level
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.P))
+            if (Input.GetKeyDown(KeyCode.Escape))
                 SwitchPause();
         }
 
@@ -42,16 +44,17 @@ namespace Level
         {
             IsGamePaused = !IsGamePaused;
             Time.timeScale = IsGamePaused ? 0 : 1;
-            pauseMenu.gameObject.SetActive(IsGamePaused);
-            Debug.Log(IsGamePaused);
+            resumeButton.gameObject.SetActive(IsGamePaused);
+            pauseButton.gameObject.SetActive(!IsGamePaused);
+
         }
 
         public void SetPause(bool setPause, bool enableCanvas = true)
         {
             _isGamePaused = setPause;
             Time.timeScale = setPause ? 0 : 1;
-            pauseMenu.gameObject.SetActive(IsGamePaused && enableCanvas);
-            Debug.Log(IsGamePaused);
+            resumeButton.gameObject.SetActive(IsGamePaused && enableCanvas);
+            pauseButton.gameObject.SetActive(!IsGamePaused);
         }
 
         public void ToMainMenu()
