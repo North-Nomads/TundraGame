@@ -8,7 +8,7 @@ namespace SceneManagement
     /// </summary>
     public class BackButton : MonoBehaviour
     {
-        private const int MainMenuSceneID = 1;
+        private const int MainMenuSceneID = 0;
 
         public void ReturnBackToMainMenu()
         {
