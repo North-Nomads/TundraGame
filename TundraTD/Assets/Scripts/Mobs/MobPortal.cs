@@ -3,6 +3,7 @@ using Mobs.MobsBehaviour;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Level;
 using UnityEngine;
 
 namespace Mobs
@@ -41,6 +42,9 @@ namespace Mobs
 
         private void OnMouseDown()
         {
+            if (LevelCornerman.IsInWaveMode)
+                return;
+            
             Sprite[] mBox = new Sprite[8];
             var count = 0;
             foreach (var mob in _currentMobWave.MobProperties)

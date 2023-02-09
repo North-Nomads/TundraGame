@@ -18,8 +18,11 @@ namespace Level
         [SerializeField] private int mobWaveDelay;
         private int _maxWavesAmongPortals;
 
+        public static bool IsInWaveMode { get; private set; }
+        
         private void Start()
         {
+            IsInWaveMode = false;
             waveStartTimer.gameObject.SetActive(false);
             StartCoroutine(WaitPortalsInstantiation());
         }
@@ -39,6 +42,7 @@ namespace Level
 
             for (int i = 0; i < _maxWavesAmongPortals; i++)
             {
+                IsInWaveMode = true;
                 // Start mob spawning IEnumerator for each of the portals and wait for all mobs to die
                 foreach (var mobPortal in mobPortals)
                 {
@@ -46,7 +50,7 @@ namespace Level
                     yield return StartMobSpawning(mobPortal);
                 }
                 yield return new WaitUntil(() => mobPortals.Sum(x => x.MobsLeftThisWave) == 0);
-
+                IsInWaveMode = false;
                 // Handle the ending of the wave (from all portals)
                 foreach (var mobPortal in mobPortals)
                     mobPortal.OnWaveEnded();
