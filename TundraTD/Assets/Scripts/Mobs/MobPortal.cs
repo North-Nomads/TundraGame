@@ -88,13 +88,14 @@ namespace Mobs
                 mobSpawner.transform
             );
             mob.ExecuteOnMobSpawn(gates.transform, this);
-
+            mob.OnMobDied += (_, __) => NotifyPortalOnMobDeath();
             _currentMobIndex++;
         }
 
         public void NotifyPortalOnMobDeath()
         {
             MobsLeftThisWave--;
+            Debug.Log($"Mobs left: {MobsLeftThisWave}");
         }
 
         [Serializable]

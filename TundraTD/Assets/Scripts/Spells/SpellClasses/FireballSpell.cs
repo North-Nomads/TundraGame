@@ -75,6 +75,10 @@ namespace Spells.SpellClasses
                 HitDamageRadius *= FirePool.MeteorRadiusMultiplier;
                 StartCoroutine(LaunchFireball());
             }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
 
         private IEnumerator LaunchFireball()

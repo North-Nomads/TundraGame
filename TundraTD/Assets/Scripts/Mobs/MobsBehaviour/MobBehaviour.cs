@@ -1,5 +1,6 @@
 ﻿using Mobs.MobEffects;
 using Spells;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -50,6 +51,8 @@ namespace Mobs.MobsBehaviour
             }
         }
 
+        public event EventHandler OnMobDied = delegate { };
+
         public abstract BasicElement MobBasicElement { get; }
         public abstract BasicElement MobCounterElement { get; }
 
@@ -71,12 +74,13 @@ namespace Mobs.MobsBehaviour
         public void KillThisMob()
         {
             Destroy(gameObject);
-            _mobPortal.NotifyPortalOnMobDeath();
+            OnMobDied(mobModel, null);
         }
 
         protected virtual void Start()
         {
             mobModel = GetComponent<MobModel>();
+            mobModel.OnMobDied += OnMobDied;
             foreach (var prefab in effectPrefabs)
             {
                 if (prefab != null)
