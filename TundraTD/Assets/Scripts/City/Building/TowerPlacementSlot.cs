@@ -1,5 +1,6 @@
 ﻿using Level;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace City.Building
 {
@@ -32,6 +33,9 @@ namespace City.Building
 
         private void OnMouseDown()
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+                return;
+            
             if (!PauseMode.IsGamePaused)
                 CallPurchaseMenuOnEmptySlotClicked();
         }

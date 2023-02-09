@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Level;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Mobs
 {
@@ -42,7 +43,7 @@ namespace Mobs
 
         private void OnMouseDown()
         {
-            if (LevelCornerman.IsInWaveMode)
+            if (LevelCornerman.IsInWaveMode || EventSystem.current.IsPointerOverGameObject())
                 return;
             
             Sprite[] mBox = new Sprite[8];

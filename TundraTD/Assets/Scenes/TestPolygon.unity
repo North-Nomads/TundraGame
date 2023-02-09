@@ -541,7 +541,6 @@ MonoBehaviour:
   - {fileID: 3699609544132254947, guid: 6348790ce6ab6f54581737a30cafa1f8, type: 3}
   spellPrefabs:
   - {fileID: 7913506393892522128, guid: 4c9b0db6e89c5d5478a5d9554eef8b15, type: 3}
-  LaunchWaveButton: {fileID: 0}
 --- !u!1 &375244294
 GameObject:
   m_ObjectHideFlags: 0
@@ -2611,6 +2610,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1034628234397591519, guid: 9f4e7c850b360ee4cafa8588be89688c,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 42
       objectReference: {fileID: 0}
     - target: {fileID: 1034628234451068275, guid: 9f4e7c850b360ee4cafa8588be89688c,
         type: 3}
