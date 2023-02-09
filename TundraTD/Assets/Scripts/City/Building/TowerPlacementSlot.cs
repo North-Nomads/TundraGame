@@ -27,6 +27,7 @@ namespace City.Building
         {
             var position = transform.position;
             _bottomCentreBuildingAnchor = new Vector3(position.x, position.y + Mathf.Abs(transform.localScale.y / 2), position.z);
+            IsOccupied = false;
         }
 
         private void OnMouseDown()

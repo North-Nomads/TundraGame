@@ -528,6 +528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92c5216ad5e0462fb914937482a374db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseMode: {fileID: 745454639}
   minWaveAward: 10
   maxWaveAward: 100
   canvasesParent: {fileID: 503922768}

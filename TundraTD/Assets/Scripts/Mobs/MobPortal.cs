@@ -65,6 +65,7 @@ namespace Mobs
 
             MobsLeftThisWave = _allWaveMobs.Count;
             MobsTotalCountOnWave = MobsLeftThisWave;
+            Debug.Log(MobsLeftThisWave);
         }
 
         public void OnWaveEnded()
@@ -92,9 +93,10 @@ namespace Mobs
             _currentMobIndex++;
         }
 
-        public void NotifyPortalOnMobDeath()
+        public void NotifyPortalOnMobDeath(MobBehaviour mob)
         {
             MobsLeftThisWave--;
+            Debug.Log($"UPDATE: {MobsLeftThisWave}: {mob.name}");
         }
 
         [Serializable]
