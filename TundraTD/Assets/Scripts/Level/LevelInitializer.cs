@@ -1,3 +1,4 @@
+using System;
 using City;
 using City.Building;
 using Spells;
@@ -21,6 +22,9 @@ namespace Level
 
         private void Start()
         {
+            if (placementSlots.Length == 0)
+                throw new NullReferenceException("No slots were assigned");
+            
             pauseMode.SetPause(false);
             InitializeArchitectValues();
         }
