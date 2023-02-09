@@ -46,7 +46,6 @@ namespace Mobs.MobsBehaviour.Ironclad
             }
 
             MobModel.CurrentMobHealth -= damage * multiplier;
-            print($"{name}: {MobModel.CurrentMobHealth}, Damage dealt: {damage}, element: {damageElement}");
 
             if (MobModel.CurrentMobHealth <= 0)
                 KillThisMob();

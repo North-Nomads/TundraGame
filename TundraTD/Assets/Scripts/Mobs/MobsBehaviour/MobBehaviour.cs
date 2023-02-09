@@ -70,8 +70,8 @@ namespace Mobs.MobsBehaviour
 
         public void KillThisMob()
         {
+            _mobPortal.NotifyPortalOnMobDeath(this);
             Destroy(gameObject);
-            _mobPortal.NotifyPortalOnMobDeath();
         }
 
         protected virtual void Start()
