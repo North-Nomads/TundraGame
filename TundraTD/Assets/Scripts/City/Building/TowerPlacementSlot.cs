@@ -1,5 +1,7 @@
-﻿using Level;
+﻿using System;
+using Level;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace City.Building
 {
@@ -25,12 +27,19 @@ namespace City.Building
 
         private void Start()
         {
+            if (purchaseMenu is null)
+                throw new NullReferenceException("No purchase menu was assigned for the placement slot");
+            
             var position = transform.position;
             _bottomCentreBuildingAnchor = new Vector3(position.x, position.y + Mathf.Abs(transform.localScale.y / 2), position.z);
+            IsOccupied = false;
         }
 
         private void OnMouseDown()
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+                return;
+            
             if (!PauseMode.IsGamePaused)
                 CallPurchaseMenuOnEmptySlotClicked();
         }

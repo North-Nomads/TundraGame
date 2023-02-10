@@ -26,7 +26,6 @@ namespace Mobs.MobsBehaviour.Undead
                 multiplier = 1.2f;
 
             MobModel.CurrentMobHealth -= damage * multiplier;
-            print($"{name}: {MobModel.CurrentMobHealth}, Damage dealt: {damage}, element: {damageElement}");
 
             if (MobModel.CurrentMobHealth <= 0)
                 KillThisMob();

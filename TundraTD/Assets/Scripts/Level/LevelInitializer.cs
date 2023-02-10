@@ -1,3 +1,4 @@
+using System;
 using City;
 using City.Building;
 using Spells;
@@ -10,6 +11,7 @@ namespace Level
     /// </summary>
     public class LevelInitializer : MonoBehaviour
     {
+        [SerializeField] private PauseMode pauseMode;
         [SerializeField] private int minWaveAward;
         [SerializeField] private int maxWaveAward;
         [SerializeField] private Transform canvasesParent;
@@ -17,11 +19,13 @@ namespace Level
         [SerializeField] private TowerPlacementSlot[] placementSlots;
         [SerializeField] private ElementalTower[] elementalTowerPrefabs;
         [SerializeField] private GameObject[] spellPrefabs;
-        [SerializeField] private LaunchWaveButton LaunchWaveButton;
 
         private void Start()
         {
-            Time.timeScale = 1;
+            if (placementSlots.Length == 0)
+                throw new NullReferenceException("No slots were assigned");
+            
+            pauseMode.SetPause(false);
             InitializeArchitectValues();
         }
 
