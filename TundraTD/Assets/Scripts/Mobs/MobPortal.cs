@@ -94,7 +94,7 @@ namespace Mobs
                 mobSpawner.transform
             );
             mob.ExecuteOnMobSpawn(gates.transform, this);
-
+            mob.OnMobDied += (_, __) => NotifyPortalOnMobDeath();
             _currentMobIndex++;
         }
 

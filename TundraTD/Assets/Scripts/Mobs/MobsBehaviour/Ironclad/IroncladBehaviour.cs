@@ -63,8 +63,6 @@ namespace Mobs.MobsBehaviour.Ironclad
 
         private void FixedUpdate()
         {
-            if (MobModel.CurrentMobHealth <= 0)
-                KillThisMob();
 
             if (CurrentEffects.Count > 0)
                 TickTimer -= Time.fixedDeltaTime;
