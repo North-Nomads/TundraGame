@@ -9,6 +9,7 @@ namespace Level
         private static bool _isGamePaused;
         [SerializeField] private Button pauseButton;
         [SerializeField] private Button resumeButton;
+        [SerializeField] AudioSource _soundEffect;
 
         /// <summary>
         /// Indicates if the game is paused.
@@ -46,7 +47,7 @@ namespace Level
             Time.timeScale = IsGamePaused ? 0 : 1;
             resumeButton.gameObject.SetActive(IsGamePaused);
             pauseButton.gameObject.SetActive(!IsGamePaused);
-
+            if (IsGamePaused) _soundEffect.Play();
         }
 
         public void SetPause(bool setPause, bool enableCanvas = true)

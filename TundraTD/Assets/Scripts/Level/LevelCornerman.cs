@@ -17,6 +17,7 @@ namespace Level
         [SerializeField] private float mobSpawnDelay;
         [SerializeField] private int mobWaveDelay;
         private int _maxWavesAmongPortals;
+        private AudioSource _soundEffect;
 
         public static bool IsInWaveMode { get; private set; }
         
@@ -24,6 +25,7 @@ namespace Level
         {
             IsInWaveMode = false;
             waveStartTimer.gameObject.SetActive(false);
+            _soundEffect = GetComponent<AudioSource>();
             StartCoroutine(WaitPortalsInstantiation());
         }
 
@@ -67,6 +69,7 @@ namespace Level
             waveStartTimer.gameObject.SetActive(true);
             for (int j = mobWaveDelay; j > 0; j--)
             {
+                if (j == 2) _soundEffect.Play();
                 waveStartTimer.text = j.ToString();
                 yield return new WaitForSeconds(1f);
             }
