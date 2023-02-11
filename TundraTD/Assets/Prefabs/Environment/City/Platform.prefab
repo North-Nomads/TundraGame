@@ -126,6 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   purchaseMenu: {fileID: 0}
   slotID: 0
+  solidPlatformRenderer: {fileID: 7293345401955936625}
 --- !u!1 &8714370537579941900
 GameObject:
   m_ObjectHideFlags: 0
