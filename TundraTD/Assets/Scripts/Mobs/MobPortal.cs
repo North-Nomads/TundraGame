@@ -95,7 +95,6 @@ namespace Mobs
         public void NotifyPortalOnMobDeath()
         {
             MobsLeftThisWave--;
-            Debug.Log($"Mobs left: {MobsLeftThisWave}");
         }
 
         [Serializable]

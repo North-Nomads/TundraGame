@@ -40,7 +40,7 @@ namespace Mobs
             {
                 if (value < 0)
                 {
-                    if (!_isAlive) OnMobDied(this, null);
+                    if (_isAlive) OnMobDied(this, null);
                     _isAlive = false;
                     _currentMobHealth = 0;
                 }
