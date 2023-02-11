@@ -3,7 +3,9 @@ using Mobs.MobsBehaviour;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Level;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Mobs
 {
@@ -41,6 +43,9 @@ namespace Mobs
 
         private void OnMouseDown()
         {
+            if (LevelCornerman.IsInWaveMode || EventSystem.current.IsPointerOverGameObject())
+                return;
+            
             Sprite[] mBox = new Sprite[8];
             var count = 0;
             foreach (var mob in _currentMobWave.MobProperties)
@@ -65,6 +70,7 @@ namespace Mobs
 
             MobsLeftThisWave = _allWaveMobs.Count;
             MobsTotalCountOnWave = MobsLeftThisWave;
+            Debug.Log(MobsLeftThisWave);
         }
 
         public void OnWaveEnded()
@@ -92,9 +98,10 @@ namespace Mobs
             _currentMobIndex++;
         }
 
-        public void NotifyPortalOnMobDeath()
+        public void NotifyPortalOnMobDeath(MobBehaviour mob)
         {
             MobsLeftThisWave--;
+            Debug.Log($"UPDATE: {MobsLeftThisWave}: {mob.name}");
         }
 
         [Serializable]

@@ -19,6 +19,7 @@ namespace City.Building
             if (element == BasicElement.None)
                 throw new ArgumentException("No element found for tower");
             Architect.BuildNewTower(SelectedSlotID, element);
+            ClosePurchaseMenu();
         }
 
         public void ClosePurchaseMenu()

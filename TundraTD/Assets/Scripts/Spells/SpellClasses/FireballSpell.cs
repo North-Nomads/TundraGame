@@ -65,7 +65,6 @@ namespace Spells.SpellClasses
 
         public override void ExecuteSpell()
         {
-            Debug.Log("Fireball has been executed!");
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out var hit))
             {
                 _target = hit.point;
@@ -108,7 +107,6 @@ namespace Spells.SpellClasses
                 var mob = target.GetComponent<MobBehaviour>();
                 float damage = HitDamageValue * Vector3.Distance(target.transform.position, transform.position) / HitDamageRadius;
 
-                Debug.Log($"Target {target}, Damage: {damage}");
                 mob.HandleIncomeDamage(damage * FirePool.DamageAgainstElementMultipliers[mob.MobBasicElement], BasicElement.Fire);
                 mob.AddReceivedEffects(effects);
                 if (FirePool.HasLandingImpulse)
@@ -138,7 +136,6 @@ namespace Spells.SpellClasses
                     var target = AvailableTargetsPool[j];
                     var mob = target.GetComponent<MobBehaviour>();
                     var damage = BurnDamage * FirePool.AfterburnDamageMultiplier;
-                    Debug.Log($"Lava damage: {damage}");
                     mob.HandleIncomeDamage(damage, BasicElement.Fire);
                 }
                 yield return new WaitForSecondsRealtime(1f);

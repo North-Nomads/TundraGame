@@ -1,4 +1,4 @@
-﻿using Mobs.MobEffects;
+using Mobs.MobEffects;
 using Spells;
 using System;
 using System.Collections.Generic;
@@ -73,6 +73,7 @@ namespace Mobs.MobsBehaviour
 
         public void KillThisMob()
         {
+            _mobPortal.NotifyPortalOnMobDeath(this);
             Destroy(gameObject);
             OnMobDied(mobModel, null);
         }

@@ -9,7 +9,7 @@ namespace SceneManagement
     public class MainMenu : MonoBehaviour
     {
         private const int PolygonSceneID = 2;
-        private const int LevelsSceneID = 0;
+        private const int LevelsSceneID = 1;
 
         public void MoveToPolygonScene()
         {
