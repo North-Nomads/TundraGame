@@ -18,8 +18,6 @@ namespace SceneManagement
                 return;
             
             CountLevelsInBuild();
-            print(_levelsAmount);
-
             InstantiateLevelButtons();
         }
 
