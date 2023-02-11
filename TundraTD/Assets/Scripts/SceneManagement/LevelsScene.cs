@@ -6,11 +6,11 @@ namespace SceneManagement
 {
     public class LevelsScene : MonoBehaviour
     {
+        private const int LevelsBindingStartIndex = 2;
         [SerializeField] private RectTransform buttonsHolder;
         [SerializeField] private Button levelButtonPrefab;
         private int _levelsAmount;
         private int _currentLevelBindingIndex = 1;
-        private const int LevelsBindingStartIndex = 2;
         
         private void Start()
         {
