@@ -73,7 +73,6 @@ namespace Mobs.MobsBehaviour
 
         public void KillThisMob()
         {
-            _mobPortal.NotifyPortalOnMobDeath(this);
             Destroy(gameObject);
             OnMobDied(mobModel, null);
         }

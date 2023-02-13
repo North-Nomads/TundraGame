@@ -1048,7 +1048,7 @@ GameObject:
   - component: {fileID: 6057633037458583791}
   - component: {fileID: 5726087438916987631}
   - component: {fileID: 3692616354502211321}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Boar
   m_TagString: Mob
   m_Icon: {fileID: 0}
