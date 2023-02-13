@@ -38,7 +38,6 @@ namespace Mobs
             _allWaveMobs = new List<MobBehaviour>();
             WavesAmount = mobWaves.Length;
             IsInstantiated = true;
-            Debug.Log($"WavesAmount: {WavesAmount}");
         }
 
         private void OnMouseDown()
@@ -70,7 +69,6 @@ namespace Mobs
 
             MobsLeftThisWave = _allWaveMobs.Count;
             MobsTotalCountOnWave = MobsLeftThisWave;
-            Debug.Log(MobsLeftThisWave);
         }
 
         public void OnWaveEnded()
@@ -94,7 +92,7 @@ namespace Mobs
                 mobSpawner.transform
             );
             mob.ExecuteOnMobSpawn(gates.transform, this);
-            mob.OnMobDied += (_, __) => NotifyPortalOnMobDeath();
+            mob.OnMobDied += (_, __) => NotifyPortalOnMobDeath(mob);
             _currentMobIndex++;
         }
 

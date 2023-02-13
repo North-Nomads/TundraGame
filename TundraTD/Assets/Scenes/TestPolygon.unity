@@ -1186,7 +1186,7 @@ GameObject:
   - component: {fileID: 991401485}
   m_Layer: 0
   m_Name: Main Camera
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1274,7 +1274,7 @@ MonoBehaviour:
   minimalCameraSize: 5
   maximumCameraSize: 8
   wasdCameraMoveSpeed: 10
-  usingWASD: 0
+  usingWASD: 1
 --- !u!1001 &1034351870
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2921,7 +2921,7 @@ PrefabInstance:
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
       propertyPath: mobWaves.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
@@ -2942,7 +2942,7 @@ PrefabInstance:
         type: 3}
       propertyPath: mobWaves.Array.data[0].mobProperties.Array.data[0].mob
       value: 
-      objectReference: {fileID: 856308400567232162, guid: 2e6e26c50a4926049b096825079cacfa,
+      objectReference: {fileID: 8671833239330950923, guid: 431421a7745e5ed4d94bbeabaa240f5c,
         type: 3}
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
@@ -2966,7 +2966,7 @@ PrefabInstance:
         type: 3}
       propertyPath: mobWaves.Array.data[1].mobProperties.Array.data[1].mob
       value: 
-      objectReference: {fileID: 4000996451007599641, guid: f5414b311da4f80499a5e14d23b10945,
+      objectReference: {fileID: 8671833239330950923, guid: 431421a7745e5ed4d94bbeabaa240f5c,
         type: 3}
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
@@ -2978,7 +2978,7 @@ PrefabInstance:
         type: 3}
       propertyPath: mobWaves.Array.data[2].mobProperties.Array.data[0].mob
       value: 
-      objectReference: {fileID: 4000996451007599641, guid: f5414b311da4f80499a5e14d23b10945,
+      objectReference: {fileID: 8671833239330950923, guid: 431421a7745e5ed4d94bbeabaa240f5c,
         type: 3}
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
