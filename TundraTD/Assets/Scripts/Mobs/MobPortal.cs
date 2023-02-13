@@ -96,7 +96,7 @@ namespace Mobs
             _currentMobIndex++;
         }
 
-        public void NotifyPortalOnMobDeath(MobBehaviour mob)
+        private void NotifyPortalOnMobDeath(MobBehaviour mob)
         {
             MobsLeftThisWave--;
             Debug.Log($"UPDATE: {MobsLeftThisWave}: {mob.name}");

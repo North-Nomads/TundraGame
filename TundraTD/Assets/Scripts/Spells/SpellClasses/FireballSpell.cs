@@ -111,7 +111,7 @@ namespace Spells.SpellClasses
                 var mob = target.GetComponent<MobBehaviour>();
                 float damage = HitDamageValue * Vector3.Distance(target.transform.position, transform.position) / HitDamageRadius;
 
-                mob.HandleIncomeDamage(damage * FirePool.DamageAgainstElementMultipliers[mob.MobBasicElement], BasicElement.Fire);
+                mob.HitThisMob(damage * FirePool.DamageAgainstElementMultipliers[mob.MobBasicElement], BasicElement.Fire);
                 mob.AddReceivedEffects(effects);
                 if (FirePool.HasLandingImpulse)
                 {
@@ -140,7 +140,7 @@ namespace Spells.SpellClasses
                     var target = AvailableTargetsPool[j];
                     var mob = target.GetComponent<MobBehaviour>();
                     var damage = BurnDamage * FirePool.AfterburnDamageMultiplier;
-                    mob.HandleIncomeDamage(damage, BasicElement.Fire);
+                    mob.HitThisMob(damage, BasicElement.Fire);
                 }
                 yield return new WaitForSecondsRealtime(1f);
             }
@@ -156,10 +156,8 @@ namespace Spells.SpellClasses
             yield return new WaitForSecondsRealtime(FirePool.HasLandingLavaPool ? Mathf.Max(explosionDelay, LavaLifetime) : explosionDelay);
             Destroy(gameObject);
         }
-
-        // харчок
-#pragma warning disable CS0618
-
+        
+        #pragma warning disable CS0618
         private void DisableEmissionOnChildren()
         {
             foreach (var system in meteoriteMesh.GetComponentsInChildren<ParticleSystem>())

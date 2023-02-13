@@ -60,7 +60,15 @@ namespace Mobs.MobsBehaviour
 
         public abstract void MoveTowards(Vector3 point);
 
-        public abstract void HandleIncomeDamage(float damage, BasicElement damageElement);
+        protected abstract void HandleIncomeDamage(float damage, BasicElement damageElement);
+
+        public void HitThisMob(float damage, BasicElement damageElement)
+        {
+            HandleIncomeDamage(damage, damageElement);
+            Debug.Log(MobModel.CurrentMobHealth);
+            if (!MobModel.IsAlive)
+                KillThisMob();
+        }
 
         public void AddReceivedEffects(IEnumerable<Effect> effectsToApply)
         {
@@ -71,15 +79,15 @@ namespace Mobs.MobsBehaviour
             }
         }
 
-        public void KillThisMob()
+        private void KillThisMob()
         {
             Destroy(gameObject);
+            OnMobDied(this, null);
         }
 
         protected virtual void Start()
         {
             mobModel = GetComponent<MobModel>();
-            mobModel.OnMobDied += OnMobDied;
             foreach (var prefab in effectPrefabs)
             {
                 if (prefab != null)
