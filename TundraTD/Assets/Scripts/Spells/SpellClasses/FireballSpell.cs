@@ -24,6 +24,7 @@ namespace Spells.SpellClasses
         [SerializeField] private GameObject explosionPrefab;
         [SerializeField] private GameObject lavaPrefab;
         [SerializeField] private float explosionDelay;
+        private Camera _mainCamera;
         private float _currentHitTime;
         private Vector3 _target;
         private bool _isLanded;
@@ -65,7 +66,10 @@ namespace Spells.SpellClasses
 
         public override void ExecuteSpell()
         {
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out var hit))
+            if (_mainCamera is null)
+                _mainCamera = Camera.main;
+
+            if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out var hit))
             {
                 _target = hit.point;
                 var reflect = Vector3.Reflect(Quaternion.Euler(0, -90, 0) * Camera.main.transform.forward, hit.normal).normalized;
