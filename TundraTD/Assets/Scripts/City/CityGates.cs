@@ -63,7 +63,7 @@ namespace City
             var mobAttack = mob.GetComponent<MobModel>().CurrentMobDamage;
 
             CurrentCityGatesHealthPoints -= mobAttack;
-            mob.KillThisMob();
+            mob.MobModel.CurrentMobHealth = 0;
         }
 
         public void HandleWaveEnding()

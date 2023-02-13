@@ -74,7 +74,6 @@ namespace Mobs.MobsBehaviour
         public void KillThisMob()
         {
             Destroy(gameObject);
-            OnMobDied(mobModel, null);
         }
 
         protected virtual void Start()
