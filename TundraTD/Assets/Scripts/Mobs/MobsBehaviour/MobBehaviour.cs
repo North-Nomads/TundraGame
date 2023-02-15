@@ -1,5 +1,6 @@
-﻿using Mobs.MobEffects;
+using Mobs.MobEffects;
 using Spells;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -50,6 +51,8 @@ namespace Mobs.MobsBehaviour
             }
         }
 
+        public event EventHandler OnMobDied = delegate { };
+
         public abstract BasicElement MobBasicElement { get; }
         public abstract BasicElement MobCounterElement { get; }
 
@@ -57,7 +60,15 @@ namespace Mobs.MobsBehaviour
 
         public abstract void MoveTowards(Vector3 point);
 
-        public abstract void HandleIncomeDamage(float damage, BasicElement damageElement);
+        protected abstract void HandleIncomeDamage(float damage, BasicElement damageElement);
+
+        public void HitThisMob(float damage, BasicElement damageElement)
+        {
+            HandleIncomeDamage(damage, damageElement);
+            Debug.Log(MobModel.CurrentMobHealth);
+            if (!MobModel.IsAlive)
+                KillThisMob();
+        }
 
         public void AddReceivedEffects(IEnumerable<Effect> effectsToApply)
         {
@@ -68,10 +79,10 @@ namespace Mobs.MobsBehaviour
             }
         }
 
-        public void KillThisMob()
+        private void KillThisMob()
         {
-            _mobPortal.NotifyPortalOnMobDeath(this);
             Destroy(gameObject);
+            OnMobDied(this, null);
         }
 
         protected virtual void Start()

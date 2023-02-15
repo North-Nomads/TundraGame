@@ -26,6 +26,7 @@ namespace Spells.SpellClasses
         [SerializeField] private float explosionDelay;
         [SerializeField] private AudioClip flightSound;
         [SerializeField] private AudioClip explosionSound;
+        private Camera _mainCamera;
         private float _currentHitTime;
         private Vector3 _target;
         private bool _isLanded;
@@ -68,7 +69,10 @@ namespace Spells.SpellClasses
 
         public override void ExecuteSpell()
         {
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out var hit))
+            if (_mainCamera is null)
+                _mainCamera = Camera.main;
+
+            if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out var hit))
             {
                 _source = GetComponent<AudioSource>();
                 _source.clip = flightSound;
@@ -79,6 +83,10 @@ namespace Spells.SpellClasses
                 transform.forward = (_target - transform.position).normalized;
                 HitDamageRadius *= FirePool.MeteorRadiusMultiplier;
                 StartCoroutine(LaunchFireball());
+            }
+            else
+            {
+                Destroy(gameObject);
             }
         }
 
@@ -112,7 +120,7 @@ namespace Spells.SpellClasses
                 var mob = target.GetComponent<MobBehaviour>();
                 float damage = HitDamageValue * Vector3.Distance(target.transform.position, transform.position) / HitDamageRadius;
 
-                mob.HandleIncomeDamage(damage * FirePool.DamageAgainstElementMultipliers[mob.MobBasicElement], BasicElement.Fire);
+                mob.HitThisMob(damage * FirePool.DamageAgainstElementMultipliers[mob.MobBasicElement], BasicElement.Fire);
                 mob.AddReceivedEffects(effects);
                 if (FirePool.HasLandingImpulse)
                 {
@@ -141,7 +149,7 @@ namespace Spells.SpellClasses
                     var target = AvailableTargetsPool[j];
                     var mob = target.GetComponent<MobBehaviour>();
                     var damage = BurnDamage * FirePool.AfterburnDamageMultiplier;
-                    mob.HandleIncomeDamage(damage, BasicElement.Fire);
+                    mob.HitThisMob(damage, BasicElement.Fire);
                 }
                 yield return new WaitForSecondsRealtime(1f);
             }
@@ -157,10 +165,8 @@ namespace Spells.SpellClasses
             yield return new WaitForSecondsRealtime(FirePool.HasLandingLavaPool ? Mathf.Max(explosionDelay, LavaLifetime) : explosionDelay);
             Destroy(gameObject);
         }
-
-        // харчок
-#pragma warning disable CS0618
-
+        
+        #pragma warning disable CS0618
         private void DisableEmissionOnChildren()
         {
             foreach (var system in meteoriteMesh.GetComponentsInChildren<ParticleSystem>())

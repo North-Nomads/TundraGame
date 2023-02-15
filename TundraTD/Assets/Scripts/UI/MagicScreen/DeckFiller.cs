@@ -21,16 +21,16 @@ namespace UI.MagicScreen
             _elementIcon = GetComponent<Image>();
             _elementAudioSource = GetComponent<AudioSource>();
         }
+        [SerializeField] private Image elementIcon;
 
         public void OnButtonClick()
         {
             _elementAudioSource.Play();
             var empty = System.Array.Find(buttonsHolder.ElementScripts, x => x.Element == BasicElement.None);
-            if (empty != null)
-            {
-                empty.ElementIcon.sprite = _elementIcon.sprite;
-                empty.Element = element;
-            }
+            if (empty == null) return;
+            
+            empty.ElementIcon.sprite = elementIcon.sprite;
+            empty.Element = element;
         }
     }
 }
