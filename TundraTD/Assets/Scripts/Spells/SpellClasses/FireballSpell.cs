@@ -24,10 +24,13 @@ namespace Spells.SpellClasses
         [SerializeField] private GameObject explosionPrefab;
         [SerializeField] private GameObject lavaPrefab;
         [SerializeField] private float explosionDelay;
+        [SerializeField] private AudioClip flightSound;
+        [SerializeField] private AudioClip explosionSound;
         private Camera _mainCamera;
         private float _currentHitTime;
         private Vector3 _target;
         private bool _isLanded;
+        private AudioSource _source;
 
         /// <summary>
         /// The radius of the hit area
@@ -71,6 +74,9 @@ namespace Spells.SpellClasses
 
             if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out var hit))
             {
+                _source = GetComponent<AudioSource>();
+                _source.clip = flightSound;
+                _source.Play();
                 _target = hit.point;
                 var reflect = Vector3.Reflect(Quaternion.Euler(0, -90, 0) * Camera.main.transform.forward, hit.normal).normalized;
                 transform.position = hit.point + (reflect * FlyDistance);
@@ -94,6 +100,9 @@ namespace Spells.SpellClasses
                 yield return new WaitForEndOfFrame();
                 _currentHitTime += Time.deltaTime;
             } while (_currentHitTime <= HitDelay - FirePool.MeteorLandingReduction);
+
+            _source.Stop();
+            _source.PlayOneShot(explosionSound);
 
             // Register hit effects on mobs
             int hits = Physics.OverlapSphereNonAlloc(transform.position, HitDamageRadius, AvailableTargetsPool, MobsLayerMask);

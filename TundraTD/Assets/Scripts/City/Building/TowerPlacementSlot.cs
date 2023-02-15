@@ -14,6 +14,7 @@ namespace City.Building
         [SerializeField] private int slotID;
         private float _slotHeight;
         private Vector3 _bottomCentreBuildingAnchor;
+        private AudioSource _soundEffect;
         public bool IsOccupied { get; private set; }
         public int SlotID => slotID;
 
@@ -21,6 +22,7 @@ namespace City.Building
         {
             // we define new spawn position higher than the anchor because unity defines axis in the center of a model
             Instantiate(prefab, _bottomCentreBuildingAnchor, Quaternion.identity);
+            _soundEffect.Play();
             IsOccupied = true;
         }
 
@@ -35,6 +37,7 @@ namespace City.Building
             
             var position = transform.position;
             _bottomCentreBuildingAnchor = new Vector3(position.x, position.y + Mathf.Abs(_slotHeight / 2), position.z);
+            _soundEffect = GetComponent<AudioSource>();
             IsOccupied = false;
         }
 
