@@ -13,7 +13,6 @@ namespace UI.MagicScreen
     {
         [SerializeField] private BasicElement element;
         [SerializeField] private UpperButtonElements buttonsHolder;
-        [SerializeField] private Image elementIcon;
         private Image _elementIcon;
         private AudioSource _elementAudioSource;
 
@@ -22,7 +21,8 @@ namespace UI.MagicScreen
             _elementIcon = GetComponent<Image>();
             _elementAudioSource = GetComponent<AudioSource>();
         }
-        
+        [SerializeField] private Image elementIcon;
+
         public void OnButtonClick()
         {
             _elementAudioSource.Play();
