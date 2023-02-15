@@ -12,6 +12,11 @@ namespace City
     /// </summary>
     [RequireComponent(typeof(CityGatesUI))]
     public class CityGates : MonoBehaviour
+
+    //Nikita's code
+    private bool _damage;
+    private Animator _animator;
+
     {
         [SerializeField] private float maxCityGatesHealthPoints;
         [SerializeField] private LevelJudge levelJudge;
@@ -41,6 +46,8 @@ namespace City
         {
             _cityGatesUI = GetComponent<CityGatesUI>();
             _currentCurrentCityGatesHealthPoints = maxCityGatesHealthPoints;
+
+            _animator = GetComponent<Animator>();
         }
 
         private void Update()
@@ -62,6 +69,9 @@ namespace City
 
             CurrentCityGatesHealthPoints -= mobAttack;
             mob.KillThisMob();
+
+            _animator.SetBool("Damage", _damage);
+            _damage = !_damage;
         }
 
         public void HandleWaveEnding()
