@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.IO;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -6,7 +7,6 @@ namespace SceneManagement
 {
     public class LevelsScene : MonoBehaviour
     {
-        private const int LevelsBindingStartIndex = 2;
         [SerializeField] private RectTransform buttonsHolder;
         [SerializeField] private Button levelButtonPrefab;
         private int _levelsAmount;
@@ -16,8 +16,8 @@ namespace SceneManagement
         {
             if (_levelsAmount != 0)
                 return;
-            
-            CountLevelsInBuild();
+
+            _levelsAmount = GetLevelsInBuild();
             InstantiateLevelButtons();
         }
 
@@ -26,7 +26,7 @@ namespace SceneManagement
             for (int i = 0; i < _levelsAmount; i++)
             {
                 var button = Instantiate(levelButtonPrefab, buttonsHolder.transform);
-                button.GetComponentInChildren<Text>().text = $"Level{i + 1}";
+                button.GetComponentInChildren<Text>().text = $"Level{_currentLevelBindingIndex}";
                 var currentLevelIndex = _currentLevelBindingIndex;
                 button.onClick.AddListener(() => BindLevelToButton(currentLevelIndex));
                 _currentLevelBindingIndex++;
@@ -38,13 +38,10 @@ namespace SceneManagement
             SceneManager.LoadScene($"Level{number}");
         }
 
-        private void CountLevelsInBuild()
+        private int GetLevelsInBuild()
         {
-            foreach (var scene in UnityEditor.EditorBuildSettings.scenes)
-                if (IsInLevelsFolder(scene.path))
-                    _levelsAmount++;
+            var s = Directory.GetFiles("Assets/Scenes/Levels/", "*.unity", SearchOption.AllDirectories);
+            return s.Length;
         }
-
-        private bool IsInLevelsFolder(string path) => path.Contains("Assets/Scenes/Levels/Level");
     }
 }

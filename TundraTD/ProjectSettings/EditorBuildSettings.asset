@@ -14,10 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TestPolygon.unity
     guid: 88806fd733e9ee349849be1b88561834
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Levels/Level1.unity
     guid: d55deaf00c5f80a488819698ee134eb5
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Levels/Level2.unity
     guid: 0d94695c8d2eb2b45a564639dbc4dec1
   m_configObjects: {}
