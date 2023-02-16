@@ -7,10 +7,10 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LightningBeam
-  m_Shader: {fileID: 4800000, guid: 97ba9d1651efe9c48a26f1f731778224, type: 3}
+  m_Name: LightningBeamCore
+  m_Shader: {fileID: 4800000, guid: 07b3fc392fc55ad4ca896bbf4803d9ea, type: 3}
   m_ShaderKeywords: 
-  m_LightmapFlags: 1
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -43,10 +43,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Main_Texture:
-        m_Texture: {fileID: 2800000, guid: 6a985dfcd1d3ca94e9753748ed65c697, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -59,33 +55,27 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _PatternTexture:
-        m_Texture: {fileID: 2800000, guid: 6a985dfcd1d3ca94e9753748ed65c697, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
-    - _ChangingSizeSpeed: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _FresnelExp: 0.3574258
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
-    - _MotionSpeed: 10
     - _OcclusionStrength: 1
-    - _Opacity: 0.6086956
+    - _Opacity: 0.8221287
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _Speed: 4.73913
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
-    - _node_1874: 0
-    - _node_8455: 3.84
     m_Colors:
-    - _Color: {r: 0, g: 0.9424863, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _FresnelColor: {r: 0, g: 0.9171712, b: 1, a: 1}
+    - _internalColor: {r: 1, g: 1, b: 1, a: 1}
