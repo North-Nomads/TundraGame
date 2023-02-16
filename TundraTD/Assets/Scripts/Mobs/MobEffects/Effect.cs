@@ -45,5 +45,10 @@ namespace Mobs.MobEffects
         /// Represents the stun effect.
         /// </summary>
         Stun = 1 << 1,
+
+        /// <summary>
+        /// Represents the slowness effect.
+        /// </summary>
+        Slowness = 1 << 2,
     }
 }

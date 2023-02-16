@@ -10,11 +10,17 @@ namespace Mobs.MobEffects
 
         public override void HandleTick(MobBehaviour mob)
         {
+            CurrentTicksAmount++;
         }
 
         public override void OnAttach(MobBehaviour mob)
         {
-            // TODO: Well then, I need some modifications in the mob system to implement this feature.
+            mob.MobModel.CurrentMobSpeed = 0;
+        }
+
+        public override void OnDetach(MobBehaviour mob)
+        {
+            mob.MobModel.CurrentMobSpeed = 1;
         }
     }
 }
