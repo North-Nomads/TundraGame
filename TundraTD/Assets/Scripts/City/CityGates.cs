@@ -13,9 +13,6 @@ namespace City
     [RequireComponent(typeof(CityGatesUI))]
     public class CityGates : MonoBehaviour
 
-    //Nikita's code
-    private bool _damage;
-    private Animator _animator;
 
     {
         [SerializeField] private float maxCityGatesHealthPoints;
@@ -23,6 +20,10 @@ namespace City
         private float _currentCurrentCityGatesHealthPoints;
         private float _cityGatesHealthPercent;
         private CityGatesUI _cityGatesUI;
+        
+        //Nikita's code
+        private bool _damage;
+        private Animator _animator;
 
         private float CurrentCityGatesHealthPoints
         {
