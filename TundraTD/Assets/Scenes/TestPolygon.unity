@@ -427,6 +427,10 @@ MonoBehaviour:
   - {fileID: 1464022968876451410, guid: b9ce7bfe846ccc040b21f7a749d31c78, type: 3}
   spellPrefabs:
   - {fileID: 7913506393892522128, guid: 4c9b0db6e89c5d5478a5d9554eef8b15, type: 3}
+  - {fileID: 2284633909366693909, guid: 63c23b93473c487498b3a119909f2730, type: 3}
+  - {fileID: 7913506393892522128, guid: 4c9b0db6e89c5d5478a5d9554eef8b15, type: 3}
+  - {fileID: 7913506393892522128, guid: 4c9b0db6e89c5d5478a5d9554eef8b15, type: 3}
+  - {fileID: 7913506393892522128, guid: 4c9b0db6e89c5d5478a5d9554eef8b15, type: 3}
 --- !u!1 &375244294
 GameObject:
   m_ObjectHideFlags: 0
