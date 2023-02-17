@@ -11,19 +11,20 @@ namespace City
     [RequireComponent(typeof(CityGates))]
     public class CityGatesUI : MonoBehaviour
     {
+        private const float DecreaseHealthBarValueBoost = 0.005f;
+        private const float DecreaseHealthBarValue = 0.000002f;
+        private const float WhiteSpriteGlowingTime = 2;
+        
         [SerializeField] private Image topHealthBar;
         [SerializeField] private Image takenDamageSprite;
         [SerializeField] private Text influencePointsHolder;
         private float _targetPercent;
-        const float _DecreaseHealthBarValueBoost = 0.005f;
-        const float _decreaseHealthBarValue = 0.000002f;
-        private float _whiteSpriteGlowingTime = 2;
 
         private void Start()
         {
 
             if (topHealthBar.sprite == null)
-                throw new ArgumentNullException("topHealthBar sprite", "Value of healthbar sprite was not assigned");
+                throw new ArgumentNullException("topHealthBar.sprite", "Value of HealthBar sprite was not assigned");
             topHealthBar.fillAmount = 1f;
             takenDamageSprite.fillAmount = 0;
             _targetPercent = topHealthBar.fillAmount;
@@ -41,35 +42,32 @@ namespace City
         }
         private IEnumerator PlayHealthBarAnimation()
         {
-            float _decreaseHealthBarRate = _decreaseHealthBarValue;
-            float _decreaseHealthBarUIValue;
-            bool _isDamageTaken = false;
+            var decreaseHealthBarRate = DecreaseHealthBarValue;
             while (true)
             {
                 if (topHealthBar.fillAmount <= _targetPercent) 
                 {
-                    StartCoroutine(GlowWhiteSprite(_isDamageTaken));
-                    _decreaseHealthBarRate = _decreaseHealthBarValue;
+                    StartCoroutine(GlowWhiteSprite(false));
+                    decreaseHealthBarRate = DecreaseHealthBarValue;
                     yield return null;
                 }
                 else
                 {
-                    _isDamageTaken = true;
-                    _decreaseHealthBarUIValue = _decreaseHealthBarRate * _decreaseHealthBarRate;
-                    topHealthBar.fillAmount -= _decreaseHealthBarUIValue;
-                    StartCoroutine(GlowWhiteSprite(_isDamageTaken));
-                    _isDamageTaken = false;
-                    _decreaseHealthBarRate += _DecreaseHealthBarValueBoost;
+                    var decreaseHealthBarUIValue = decreaseHealthBarRate * decreaseHealthBarRate;
+                    topHealthBar.fillAmount -= decreaseHealthBarUIValue;
+                    StartCoroutine(GlowWhiteSprite(true));
+                    decreaseHealthBarRate += DecreaseHealthBarValueBoost;
                     yield return null;
                 }
             }
         }
-        private IEnumerator GlowWhiteSprite(bool _isDamageTaken)
+        
+        private IEnumerator GlowWhiteSprite(bool isDamageTaken)
         {
-            if (_isDamageTaken)
+            if (isDamageTaken)
             {
                 takenDamageSprite.fillAmount = topHealthBar.fillAmount;
-                yield return new WaitForSeconds(_whiteSpriteGlowingTime);
+                yield return new WaitForSeconds(WhiteSpriteGlowingTime);
             }
             else
             {
