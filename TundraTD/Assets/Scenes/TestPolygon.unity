@@ -1582,6 +1582,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1889912599}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1373420757 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8496030803195590843, guid: b98c0540fb41e2e4c9e3211b0ea7471b,
+    type: 3}
+  m_PrefabInstance: {fileID: 2078140900}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1505798931
 GameObject:
   m_ObjectHideFlags: 0
@@ -3651,7 +3663,7 @@ PrefabInstance:
         type: 3}
       propertyPath: takenDamageSprite
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1373420757}
     - target: {fileID: 7281453124406245002, guid: 2b4eec4f6c456dc4c88b4572ed764b8e,
         type: 3}
       propertyPath: healthPointsHolder
