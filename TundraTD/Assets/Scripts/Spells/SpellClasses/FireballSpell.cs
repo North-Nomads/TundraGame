@@ -67,7 +67,7 @@ namespace Spells.SpellClasses
         [IncreasableProperty(BasicElement.Lightning, 2f)]
         public float SlownessDuration { get; set; }
 
-        public override void ExecuteSpell()
+        public override void InstantiateSpellExecution()
         {
             if (_mainCamera is null)
                 _mainCamera = Camera.main;
