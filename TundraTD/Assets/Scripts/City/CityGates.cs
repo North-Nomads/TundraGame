@@ -54,14 +54,16 @@ namespace City
 
         private void OnTriggerEnter(Collider other)
         {
+            Debug.Log(1);
             if (!other.CompareTag("Mob"))
                 return;
 
+            Debug.Log(1);
             var mob = other.GetComponent<MobBehaviour>();
             var mobAttack = mob.GetComponent<MobModel>().CurrentMobDamage;
 
             CurrentCityGatesHealthPoints -= mobAttack;
-            mob.KillThisMob();
+            mob.HitThisMob(float.PositiveInfinity, BasicElement.None);
         }
 
         public void HandleWaveEnding()

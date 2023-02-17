@@ -9,7 +9,6 @@ namespace Mobs.MobsBehaviour.Boar
     [RequireComponent(typeof(MobModel))]
     public class BoarBehavior : MobBehaviour
     {
-        // private MobModel MobModel;
         private bool _canDistractFromCurrentTarget;
 
         private float _chargeLeftTime;
@@ -17,7 +16,7 @@ namespace Mobs.MobsBehaviour.Boar
         public override BasicElement MobBasicElement => BasicElement.Earth;
         public override BasicElement MobCounterElement => BasicElement.Air;
 
-        public override void HandleIncomeDamage(float damage, BasicElement damageElement)
+        protected override void HandleIncomeDamage(float damage, BasicElement damageElement)
         {
             var multiplier = 1f;
             if (damageElement == MobBasicElement)
@@ -26,9 +25,6 @@ namespace Mobs.MobsBehaviour.Boar
                 multiplier = 1.2f;
 
             MobModel.CurrentMobHealth -= damage * multiplier;
-
-            if (MobModel.CurrentMobHealth <= 0)
-                KillThisMob();
         }
 
         public override void MoveTowards(Vector3 point)

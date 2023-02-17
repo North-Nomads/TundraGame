@@ -31,7 +31,7 @@ namespace Mobs.MobsBehaviour.Ironclad
             MobModel.MobNavMeshAgent.SetDestination(point);
         }
 
-        public override void HandleIncomeDamage(float damage, BasicElement damageElement)
+        protected override void HandleIncomeDamage(float damage, BasicElement damageElement)
         {
             var multiplier = 1f;
             if (damageElement == MobBasicElement)
@@ -46,14 +46,10 @@ namespace Mobs.MobsBehaviour.Ironclad
             }
 
             MobModel.CurrentMobHealth -= damage * multiplier;
-
-            if (MobModel.CurrentMobHealth <= 0)
-                KillThisMob();
         }
 
         public override void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal)
         {
-            MobPortal = mobPortal;
             MobModel.InstantiateMobModel();
 
             MobShield = 10;
@@ -63,8 +59,6 @@ namespace Mobs.MobsBehaviour.Ironclad
 
         private void FixedUpdate()
         {
-            if (MobModel.CurrentMobHealth <= 0)
-                KillThisMob();
 
             if (CurrentEffects.Count > 0)
                 TickTimer -= Time.fixedDeltaTime;
