@@ -15,6 +15,9 @@ namespace City
         [SerializeField] private Image takenDamageSprite;
         [SerializeField] private Text influencePointsHolder;
         private float _targetPercent;
+        const float _DecreaseHealthBarValueBoost = 0.005f;
+        const float _decreaseHealthBarValue = 0.000002f;
+        private float _whiteSpriteGlowingTime = 2;
 
         private void Start()
         {
@@ -38,35 +41,35 @@ namespace City
         }
         private IEnumerator PlayHealthBarAnimation()
         {
-            float _decreaseHealthBarRate = 0.000002f;
-            float a;
-            bool flag = false;
+            float _decreaseHealthBarRate = _decreaseHealthBarValue;
+            float _decreaseHealthBarUIValue;
+            bool _isDamageTaken = false;
             while (true)
             {
                 if (topHealthBar.fillAmount <= _targetPercent) 
                 {
-                    StartCoroutine(onemore(flag));
-                    _decreaseHealthBarRate = 0.000002f;
+                    StartCoroutine(GlowWhiteSprite(_isDamageTaken));
+                    _decreaseHealthBarRate = _decreaseHealthBarValue;
                     yield return null;
                 }
                 else
                 {
-                    flag = true;
-                    a = _decreaseHealthBarRate * _decreaseHealthBarRate;
-                    topHealthBar.fillAmount -= a;
-                    StartCoroutine(onemore(flag));
-                    flag = false;
-                    _decreaseHealthBarRate += 0.005f;
+                    _isDamageTaken = true;
+                    _decreaseHealthBarUIValue = _decreaseHealthBarRate * _decreaseHealthBarRate;
+                    topHealthBar.fillAmount -= _decreaseHealthBarUIValue;
+                    StartCoroutine(GlowWhiteSprite(_isDamageTaken));
+                    _isDamageTaken = false;
+                    _decreaseHealthBarRate += _DecreaseHealthBarValueBoost;
                     yield return null;
                 }
             }
         }
-        private IEnumerator onemore(bool flag)
+        private IEnumerator GlowWhiteSprite(bool _isDamageTaken)
         {
-            if (flag)
+            if (_isDamageTaken)
             {
                 takenDamageSprite.fillAmount = topHealthBar.fillAmount;
-                yield return new WaitForSeconds(2);
+                yield return new WaitForSeconds(_whiteSpriteGlowingTime);
             }
             else
             {
