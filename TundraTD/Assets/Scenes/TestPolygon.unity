@@ -3649,6 +3649,11 @@ PrefabInstance:
       objectReference: {fileID: 2078140902}
     - target: {fileID: 7281453124406245002, guid: 2b4eec4f6c456dc4c88b4572ed764b8e,
         type: 3}
+      propertyPath: takenDamageSprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7281453124406245002, guid: 2b4eec4f6c456dc4c88b4572ed764b8e,
+        type: 3}
       propertyPath: healthPointsHolder
       value: 
       objectReference: {fileID: 0}
