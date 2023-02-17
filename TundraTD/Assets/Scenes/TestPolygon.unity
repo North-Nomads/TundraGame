@@ -347,6 +347,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   magicUI: {fileID: 1765962606}
   levelCornerman: {fileID: 375244296}
+--- !u!114 &202539236 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8496030803195590843, guid: b98c0540fb41e2e4c9e3211b0ea7471b,
+    type: 3}
+  m_PrefabInstance: {fileID: 2078140900}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &255788525 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1519892301023929430, guid: b98c0540fb41e2e4c9e3211b0ea7471b,
@@ -3647,6 +3659,11 @@ PrefabInstance:
       propertyPath: topHealthBar
       value: 
       objectReference: {fileID: 2078140902}
+    - target: {fileID: 7281453124406245002, guid: 2b4eec4f6c456dc4c88b4572ed764b8e,
+        type: 3}
+      propertyPath: takenDamageSprite
+      value: 
+      objectReference: {fileID: 202539236}
     - target: {fileID: 7281453124406245002, guid: 2b4eec4f6c456dc4c88b4572ed764b8e,
         type: 3}
       propertyPath: healthPointsHolder
