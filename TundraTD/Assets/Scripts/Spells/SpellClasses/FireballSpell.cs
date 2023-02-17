@@ -24,9 +24,13 @@ namespace Spells.SpellClasses
         [SerializeField] private GameObject explosionPrefab;
         [SerializeField] private GameObject lavaPrefab;
         [SerializeField] private float explosionDelay;
+        [SerializeField] private AudioClip flightSound;
+        [SerializeField] private AudioClip explosionSound;
+        private Camera _mainCamera;
         private float _currentHitTime;
         private Vector3 _target;
         private bool _isLanded;
+        private AudioSource _source;
 
         /// <summary>
         /// The radius of the hit area
@@ -63,16 +67,26 @@ namespace Spells.SpellClasses
         [IncreasableProperty(BasicElement.Lightning, 2f)]
         public float SlownessDuration { get; set; }
 
-        public override void ExecuteSpell()
+        public override void InstantiateSpellExecution()
         {
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out var hit))
+            if (_mainCamera is null)
+                _mainCamera = Camera.main;
+
+            if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out var hit))
             {
+                _source = GetComponent<AudioSource>();
+                _source.clip = flightSound;
+                _source.Play();
                 _target = hit.point;
                 var reflect = Vector3.Reflect(Quaternion.Euler(0, -90, 0) * Camera.main.transform.forward, hit.normal).normalized;
                 transform.position = hit.point + (reflect * FlyDistance);
                 transform.forward = (_target - transform.position).normalized;
                 HitDamageRadius *= FirePool.MeteorRadiusMultiplier;
                 StartCoroutine(LaunchFireball());
+            }
+            else
+            {
+                Destroy(gameObject);
             }
         }
 
@@ -86,6 +100,9 @@ namespace Spells.SpellClasses
                 yield return new WaitForEndOfFrame();
                 _currentHitTime += Time.deltaTime;
             } while (_currentHitTime <= HitDelay - FirePool.MeteorLandingReduction);
+
+            _source.Stop();
+            _source.PlayOneShot(explosionSound);
 
             // Register hit effects on mobs
             int hits = Physics.OverlapSphereNonAlloc(transform.position, HitDamageRadius, AvailableTargetsPool, MobsLayerMask);
@@ -103,7 +120,7 @@ namespace Spells.SpellClasses
                 var mob = target.GetComponent<MobBehaviour>();
                 float damage = HitDamageValue * Vector3.Distance(target.transform.position, transform.position) / HitDamageRadius;
 
-                mob.HandleIncomeDamage(damage * FirePool.DamageAgainstElementMultipliers[mob.MobBasicElement], BasicElement.Fire);
+                mob.HitThisMob(damage * FirePool.DamageAgainstElementMultipliers[mob.MobBasicElement], BasicElement.Fire);
                 mob.AddReceivedEffects(effects);
                 if (FirePool.HasLandingImpulse)
                 {
@@ -132,7 +149,7 @@ namespace Spells.SpellClasses
                     var target = AvailableTargetsPool[j];
                     var mob = target.GetComponent<MobBehaviour>();
                     var damage = BurnDamage * FirePool.AfterburnDamageMultiplier;
-                    mob.HandleIncomeDamage(damage, BasicElement.Fire);
+                    mob.HitThisMob(damage, BasicElement.Fire);
                 }
                 yield return new WaitForSecondsRealtime(1f);
             }
@@ -148,10 +165,8 @@ namespace Spells.SpellClasses
             yield return new WaitForSecondsRealtime(FirePool.HasLandingLavaPool ? Mathf.Max(explosionDelay, LavaLifetime) : explosionDelay);
             Destroy(gameObject);
         }
-
-        // харчок
-#pragma warning disable CS0618
-
+        
+        #pragma warning disable CS0618
         private void DisableEmissionOnChildren()
         {
             foreach (var system in meteoriteMesh.GetComponentsInChildren<ParticleSystem>())

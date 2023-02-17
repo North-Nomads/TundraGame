@@ -18,23 +18,20 @@ namespace Mobs
         [SerializeField]
         private float defaultMobSpeed;
 
-        [SerializeField]
-        private float mobWaveWeight;
-
         private float _currentMobHealth;
         private float _currentMobSpeed;
         private NavMeshAgent _mobNavMeshAgent;
 
         public Sprite MobSprite => mobSprite;
         public NavMeshAgent MobNavMeshAgent => _mobNavMeshAgent;
-        public float MobWaveWeight => mobWaveWeight;
+        public bool IsAlive => CurrentMobHealth > 0;
 
         public float CurrentMobHealth
         {
             get => _currentMobHealth;
             set
             {
-                if (value < 0)
+                if (value <= 0)
                     _currentMobHealth = 0;
                 else
                     _currentMobHealth = value;

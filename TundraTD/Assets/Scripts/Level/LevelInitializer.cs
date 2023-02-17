@@ -18,7 +18,7 @@ namespace Level
         [SerializeField] private CityGatesUI influencePointsHolder;
         [SerializeField] private TowerPlacementSlot[] placementSlots;
         [SerializeField] private ElementalTower[] elementalTowerPrefabs;
-        [SerializeField] private GameObject[] spellPrefabs;
+        [SerializeField] private MagicSpell[] spellInitializers;
 
         private void Start()
         {
@@ -38,7 +38,7 @@ namespace Level
             Architect.WaveCompletionMinInfluencePointsAward = minWaveAward;
             Architect.WaveCompletionMaxInfluencePointsAward = maxWaveAward;
 
-            Grimoire.SpellPrefabs = spellPrefabs;
+            Grimoire.SpellInitializers = spellInitializers;
 
             // DEBUG: Temporary giving 100 points
             Architect.DEBUG_GetStartPoints();

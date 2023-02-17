@@ -19,7 +19,7 @@ namespace Mobs.MobEffects
 
         public override void HandleTick(MobBehaviour mob)
         {
-            mob.HandleIncomeDamage(BurningDamage, BasicElement.Fire);
+            mob.HitThisMob(BurningDamage, BasicElement.Fire);
             CurrentTicksAmount++;
         }
     }

@@ -1,11 +1,8 @@
 fileFormatVersion: 2
-guid: cbd8f9a7bf95a9347827562390a56f78
+guid: 30006923fb09fc54288e2e4667c3ffed
 ModelImporter:
   serializedVersion: 19301
-  internalIDToNameTable:
-  - first:
-      74: -6112803813002546056
-    second: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430|Running"
+  internalIDToNameTable: []
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -33,36 +30,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations:
-    - serializedVersion: 16
-      name: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430|Running"
-      takeName: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430|Running"
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 250
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 1
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+    clipAnimations: []
     isReadable: 0
   meshes:
     lODScreenPercentages: []

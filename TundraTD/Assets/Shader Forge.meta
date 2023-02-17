@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:TundraTD/Assets/Shader Forge.meta
 guid: 0267ed42fedd35c42a5799df1da6aab9
+========
+guid: 2aab5fb1fd0ea4d44bc4d82bb3996215
+>>>>>>>> origin/earth-spell:TundraTD/Assets/Scenes/Levels.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

@@ -14,7 +14,7 @@ namespace Spells
         private static readonly Dictionary<BasicElement, Type> _spellTypes;
 
         // HACK: temporary solution to avoid errors
-        public static GameObject[] SpellPrefabs { get; set; }
+        public static MagicSpell[] SpellInitializers { get; set; }
 
         static Grimoire()
         {
@@ -38,7 +38,7 @@ namespace Spells
             var remElements = elements.Where((x, i) => x != mostElement || i >= startMostIndex + 3);
             if (mostElement.HasValue && _spellTypes.TryGetValue(mostElement.Value, out Type spellType))
             {
-                var spellObject = UnityEngine.Object.Instantiate(SpellPrefabs[(int)Math.Log((int)mostElement, 2)]);
+                var spellObject = SpellInitializers[(int)Math.Log((int)mostElement, 2)];
                 MagicSpell spell = spellObject.GetComponent(spellType) as MagicSpell;
                 foreach (var prop in spellType.GetProperties())
                 {
@@ -50,7 +50,7 @@ namespace Spells
                         }
                     }
                 }
-                spell.ExecuteSpell();
+                spell.InstantiateSpellExecution();
                 return spell;
             }
             return null;
