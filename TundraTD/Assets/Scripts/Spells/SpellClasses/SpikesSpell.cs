@@ -11,8 +11,8 @@ namespace Spells.SpellClasses
         //private const Vector3 StepValue = 1.375f;
         
         [SerializeField] private Transform spikesGroupObject;
-        [SerializeField] private float spikesDistance = 1;
-        
+        [SerializeField] private float spikesOffset = 1;
+
         private float _touchRegisterMaxTime;
         private float _touchRegisterTime;
         private Camera _mainCamera;
@@ -62,24 +62,20 @@ namespace Spells.SpellClasses
             if (!Physics.Raycast(ray, out var hitInfo1, float.PositiveInfinity, CastableLayer))
                 yield break;
             
+            Debug.Log(_touchRegisterTime);
+            
             var position1 = hitInfo1.point;
             var position2 = position1;
 
             while (_touchRegisterTime < _touchRegisterMaxTime)
             {
-                /*if (Input.touchCount != 1)
-                    yield return null;*/
-                
                 var rayEnd = _mainCamera.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(rayEnd, out var hitInfo2))
-                {
+                if (Physics.Raycast(rayEnd, out var hitInfo2, float.PositiveInfinity, CastableLayer))
                     position2 = hitInfo2.point;
-                }
-                
+
                 _touchRegisterTime += Time.deltaTime;
                 yield return null;
             }
-            
             
             if (position1 == position2)
                 yield break;
@@ -90,16 +86,17 @@ namespace Spells.SpellClasses
         {
             var spikes = new List<Transform>();
             var direction = finish - start;
-            var count = direction / 7;
+            var step = direction / direction.magnitude;
+            var count = direction.magnitude / step.magnitude;
             var currentPosition = start;
 
-            while (currentPosition.magnitude < finish.magnitude)
+            while (count > 0)
             {
-                print(count);
                 var group = Instantiate(spikesGroupObject, currentPosition, Quaternion.identity);
                 spikes.Add(group);
-                currentPosition += count;
-                yield return new WaitForSeconds(.05f);
+                currentPosition += step;
+                count--;
+                yield return new WaitForSeconds(.02f);
             }
 
             yield return new WaitForSeconds(Lifetime);
