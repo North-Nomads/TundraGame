@@ -12,7 +12,7 @@ namespace Spells.SpellClasses.EarthSpell
 
         [SerializeField] private Transform spikesHolder;
         [SerializeField] private SpikesCollider spikesCollider;
-        [SerializeField] private SpikesSpell spikesGroupObject;
+        [SerializeField] private Transform spikesGroupObject;
         [SerializeField] private float spikesOffset = 1;
 
         private float _touchRegisterMaxTime;
@@ -40,14 +40,15 @@ namespace Spells.SpellClasses.EarthSpell
         [IncreasableProperty(BasicElement.Air, -0.7f)]
         public float SlownessTime { get; set; } = 2f;
 
-        [IncreasableProperty(BasicElement.Water, -0.05f)]
-        public float SlownessValue { get; set; } = 0.7f;
+        [IncreasableProperty(BasicElement.Water, -5)]
+        public int SlownessValue { get; set; } = 70;
 
-        public float Lifetime { get; set; } = 4f;
+        public int Lifetime { get; set; } = 4;
 
         private void Start()
         {
             _mainCamera = Camera.main;
+            spikesCollider.SendSlownessValues(Lifetime, SlownessValue);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -55,14 +56,12 @@ namespace Spells.SpellClasses.EarthSpell
             Debug.Log(other.name);
         }
 
-        private IEnumerator RegisterSpikesTouches()
+        private IEnumerator RegisterUserInputs()
         {
             var ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
 
             if (!Physics.Raycast(ray, out var hitInfo1, float.PositiveInfinity, CastableLayer))
                 yield break;
-            
-            Debug.Log(_touchRegisterTime);
             
             var position1 = hitInfo1.point;
             var position2 = position1;
@@ -84,7 +83,7 @@ namespace Spells.SpellClasses.EarthSpell
 
         private IEnumerator InstantiateSpikes(Vector3 start, Vector3 finish)
         {
-            var spikes = new List<SpikesSpell>();
+            var spikes = new List<Transform>();
             var direction = finish - start;
             var step = direction / direction.magnitude;
             var count = direction.magnitude / step.magnitude;
@@ -104,7 +103,7 @@ namespace Spells.SpellClasses.EarthSpell
             yield return DestroySpikes(spikes);
         }
 
-        private IEnumerator DestroySpikes(List<SpikesSpell> spikes)
+        private IEnumerator DestroySpikes(List<Transform> spikes)
         {
             foreach (var spike in spikes)
             {
@@ -117,7 +116,7 @@ namespace Spells.SpellClasses.EarthSpell
         {
             _touchRegisterTime = 0f;
             _touchRegisterMaxTime = MaxDrawTime;
-            StartCoroutine(RegisterSpikesTouches());
+            StartCoroutine(RegisterUserInputs());
         }
     }
 }

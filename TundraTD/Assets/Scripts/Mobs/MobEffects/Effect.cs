@@ -1,5 +1,6 @@
 ﻿using Mobs.MobsBehaviour;
 using System;
+using UnityEngine;
 
 namespace Mobs.MobEffects
 {
@@ -16,7 +17,11 @@ namespace Mobs.MobEffects
 
         public abstract EffectCode Code { get; }
 
-        public abstract void HandleTick(MobBehaviour mob);
+        public virtual void HandleTick(MobBehaviour mob)
+        {
+            Debug.Log($"{CurrentTicksAmount} / {MaxTicksAmount}");
+            CurrentTicksAmount++;
+        }
 
         public virtual void OnAttach(MobBehaviour mob)
         { }
@@ -45,5 +50,10 @@ namespace Mobs.MobEffects
         /// Represents the stun effect.
         /// </summary>
         Stun = 1 << 1,
+        
+        /// <summary>
+        /// Represents the slowness effect of any spell
+        /// </summary>
+        Slowness = 1 << 2
     }
 }
