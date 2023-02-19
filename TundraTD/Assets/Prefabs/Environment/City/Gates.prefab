@@ -761,6 +761,7 @@ GameObject:
   - component: {fileID: 7281453124406245004}
   - component: {fileID: 7281453124406245002}
   - component: {fileID: 7281453124406245003}
+  - component: {fileID: 9067856430413999971}
   m_Layer: 0
   m_Name: Gates
   m_TagString: Untagged
@@ -811,7 +812,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdd0f35ce7f3437eb17f9fcb4dd291a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPointsHolder: {fileID: 0}
+  topHealthBar: {fileID: 0}
+  influencePointsHolder: {fileID: 0}
 --- !u!114 &7281453124406245003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -824,7 +826,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e787731aa6a4a0147a3d7a04658387dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cityGatesHealthPoints: 100
+  maxCityGatesHealthPoints: 0
+  levelJudge: {fileID: 0}
+--- !u!95 &9067856430413999971
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7623893609857240025}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d972a84941fbdb04fbbdb748033be135, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8706125231061957151
 GameObject:
   m_ObjectHideFlags: 0
