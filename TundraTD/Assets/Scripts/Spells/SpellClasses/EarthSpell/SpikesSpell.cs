@@ -39,8 +39,8 @@ namespace Spells.SpellClasses.EarthSpell
         [IncreasableProperty(BasicElement.Air, -0.7f)]
         public float SlownessTime { get; set; } = 2f;
 
-        [IncreasableProperty(BasicElement.Water, -5)]
-        public int SlownessValue { get; set; } = 70;
+        [IncreasableProperty(BasicElement.Water, -.05f)]
+        public float SlownessValue { get; set; } = 0.7f;
 
         public int Lifetime { get; set; } = 4;
 

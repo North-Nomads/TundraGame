@@ -10,7 +10,7 @@ namespace Spells.SpellClasses.EarthSpell
     public class SpikesCollider : MonoBehaviour
     {
         private int _slownessTicks;
-        private int _slownessPercent;
+        private float _slownessPercent;
         private BoxCollider _boxCollider;
         private Vector3 _halfHeight;
 
@@ -33,7 +33,7 @@ namespace Spells.SpellClasses.EarthSpell
         private void OnTriggerEnter(Collider other)
         {
             var mob = other.GetComponent<MobBehaviour>();
-            mob.AddReceivedEffects(new List<Effect> { new SlownessEffect(_slownessTicks, _slownessPercent) });
+            mob.AddReceivedEffects(new List<Effect> { new SlownessEffect(_slownessPercent, _slownessTicks) });
         }
 
         public void SetColliderParameters(IReadOnlyCollection<Transform> spikes, Vector3 finish)
@@ -43,10 +43,10 @@ namespace Spells.SpellClasses.EarthSpell
            SetColliderRotation(finish);
         }
 
-        public void SendSlownessValues(int ticks, int percent)
+        public void SendSlownessValues(int ticks, float modifier)
         {
             _slownessTicks = ticks;
-            _slownessPercent = percent;
+            _slownessPercent = modifier;
         }
     }
 }
