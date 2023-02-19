@@ -5,26 +5,24 @@ namespace Mobs.MobEffects
 {
     public class SlownessEffect : Effect
     {
-        private readonly int _slownessPercent;
+        public float SpeedModifier  { get; }
         public override int MaxTicksAmount { get; }
         public override EffectCode Code => EffectCode.Slowness;
 
-        public SlownessEffect(int ticks, int percent)
+        public SlownessEffect(float modifier, int time)
         {
-            MaxTicksAmount = ticks;
-            _slownessPercent = percent;
+            SpeedModifier = modifier;
+            MaxTicksAmount = time;
         }
 
         public override void OnAttach(MobBehaviour mob)
         {
-            Debug.Log("Attach");
-            mob.MobModel.CurrentMobSpeed = mob.MobModel.CurrentMobSpeed * _slownessPercent / 100f;
+            mob.MobModel.CurrentMobSpeed *= SpeedModifier;   
         }
 
         public override void OnDetach(MobBehaviour mob)
         {
-            Debug.Log("Detach");
-            mob.MobModel.CurrentMobSpeed = mob.MobModel.CurrentMobSpeed * 100f / _slownessPercent;
+            mob.MobModel.CurrentMobSpeed /= SpeedModifier;
         }
     }
 }
