@@ -9,15 +9,13 @@ namespace Mobs.MobEffects
 {
     internal class SlownessEffect : Effect
     {
+        public float SpeedModifier { get; }
         public override int MaxTicksAmount { get; }
-
         public override EffectCode Code => EffectCode.Slowness;
 
-        public float SlownessAmount { get; }
-
-        public SlownessEffect(float amount, int time)
+        public SlownessEffect(float modifier, int time)
         {
-            SlownessAmount = amount;
+            SpeedModifier = modifier;
             MaxTicksAmount = time;
         }
 
@@ -28,12 +26,12 @@ namespace Mobs.MobEffects
 
         public override void OnAttach(MobBehaviour mob)
         {
-            mob.MobModel.CurrentMobSpeed *= SlownessAmount;
+            mob.MobModel.CurrentMobSpeed *= SpeedModifier;
         }
 
         public override void OnDetach(MobBehaviour mob)
         {
-            mob.MobModel.CurrentMobSpeed /= SlownessAmount;
+            mob.MobModel.CurrentMobSpeed /= SpeedModifier;
         }
     }
 }
