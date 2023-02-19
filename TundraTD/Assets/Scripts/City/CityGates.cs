@@ -22,7 +22,6 @@ namespace City
         private CityGatesUI _cityGatesUI;
         
         //Nikita's code
-        private bool _damage;
         private Animator _animator;
 
         private float CurrentCityGatesHealthPoints
@@ -67,12 +66,12 @@ namespace City
 
             var mob = other.GetComponent<MobBehaviour>();
             var mobAttack = mob.GetComponent<MobModel>().CurrentMobDamage;
-
+            
             CurrentCityGatesHealthPoints -= mobAttack;
             mob.KillThisMob();
 
-            _animator.SetBool("Damage", _damage);
-            _damage = !_damage;
+            _animator.SetTrigger("DamageTrigger");
+
         }
 
         public void HandleWaveEnding()
