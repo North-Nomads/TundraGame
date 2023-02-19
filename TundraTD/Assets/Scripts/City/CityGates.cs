@@ -45,9 +45,7 @@ namespace City
         private void Start()
         {
             _cityGatesUI = GetComponent<CityGatesUI>();
-
-            _currentCurrentCityGatesHealthPoints = maxCityGatesHealthPoints;
-
+            _currentCityGatesHealthPoints = maxCityGatesHealthPoints;
             _animator = GetComponent<Animator>();
 
         }
@@ -72,7 +70,7 @@ namespace City
             var mobAttack = mob.GetComponent<MobModel>().CurrentMobDamage;
             
             CurrentCityGatesHealthPoints -= mobAttack;
-            mob.KillThisMob();
+            mob.HitThisMob(float.PositiveInfinity, BasicElement.None);
 
             _animator.SetTrigger("DamageTrigger");
             
