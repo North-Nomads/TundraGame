@@ -2,15 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Spells.SpellClasses
+namespace Spells.SpellClasses.EarthSpell
 {
     [Spell(BasicElement.Earth, "Spikes", "Creates a spikes in front of you to penetrate your enemies.")]
     public class SpikesSpell : MagicSpell
     {
         private const int CastableLayer = 1 << 11 | 1 << 10;
         //private const Vector3 StepValue = 1.375f;
-        
-        [SerializeField] private Transform spikesGroupObject;
+
+        [SerializeField] private Transform spikesHolder;
+        [SerializeField] private SpikesCollider spikesCollider;
+        [SerializeField] private SpikesSpell spikesGroupObject;
         [SerializeField] private float spikesOffset = 1;
 
         private float _touchRegisterMaxTime;
@@ -48,14 +50,12 @@ namespace Spells.SpellClasses
             _mainCamera = Camera.main;
         }
 
-        public override void InstantiateSpellExecution()
+        private void OnTriggerEnter(Collider other)
         {
-            _touchRegisterTime = 0f;
-            _touchRegisterMaxTime = MaxDrawTime;
-            StartCoroutine(ExecuteSpikesSpell());
+            Debug.Log(other.name);
         }
 
-        private IEnumerator ExecuteSpikesSpell()
+        private IEnumerator RegisterSpikesTouches()
         {
             var ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
 
@@ -84,7 +84,7 @@ namespace Spells.SpellClasses
 
         private IEnumerator InstantiateSpikes(Vector3 start, Vector3 finish)
         {
-            var spikes = new List<Transform>();
+            var spikes = new List<SpikesSpell>();
             var direction = finish - start;
             var step = direction / direction.magnitude;
             var count = direction.magnitude / step.magnitude;
@@ -92,8 +92,9 @@ namespace Spells.SpellClasses
 
             while (count > 0)
             {
-                var group = Instantiate(spikesGroupObject, currentPosition, Quaternion.identity);
+                var group = Instantiate(spikesGroupObject, currentPosition, Quaternion.identity, spikesHolder.transform);
                 spikes.Add(group);
+                spikesCollider.SetColliderParameters(spikes, finish);
                 currentPosition += step;
                 count--;
                 yield return new WaitForSeconds(.02f);
@@ -103,13 +104,20 @@ namespace Spells.SpellClasses
             yield return DestroySpikes(spikes);
         }
 
-        private IEnumerator DestroySpikes(List<Transform> spikes)
+        private IEnumerator DestroySpikes(List<SpikesSpell> spikes)
         {
             foreach (var spike in spikes)
             {
                 Destroy(spike.gameObject);
                 yield return new WaitForSeconds(SpikeDisappearCooldown);
             }
+        }
+        
+        public override void InstantiateSpellExecution()
+        {
+            _touchRegisterTime = 0f;
+            _touchRegisterMaxTime = MaxDrawTime;
+            StartCoroutine(RegisterSpikesTouches());
         }
     }
 }

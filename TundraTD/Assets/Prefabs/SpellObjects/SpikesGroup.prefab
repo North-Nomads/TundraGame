@@ -44,8 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cba675aba7363843babad31795b7fe4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spikesHolder: {fileID: 0}
+  spikesCollider: {fileID: 0}
   spikesGroupObject: {fileID: 8613968584375968820}
-  spikesDistance: 1
+  spikesOffset: 1
 --- !u!1 &7358055352642951233
 GameObject:
   m_ObjectHideFlags: 0
@@ -114,7 +116,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: eacc7b6959b90f5428983e0570c54480,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.63
+      value: 1.05
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eacc7b6959b90f5428983e0570c54480,
         type: 3}
@@ -204,7 +206,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: eacc7b6959b90f5428983e0570c54480,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.63
+      value: 1.05
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eacc7b6959b90f5428983e0570c54480,
         type: 3}
@@ -294,7 +296,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 30006923fb09fc54288e2e4667c3ffed,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.09
+      value: 1.51
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 30006923fb09fc54288e2e4667c3ffed,
         type: 3}
