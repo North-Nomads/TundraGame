@@ -8,7 +8,6 @@ namespace Spells.SpellClasses.EarthSpell
     public class SpikesSpell : MagicSpell
     {
         private const int CastableLayer = 1 << 11 | 1 << 10;
-        //private const Vector3 StepValue = 1.375f;
 
         [SerializeField] private Transform spikesHolder;
         [SerializeField] private SpikesCollider spikesCollider;

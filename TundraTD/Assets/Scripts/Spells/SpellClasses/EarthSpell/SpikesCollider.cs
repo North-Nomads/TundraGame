@@ -33,9 +33,7 @@ namespace Spells.SpellClasses.EarthSpell
         private void OnTriggerEnter(Collider other)
         {
             var mob = other.GetComponent<MobBehaviour>();
-            Debug.Log($"Before: {mob.MobModel.CurrentMobSpeed}");
             mob.AddReceivedEffects(new List<Effect> { new SlownessEffect(_slownessTicks, _slownessPercent) });
-            Debug.Log($"After: {mob.MobModel.CurrentMobSpeed}");
         }
 
         public void SetColliderParameters(IReadOnlyCollection<Transform> spikes, Vector3 finish)
