@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 namespace Mobs
@@ -19,31 +18,21 @@ namespace Mobs
         [SerializeField]
         private float defaultMobSpeed;
 
-        [SerializeField]
-        private float mobWaveWeight;
-
-        private bool _isAlive = true;
         private float _currentMobHealth;
         private float _currentMobSpeed;
         private NavMeshAgent _mobNavMeshAgent;
 
         public Sprite MobSprite => mobSprite;
         public NavMeshAgent MobNavMeshAgent => _mobNavMeshAgent;
-        public float MobWaveWeight => mobWaveWeight;
-
-        public event EventHandler OnMobDied = delegate { };
+        public bool IsAlive => CurrentMobHealth > 0;
 
         public float CurrentMobHealth
         {
             get => _currentMobHealth;
             set
             {
-                if (value < 0)
-                {
-                    if (_isAlive) OnMobDied(this, null);
-                    _isAlive = false;
+                if (value <= 0)
                     _currentMobHealth = 0;
-                }
                 else
                     _currentMobHealth = value;
             }

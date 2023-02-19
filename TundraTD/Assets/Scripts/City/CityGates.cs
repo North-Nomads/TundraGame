@@ -17,7 +17,7 @@ namespace City
     {
         [SerializeField] private float maxCityGatesHealthPoints;
         [SerializeField] private LevelJudge levelJudge;
-        private float _currentCurrentCityGatesHealthPoints;
+        private float _currentCityGatesHealthPoints;
         private float _cityGatesHealthPercent;
         private CityGatesUI _cityGatesUI;
         
@@ -26,18 +26,18 @@ namespace City
 
         private float CurrentCityGatesHealthPoints
         {
-            get => _currentCurrentCityGatesHealthPoints;
+            get => _currentCityGatesHealthPoints;
             set
             {
                 if (value <= 0)
                 {
-                    _currentCurrentCityGatesHealthPoints = 0;
+                    _currentCityGatesHealthPoints = 0;
                     _cityGatesHealthPercent = 0;
                     levelJudge.HandlePlayerDefeat();
                 }
 
-                _currentCurrentCityGatesHealthPoints = value;
-                _cityGatesHealthPercent = _currentCurrentCityGatesHealthPoints / maxCityGatesHealthPoints;
+                _currentCityGatesHealthPoints = value;
+                _cityGatesHealthPercent = _currentCityGatesHealthPoints / maxCityGatesHealthPoints;
                 _cityGatesUI.UpdateHealthBar(_cityGatesHealthPercent);
             }
         }
@@ -45,9 +45,11 @@ namespace City
         private void Start()
         {
             _cityGatesUI = GetComponent<CityGatesUI>();
+
             _currentCurrentCityGatesHealthPoints = maxCityGatesHealthPoints;
 
             _animator = GetComponent<Animator>();
+
         }
 
         private void Update()
@@ -61,9 +63,11 @@ namespace City
 
         private void OnTriggerEnter(Collider other)
         {
+            Debug.Log(1);
             if (!other.CompareTag("Mob"))
                 return;
 
+            Debug.Log(1);
             var mob = other.GetComponent<MobBehaviour>();
             var mobAttack = mob.GetComponent<MobModel>().CurrentMobDamage;
             
@@ -71,7 +75,7 @@ namespace City
             mob.KillThisMob();
 
             _animator.SetTrigger("DamageTrigger");
-
+            
         }
 
         public void HandleWaveEnding()
