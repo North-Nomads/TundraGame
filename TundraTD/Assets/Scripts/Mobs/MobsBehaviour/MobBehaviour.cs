@@ -66,7 +66,7 @@ namespace Mobs.MobsBehaviour
         {
             HandleIncomeDamage(damage, damageElement);
             Debug.Log(MobModel.CurrentMobHealth);
-            MobModel.SetMaterial();
+            MobModel.SetHitMaterial();
             if (!MobModel.IsAlive)
                 KillThisMob();
         }
