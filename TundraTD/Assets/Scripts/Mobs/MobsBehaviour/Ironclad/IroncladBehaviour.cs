@@ -39,13 +39,18 @@ namespace Mobs.MobsBehaviour.Ironclad
             else if (damageElement == MobCounterElement)
                 multiplier = 1.2f;
 
-            if (MobShield > 0)
+            var modifiedDamage = damage * multiplier;
+            
+            if (MobShield > 0 && !float.IsPositiveInfinity(damage))
             {
-                MobShield -= damage * multiplier;
-                return;
+                MobShield -= modifiedDamage;
+            }
+            else
+            {
+                MobModel.CurrentMobHealth -= modifiedDamage;    
             }
 
-            MobModel.CurrentMobHealth -= damage * multiplier;
+            
         }
 
         public override void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal)

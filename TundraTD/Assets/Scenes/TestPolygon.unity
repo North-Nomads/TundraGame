@@ -1699,7 +1699,7 @@ MonoBehaviour:
   minimalCameraSize: 5
   maximumCameraSize: 8
   wasdCameraMoveSpeed: 10
-  usingWASD: 1
+  usingWASD: 0
 --- !u!1001 &1034351870
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2961,7 +2961,7 @@ PrefabInstance:
         type: 3}
       propertyPath: mobWaves.Array.data[0].mobProperties.Array.data[0].mob
       value: 
-      objectReference: {fileID: 7987837108767728486, guid: b4f507c285d21a343a4592c444a51ddd,
+      objectReference: {fileID: 8671833239330950923, guid: 431421a7745e5ed4d94bbeabaa240f5c,
         type: 3}
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
@@ -2973,7 +2973,7 @@ PrefabInstance:
         type: 3}
       propertyPath: mobWaves.Array.data[0].mobProperties.Array.data[2].mob
       value: 
-      objectReference: {fileID: 7987837108767728486, guid: b4f507c285d21a343a4592c444a51ddd,
+      objectReference: {fileID: 856308400567232162, guid: 2e6e26c50a4926049b096825079cacfa,
         type: 3}
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
