@@ -66,13 +66,13 @@ namespace Mobs
             CurrentMobDamage = defaultMobDamage;
             _defaultMaterial = renderer.material;
         }
-        public void SetMaterial()
+        public void SetHitMaterial()
         {
             renderer.material = hitMaterial;
-            StartCoroutine(CoroutineSample());
+            StartCoroutine(VisualEffectDamage());
         }
 
-        private IEnumerator CoroutineSample()
+        private IEnumerator VisualEffectDamage()
         {
             yield return new WaitForSeconds(.1f);
             renderer.material = _defaultMaterial;
