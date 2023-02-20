@@ -1,37 +1,26 @@
 ﻿using Mobs.MobsBehaviour;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Mobs.MobEffects
 {
-    internal class SlownessEffect : Effect
+    public class SlownessEffect : Effect
     {
-        public float SpeedModifier { get; }
+        public float SpeedModificator { get; }
         public override int MaxTicksAmount { get; }
         public override EffectCode Code => EffectCode.Slowness;
 
-        public SlownessEffect(float modifier, int time)
+        public SlownessEffect(float modificator, int time)
         {
-            SpeedModifier = modifier;
+            SpeedModificator = modificator;
             MaxTicksAmount = time;
-        }
-
-        public override void HandleTick(MobBehaviour mob)
-        {
-            CurrentTicksAmount++;
         }
 
         public override void OnAttach(MobBehaviour mob)
         {
-            mob.MobModel.CurrentMobSpeed *= SpeedModifier;
+            mob.MobModel.CurrentMobSpeed *= SpeedModificator;
         }
 
         public override void OnDetach(MobBehaviour mob)
         {
-            mob.MobModel.CurrentMobSpeed /= SpeedModifier;
+            mob.MobModel.CurrentMobSpeed /= SpeedModificator;
         }
     }
 }
