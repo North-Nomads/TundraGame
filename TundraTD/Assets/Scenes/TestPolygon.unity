@@ -1699,7 +1699,7 @@ MonoBehaviour:
   minimalCameraSize: 5
   maximumCameraSize: 8
   wasdCameraMoveSpeed: 10
-  usingWASD: 0
+  usingWASD: 1
 --- !u!1001 &1034351870
 PrefabInstance:
   m_ObjectHideFlags: 0

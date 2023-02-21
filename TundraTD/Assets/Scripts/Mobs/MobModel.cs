@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 using UnityEngine.AI;
 
 namespace Mobs
@@ -6,6 +8,9 @@ namespace Mobs
     [RequireComponent(typeof(NavMeshAgent))]
     public class MobModel : MonoBehaviour
     {
+        [SerializeField]
+        private Material hitMaterial; 
+
         [SerializeField]
         private Sprite mobSprite;
 
@@ -18,10 +23,13 @@ namespace Mobs
         [SerializeField]
         private float defaultMobSpeed;
 
+        [SerializeField]
+        private SkinnedMeshRenderer renderer;
+
         private float _currentMobHealth;
         private float _currentMobSpeed;
         private NavMeshAgent _mobNavMeshAgent;
-
+        private Material _defaultMaterial;
         public Sprite MobSprite => mobSprite;
         public NavMeshAgent MobNavMeshAgent => _mobNavMeshAgent;
         public bool IsAlive => CurrentMobHealth > 0;
@@ -56,6 +64,18 @@ namespace Mobs
             _currentMobHealth = maxMobHealth;
             _currentMobSpeed = defaultMobSpeed;
             CurrentMobDamage = defaultMobDamage;
+            _defaultMaterial = renderer.material;
         }
+        public void SetHitMaterial()
+        {
+            renderer.material = hitMaterial;
+            StartCoroutine(VisualEffectDamage());
+        }
+
+        private IEnumerator VisualEffectDamage()
+        {
+            yield return new WaitForSeconds(.1f);
+            renderer.material = _defaultMaterial;
+        } 
     }
 }
