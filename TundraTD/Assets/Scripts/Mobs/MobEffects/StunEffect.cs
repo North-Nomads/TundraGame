@@ -1,4 +1,5 @@
 ﻿using Mobs.MobsBehaviour;
+using UnityEngine;
 
 namespace Mobs.MobEffects
 {
@@ -15,12 +16,12 @@ namespace Mobs.MobEffects
         
         public override void OnAttach(MobBehaviour mob)
         {
-            mob.MobModel.MobNavMeshAgent.enabled = false;
+            mob.MobModel.MobNavMeshAgent.isStopped = true;
         }
         
         public override void OnDetach(MobBehaviour mob)
         {
-            mob.MobModel.MobNavMeshAgent.enabled = true;
+            mob.MobModel.MobNavMeshAgent.isStopped = false;
         }
     }
 }
