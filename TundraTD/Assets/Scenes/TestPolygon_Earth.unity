@@ -1959,7 +1959,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spikesHolder: {fileID: 1571297791}
   spikesCollider: {fileID: 541433590}
-  spikesGroupObject: {fileID: 8613968584375968820, guid: 96b5e82558f8f4543999ec6d13f8c926,
+  spikesGroupObject: {fileID: 2884510419693435050, guid: 96b5e82558f8f4543999ec6d13f8c926,
     type: 3}
   spikesOffset: 1
 --- !u!1001 &1547117321

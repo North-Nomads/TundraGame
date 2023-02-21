@@ -24,7 +24,7 @@ namespace Spells.SpellClasses.EarthSpell
         
         private void SetColliderSize(int size) => _boxCollider.size = new Vector3(3, 1, size);
 
-        private void SetColliderCenter(IReadOnlyCollection<Transform> spikes)
+        private void SetColliderCenter(List<SpikesGroup> spikes)
         {
             var sum = spikes.Aggregate(Vector3.zero, (current, spike) => current + spike.transform.position);
             transform.position = sum / spikes.Count + _halfHeight;
@@ -36,7 +36,7 @@ namespace Spells.SpellClasses.EarthSpell
             mob.AddReceivedEffects(new List<Effect> { new SlownessEffect(_slownessPercent, _slownessTicks) });
         }
 
-        public void SetColliderParameters(IReadOnlyCollection<Transform> spikes, Vector3 finish)
+        public void SetColliderParameters(List<SpikesGroup> spikes, Vector3 finish)
         {
            SetColliderCenter(spikes);
            SetColliderSize(spikes.Count);

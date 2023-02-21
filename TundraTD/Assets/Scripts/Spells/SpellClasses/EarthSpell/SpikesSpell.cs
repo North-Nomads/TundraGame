@@ -11,7 +11,7 @@ namespace Spells.SpellClasses.EarthSpell
 
         [SerializeField] private Transform spikesHolder;
         [SerializeField] private SpikesCollider spikesCollider;
-        [SerializeField] private Transform spikesGroupObject;
+        [SerializeField] private SpikesGroup spikesGroupObject;
         [SerializeField] private float spikesOffset = 1;
 
         private float _touchRegisterMaxTime;
@@ -48,6 +48,7 @@ namespace Spells.SpellClasses.EarthSpell
         {
             _mainCamera = Camera.main;
             spikesCollider.SendSlownessValues(Lifetime, SlownessValue);
+            spikesGroupObject.StunTicks = 4;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -82,7 +83,7 @@ namespace Spells.SpellClasses.EarthSpell
 
         private IEnumerator InstantiateSpikes(Vector3 start, Vector3 finish)
         {
-            var spikes = new List<Transform>();
+            var spikes = new List<SpikesGroup>();
             var direction = finish - start;
             var step = direction / direction.magnitude;
             var count = direction.magnitude / step.magnitude;
@@ -91,6 +92,7 @@ namespace Spells.SpellClasses.EarthSpell
             while (count > 0)
             {
                 var group = Instantiate(spikesGroupObject, currentPosition, Quaternion.identity, spikesHolder.transform);
+                group.ApplyStunOverlappedOnMobs();
                 spikes.Add(group);
                 spikesCollider.SetColliderParameters(spikes, finish);
                 currentPosition += step;
@@ -102,7 +104,7 @@ namespace Spells.SpellClasses.EarthSpell
             yield return DestroySpikes(spikes);
         }
 
-        private IEnumerator DestroySpikes(List<Transform> spikes)
+        private IEnumerator DestroySpikes(List<SpikesGroup> spikes)
         {
             foreach (var spike in spikes)
             {
