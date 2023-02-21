@@ -4,17 +4,23 @@ namespace Mobs.MobEffects
 {
     public class StunEffect : Effect
     {
-        public override int MaxTicksAmount => 5;
+        public override int MaxTicksAmount { get; }
 
         public override EffectCode Code => EffectCode.Stun;
 
-        public override void HandleTick(MobBehaviour mob)
+        public StunEffect(int time)
         {
+            MaxTicksAmount = time;
         }
-
+        
         public override void OnAttach(MobBehaviour mob)
         {
-            // TODO: Well then, I need some modifications in the mob system to implement this feature.
+            mob.MobModel.MobNavMeshAgent.enabled = false;
+        }
+        
+        public override void OnDetach(MobBehaviour mob)
+        {
+            mob.MobModel.MobNavMeshAgent.enabled = true;
         }
     }
 }
