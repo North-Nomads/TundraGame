@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Level
 {
-    public class PauseMode : MonoBehaviour
+    public class PauseMode : MonoBehaviour 
     {
         private static bool _isGamePaused;
         [SerializeField] private Button pauseButton;
@@ -31,6 +31,12 @@ namespace Level
         /// Triggers when pause state changes.
         /// </summary>
         public static event EventHandler PauseStateSwitched = delegate { };
+
+        private void Start()
+        {
+            if (pauseSwitchSound is null)
+                throw new Exception("Pause switching sounds is not attached");
+        }
 
         private void Update()
         {
