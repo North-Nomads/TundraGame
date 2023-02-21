@@ -2,6 +2,7 @@
 using Level;
 using Mobs;
 using Mobs.MobsBehaviour;
+using Mobs.MobsBehaviour.Ironclad;
 using Spells;
 using UnityEngine;
 
@@ -20,8 +21,6 @@ namespace City
         private float _currentCityGatesHealthPoints;
         private float _cityGatesHealthPercent;
         private CityGatesUI _cityGatesUI;
-        
-        //Nikita's code
         private Animator _animator;
 
         private float CurrentCityGatesHealthPoints
@@ -61,14 +60,18 @@ namespace City
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log(1);
             if (!other.CompareTag("Mob"))
                 return;
-
-            Debug.Log(1);
-            var mob = other.GetComponent<MobBehaviour>();
-            var mobAttack = mob.GetComponent<MobModel>().CurrentMobDamage;
             
+
+            var mob = other.GetComponent<MobBehaviour>();
+            var mobAttack = mob.MobModel.CurrentMobDamage;
+
+            if (mob.GetComponent<IroncladBehaviour>() != null)
+            {
+                
+            }
+
             CurrentCityGatesHealthPoints -= mobAttack;
             mob.HitThisMob(float.PositiveInfinity, BasicElement.None);
 

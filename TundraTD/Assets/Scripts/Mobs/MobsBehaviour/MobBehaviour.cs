@@ -65,7 +65,6 @@ namespace Mobs.MobsBehaviour
         public void HitThisMob(float damage, BasicElement damageElement)
         {
             HandleIncomeDamage(damage, damageElement);
-            Debug.Log(MobModel.CurrentMobHealth);
             if (!MobModel.IsAlive)
                 KillThisMob();
         }
@@ -79,8 +78,19 @@ namespace Mobs.MobsBehaviour
             }
         }
 
+        private void ClearMobEffects()
+        {
+            foreach (var effect in CurrentEffects)
+            {
+                effect.OnDetach(this);
+            }
+                
+            CurrentEffects.Clear();
+        }
+
         private void KillThisMob()
         {
+            ClearMobEffects();
             Destroy(gameObject);
             OnMobDied(this, null);
         }
@@ -112,9 +122,11 @@ namespace Mobs.MobsBehaviour
                     i++;
                 }
             }
+            
             foreach (var prefab in effectPrefabs)
                 if (prefab != null)
                     prefab.SetActive(false);
+            
             foreach (var effect in CurrentEffects)
             {
                 int effectIndex = (int)Mathf.Log((int)effect.Code, 2);
