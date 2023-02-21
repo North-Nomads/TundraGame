@@ -112,7 +112,7 @@ namespace Spells.SpellClasses
             };
 
             if (FirePool.HasLandingStun)
-                effects.Add(new StunEffect()); // TODO: implement stun effect.
+                effects.Add(new StunEffect(4)); 
 
             for (int i = 0; i < hits; i++)
             {
