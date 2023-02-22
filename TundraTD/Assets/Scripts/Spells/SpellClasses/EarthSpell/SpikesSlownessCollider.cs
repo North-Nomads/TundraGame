@@ -7,12 +7,14 @@ using UnityEngine;
 namespace Spells.SpellClasses.EarthSpell
 {
     [RequireComponent(typeof(BoxCollider))]
-    public class SpikesCollider : MonoBehaviour
+    public class SpikesSlownessCollider : MonoBehaviour
     {
         private int _slownessTicks;
         private float _slownessPercent;
         private BoxCollider _boxCollider;
         private Vector3 _halfHeight;
+
+        public float SpikesEnterDamage { get; set; }
 
         private void Start()
         {
@@ -34,6 +36,7 @@ namespace Spells.SpellClasses.EarthSpell
         {
             var mob = other.GetComponent<MobBehaviour>();
             mob.AddReceivedEffects(new List<Effect> { new SlownessEffect(_slownessPercent, _slownessTicks) });
+            mob.HitThisMob(SpikesEnterDamage, BasicElement.Earth);
         }
 
         public void SetColliderParameters(List<SpikesGroup> spikes, Vector3 finish)

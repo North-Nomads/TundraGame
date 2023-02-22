@@ -2055,7 +2055,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spikesHolder: {fileID: 1571297791}
-  spikesCollider: {fileID: 541433590}
+  spikesSlownessCollider: {fileID: 541433590}
   spikesGroupObject: {fileID: 6125932274316666813, guid: 96b5e82558f8f4543999ec6d13f8c926,
     type: 3}
   spikesOffset: 1

@@ -21,7 +21,6 @@ namespace Spells.SpellClasses.EarthSpell
 
         public void ApplyStunOverlappedOnMobs(float stunDamage, int stunTicks)
         {
-            
             var touches = Physics.OverlapBoxNonAlloc(transform.position, new Vector3(1.5f, 1, .5f), _colliders,
                 Quaternion.identity, MobsMask);
 

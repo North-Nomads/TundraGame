@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Spells.SpellClasses.EarthSpell
 {
@@ -10,7 +11,7 @@ namespace Spells.SpellClasses.EarthSpell
         private const int CastableLayer = 1 << 11 | 1 << 10;
 
         [SerializeField] private Transform spikesHolder;
-        [SerializeField] private SpikesCollider spikesCollider;
+        [SerializeField] private SpikesSlownessCollider spikesSlownessCollider;
         [SerializeField] private SpikesGroup spikesGroupObject;
         [SerializeField] private float spikesOffset = 1;
 
@@ -47,8 +48,9 @@ namespace Spells.SpellClasses.EarthSpell
         private void Start()
         {
             _mainCamera = Camera.main;
-            spikesCollider.SendSlownessValues(Lifetime, SlownessValue);
+            spikesSlownessCollider.SendSlownessValues(Lifetime, SlownessValue);
             spikesGroupObject.StunTicks = 4;
+            spikesSlownessCollider.SpikesEnterDamage = CollisionDamage;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -94,7 +96,7 @@ namespace Spells.SpellClasses.EarthSpell
                 var group = Instantiate(spikesGroupObject, currentPosition, Quaternion.identity, spikesHolder.transform);
                 group.ApplyStunOverlappedOnMobs(FallDamage, (int)StunTime*10);
                 spikes.Add(group);
-                spikesCollider.SetColliderParameters(spikes, finish);
+                spikesSlownessCollider.SetColliderParameters(spikes, finish);
                 currentPosition += step;
                 count--;
                 yield return new WaitForSeconds(.02f);
