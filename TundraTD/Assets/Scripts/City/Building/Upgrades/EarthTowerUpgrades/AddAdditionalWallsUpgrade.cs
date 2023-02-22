@@ -4,17 +4,17 @@ using UnityEngine;
 
 namespace City.Building.Upgrades.EarthTowerUpgrades
 {
-    public class TimeStunEnemiesUpgrade : IUpgrade
+    public class AddAdditionalWallsUpgrade : IUpgrade
     {
         public BasicElement UpgradeTowerElement => BasicElement.Earth;
         public int PurchasePriceInTowerMenu => 350;
         public int SpellPurchaseRequiredLevel => 3;
-        public string UpgradeDescriptionText => "Increase time stun of enemies by 0.5 second";
+        public string UpgradeDescriptionText => "Adds 2 small walls around the main one";
         public Sprite UpgradeShowcaseSprite => Resources.Load<Sprite>("UpgradeIcons/Arcanist1");
 
         public void ExecuteOnUpgradeBought()
         {
-            EarthPool.TimeStunEnemies += 0.5f;
+            EarthPool.HasSolidWalls = true;
         }
     }
 }

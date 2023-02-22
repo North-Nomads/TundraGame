@@ -4,17 +4,17 @@ using UnityEngine;
 
 namespace City.Building.Upgrades.EarthTowerUpgrades
 {
-    public class EarthSlowingEnemiesUpgrade : IUpgrade
+    public class AddPebblesUpgrade : IUpgrade
     {
         public BasicElement UpgradeTowerElement => BasicElement.Earth;
-        public int PurchasePriceInTowerMenu => 200;
-        public int SpellPurchaseRequiredLevel => 2;
-        public string UpgradeDescriptionText => "Slows down enemies by 10%";
+        public int PurchasePriceInTowerMenu => 100;
+        public int SpellPurchaseRequiredLevel => 1;
+        public string UpgradeDescriptionText => "Small pebbles hit and stun the enemies around the walls";
         public Sprite UpgradeShowcaseSprite => Resources.Load<Sprite>("UpgradeIcons/Arcanist1");
 
         public void ExecuteOnUpgradeBought()
         {
-            EarthPool.SlowDownEnemiesTime *= 1.1f;
+            EarthPool.HasExplosivePebbles = true;
         }
     }
 }

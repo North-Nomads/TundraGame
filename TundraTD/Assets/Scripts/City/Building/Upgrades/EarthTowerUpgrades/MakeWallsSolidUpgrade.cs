@@ -4,17 +4,17 @@ using UnityEngine;
 
 namespace City.Building.Upgrades.EarthTowerUpgrades
 {
-    public class AirEnemiesDamageUpgrade : IUpgrade
+    public class MakeWallsSolidUpgrade : IUpgrade
     {
         public BasicElement UpgradeTowerElement => BasicElement.Earth;
-        public int PurchasePriceInTowerMenu => 25;
+        public int PurchasePriceInTowerMenu => 100;
         public int SpellPurchaseRequiredLevel => 1;
-        public string UpgradeDescriptionText => "Increase damege on air mobs by 5%";
+        public string UpgradeDescriptionText => "Spikes turn into a solid wall that can't be walked through";
         public Sprite UpgradeShowcaseSprite => Resources.Load<Sprite>("UpgradeIcons/Arcanist1");
 
         public void ExecuteOnUpgradeBought()
         {
-            EarthPool.DamageAgainstElementMultipliers[BasicElement.Air] *= 1.05f;
+            EarthPool.HasSolidWalls = true;
         }
     }
 }

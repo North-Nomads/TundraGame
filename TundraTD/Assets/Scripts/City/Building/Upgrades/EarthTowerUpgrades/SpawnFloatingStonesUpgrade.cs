@@ -4,17 +4,17 @@ using UnityEngine;
 
 namespace City.Building.Upgrades.EarthTowerUpgrades
 {
-    public class SpikesWallLifeTimeUpgrade : IUpgrade
+    public class SpawnFloatingStonesUpgrade : IUpgrade
     {
         public BasicElement UpgradeTowerElement => BasicElement.Earth;
-        public int PurchasePriceInTowerMenu => 200;
-        public int SpellPurchaseRequiredLevel => 2;
-        public string UpgradeDescriptionText => "Increase spike wall life time by 1 second";
+        public int PurchasePriceInTowerMenu => 350;
+        public int SpellPurchaseRequiredLevel => 3;
+        public string UpgradeDescriptionText => "Spawns floating stones that ram into the ground and hit mobs nearby";
         public Sprite UpgradeShowcaseSprite => Resources.Load<Sprite>("UpgradeIcons/Arcanist1");
 
         public void ExecuteOnUpgradeBought()
         {
-            EarthPool.SpikesWallLifeTime++;
+            EarthPool.HasFloatingStones = true;
         }
     }
 }
