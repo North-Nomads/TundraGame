@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
 using UnityEngine;
@@ -16,17 +17,16 @@ namespace Spells.SpellClasses.EarthSpell
         }
 
         private readonly Collider[] _colliders = new Collider[10];
-        private StunEffect _stunEffect; 
-        
+
         public void ApplyStunOverlappedOnMobs()
         {
-            var touches = Physics.OverlapBoxNonAlloc(transform.position, new Vector3(1.5f, 1, 1), _colliders,
+            var touches = Physics.OverlapBoxNonAlloc(transform.position, new Vector3(1.5f, 1, .5f), _colliders,
                 Quaternion.identity, 1 << 8);
-            
+
             for (int i = 0; i < touches; i++)
             {
                 var mob = _colliders[i].GetComponent<MobBehaviour>();
-                mob.AddReceivedEffects(new List<Effect> { new StunEffect(4) });
+                mob.AddReceivedEffects(new List<Effect> { new SpikesStunEffect(4) });
             }
         }
     }

@@ -18,7 +18,7 @@ namespace Mobs.MobsBehaviour
         private MobPortal _mobPortal;
         private Transform _defaultDestinationPoint;
         private Transform _currentDestinationPoint;
-        protected List<Effect> CurrentEffects { get; } = new List<Effect>();
+        public List<Effect> CurrentEffects { get; } = new List<Effect>();
 
         public Transform DefaultDestinationPoint { get; set; }
         public MobModel MobModel => mobModel;
@@ -73,10 +73,8 @@ namespace Mobs.MobsBehaviour
         public void AddReceivedEffects(IEnumerable<Effect> effectsToApply)
         {
             foreach (var effect in effectsToApply)
-            {
-                CurrentEffects.Add(effect);
-                effect.OnAttach(this);
-            }
+                if (effect.OnAttach(this))
+                    CurrentEffects.Add(effect);
         }
 
         private void KillThisMob()
