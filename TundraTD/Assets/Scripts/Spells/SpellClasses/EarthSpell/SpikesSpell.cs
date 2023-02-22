@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using City.Building.ElementPools;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -14,7 +15,7 @@ namespace Spells.SpellClasses.EarthSpell
         [SerializeField] private SpikesSlownessCollider spikesSlownessCollider;
         [SerializeField] private SpikesGroup spikesGroupObject;
         [SerializeField] private float spikesOffset = 1;
-
+        
         private float _touchRegisterMaxTime;
         private float _touchRegisterTime;
         private Camera _mainCamera;
@@ -53,11 +54,6 @@ namespace Spells.SpellClasses.EarthSpell
             spikesSlownessCollider.SpikesEnterDamage = CollisionDamage;
         }
 
-        private void OnTriggerEnter(Collider other)
-        {
-            Debug.Log(other.name);
-        }
-
         private IEnumerator RegisterUserInputs()
         {
             var ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
@@ -91,6 +87,9 @@ namespace Spells.SpellClasses.EarthSpell
             var count = direction.magnitude / step.magnitude;
             var currentPosition = start;
 
+            if (EarthPool.HasSolidWalls)
+                spikesSlownessCollider.BoxCollider.isTrigger = false;
+            
             while (count > 0)
             {
                 var group = Instantiate(spikesGroupObject, currentPosition, Quaternion.identity, spikesHolder.transform);
@@ -101,8 +100,9 @@ namespace Spells.SpellClasses.EarthSpell
                 count--;
                 yield return new WaitForSeconds(.02f);
             }
-
+            
             yield return new WaitForSeconds(Lifetime);
+            spikesSlownessCollider.BoxCollider.isTrigger = true;
             yield return DestroySpikes(spikes);
         }
 
