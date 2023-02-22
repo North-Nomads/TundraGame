@@ -11,20 +11,20 @@ namespace Spells.SpellClasses.EarthSpell
     {
         private int _slownessTicks;
         private float _slownessPercent;
-        private BoxCollider _boxCollider;
         private Vector3 _halfHeight;
 
         public float SpikesEnterDamage { get; set; }
+        public BoxCollider BoxCollider { get; private set; }
 
         private void Start()
         {
-            _boxCollider = GetComponent<BoxCollider>();
-            _halfHeight = new Vector3(0, _boxCollider.size.y / 2, 0);
+            BoxCollider = GetComponent<BoxCollider>();
+            _halfHeight = new Vector3(0, BoxCollider.size.y / 2, 0);
         }
         
         private void SetColliderRotation(Vector3 finish) => transform.LookAt(finish + _halfHeight);
         
-        private void SetColliderSize(int size) => _boxCollider.size = new Vector3(3, 1, size);
+        private void SetColliderSize(int size) => BoxCollider.size = new Vector3(3, 1, size);
 
         private void SetColliderCenter(List<SpikesGroup> spikes)
         {
