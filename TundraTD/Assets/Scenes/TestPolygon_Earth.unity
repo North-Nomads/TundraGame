@@ -1959,7 +1959,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spikesHolder: {fileID: 1571297791}
   spikesCollider: {fileID: 541433590}
-  spikesGroupObject: {fileID: 2884510419693435050, guid: 96b5e82558f8f4543999ec6d13f8c926,
+  spikesGroupObject: {fileID: 6125932274316666813, guid: 96b5e82558f8f4543999ec6d13f8c926,
     type: 3}
   spikesOffset: 1
 --- !u!1001 &1547117321
@@ -3444,7 +3444,7 @@ PrefabInstance:
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
       propertyPath: mobWaves.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
@@ -3560,7 +3560,7 @@ PrefabInstance:
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
       propertyPath: mobWaves.Array.data[0].mobProperties.Array.data[0].mobQuantity
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
