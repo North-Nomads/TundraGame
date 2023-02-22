@@ -14,7 +14,7 @@ namespace City.Building.Upgrades.EarthTowerUpgrades
 
         public void ExecuteOnUpgradeBought()
         {
-            EarthPool.HasSolidWalls = true;
+            EarthPool.HasAdditionalWalls = true;
         }
     }
 }
