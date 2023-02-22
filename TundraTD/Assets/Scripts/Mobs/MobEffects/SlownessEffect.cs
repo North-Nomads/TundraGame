@@ -15,9 +15,10 @@ namespace Mobs.MobEffects
             MaxTicksAmount = time;
         }
 
-        public override void OnAttach(MobBehaviour mob)
+        public override bool OnAttach(MobBehaviour mob)
         {
-            mob.MobModel.CurrentMobSpeed *= SpeedModifier;   
+            mob.MobModel.CurrentMobSpeed *= SpeedModifier;
+            return true;
         }
 
         public override void OnDetach(MobBehaviour mob)

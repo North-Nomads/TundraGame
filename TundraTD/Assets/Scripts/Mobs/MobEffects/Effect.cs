@@ -23,8 +23,10 @@ namespace Mobs.MobEffects
             CurrentTicksAmount++;
         }
 
-        public virtual void OnAttach(MobBehaviour mob)
-        { }
+        public virtual bool OnAttach(MobBehaviour mob)
+        {
+            return true;
+        }
 
         public virtual void OnDetach(MobBehaviour mob)
         { }
