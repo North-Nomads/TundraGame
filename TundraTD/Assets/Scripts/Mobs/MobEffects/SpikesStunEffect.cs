@@ -20,14 +20,15 @@ namespace Mobs.MobEffects
             if (mob.CurrentEffects.Any(x => x is SpikesStunEffect))
                 return false;
             
-            mob.MobModel.MobNavMeshAgent.velocity = Vector3.zero;
-            mob.MobModel.MobNavMeshAgent.isStopped = true;
+            mob.MobModel.MobNavMeshAgent.SetDestination(mob.transform.position);
+            mob.MobModel.MobNavMeshAgent.angularSpeed = 0;
             return true;
         }
         
         public override void OnDetach(MobBehaviour mob)
         {
-            mob.MobModel.MobNavMeshAgent.isStopped = false;
+            mob.MobModel.MobNavMeshAgent.SetDestination(mob.DefaultDestinationPoint.position);
+            mob.MobModel.MobNavMeshAgent.angularSpeed = mob.MobModel.DefaultMobAngularSpeed;
         }
     }
 }

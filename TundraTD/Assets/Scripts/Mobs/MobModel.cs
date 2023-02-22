@@ -17,11 +17,13 @@ namespace Mobs
 
         [SerializeField]
         private float defaultMobSpeed;
-
+        
+        private float _defaultMobAngularSpeed;
         private float _currentMobHealth;
         private float _currentMobSpeed;
         private NavMeshAgent _mobNavMeshAgent;
 
+        public float DefaultMobAngularSpeed => _defaultMobAngularSpeed;        
         public Sprite MobSprite => mobSprite;
         public NavMeshAgent MobNavMeshAgent => _mobNavMeshAgent;
         public bool IsAlive => CurrentMobHealth > 0;
@@ -53,6 +55,7 @@ namespace Mobs
         public void InstantiateMobModel()
         {
             _mobNavMeshAgent = GetComponent<NavMeshAgent>();
+            _defaultMobAngularSpeed = _mobNavMeshAgent.angularSpeed;
             _currentMobHealth = maxMobHealth;
             _currentMobSpeed = defaultMobSpeed;
             CurrentMobDamage = defaultMobDamage;
