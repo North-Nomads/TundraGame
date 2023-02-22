@@ -92,7 +92,7 @@ namespace Spells.SpellClasses.EarthSpell
             while (count > 0)
             {
                 var group = Instantiate(spikesGroupObject, currentPosition, Quaternion.identity, spikesHolder.transform);
-                group.ApplyStunOverlappedOnMobs();
+                group.ApplyStunOverlappedOnMobs(FallDamage, (int)StunTime*10);
                 spikes.Add(group);
                 spikesCollider.SetColliderParameters(spikes, finish);
                 currentPosition += step;
