@@ -73,7 +73,6 @@ namespace Mobs
         
         public void SetHitMaterial()
         {
-            Debug.Log(1);
             renderer.material = hitMaterial;
             StartCoroutine(VisualEffectDamage());
         }
