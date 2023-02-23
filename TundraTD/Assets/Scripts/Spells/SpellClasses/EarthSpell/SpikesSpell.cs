@@ -70,8 +70,6 @@ namespace Spells.SpellClasses.EarthSpell
             
             var position1 = hitInfo1.point;
             var position2 = position1;
-            
-            spikesSlownessCollider.InitilizeTermites(EarthPool.HasTermites);
 
             while (_touchRegisterTime < _touchRegisterMaxTime)
             {
@@ -107,12 +105,10 @@ namespace Spells.SpellClasses.EarthSpell
             spikesSlownessCollider.BoxCollider.isTrigger = !EarthPool.HasSolidWalls;
             spikesAreaAround.gameObject.SetActive(EarthPool.HasDustCloud & isMainWall);
 
+            var sizeCoefficient = !isMainWall ? 1f : .6f;
             while (count > 0)
             {
-                var sizeCoefficient = 1f;
-                if (!isMainWall)
-                    sizeCoefficient = 0.6f;
-                
+                spikesSlownessCollider.InitializeTermites(EarthPool.HasTermites);
                 var group = Instantiate(spikesGroupObject, currentPosition, Quaternion.identity, spikesHolder.transform);
                 group.transform.localScale *= sizeCoefficient;
                 group.ApplyStunOverlappedOnMobs(FallDamage, (int)StunTime*10);
@@ -138,7 +134,6 @@ namespace Spells.SpellClasses.EarthSpell
                     stone.BeginHammeringCoroutine();   
                 }
             }
-                
 
             yield return new WaitForSeconds(Lifetime);
             yield return HandleSpikesSpellEnding(spikes);
@@ -149,7 +144,6 @@ namespace Spells.SpellClasses.EarthSpell
             spikesAreaAround.gameObject.SetActive(false);
             spikesSlownessCollider.gameObject.SetActive(false);
             
-            // Destroy spikes
             foreach (var spike in spikes)
             {
                 Destroy(spike.gameObject);

@@ -50,11 +50,9 @@ namespace Spells.SpellClasses.EarthSpell
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log("Add mob");
             var mob = other.GetComponent<MobBehaviour>();
             _mobsInCollider.Add(mob);
             mob.AddReceivedEffects(new List<Effect> { new SlownessEffect(_slownessPercent, _slownessTicks) });
-            mob.HitThisMob(SpikesEnterDamage, BasicElement.Earth);
         }
 
         private void OnTriggerExit(Collider other)
@@ -69,16 +67,13 @@ namespace Spells.SpellClasses.EarthSpell
             {
                 Debug.Log("Termites bite");
                 foreach (var mobBehaviour in _mobsInCollider)
-                {
                     mobBehaviour.HitThisMob(TermitesDamage, BasicElement.Earth);
-                }
-
+                
                 yield return new WaitForSeconds(1f);
             }
-
         }
 
-        public void InitilizeTermites(bool hasTermites)
+        public void InitializeTermites(bool hasTermites)
         {
             if (!hasTermites)
                 return;
