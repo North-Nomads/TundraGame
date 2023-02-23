@@ -23,5 +23,10 @@ namespace Mobs.MobEffects
             mob.EnableDisorientation();
             return true;
         }
+
+        public override void OnDetach(MobBehaviour mob)
+        {
+            mob.MobModel.MobNavMeshAgent.SetDestination(mob.DefaultDestinationPoint.position);
+        }
     }
 }

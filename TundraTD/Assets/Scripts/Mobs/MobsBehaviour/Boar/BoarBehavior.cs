@@ -29,12 +29,12 @@ namespace Mobs.MobsBehaviour.Boar
 
         public override void EnableDisorientation()
         {
-            transform.Rotate(0, 45, 0);
-            MobModel.MobNavMeshAgent.SetDestination(transform.forward * 3);
+            MobModel.MobNavMeshAgent.SetDestination(MobPortal.transform.position);
         }
 
         public override void MoveTowards(Vector3 point)
         {
+            Debug.Log("moving towards");
             MobModel.MobNavMeshAgent.SetDestination(point);
         }
 

@@ -19,7 +19,7 @@ namespace Mobs.MobEffects
 
         public virtual void HandleTick(MobBehaviour mob)
         {
-            Debug.Log($"{CurrentTicksAmount} / {MaxTicksAmount}");
+            Debug.Log($"{CurrentTicksAmount} / {MaxTicksAmount}: {this}");
             CurrentTicksAmount++;
         }
 

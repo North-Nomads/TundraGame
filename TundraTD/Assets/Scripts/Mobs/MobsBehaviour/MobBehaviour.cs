@@ -15,7 +15,6 @@ namespace Mobs.MobsBehaviour
         [SerializeField] private GameObject[] effectPrefabs;
         [SerializeField] private MobModel mobModel;
         private float _tickTimer;
-        private MobPortal _mobPortal;
         private Transform _defaultDestinationPoint;
         private Transform _currentDestinationPoint;
         public List<Effect> CurrentEffects { get; } = new List<Effect>();
@@ -23,17 +22,7 @@ namespace Mobs.MobsBehaviour
         public Transform DefaultDestinationPoint { get; set; }
         public MobModel MobModel => mobModel;
 
-        public Transform CurrentDestinationPoint
-        {
-            get => _currentDestinationPoint;
-            set => _currentDestinationPoint = value;
-        }
-
-        protected MobPortal MobPortal
-        {
-            get => _mobPortal;
-            set => _mobPortal = value;
-        }
+        protected MobPortal MobPortal { get; set; }
 
         protected float TickTimer
         {

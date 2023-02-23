@@ -59,7 +59,6 @@ namespace Spells.SpellClasses.EarthSpell
 
         private void OnTriggerExit(Collider other)
         {
-            Debug.Log("Remove mob");
             var mob = other.GetComponent<MobBehaviour>();
             _mobsInCollider.Remove(mob);
         }
