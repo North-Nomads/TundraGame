@@ -6,8 +6,8 @@ namespace Mobs.MobEffects
 {
     public class PebbleStunEffect : Effect
     {
-        public int StunTicks { get; }
-        public float StunDamage { get; }
+        private int StunTicks { get; }
+        private float StunDamage { get; }
 
         public override int MaxTicksAmount => StunTicks;
         public override EffectCode Code => EffectCode.Stun;
@@ -15,9 +15,16 @@ namespace Mobs.MobEffects
 
         public override bool OnAttach(MobBehaviour mob)
         {
-            Debug.Log("Applied pebbles on mob");
             mob.HitThisMob(StunDamage, BasicElement.Earth);
+            mob.MobModel.MobNavMeshAgent.SetDestination(mob.transform.position);
+            mob.MobModel.MobNavMeshAgent.angularSpeed = 0;
             return true;
+        }
+
+        public override void OnDetach(MobBehaviour mob)
+        {
+            mob.MobModel.MobNavMeshAgent.SetDestination(mob.DefaultDestinationPoint.position);
+            mob.MobModel.MobNavMeshAgent.angularSpeed = mob.MobModel.DefaultMobAngularSpeed;
         }
 
         public PebbleStunEffect(int stunTicks, float stunDamage)
