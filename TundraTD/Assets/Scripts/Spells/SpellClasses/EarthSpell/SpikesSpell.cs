@@ -12,6 +12,7 @@ namespace Spells.SpellClasses.EarthSpell
 
         [SerializeField] private Transform spikesHolder;
         [SerializeField] private SpikesSlownessCollider spikesSlownessCollider;
+        [SerializeField] private SpikesAreaAround spikesAreaAround;
         [SerializeField] private SpikesGroup spikesGroupObject;
         [Header("Pebble spell")]
         [SerializeField] private float pebbleDamage;
@@ -93,8 +94,8 @@ namespace Spells.SpellClasses.EarthSpell
             var count = direction.magnitude / step.magnitude;
             var currentPosition = start;
 
-            if (EarthPool.HasSolidWalls)
-                spikesSlownessCollider.BoxCollider.isTrigger = false;
+            spikesSlownessCollider.BoxCollider.isTrigger = !EarthPool.HasSolidWalls;
+            spikesAreaAround.gameObject.SetActive(EarthPool.HasDustCloud);
 
             while (count > 0)
             {
@@ -112,13 +113,15 @@ namespace Spells.SpellClasses.EarthSpell
             }
 
             yield return new WaitForSeconds(Lifetime);
-            spikesSlownessCollider.BoxCollider.isTrigger = true;
-            yield return DestroySpikes(spikes);
+            yield return HandleSpikesSpellEnding(spikes);
         }
 
-        private IEnumerator DestroySpikes(List<SpikesGroup> spikes)
+        private IEnumerator HandleSpikesSpellEnding(List<SpikesGroup> spikes)
         {
+            spikesAreaAround.gameObject.SetActive(false);
             spikesSlownessCollider.gameObject.SetActive(false);
+            
+            // Destroy spikes
             foreach (var spike in spikes)
             {
                 Destroy(spike.gameObject);

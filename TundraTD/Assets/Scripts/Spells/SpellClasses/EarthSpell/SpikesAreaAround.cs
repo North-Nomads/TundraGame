@@ -19,7 +19,7 @@ namespace Spells.SpellClasses.EarthSpell
         private void OnTriggerEnter(Collider other)
         {
             var mob = other.GetComponent<MobBehaviour>();
-            mob.AddReceivedEffects(new List<Effect> { new DisorientationEffect(4) });
+            mob.AddReceivedEffects(new List<Effect> { new FearEffect(4) });
         }
     }
 }
