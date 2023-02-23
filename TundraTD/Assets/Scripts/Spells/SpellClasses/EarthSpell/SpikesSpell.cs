@@ -83,10 +83,18 @@ namespace Spells.SpellClasses.EarthSpell
             
             if (position1 == position2)
                 yield break;
-            yield return InstantiateSpikes(position1, position2);
+
+            StartCoroutine(InstantiateSpikes(position1, position2, true));
+            
+            if (EarthPool.HasAdditionalWalls)
+            {
+                StartCoroutine(InstantiateSpikes(position1 + Vector3.left * 3, position2 + Vector3.left * 3, false));
+                StartCoroutine(InstantiateSpikes(position1 + Vector3.right * 3, position2 + Vector3.right * 3, false));
+            }
+            
         }
 
-        private IEnumerator InstantiateSpikes(Vector3 start, Vector3 finish)
+        private IEnumerator InstantiateSpikes(Vector3 start, Vector3 finish, bool isMainWall)
         {
             var spikes = new List<SpikesGroup>();
             var direction = finish - start;
@@ -95,15 +103,21 @@ namespace Spells.SpellClasses.EarthSpell
             var currentPosition = start;
 
             spikesSlownessCollider.BoxCollider.isTrigger = !EarthPool.HasSolidWalls;
-            spikesAreaAround.gameObject.SetActive(EarthPool.HasDustCloud);
+            spikesAreaAround.gameObject.SetActive(EarthPool.HasDustCloud & isMainWall);
 
             while (count > 0)
             {
+                var sizeCoefficient = 1f;
+                if (!isMainWall)
+                    sizeCoefficient = 0.6f;
+                
                 var group = Instantiate(spikesGroupObject, currentPosition, Quaternion.identity, spikesHolder.transform);
+                group.transform.localScale *= sizeCoefficient;
                 group.ApplyStunOverlappedOnMobs(FallDamage, (int)StunTime*10);
 
-                if (EarthPool.HasExplosivePebbles)
-                    group.ExecutePebblesExplosion(pebbleDamage, pebbleStunTicks);
+                if (!isMainWall)
+                    if (EarthPool.HasExplosivePebbles)
+                        group.ExecutePebblesExplosion(pebbleDamage, pebbleStunTicks);
                 
                 spikes.Add(group);
                 spikesSlownessCollider.SetColliderParameters(spikes, finish);
