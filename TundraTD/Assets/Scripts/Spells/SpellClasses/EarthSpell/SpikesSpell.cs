@@ -19,6 +19,8 @@ namespace Spells.SpellClasses.EarthSpell
         [SerializeField] private int pebbleStunTicks;
         [Header("Termites spell")] 
         [SerializeField] private float termitesDamage;
+        [Header("Floating stone-hammers links")]
+        [SerializeField] private SpikesHammerStone[] hammerStones;
         
         private float _touchRegisterMaxTime;
         private float _touchRegisterTime;
@@ -125,6 +127,18 @@ namespace Spells.SpellClasses.EarthSpell
                 count--;
                 yield return new WaitForSeconds(.02f);
             }
+
+            if (EarthPool.HasFloatingStones)
+            {
+                for (int i = 0; i < hammerStones.Length; i++)
+                {
+                    var stone = hammerStones[i];
+                    stone.transform.position = (start + finish) / 2 + Mathf.Pow(-1, i + 1) * 5 * Vector3.left;
+                    stone.gameObject.SetActive(true);
+                    stone.BeginHammeringCoroutine();   
+                }
+            }
+                
 
             yield return new WaitForSeconds(Lifetime);
             yield return HandleSpikesSpellEnding(spikes);
