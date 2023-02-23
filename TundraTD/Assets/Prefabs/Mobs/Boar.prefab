@@ -1127,6 +1127,7 @@ MonoBehaviour:
   - {fileID: 1206498299807332555, guid: af6c1e3f046eecd4d81330aeb285600f, type: 3}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
   mobModel: {fileID: 8671833239330951028}
 --- !u!95 &6057633037458583791
 Animator:
