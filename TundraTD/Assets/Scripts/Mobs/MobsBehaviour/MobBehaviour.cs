@@ -133,5 +133,7 @@ namespace Mobs.MobsBehaviour
                     effectPrefabs[effectIndex].SetActive(true);
             }
         }
+
+        public abstract void EnableDisorientation();
     }
 }

@@ -30,6 +30,12 @@ namespace Mobs.MobEffects
 
         public virtual void OnDetach(MobBehaviour mob)
         { }
+
+        public void ClearThisEffectOnMob(MobBehaviour mob)
+        {
+            CurrentTicksAmount = MaxTicksAmount - 1;
+            OnDetach(mob);
+        }
     }
 
     /// <summary>
@@ -56,6 +62,11 @@ namespace Mobs.MobEffects
         /// <summary>
         /// Represents the slowness effect of any spell
         /// </summary>
-        Slowness = 1 << 2
+        Slowness = 1 << 2,
+        
+        /// <summary>
+        /// Represents the slowness effect of any spell
+        /// </summary>
+        Disorientation = 1 << 3
     }
 }

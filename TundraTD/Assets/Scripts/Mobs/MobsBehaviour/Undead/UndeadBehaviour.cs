@@ -28,6 +28,11 @@ namespace Mobs.MobsBehaviour.Undead
             MobModel.CurrentMobHealth -= damage * multiplier;
         }
 
+        public override void EnableDisorientation()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public override void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal)
         {
             MobModel.InstantiateMobModel();

@@ -53,6 +53,11 @@ namespace Mobs.MobsBehaviour.Ironclad
             
         }
 
+        public override void EnableDisorientation()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public override void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal)
         {
             MobModel.InstantiateMobModel();
