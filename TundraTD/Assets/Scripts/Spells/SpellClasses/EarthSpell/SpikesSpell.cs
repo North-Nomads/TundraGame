@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using City.Building.ElementPools;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Spells.SpellClasses.EarthSpell
 {
@@ -14,17 +13,18 @@ namespace Spells.SpellClasses.EarthSpell
         [SerializeField] private Transform spikesHolder;
         [SerializeField] private SpikesSlownessCollider spikesSlownessCollider;
         [SerializeField] private SpikesGroup spikesGroupObject;
-        [SerializeField] private float spikesOffset = 1;
         [Header("Pebble spell")]
         [SerializeField] private float pebbleDamage;
         [SerializeField] private int pebbleStunTicks;
+        [Header("Termites spell")] 
+        [SerializeField] private float termitesDamage;
         
         private float _touchRegisterMaxTime;
         private float _touchRegisterTime;
         private Camera _mainCamera;
         
         public float ApproachDelay { get; } = 0.2f;
-
+        
         public float MaxDrawTime { get; set; } = 2f;
         
         public float SpikeDisappearCooldown { get; set; } = .1f;
@@ -55,6 +55,7 @@ namespace Spells.SpellClasses.EarthSpell
             spikesSlownessCollider.SendSlownessValues(Lifetime, SlownessValue);
             spikesGroupObject.StunTicks = 4;
             spikesSlownessCollider.SpikesEnterDamage = CollisionDamage;
+            spikesSlownessCollider.TermitesDamage = termitesDamage;
         }
 
         private IEnumerator RegisterUserInputs()
@@ -66,6 +67,8 @@ namespace Spells.SpellClasses.EarthSpell
             
             var position1 = hitInfo1.point;
             var position2 = position1;
+            
+            spikesSlownessCollider.InitilizeTermites(EarthPool.HasTermites);
 
             while (_touchRegisterTime < _touchRegisterMaxTime)
             {
@@ -92,7 +95,7 @@ namespace Spells.SpellClasses.EarthSpell
 
             if (EarthPool.HasSolidWalls)
                 spikesSlownessCollider.BoxCollider.isTrigger = false;
-            
+
             while (count > 0)
             {
                 var group = Instantiate(spikesGroupObject, currentPosition, Quaternion.identity, spikesHolder.transform);
@@ -102,7 +105,7 @@ namespace Spells.SpellClasses.EarthSpell
                     group.ExecutePebblesExplosion(pebbleDamage, pebbleStunTicks);
                 
                 spikes.Add(group);
-                spikesSlownessCollider.SetColliderParameters(spikes, finish);
+                spikesSlownessCollider.SetColliderParameters(spikes, finish, EarthPool.HasTermites);
                 currentPosition += step;
                 count--;
                 yield return new WaitForSeconds(.02f);
@@ -115,6 +118,7 @@ namespace Spells.SpellClasses.EarthSpell
 
         private IEnumerator DestroySpikes(List<SpikesGroup> spikes)
         {
+            spikesSlownessCollider.gameObject.SetActive(false);
             foreach (var spike in spikes)
             {
                 Destroy(spike.gameObject);

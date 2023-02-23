@@ -38,10 +38,5 @@ namespace Spells.SpellClasses.EarthSpell
                 mob.AddReceivedEffects(new List<Effect> { new PebbleStunEffect(pebbleStunTicks, pebbleDamage) });
             }
         }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.DrawCube(transform.position, new Vector3(2.5f, 1, .5f));
-        }
     }
 }
