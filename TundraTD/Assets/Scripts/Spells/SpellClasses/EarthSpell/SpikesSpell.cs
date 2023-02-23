@@ -105,12 +105,12 @@ namespace Spells.SpellClasses.EarthSpell
                     group.ExecutePebblesExplosion(pebbleDamage, pebbleStunTicks);
                 
                 spikes.Add(group);
-                spikesSlownessCollider.SetColliderParameters(spikes, finish, EarthPool.HasTermites);
+                spikesSlownessCollider.SetColliderParameters(spikes, finish);
                 currentPosition += step;
                 count--;
                 yield return new WaitForSeconds(.02f);
             }
-            
+
             yield return new WaitForSeconds(Lifetime);
             spikesSlownessCollider.BoxCollider.isTrigger = true;
             yield return DestroySpikes(spikes);
