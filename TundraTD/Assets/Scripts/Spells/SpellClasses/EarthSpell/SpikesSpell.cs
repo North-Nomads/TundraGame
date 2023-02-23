@@ -15,6 +15,9 @@ namespace Spells.SpellClasses.EarthSpell
         [SerializeField] private SpikesSlownessCollider spikesSlownessCollider;
         [SerializeField] private SpikesGroup spikesGroupObject;
         [SerializeField] private float spikesOffset = 1;
+        [Header("Pebble spell")]
+        [SerializeField] private float pebbleDamage;
+        [SerializeField] private int pebbleStunTicks;
         
         private float _touchRegisterMaxTime;
         private float _touchRegisterTime;
@@ -94,6 +97,10 @@ namespace Spells.SpellClasses.EarthSpell
             {
                 var group = Instantiate(spikesGroupObject, currentPosition, Quaternion.identity, spikesHolder.transform);
                 group.ApplyStunOverlappedOnMobs(FallDamage, (int)StunTime*10);
+
+                if (EarthPool.HasExplosivePebbles)
+                    group.ExecutePebblesExplosion(pebbleDamage, pebbleStunTicks);
+                
                 spikes.Add(group);
                 spikesSlownessCollider.SetColliderParameters(spikes, finish);
                 currentPosition += step;
