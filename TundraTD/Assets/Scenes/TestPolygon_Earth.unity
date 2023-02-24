@@ -2262,6 +2262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cba675aba7363843babad31795b7fe4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spikesOffset: 1.5
   spikesHolder: {fileID: 1571297791}
   spikesSlownessCollider: {fileID: 541433590}
   spikesAreaAround: {fileID: 460852133}

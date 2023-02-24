@@ -10,6 +10,7 @@ namespace Spells.SpellClasses.EarthSpell
     {
         private const int CastableLayer = 1 << 11 | 1 << 10;
 
+        [SerializeField] private float spikesOffset;
         [SerializeField] private Transform spikesHolder;
         [SerializeField] private SpikesSlownessCollider spikesSlownessCollider;
         [SerializeField] private SpikesAreaAround spikesAreaAround;
@@ -99,7 +100,7 @@ namespace Spells.SpellClasses.EarthSpell
             var spikes = new List<SpikesGroup>();
             var direction = finish - start;
             var step = direction / direction.magnitude;
-            var count = direction.magnitude / step.magnitude;
+            var count = direction.magnitude / step.magnitude / spikesOffset;
             var currentPosition = start;
 
             spikesSlownessCollider.BoxCollider.isTrigger = !EarthPool.HasSolidWalls;
@@ -119,7 +120,7 @@ namespace Spells.SpellClasses.EarthSpell
                 
                 spikes.Add(group);
                 spikesSlownessCollider.SetColliderParameters(spikes, finish);
-                currentPosition += step;
+                currentPosition += step * spikesOffset;
                 count--;
                 yield return new WaitForSeconds(.02f);
             }
