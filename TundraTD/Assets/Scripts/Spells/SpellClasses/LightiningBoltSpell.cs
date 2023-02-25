@@ -21,8 +21,7 @@ namespace Spells.SpellClasses
             Physics.OverlapSphereNonAlloc(hit.transform.position, 10, collidersInRadius, ~0, QueryTriggerInteraction.Ignore);
             foreach (Collider collider in collidersInRadius)
             {
-                MobBehaviour mobBehaviour = collider.gameObject.GetComponent<MobBehaviour>();
-                if(mobBehaviour != null)
+                if(collider.gameObject.TryGetComponent<MobBehaviour>(out var mobBehaviour))
                     MobsInRadius.Add(mobBehaviour);
             }
             
@@ -35,8 +34,6 @@ namespace Spells.SpellClasses
             MobsInRadius.Remove(mobToStrike);
             if(strikesLeft == 0)
                 return;
-            RaycastHit hit;
-            
             
 
 
