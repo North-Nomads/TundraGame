@@ -2,6 +2,7 @@ using Mobs.MobEffects;
 using Spells;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Mobs.MobsBehaviour
@@ -64,6 +65,7 @@ namespace Mobs.MobsBehaviour
 
         public void HitThisMob(float damage, BasicElement damageElement)
         {
+            damage = CurrentEffects.Aggregate(damage, (dmg, effect) => effect.OnHitReceived(this, dmg, damageElement));
             HandleIncomeDamage(damage, damageElement);
             Debug.Log(MobModel.CurrentMobHealth);
             if (!MobModel.IsAlive)
@@ -77,6 +79,12 @@ namespace Mobs.MobsBehaviour
                 CurrentEffects.Add(effect);
                 effect.OnAttach(this);
             }
+        }
+
+        public void AddSingleEffect(Effect effect)
+        {
+            CurrentEffects.Add(effect);
+            effect.OnAttach(this);
         }
 
         private void KillThisMob()

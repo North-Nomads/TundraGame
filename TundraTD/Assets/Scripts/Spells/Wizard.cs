@@ -26,7 +26,7 @@ namespace Spells
                     }
                 }
             }
-            spell.InstantiateSpellExecution();
+            spell.ExecuteSpell();
             return spell;
         }
 

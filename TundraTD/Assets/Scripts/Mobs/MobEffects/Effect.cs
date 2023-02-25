@@ -1,4 +1,5 @@
 ﻿using Mobs.MobsBehaviour;
+using Spells;
 using System;
 using UnityEngine;
 
@@ -28,6 +29,8 @@ namespace Mobs.MobEffects
 
         public virtual void OnDetach(MobBehaviour mob)
         { }
+
+        public virtual float OnHitReceived(MobBehaviour mob, float damageAmount, BasicElement element) => damageAmount;
     }
 
     /// <summary>
@@ -54,6 +57,11 @@ namespace Mobs.MobEffects
         /// <summary>
         /// Represents the slowness effect.
         /// </summary>
-        Slowness = 1 << 2
+        Slowness = 1 << 2,
+
+        /// <summary>
+        /// Represents the weakness effect.
+        /// </summary>
+        Weakness = 1 << 3,
     }
 }

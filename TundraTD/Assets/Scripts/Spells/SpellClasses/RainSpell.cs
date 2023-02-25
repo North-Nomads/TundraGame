@@ -38,7 +38,7 @@ namespace Spells.SpellClasses
         [IncreasableProperty(BasicElement.Fire, 0.02f)]
         public float LightningMultiplier { get; set; } = 1.1f;
 
-        public override void InstantiateSpellExecution()
+        public override void ExecuteSpell()
         {
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out var hit))
             {
