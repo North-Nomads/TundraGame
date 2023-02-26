@@ -65,7 +65,7 @@ namespace Mobs.MobsBehaviour
         public void HitThisMob(float damage, BasicElement damageElement)
         {
             HandleIncomeDamage(damage, damageElement);
-            Debug.Log(MobModel.CurrentMobHealth);
+            //Debug.Log(MobModel.CurrentMobHealth);
             if (!MobModel.IsAlive)
                 KillThisMob();
         }

@@ -1,14 +1,14 @@
 ﻿using Mobs.MobsBehaviour;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 namespace Spells.SpellClasses
 {
     [Spell(BasicElement.Lightning, "Lightning", "Shocking!")]
     public class LightiningBoltSpell : MagicSpell
     {
-        private List<MobBehaviour> MobsInRadius;
-
+        private List<MobBehaviour> _mobsInRadius;
+        [SerializeField] private LineRenderer lightining = new LineRenderer();
         public override void InstantiateSpellExecution()
         {
             //Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
@@ -21,8 +21,16 @@ namespace Spells.SpellClasses
             Physics.OverlapSphereNonAlloc(hit.transform.position, 10, collidersInRadius, ~0, QueryTriggerInteraction.Ignore);
             foreach (Collider collider in collidersInRadius)
             {
-                if(collider.gameObject.TryGetComponent<MobBehaviour>(out var mobBehaviour))
-                    MobsInRadius.Add(mobBehaviour);
+                if(collider != null && collider.gameObject.TryGetComponent<MobBehaviour>(out var mobBehaviour))
+                    _mobsInRadius.Add(mobBehaviour);
+            }
+            lightining.SetPosition(0,Camera.main.transform.position);
+            lightining.SetPosition(1, hit.transform.position);
+            lightining
+            if(_mobsInRadius.Count == 0)
+            {
+                Debug.Log("Miss");
+                return;
             }
             
             LaunchStrike(GetClosestMob(hit.transform.position),5);
@@ -30,9 +38,9 @@ namespace Spells.SpellClasses
 
         private void LaunchStrike(MobBehaviour mobToStrike, int strikesLeft)
         {
-            mobToStrike.HitThisMob(100, BasicElement.Lightning);
-            MobsInRadius.Remove(mobToStrike);
-            if(strikesLeft == 0)
+            mobToStrike.HitThisMob(10000, BasicElement.Lightning);
+            _mobsInRadius.Remove(mobToStrike);
+            if(strikesLeft == 0 || _mobsInRadius.Count == 0)
                 return;
             
 
@@ -42,13 +50,20 @@ namespace Spells.SpellClasses
 
         private MobBehaviour GetClosestMob(Vector3 CurrentMobPosition)
         {
-            MobBehaviour closestMob = MobsInRadius[0];
-            foreach(MobBehaviour mob in MobsInRadius)
+            MobBehaviour closestMob = _mobsInRadius[0];
+            foreach(MobBehaviour mob in _mobsInRadius)
             {
                 if((CurrentMobPosition - mob.transform.position).magnitude < (CurrentMobPosition - closestMob.transform.position).magnitude)
                     closestMob = mob;
             }
+            Debug.DrawLine(CurrentMobPosition, closestMob.transform.position);
             return closestMob;
+        }
+
+        private IEnumerator DrawLightining()
+        {
+
+            yield return null;
         }
     }
 }
