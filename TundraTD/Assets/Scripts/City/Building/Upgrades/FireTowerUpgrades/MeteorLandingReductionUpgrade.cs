@@ -8,7 +8,7 @@ namespace City.Building.Upgrades.FireTowerUpgrades
     {
         public BasicElement UpgradeTowerElement => BasicElement.Fire;
         public int PurchasePriceInTowerMenu => 350;
-        public int SpellPurchaseRequiredLevel => 3;
+        public int SpellPurchaseRequiredLevel => 2;
         public string UpgradeDescriptionText => "-0.4 seconds delay before meteorite impact";
         public Sprite UpgradeShowcaseSprite => Resources.Load<Sprite>("UpgradeIcons/Arcanist1");
 

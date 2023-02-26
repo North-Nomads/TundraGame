@@ -67,9 +67,9 @@ namespace Spells.SpellClasses
         [IncreasableProperty(BasicElement.Lightning, 2f)]
         public float SlownessDuration { get; set; }
 
-        public override void InstantiateSpellExecution()
+        public override void ExecuteSpell()
         {
-            if (_mainCamera is null)
+            if (_mainCamera == null)
                 _mainCamera = Camera.main;
 
             if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out var hit))
@@ -112,7 +112,7 @@ namespace Spells.SpellClasses
             };
 
             if (FirePool.HasLandingStun)
-                effects.Add(new StunEffect()); // TODO: implement stun effect.
+                effects.Add(new SpikesStunEffect(4)); 
 
             for (int i = 0; i < hits; i++)
             {
@@ -120,7 +120,7 @@ namespace Spells.SpellClasses
                 var mob = target.GetComponent<MobBehaviour>();
                 float damage = HitDamageValue * Vector3.Distance(target.transform.position, transform.position) / HitDamageRadius;
 
-                mob.HitThisMob(damage * FirePool.DamageAgainstElementMultipliers[mob.MobBasicElement], BasicElement.Fire);
+                mob.HitThisMob(damage, BasicElement.Fire);
                 mob.AddReceivedEffects(effects);
                 if (FirePool.HasLandingImpulse)
                 {

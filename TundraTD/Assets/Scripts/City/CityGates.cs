@@ -1,7 +1,8 @@
-﻿using City.Building;
+using City.Building;
 using Level;
 using Mobs;
 using Mobs.MobsBehaviour;
+using Mobs.MobsBehaviour.Ironclad;
 using Spells;
 using UnityEngine;
 
@@ -12,12 +13,15 @@ namespace City
     /// </summary>
     [RequireComponent(typeof(CityGatesUI))]
     public class CityGates : MonoBehaviour
+
+
     {
         [SerializeField] private float maxCityGatesHealthPoints;
         [SerializeField] private LevelJudge levelJudge;
         private float _currentCityGatesHealthPoints;
         private float _cityGatesHealthPercent;
         private CityGatesUI _cityGatesUI;
+        private Animator _animator;
 
         private float CurrentCityGatesHealthPoints
         {
@@ -41,30 +45,46 @@ namespace City
         {
             _cityGatesUI = GetComponent<CityGatesUI>();
             _currentCityGatesHealthPoints = maxCityGatesHealthPoints;
+            _animator = GetComponent<Animator>();
+
         }
 
         private void Update()
         {
             // HACK: made here fireball casting to test, remove later
-            if (Input.GetKeyDown(KeyCode.C) && !PauseMode.IsGamePaused)
+            if (Input.GetKey(KeyCode.C) && !PauseMode.IsGamePaused)
             {
-                Grimoire.TurnElementsIntoSpell(new BasicElement[]
-                    { BasicElement.Earth, BasicElement.Earth, BasicElement.Earth, BasicElement.None, BasicElement.None });
+                if (Input.GetKeyDown(KeyCode.Alpha1))
+                    Grimoire.TurnElementsIntoSpell(new BasicElement[] { BasicElement.Fire, BasicElement.Fire, BasicElement.Fire, BasicElement.Earth, BasicElement.Earth });
+                if (Input.GetKeyDown(KeyCode.Alpha2))
+                    Grimoire.TurnElementsIntoSpell(new BasicElement[] { BasicElement.Water, BasicElement.Water, BasicElement.Water, BasicElement.Earth, BasicElement.Earth });
+                if (Input.GetKeyDown(KeyCode.Alpha3))
+                    Grimoire.TurnElementsIntoSpell(new BasicElement[] { BasicElement.Earth, BasicElement.Earth, BasicElement.Earth, BasicElement.Earth, BasicElement.Earth });
+                if (Input.GetKeyDown(KeyCode.Alpha4))
+                    Grimoire.TurnElementsIntoSpell(new BasicElement[] { BasicElement.Lightning, BasicElement.Lightning, BasicElement.Lightning, BasicElement.Earth, BasicElement.Earth });
+                if (Input.GetKeyDown(KeyCode.Alpha5))
+                    Grimoire.TurnElementsIntoSpell(new BasicElement[] { BasicElement.Air, BasicElement.Air, BasicElement.Air, BasicElement.Earth, BasicElement.Earth });
             }
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            //Debug.Log(1);
             if (!other.CompareTag("Mob"))
                 return;
-
-            //Debug.Log(1);
+           
             var mob = other.GetComponent<MobBehaviour>();
-            var mobAttack = mob.GetComponent<MobModel>().CurrentMobDamage;
+            var mobAttack = mob.MobModel.CurrentMobDamage;
+
+            if (mob.GetComponent<IroncladBehaviour>() != null)
+            {
+                
+            }
 
             CurrentCityGatesHealthPoints -= mobAttack;
             mob.HitThisMob(float.PositiveInfinity, BasicElement.None);
+
+            _animator.SetTrigger("DamageTrigger");
+            
         }
 
         public void HandleWaveEnding()

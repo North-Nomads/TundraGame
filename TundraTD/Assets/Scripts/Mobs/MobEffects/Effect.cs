@@ -1,5 +1,7 @@
 ﻿using Mobs.MobsBehaviour;
+using Spells;
 using System;
+using UnityEngine;
 
 namespace Mobs.MobEffects
 {
@@ -16,13 +18,27 @@ namespace Mobs.MobEffects
 
         public abstract EffectCode Code { get; }
 
-        public abstract void HandleTick(MobBehaviour mob);
+        public virtual void HandleTick(MobBehaviour mob)
+        {
+            Debug.Log($"{CurrentTicksAmount} / {MaxTicksAmount}: {this}");
+            CurrentTicksAmount++;
+        }
 
-        public virtual void OnAttach(MobBehaviour mob)
-        { }
+        public virtual bool OnAttach(MobBehaviour mob)
+        {
+            return true;
+        }
 
         public virtual void OnDetach(MobBehaviour mob)
         { }
+
+        public void ClearThisEffectOnMob(MobBehaviour mob)
+        {
+            CurrentTicksAmount = MaxTicksAmount - 1;
+            OnDetach(mob);
+        }
+
+        public virtual float OnHitReceived(MobBehaviour mob, float damageAmount, BasicElement element) => damageAmount;
     }
 
     /// <summary>
@@ -45,5 +61,20 @@ namespace Mobs.MobEffects
         /// Represents the stun effect.
         /// </summary>
         Stun = 1 << 1,
+
+        /// <summary>
+        /// Represents the slowness effect.
+        /// </summary>
+        Slowness = 1 << 2,
+
+        /// <summary>
+        /// Represents the weakness effect.
+        /// </summary>
+        Weakness = 1 << 3,
+
+        /// <summary>
+        /// Represents the slowness effect of any spell
+        /// </summary>
+        Disorientation = 1 << 4
     }
 }

@@ -1105,11 +1105,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e88288a9ff9e96844800a3a94fc6b435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitMaterial: {fileID: 2100000, guid: 173f4c2e019091841ac54b766ef59b29, type: 2}
   mobSprite: {fileID: 21300062, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
   maxMobHealth: 130
   defaultMobDamage: 4
   defaultMobSpeed: 5
-  mobWaveWeight: 0
+  renderer: {fileID: 6667528729859900624}
 --- !u!114 &8671833239330950923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1124,6 +1125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectPrefabs:
   - {fileID: 1206498299807332555, guid: af6c1e3f046eecd4d81330aeb285600f, type: 3}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   mobModel: {fileID: 8671833239330951028}

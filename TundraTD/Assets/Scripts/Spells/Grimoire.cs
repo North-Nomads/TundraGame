@@ -33,27 +33,27 @@ namespace Spells
         public static MagicSpell TurnElementsIntoSpell(BasicElement[] elements)
         {
             BasicElement? mostElement = elements.GroupBy(x => x).FirstOrDefault(x => x.Count() >= 3)?.Key;
+
+            if (!mostElement.HasValue)
+                return null;
+            
             Array.Sort(elements);
-            int startMostIndex = Array.IndexOf(elements, mostElement);
-            var remElements = elements.Where((x, i) => x != mostElement || i >= startMostIndex + 3);
-            if (mostElement.HasValue && _spellTypes.TryGetValue(mostElement.Value, out Type spellType))
-            {
-                var spellObject = SpellInitializers[(int)Math.Log((int)mostElement, 2)];
-                MagicSpell spell = spellObject.GetComponent(spellType) as MagicSpell;
-                foreach (var prop in spellType.GetProperties())
-                {
-                    foreach (var attr in prop.GetCustomAttributes<UpgradeablePropertyAttribute>(true))
-                    {
-                        foreach (var element in remElements)
-                        {
-                            attr.TryUpgradeProperty(element, prop, spell);
-                        }
-                    }
-                }
-                spell.InstantiateSpellExecution();
-                return spell;
-            }
-            return null;
+            int startMostIndex = Array.IndexOf(elements, mostElement); 
+            var remainingElements = elements.Where((x, i) => x != mostElement || i >= startMostIndex + 3);
+
+            if (!_spellTypes.TryGetValue(mostElement.Value, out Type spellType))
+                return null;
+                
+            var spellObject = SpellInitializers[(int)Math.Log((int)mostElement, 2)];
+            MagicSpell spell = spellObject.GetComponent(spellType) as MagicSpell;
+                
+            foreach (var prop in spellType.GetProperties())
+            foreach (var attr in prop.GetCustomAttributes<UpgradeablePropertyAttribute>(true))
+            foreach (var element in remainingElements)
+                attr.TryUpgradeProperty(element, prop, spell);
+                
+            spell.InstantiateSpellExecution();
+            return spell;
         }
     }
 }

@@ -27,8 +27,14 @@ namespace Mobs.MobsBehaviour.Boar
             MobModel.CurrentMobHealth -= damage * multiplier;
         }
 
+        public override void EnableDisorientation()
+        {
+            MobModel.MobNavMeshAgent.SetDestination(MobPortal.transform.position);
+        }
+
         public override void MoveTowards(Vector3 point)
         {
+            Debug.Log("moving towards");
             MobModel.MobNavMeshAgent.SetDestination(point);
         }
 
