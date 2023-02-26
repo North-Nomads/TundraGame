@@ -62,12 +62,7 @@ namespace Spells.SpellClasses
 
         private IEnumerator DrawLightining()
         {
-
             yield return null;
-        }
-        private void OnDrawGizmos()
-        {
-            
         }
     }
 }

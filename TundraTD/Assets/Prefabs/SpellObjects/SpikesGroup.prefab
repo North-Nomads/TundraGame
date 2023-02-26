@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8613968584375968820}
-  - component: {fileID: 6125932274316666813}
+  - component: {fileID: 3485587487759157123}
   m_Layer: 0
   m_Name: SpikesGroup
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6125932274316666813
+--- !u!114 &3485587487759157123
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,9 +41,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1256740193981371012}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 078aff8e5cf74406927ce574fb92ea72, type: 3}
+  m_Script: {fileID: 11500000, guid: 7cba675aba7363843babad31795b7fe4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spikesOffset: 0
+  spikesHolder: {fileID: 0}
+  spikesSlownessCollider: {fileID: 0}
+  spikesAreaAround: {fileID: 0}
+  spikesGroupObject: {fileID: 0}
+  pebbleDamage: 0
+  pebbleStunTicks: 0
+  termitesDamage: 0
+  hammerStones: []
 --- !u!1 &7358055352642951233
 GameObject:
   m_ObjectHideFlags: 0

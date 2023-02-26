@@ -18,7 +18,7 @@ namespace Level
         [SerializeField] private CityGatesUI influencePointsHolder;
         [SerializeField] private TowerPlacementSlot[] placementSlots;
         [SerializeField] private ElementalTower[] elementalTowerPrefabs;
-        [SerializeField] private Wizard[] spellInitializers;
+        [SerializeField] private MagicSpell[] spellInitializers;
 
         private void Start()
         {

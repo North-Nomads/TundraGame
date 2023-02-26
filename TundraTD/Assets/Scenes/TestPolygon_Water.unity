@@ -474,18 +474,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 271318503}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &271318505 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1936567228994012088, guid: 2cc18e2f4f923514a93e58cde0de74f8,
-    type: 3}
-  m_PrefabInstance: {fileID: 271318503}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c16c3559a394366852b20b433c1eac9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &286006057 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -6724028819648561803, guid: 0800a5babc1a60740a9b86904c57f85e,
@@ -518,36 +506,6 @@ Canvas:
     type: 3}
   m_PrefabInstance: {fileID: 1547117321}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &341289320
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 341289321}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &341289321
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 341289320}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.642021, y: 0.7158928, z: -13.481752}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &366580952
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,10 +561,11 @@ MonoBehaviour:
   - {fileID: 6206681401840262367, guid: 735527298e8b22745943729ce2b83048, type: 3}
   - {fileID: 1464022968876451410, guid: b9ce7bfe846ccc040b21f7a749d31c78, type: 3}
   spellInitializers:
-  - {fileID: 881941108}
-  - {fileID: 705790785}
+  - {fileID: -6803395362427656954, guid: 4c9b0db6e89c5d5478a5d9554eef8b15, type: 3}
+  - {fileID: -4578980917677416286, guid: 63c23b93473c487498b3a119909f2730, type: 3}
   - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 3485587487759157123, guid: 96b5e82558f8f4543999ec6d13f8c926, type: 3}
+  - {fileID: 1876299875775892076, guid: 097b99181f2f3a24790b651f7543adca, type: 3}
 --- !u!1 &375244294
 GameObject:
   m_ObjectHideFlags: 0
@@ -975,51 +934,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &705790783
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 705790784}
-  - component: {fileID: 705790785}
-  m_Layer: 0
-  m_Name: Water Wizard
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &705790784
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 705790783}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1219627218}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &705790785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 705790783}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcc81b914867e6c43aa43d0e547800e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PrefabToInstantiate: {fileID: -4578980917677416286, guid: 63c23b93473c487498b3a119909f2730,
-    type: 3}
 --- !u!114 &709586450 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
@@ -1187,51 +1101,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &881941105
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 881941106}
-  - component: {fileID: 881941108}
-  m_Layer: 0
-  m_Name: Fire Wizard
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &881941106
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 881941105}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1219627218}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &881941108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 881941105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0163c95c7cdfa9248afe1e0817a3f7f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PrefabToInstantiate: {fileID: -6803395362427656954, guid: 4c9b0db6e89c5d5478a5d9554eef8b15,
-    type: 3}
 --- !u!1 &882465137
 GameObject:
   m_ObjectHideFlags: 0
@@ -1266,7 +1135,6 @@ Transform:
   - {fileID: 1505798933}
   - {fileID: 2027348768}
   - {fileID: 1932545339}
-  - {fileID: 1219627218}
   - {fileID: 1404068981}
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -1905,39 +1773,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26db2e45b6c90384e9d0a09d308389d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1219627217
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1219627218}
-  m_Layer: 0
-  m_Name: Wizards
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1219627218
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1219627217}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1536917151}
-  - {fileID: 881941106}
-  - {fileID: 705790784}
-  m_Father: {fileID: 882465138}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1222988217
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2018,18 +1853,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1222988217}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1222988219 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1936567228994012088, guid: 2cc18e2f4f923514a93e58cde0de74f8,
-    type: 3}
-  m_PrefabInstance: {fileID: 1222988217}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c16c3559a394366852b20b433c1eac9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &1265180921 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4648827191657142392, guid: 7af25049a8cccdb4f80a1404263cef87,
@@ -2133,9 +1956,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 74653996}
-  - {fileID: 1740867570}
   m_Father: {fileID: 882465138}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1505798931
 GameObject:
@@ -2229,61 +2051,6 @@ Transform:
   m_Father: {fileID: 882465138}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!1 &1536917150
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1536917151}
-  - component: {fileID: 1536917152}
-  m_Layer: 0
-  m_Name: Earth Wizard
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1536917151
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1536917150}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1219627218}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1536917152
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1536917150}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7cba675aba7363843babad31795b7fe4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spikesOffset: 1.5
-  spikesHolder: {fileID: 1571297791}
-  spikesSlownessCollider: {fileID: 541433590}
-  spikesAreaAround: {fileID: 1283947208}
-  spikesGroupObject: {fileID: 6125932274316666813, guid: 96b5e82558f8f4543999ec6d13f8c926,
-    type: 3}
-  pebbleDamage: 0
-  pebbleStunTicks: 0
-  termitesDamage: 0
-  hammerStones:
-  - {fileID: 1222988219}
-  - {fileID: 271318505}
 --- !u!1001 &1547117321
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2617,51 +2384,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!1 &1740867569
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1740867570}
-  - component: {fileID: 1740867571}
-  m_Layer: 0
-  m_Name: Water Wizard
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1740867570
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1740867569}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.6664901, y: 1.0447927, z: 9.367462}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1404068981}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1740867571
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1740867569}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcc81b914867e6c43aa43d0e547800e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PrefabToInstantiate: {fileID: -4578980917677416286, guid: 63c23b93473c487498b3a119909f2730,
-    type: 3}
 --- !u!223 &1765962606 stripped
 Canvas:
   m_CorrespondingSourceObject: {fileID: 1034628234451068272, guid: 9f4e7c850b360ee4cafa8588be89688c,
