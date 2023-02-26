@@ -73,7 +73,7 @@ namespace Spells.SpellClasses
             if (other.CompareTag("Mob"))
             {
                 var mob = other.gameObject.GetComponent<MobBehaviour>();
-                mob.AddReceivedEffects(new Effect[] { new SlownessEffect(1 - SlownessValue, (int)EffectTime) });
+                mob.AddReceivedEffects(new Effect[] { new SlownessEffect(1 - SlownessValue, (int)EffectTime), new WeaknessEffect((int)EffectTime, BasicElement.Lightning, 1 / LightningMultiplier) });
             }
         }
 
