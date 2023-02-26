@@ -32,7 +32,7 @@ namespace Mobs.MobEffects
         public virtual void OnDetach(MobBehaviour mob)
         { }
 
-        public void ClearThisEffectOnMob(MobBehaviour mob)
+        protected void ClearThisEffectOnMob(MobBehaviour mob)
         {
             CurrentTicksAmount = MaxTicksAmount - 1;
             OnDetach(mob);

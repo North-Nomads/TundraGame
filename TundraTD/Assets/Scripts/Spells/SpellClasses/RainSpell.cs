@@ -1,14 +1,7 @@
-﻿using City.Building.ElementPools;
-using Mobs.MobEffects;
+﻿using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 namespace Spells.SpellClasses
 {
@@ -23,20 +16,20 @@ namespace Spells.SpellClasses
         private Vector3 _targetPosition;
 
         [IncreasableProperty(BasicElement.Air, 2f)]
-        public float Radius { get; set; } = 10f;
+        private float Radius { get; set; } = 10f;
 
         [IncreasableProperty(BasicElement.Water, 1f)]
         [IncreasableProperty(BasicElement.Lightning, -1f)]
-        public float Lifetime { get; set; } = 3f;
+        private float Lifetime { get; set; } = 3f;
 
         [IncreasableProperty(BasicElement.Lightning, -1f)]
-        public float EffectTime { get; set; } = 10f;
+        private float EffectTime { get; set; } = 10f;
 
         [IncreasableProperty(BasicElement.Earth, 0.05f)]
-        public float SlownessValue { get; set; } = 0.1f;
+        private float SlownessValue { get; set; } = 0.1f;
 
         [IncreasableProperty(BasicElement.Fire, 0.02f)]
-        public float LightningMultiplier { get; set; } = 1.1f;
+        private float LightningMultiplier { get; set; } = 1.1f;
 
         public override void InstantiateSpellExecution()
         {
@@ -59,7 +52,7 @@ namespace Spells.SpellClasses
             }
         }
 
-        public IEnumerator WaitTime()
+        private IEnumerator WaitTime()
         {
             yield return new WaitForSeconds(Lifetime);
             DisableEmissionOnChildren();

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace Spells
@@ -12,14 +11,14 @@ namespace Spells
     /// </summary>
     public static class Grimoire
     {
-        private static readonly Dictionary<BasicElement, Type> _spellTypes;
+        private static readonly Dictionary<BasicElement, Type> SpellTypes;
 
         // HACK: temporary solution to avoid errors
         public static MagicSpell[] SpellInitializers { get; set; }
 
         static Grimoire()
         {
-            _spellTypes = (from type in Assembly.GetExecutingAssembly().GetTypes()
+            SpellTypes = (from type in Assembly.GetExecutingAssembly().GetTypes()
                            where typeof(MagicSpell).IsAssignableFrom(type) && !type.IsAbstract
                            let element = type.GetCustomAttribute<SpellAttribute>()
                            where element != null
@@ -42,13 +41,13 @@ namespace Spells
             int startMostIndex = Array.IndexOf(elements, mostElement); 
             var remainingElements = elements.Where((x, i) => x != mostElement || i >= startMostIndex + 3);
 
-            if (!_spellTypes.TryGetValue(mostElement.Value, out Type spellType))
+            if (!SpellTypes.TryGetValue(mostElement.Value, out Type spellType))
                 return null;
                 
             var spellObject = SpellInitializers[(int)Math.Log((int)mostElement, 2)];
             var spell = Object.Instantiate(spellObject);
                 
-            foreach (var prop in spellType.GetProperties())
+            foreach (var prop in spellType.GetProperties(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public))
             foreach (var attr in prop.GetCustomAttributes<UpgradeablePropertyAttribute>(true))
             foreach (var element in remainingElements)
                 attr.TryUpgradeProperty(element, prop, spell);

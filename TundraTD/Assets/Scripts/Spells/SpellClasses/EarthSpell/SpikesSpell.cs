@@ -8,7 +8,7 @@ namespace Spells.SpellClasses.EarthSpell
     [Spell(BasicElement.Earth, "Spikes", "Creates a spikes in front of you to penetrate your enemies.")]
     public class SpikesSpell : MagicSpell
     {
-        private const int CastableLayer = 1 << 11 | 1 << 10;
+        private const int PlaceableLayer = 1 << 11 | 1 << 10;
 
         [SerializeField] private float spikesOffset;
         [SerializeField] private Transform spikesHolder;
@@ -28,30 +28,30 @@ namespace Spells.SpellClasses.EarthSpell
         private Camera _mainCamera;
         
         public float ApproachDelay { get; } = 0.2f;
-        
-        public float MaxDrawTime { get; set; } = 2f;
-        
-        public float SpikeDisappearCooldown { get; set; } = .1f;
+
+        private float MaxDrawTime { get; set; } = 2f;
+
+        private float SpikeDisappearCooldown { get; set; } = .1f;
 
         [IncreasableProperty(BasicElement.Lightning, 10f)]
         public float MaxLength { get; set; } = 30f;
 
         [MultiplictableProperty(BasicElement.Earth, 1.12f)]
-        public float CollisionDamage { get; set; } = 30f;
+        private float CollisionDamage { get; set; } = 30f;
 
         [MultiplictableProperty(BasicElement.Earth, 1.12f)]
-        public float FallDamage { get; set; } = 50f;
+        private float FallDamage { get; set; } = 50f;
 
         [IncreasableProperty(BasicElement.Fire, 0.3f)]
-        public float StunTime { get; set; } = 0.7f;
+        private float StunTime { get; set; } = 0.7f;
 
         [IncreasableProperty(BasicElement.Air, -0.7f)]
         public float SlownessTime { get; set; } = 2f;
 
         [IncreasableProperty(BasicElement.Water, -.05f)]
-        public float SlownessValue { get; set; } = 0.7f;
+        private float SlownessValue { get; set; } = 0.7f;
 
-        public int Lifetime { get; set; } = 4;
+        private int Lifetime { get; set; } = 4;
 
         private void Start()
         {
@@ -66,7 +66,7 @@ namespace Spells.SpellClasses.EarthSpell
         {
             var ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
 
-            if (!Physics.Raycast(ray, out var hitInfo1, float.PositiveInfinity, CastableLayer))
+            if (!Physics.Raycast(ray, out var hitInfo1, float.PositiveInfinity, PlaceableLayer))
                 yield break;
             
             var position1 = hitInfo1.point;
@@ -75,7 +75,7 @@ namespace Spells.SpellClasses.EarthSpell
             while (_touchRegisterTime < _touchRegisterMaxTime)
             {
                 var rayEnd = _mainCamera.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(rayEnd, out var hitInfo2, float.PositiveInfinity, CastableLayer))
+                if (Physics.Raycast(rayEnd, out var hitInfo2, float.PositiveInfinity, PlaceableLayer))
                     position2 = hitInfo2.point;
 
                 _touchRegisterTime += Time.deltaTime;

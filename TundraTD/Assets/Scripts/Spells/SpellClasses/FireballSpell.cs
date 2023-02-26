@@ -35,26 +35,26 @@ namespace Spells.SpellClasses
         /// <summary>
         /// The radius of the hit area
         /// </summary>
-        public float HitDamageRadius { get; set; } = 5f;
+        private float HitDamageRadius { get; set; } = 5f;
 
         /// <summary>
         /// The damage of the hit epicenter.
         /// </summary>
         [MultiplictableProperty(BasicElement.Earth, 1.35f)]
-        public float HitDamageValue { get; set; } = 40f;
+        private float HitDamageValue { get; set; } = 40f;
 
         /// <summary>
         /// Duration of the burn effect.
         /// </summary>
         [IncreasableProperty(BasicElement.Air, 5f)]
-        public float BurnDuration { get; set; } = 3f;
+        private float BurnDuration { get; set; } = 3f;
 
         /// <summary>
         /// Damage of the burn effect.
         /// </summary>
         [MultiplictableProperty(BasicElement.Fire, 1.25f)]
         [MultiplictableProperty(BasicElement.Water, 0.75f)]
-        public float BurnDamage { get; set; } = 7f;
+        private float BurnDamage { get; set; } = 7f;
 
         /// <summary>
         /// Value of the slowness effect.
