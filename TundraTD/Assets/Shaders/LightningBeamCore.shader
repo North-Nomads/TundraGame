@@ -66,8 +66,7 @@ Shader "Shader Forge/LightningBeamCore" {
 ////// Emissive:
                 float4 _FresnelColor_var = UNITY_ACCESS_INSTANCED_PROP( Props, _FresnelColor );
                 float _FresnelExp_var = UNITY_ACCESS_INSTANCED_PROP( Props, _FresnelExp );
-                float node_8500 = pow(1.0-max(0,dot(normalDirection, viewDirection)),_FresnelExp_var);
-                float3 emissive = saturate((_FresnelColor_var.rgb+node_8500));
+                float3 emissive = saturate((_FresnelColor_var.rgb+pow(1.0-max(0,dot(normalDirection, viewDirection)),_FresnelExp_var)));
                 float3 finalColor = emissive;
                 float _Opacity_var = UNITY_ACCESS_INSTANCED_PROP( Props, _Opacity );
                 return fixed4(finalColor,_Opacity_var);

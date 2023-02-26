@@ -76,13 +76,13 @@ Material:
     - _Mode: 0
     - _MotionSpeed: 10
     - _OcclusionStrength: 1
-    - _Opacity: 0.292
+    - _Opacity: 1
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _Speed: 3.76
+    - _Speed: 6.02
     - _SrcBlend: 1
-    - _TesselationValue: 2
+    - _TesselationValue: 1
     - _UVSec: 0
     - _ZWrite: 1
     - _node_1874: 0

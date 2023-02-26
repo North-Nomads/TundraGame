@@ -7,33 +7,33 @@ namespace Spells.SpellClasses
     [Spell(BasicElement.Lightning, "Lightning", "Shocking!")]
     public class LightiningBoltSpell : MagicSpell
     {
-        private List<MobBehaviour> _mobsInRadius;
-        [SerializeField] private LineRenderer lightining = new LineRenderer();
+        private List<MobBehaviour> _mobsInRadius = new List<MobBehaviour>();
+        [SerializeField] private LineRenderer lightining;
         public override void InstantiateSpellExecution()
         {
             //Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
             Debug.Log("Lightning Stroke");
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (!Physics.Raycast(ray, out hit, 200, ~0, QueryTriggerInteraction.Ignore))
+            if (!Physics.Raycast(ray, out hit, float.PositiveInfinity, 1<<8|1<<10))
                 return;
             Collider[] collidersInRadius =  new Collider[200];
-            Physics.OverlapSphereNonAlloc(hit.transform.position, 10, collidersInRadius, ~0, QueryTriggerInteraction.Ignore);
+            Physics.OverlapSphereNonAlloc(hit.point, 10, collidersInRadius, ~0, QueryTriggerInteraction.Ignore);
             foreach (Collider collider in collidersInRadius)
             {
                 if(collider != null && collider.gameObject.TryGetComponent<MobBehaviour>(out var mobBehaviour))
                     _mobsInRadius.Add(mobBehaviour);
             }
-            lightining.SetPosition(0,Camera.main.transform.position);
-            lightining.SetPosition(1, hit.transform.position);
-            lightining
+            lightining.enabled = true;
+            lightining.SetPosition(0, hit.point);
             if(_mobsInRadius.Count == 0)
             {
                 Debug.Log("Miss");
                 return;
             }
             
-            LaunchStrike(GetClosestMob(hit.transform.position),5);
+            lightining.SetPosition(1, GetClosestMob(hit.point).transform.position);
+            LaunchStrike(GetClosestMob(hit.point),5);
         }
 
         private void LaunchStrike(MobBehaviour mobToStrike, int strikesLeft)
@@ -42,7 +42,7 @@ namespace Spells.SpellClasses
             _mobsInRadius.Remove(mobToStrike);
             if(strikesLeft == 0 || _mobsInRadius.Count == 0)
                 return;
-            
+           
 
 
             LaunchStrike(GetClosestMob(mobToStrike.transform.position), strikesLeft - 1);
@@ -64,6 +64,10 @@ namespace Spells.SpellClasses
         {
 
             yield return null;
+        }
+        private void OnDrawGizmos()
+        {
+            
         }
     }
 }
