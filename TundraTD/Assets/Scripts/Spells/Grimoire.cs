@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace Spells
@@ -30,7 +31,7 @@ namespace Spells
         /// </summary>
         /// <param name="elements">Elements list.</param>
         /// <returns>Created spell which is ready to cast.</returns>
-        public static MagicSpell TurnElementsIntoSpell(List<BasicElement> elements)
+        public static MagicSpell TurnElementsIntoSpell(List<BasicElement> elements, Vector3 castPosition)
         {
             BasicElement? mostElement = elements.GroupBy(x => x).FirstOrDefault(x => x.Count() >= 3)?.Key;
 

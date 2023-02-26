@@ -11,7 +11,7 @@ namespace UI.MagicScreen
     {
         public void OnButtonClick()
         {
-            Grimoire.TurnElementsIntoSpell(PlayerDeck.DeckElements.ToList());
+            Grimoire.TurnElementsIntoSpell(PlayerDeck.DeckElements.ToList(), Vector3.zero);
             PlayerDeck.DeckElements.Clear();
         }
 
