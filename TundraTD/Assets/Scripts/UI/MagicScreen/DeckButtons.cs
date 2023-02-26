@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace UI.MagicScreen
 {
+    /// <summary>
+    /// Class that manages deck buttons sprites
+    /// </summary>
     public class DeckButtons : MonoBehaviour
     {
         [SerializeField] public DeckButton[] deckButtons;

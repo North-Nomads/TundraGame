@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace UI.MagicScreen
 {
+    /// <summary>
+    /// A static class that holds the player's deck and element icons
+    /// </summary>
     public static class PlayerDeck
     {
         public static ObservableCollection<BasicElement> DeckElements { get; } = new ObservableCollection<BasicElement>();

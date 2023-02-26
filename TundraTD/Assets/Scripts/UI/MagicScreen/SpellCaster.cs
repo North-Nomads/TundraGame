@@ -4,10 +4,11 @@ using UnityEngine;
 
 namespace UI.MagicScreen
 {
+    /// <summary>
+    /// A button orders grimoire to generate spell of current deck 
+    /// </summary>
     public class SpellCaster : MonoBehaviour
     {
-        [SerializeField] private DeckButtons deckHolder;
-        private readonly BasicElement[] _holdSpells = new BasicElement[5]; 
         public void OnButtonClick()
         {
             Grimoire.TurnElementsIntoSpell(PlayerDeck.DeckElements.ToList());
