@@ -14,7 +14,7 @@ namespace Spells
         private static readonly Dictionary<BasicElement, Type> _spellTypes;
 
         // HACK: temporary solution to avoid errors
-        public static MagicSpell[] SpellInitializers { get; set; }
+        public static Wizard[] SpellInitializers { get; set; }
 
         static Grimoire()
         {
@@ -38,20 +38,8 @@ namespace Spells
             var remElements = elements.Where((x, i) => x != mostElement || i >= startMostIndex + 3);
             if (mostElement.HasValue && _spellTypes.TryGetValue(mostElement.Value, out Type spellType))
             {
-                var spellObject = SpellInitializers[(int)Math.Log((int)mostElement, 2)];
-                MagicSpell spell = spellObject.GetComponent(spellType) as MagicSpell;
-                foreach (var prop in spellType.GetProperties())
-                {
-                    foreach (var attr in prop.GetCustomAttributes<UpgradeablePropertyAttribute>(true))
-                    {
-                        foreach (var element in remElements)
-                        {
-                            attr.TryUpgradeProperty(element, prop, spell);
-                        }
-                    }
-                }
-                spell.InstantiateSpellExecution();
-                return spell;
+                Wizard wizard = SpellInitializers[(int)Math.Log((int)mostElement, 2)];
+                return wizard.CastSpell(spellType, remElements);
             }
             return null;
         }

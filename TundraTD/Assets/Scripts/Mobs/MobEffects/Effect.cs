@@ -1,4 +1,5 @@
 ﻿using Mobs.MobsBehaviour;
+using Spells;
 using System;
 using UnityEngine;
 
@@ -36,6 +37,8 @@ namespace Mobs.MobEffects
             CurrentTicksAmount = MaxTicksAmount - 1;
             OnDetach(mob);
         }
+
+        public virtual float OnHitReceived(MobBehaviour mob, float damageAmount, BasicElement element) => damageAmount;
     }
 
     /// <summary>
@@ -58,15 +61,20 @@ namespace Mobs.MobEffects
         /// Represents the stun effect.
         /// </summary>
         Stun = 1 << 1,
-        
+
         /// <summary>
-        /// Represents the slowness effect of any spell
+        /// Represents the slowness effect.
         /// </summary>
         Slowness = 1 << 2,
-        
+
+        /// <summary>
+        /// Represents the weakness effect.
+        /// </summary>
+        Weakness = 1 << 3,
+
         /// <summary>
         /// Represents the slowness effect of any spell
         /// </summary>
-        Disorientation = 1 << 3
+        Disorientation = 1 << 4
     }
 }

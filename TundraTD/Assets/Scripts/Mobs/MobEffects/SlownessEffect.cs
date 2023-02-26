@@ -1,6 +1,4 @@
 ﻿using Mobs.MobsBehaviour;
-using UnityEngine;
-
 namespace Mobs.MobEffects
 {
     public class SlownessEffect : Effect

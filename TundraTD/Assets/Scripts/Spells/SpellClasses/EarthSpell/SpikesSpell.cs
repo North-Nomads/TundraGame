@@ -152,7 +152,7 @@ namespace Spells.SpellClasses.EarthSpell
             }
         }
         
-        public override void InstantiateSpellExecution()
+        public override void ExecuteSpell()
         {
             _touchRegisterTime = 0f;
             _touchRegisterMaxTime = MaxDrawTime;
