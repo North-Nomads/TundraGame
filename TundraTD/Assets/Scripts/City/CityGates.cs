@@ -1,4 +1,4 @@
-﻿using City.Building;
+using City.Building;
 using Level;
 using Mobs;
 using Mobs.MobsBehaviour;
@@ -71,8 +71,7 @@ namespace City
         {
             if (!other.CompareTag("Mob"))
                 return;
-            
-
+           
             var mob = other.GetComponent<MobBehaviour>();
             var mobAttack = mob.MobModel.CurrentMobDamage;
 
