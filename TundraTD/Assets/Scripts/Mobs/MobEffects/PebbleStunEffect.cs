@@ -10,7 +10,7 @@ namespace Mobs.MobEffects
         private float StunDamage { get; }
 
         public override int MaxTicksAmount => StunTicks;
-        public override EffectCode Code => EffectCode.Stun;
+        public override VisualEffectCode Code => VisualEffectCode.Stun;
         // I think EffectCode should be renamed to VisualEffectCode
 
         public override bool OnAttach(MobBehaviour mob)

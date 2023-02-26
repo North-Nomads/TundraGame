@@ -9,8 +9,6 @@ namespace Mobs.MobsBehaviour.Boar
     [RequireComponent(typeof(MobModel))]
     public class BoarBehavior : MobBehaviour
     {
-        private bool _canDistractFromCurrentTarget;
-
         private float _chargeLeftTime;
 
         public override BasicElement MobBasicElement => BasicElement.Earth;
@@ -34,7 +32,6 @@ namespace Mobs.MobsBehaviour.Boar
 
         public override void MoveTowards(Vector3 point)
         {
-            Debug.Log("moving towards");
             MobModel.MobNavMeshAgent.SetDestination(point);
         }
 
@@ -42,7 +39,6 @@ namespace Mobs.MobsBehaviour.Boar
         {
             MobPortal = mobPortal;
             MobModel.InstantiateMobModel();
-            _canDistractFromCurrentTarget = true;
             _chargeLeftTime = 3f;
 
             DefaultDestinationPoint = gates;
@@ -54,7 +50,7 @@ namespace Mobs.MobsBehaviour.Boar
             if (_chargeLeftTime > 0)
                 _chargeLeftTime -= Time.fixedDeltaTime;
 
-            if (_chargeLeftTime <= 0 && _canDistractFromCurrentTarget)
+            if (_chargeLeftTime <= 0)
                 TakeChargeMode();
 
             if (CurrentEffects.Count > 0)
@@ -63,7 +59,6 @@ namespace Mobs.MobsBehaviour.Boar
 
         private void TakeChargeMode()
         {
-            _canDistractFromCurrentTarget = false;
             MobModel.CurrentMobSpeed *= 1.5f;
             MobModel.CurrentMobDamage *= 2f;
         }

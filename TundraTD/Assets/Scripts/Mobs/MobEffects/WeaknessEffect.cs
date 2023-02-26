@@ -7,7 +7,7 @@ namespace Mobs.MobEffects
 	{
         public override int MaxTicksAmount { get; }
 
-        public override EffectCode Code => EffectCode.Weakness;
+        public override VisualEffectCode Code => VisualEffectCode.Weakness;
 
         public BasicElement TargetElements { get; }
 

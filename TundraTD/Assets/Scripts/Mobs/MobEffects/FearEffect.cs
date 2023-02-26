@@ -6,7 +6,7 @@ namespace Mobs.MobEffects
     public class FearEffect : Effect
     {
         public override int MaxTicksAmount { get; }
-        public override EffectCode Code => EffectCode.Disorientation;
+        public override VisualEffectCode Code => VisualEffectCode.Disorientation;
 
         public FearEffect(int ticks)
         {

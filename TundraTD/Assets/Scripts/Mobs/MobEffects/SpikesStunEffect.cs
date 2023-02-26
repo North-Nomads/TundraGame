@@ -10,7 +10,7 @@ namespace Mobs.MobEffects
         private float _stunDamage = 50f;
         public override int MaxTicksAmount { get; }
 
-        public override EffectCode Code => EffectCode.Stun;
+        public override VisualEffectCode Code => VisualEffectCode.Stun;
 
         public SpikesStunEffect(int time)
         {

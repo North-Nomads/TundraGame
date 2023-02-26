@@ -5,7 +5,7 @@ namespace Mobs.MobEffects
     {
         public float SpeedModifier  { get; }
         public override int MaxTicksAmount { get; }
-        public override EffectCode Code => EffectCode.Slowness;
+        public override VisualEffectCode Code => VisualEffectCode.Slowness;
 
         public SlownessEffect(float modifier, int time)
         {

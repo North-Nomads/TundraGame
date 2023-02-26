@@ -9,7 +9,7 @@ namespace Mobs.MobEffects
 
         public override int MaxTicksAmount { get; }
 
-        public override EffectCode Code => EffectCode.MeteoriteBurning;
+        public override VisualEffectCode Code => VisualEffectCode.MeteoriteBurning;
 
         public MeteoriteBurningEffect(float burningDamage, int maxTicksAmount)
         {

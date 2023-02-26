@@ -16,7 +16,7 @@ namespace Mobs.MobEffects
 
         public abstract int MaxTicksAmount { get; }
 
-        public abstract EffectCode Code { get; }
+        public abstract VisualEffectCode Code { get; }
 
         public virtual void HandleTick(MobBehaviour mob)
         {
@@ -45,7 +45,7 @@ namespace Mobs.MobEffects
     /// An enumeration that is used to identify the effect prefab used in this effect instance.
     /// </summary>
     [Flags]
-    public enum EffectCode
+    public enum VisualEffectCode
     {
         /// <summary>
         /// No running effects/no prefabs are needed.
