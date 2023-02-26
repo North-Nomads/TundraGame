@@ -13,9 +13,6 @@ namespace Level
         private Button pauseButton;
 
         [SerializeField]
-        private Button resumeButton;
-
-        [SerializeField]
         private GameObject pausePanel;
 
         [SerializeField]
@@ -54,7 +51,9 @@ namespace Level
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
+            {
                 SwitchPause();
+            }
         }
 
         /// <summary>
@@ -64,9 +63,14 @@ namespace Level
         {
             IsGamePaused = !IsGamePaused;
             Time.timeScale = IsGamePaused ? 0 : 1;
+            // pauseSwitchSound.Play();
             pauseButton.gameObject.SetActive(!IsGamePaused);
             pauseHideObjects.gameObject.SetActive(!IsGamePaused);
             pausePanel.gameObject.SetActive(IsGamePaused);
+        }
+
+        public void PlayPanelSound()
+        {
             pauseSwitchSound.Play();
         }
 
@@ -74,20 +78,9 @@ namespace Level
         {
             _isGamePaused = setPause;
             Time.timeScale = setPause ? 0 : 1;
+            // pauseSwitchSound.Play();
             pauseButton.gameObject.SetActive(!IsGamePaused);
-            pauseSwitchSound.Play();
             pausePanel.gameObject.SetActive(false);
-        }
-
-        public void ToMainMenu()
-        {
-            // TODO: uncomment it and make scene changing when the main menu scene is ready
-            SceneManager.LoadScene("Menu", LoadSceneMode.Single);
-        }
-
-        public void RestartLevel()
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }
