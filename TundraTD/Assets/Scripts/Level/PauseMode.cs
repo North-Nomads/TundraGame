@@ -1,15 +1,28 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace Level
 {
-    public class PauseMode : MonoBehaviour 
+    public class PauseMode : MonoBehaviour
     {
         private static bool _isGamePaused;
-        [SerializeField] private Button pauseButton;
-        [SerializeField] private Button resumeButton;
-        [SerializeField] private AudioSource pauseSwitchSound;
+
+        [SerializeField]
+        private Button pauseButton;
+
+        [SerializeField]
+        private Button resumeButton;
+
+        [SerializeField]
+        private GameObject pausePanel;
+
+        [SerializeField]
+        private AudioSource pauseSwitchSound;
+
+        [SerializeField]
+        private Transform pauseHideObjects;
 
         /// <summary>
         /// Indicates if the game is paused.
@@ -51,8 +64,9 @@ namespace Level
         {
             IsGamePaused = !IsGamePaused;
             Time.timeScale = IsGamePaused ? 0 : 1;
-            resumeButton.gameObject.SetActive(IsGamePaused);
             pauseButton.gameObject.SetActive(!IsGamePaused);
+            pauseHideObjects.gameObject.SetActive(!IsGamePaused);
+            pausePanel.gameObject.SetActive(IsGamePaused);
             pauseSwitchSound.Play();
         }
 
@@ -60,15 +74,20 @@ namespace Level
         {
             _isGamePaused = setPause;
             Time.timeScale = setPause ? 0 : 1;
-            resumeButton.gameObject.SetActive(IsGamePaused && enableCanvas);
             pauseButton.gameObject.SetActive(!IsGamePaused);
             pauseSwitchSound.Play();
+            pausePanel.gameObject.SetActive(false);
         }
 
         public void ToMainMenu()
         {
             // TODO: uncomment it and make scene changing when the main menu scene is ready
-            //SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
+            SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+        }
+
+        public void RestartLevel()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }
