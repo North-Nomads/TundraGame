@@ -563,9 +563,9 @@ MonoBehaviour:
   spellInitializers:
   - {fileID: -6803395362427656954, guid: 4c9b0db6e89c5d5478a5d9554eef8b15, type: 3}
   - {fileID: -4578980917677416286, guid: 63c23b93473c487498b3a119909f2730, type: 3}
-  - {fileID: 0}
   - {fileID: 3485587487759157123, guid: 96b5e82558f8f4543999ec6d13f8c926, type: 3}
   - {fileID: 1876299875775892076, guid: 097b99181f2f3a24790b651f7543adca, type: 3}
+  - {fileID: 0}
 --- !u!1 &375244294
 GameObject:
   m_ObjectHideFlags: 0

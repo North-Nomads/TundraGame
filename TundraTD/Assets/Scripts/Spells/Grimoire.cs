@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Spells
 {
@@ -45,7 +46,7 @@ namespace Spells
                 return null;
                 
             var spellObject = SpellInitializers[(int)Math.Log((int)mostElement, 2)];
-            MagicSpell spell = spellObject.GetComponent(spellType) as MagicSpell;
+            var spell = Object.Instantiate(spellObject);
                 
             foreach (var prop in spellType.GetProperties())
             foreach (var attr in prop.GetCustomAttributes<UpgradeablePropertyAttribute>(true))
