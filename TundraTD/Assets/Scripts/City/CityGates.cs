@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using City.Building;
 using Level;
 using Mobs.MobsBehaviour;
@@ -54,15 +55,15 @@ namespace City
             if (Input.GetKey(KeyCode.C) && !PauseMode.IsGamePaused)
             {
                 if (Input.GetKeyDown(KeyCode.Alpha1))
-                    Grimoire.TurnElementsIntoSpell(new BasicElement[] { BasicElement.Fire, BasicElement.Fire, BasicElement.Fire, BasicElement.Earth, BasicElement.Earth });
+                    Grimoire.TurnElementsIntoSpell(new List<BasicElement> { BasicElement.Fire, BasicElement.Fire, BasicElement.Fire, BasicElement.Earth, BasicElement.Earth });
                 if (Input.GetKeyDown(KeyCode.Alpha2))
-                    Grimoire.TurnElementsIntoSpell(new BasicElement[] { BasicElement.Water, BasicElement.Water, BasicElement.Water, BasicElement.Earth, BasicElement.Earth });
+                    Grimoire.TurnElementsIntoSpell(new List<BasicElement> { BasicElement.Water, BasicElement.Water, BasicElement.Water, BasicElement.Earth, BasicElement.Earth });
                 if (Input.GetKeyDown(KeyCode.Alpha3))
-                    Grimoire.TurnElementsIntoSpell(new BasicElement[] { BasicElement.Earth, BasicElement.Earth, BasicElement.Earth, BasicElement.Earth, BasicElement.Earth });
+                    Grimoire.TurnElementsIntoSpell(new List<BasicElement> { BasicElement.Earth, BasicElement.Earth, BasicElement.Earth, BasicElement.Earth, BasicElement.Earth });
                 if (Input.GetKeyDown(KeyCode.Alpha4))
-                    Grimoire.TurnElementsIntoSpell(new BasicElement[] { BasicElement.Lightning, BasicElement.Lightning, BasicElement.Lightning, BasicElement.Earth, BasicElement.Earth });
+                    Grimoire.TurnElementsIntoSpell(new List<BasicElement> { BasicElement.Lightning, BasicElement.Lightning, BasicElement.Lightning, BasicElement.Earth, BasicElement.Earth });
                 if (Input.GetKeyDown(KeyCode.Alpha5))
-                    Grimoire.TurnElementsIntoSpell(new BasicElement[] { BasicElement.Air, BasicElement.Air, BasicElement.Air, BasicElement.Earth, BasicElement.Earth });
+                    Grimoire.TurnElementsIntoSpell(new List<BasicElement> { BasicElement.Air, BasicElement.Air, BasicElement.Air, BasicElement.Earth, BasicElement.Earth });
             }
         }
 

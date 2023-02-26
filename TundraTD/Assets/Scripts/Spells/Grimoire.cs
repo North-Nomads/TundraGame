@@ -30,15 +30,15 @@ namespace Spells
         /// </summary>
         /// <param name="elements">Elements list.</param>
         /// <returns>Created spell which is ready to cast.</returns>
-        public static MagicSpell TurnElementsIntoSpell(BasicElement[] elements)
+        public static MagicSpell TurnElementsIntoSpell(List<BasicElement> elements)
         {
             BasicElement? mostElement = elements.GroupBy(x => x).FirstOrDefault(x => x.Count() >= 3)?.Key;
 
             if (!mostElement.HasValue)
                 return null;
             
-            Array.Sort(elements);
-            int startMostIndex = Array.IndexOf(elements, mostElement); 
+            elements.Sort();
+            int startMostIndex = elements.IndexOf(mostElement.Value); 
             var remainingElements = elements.Where((x, i) => x != mostElement || i >= startMostIndex + 3);
 
             if (!SpellTypes.TryGetValue(mostElement.Value, out Type spellType))

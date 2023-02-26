@@ -422,6 +422,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonsHolder: {fileID: 1034628233609901338}
+  deckIndex: 0
 --- !u!1 &1034628233514848748
 GameObject:
   m_ObjectHideFlags: 0
@@ -687,7 +688,7 @@ GameObject:
   - component: {fileID: 1034628233609901341}
   - component: {fileID: 1034628233609901338}
   m_Layer: 5
-  m_Name: UpperButtons
+  m_Name: DeckButtons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -762,12 +763,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd09efa39f87ccd49a30804e03785602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Buttons:
-  - {fileID: 1034628235144824758}
-  - {fileID: 1034628234709037862}
-  - {fileID: 1034628233346424529}
-  - {fileID: 1034628235261561829}
-  - {fileID: 1034628235333168777}
+  deckButtons:
+  - {fileID: 1034628235144824749}
+  - {fileID: 1034628234709038045}
+  - {fileID: 1034628233346424532}
+  - {fileID: 1034628235261561752}
+  - {fileID: 1034628235333168780}
 --- !u!1 &1034628233629911234
 GameObject:
   m_ObjectHideFlags: 0
@@ -1489,6 +1490,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonsHolder: {fileID: 1034628233609901338}
+  deckIndex: 0
 --- !u!1 &1034628234766679368
 GameObject:
   m_ObjectHideFlags: 0
@@ -1501,7 +1503,7 @@ GameObject:
   - component: {fileID: 1034628234766679373}
   - component: {fileID: 1034628234766679370}
   m_Layer: 5
-  m_Name: BottomButtons
+  m_Name: ElementButtons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1796,7 +1798,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93ac69bb710fddd4fa5e083e5dc0ff2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonsHolder: {fileID: 1034628233609901338}
+  deckHolder: {fileID: 1034628233609901338}
 --- !u!1 &1034628235042168048
 GameObject:
   m_ObjectHideFlags: 0
@@ -2069,6 +2071,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonsHolder: {fileID: 1034628233609901338}
+  deckIndex: 0
 --- !u!1 &1034628235261561829
 GameObject:
   m_ObjectHideFlags: 0
@@ -2212,6 +2215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonsHolder: {fileID: 1034628233609901338}
+  deckIndex: 0
 --- !u!1 &1034628235333168777
 GameObject:
   m_ObjectHideFlags: 0
@@ -2355,6 +2359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonsHolder: {fileID: 1034628233609901338}
+  deckIndex: 0
 --- !u!1 &1170293639435308911
 GameObject:
   m_ObjectHideFlags: 0
