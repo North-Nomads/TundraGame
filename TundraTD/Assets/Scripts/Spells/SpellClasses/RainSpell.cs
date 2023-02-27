@@ -1,4 +1,5 @@
-﻿using Mobs.MobEffects;
+﻿using City.Building.ElementPools;
+using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
 using System.Collections;
 using UnityEngine;
@@ -39,7 +40,9 @@ namespace Spells.SpellClasses
                 rainSplashes.transform.position = (transform.position = _targetPosition) + Vector3.up;
                 rainParticles.SetActive(true);
                 rainSplashes.SetActive(true);
+                if (WaterPool.UnlimitedRadius) Radius = float.PositiveInfinity;
                 rainParticles.transform.localScale = new Vector3(Radius / 10, RainHeight, Radius / 10);
+                if (WaterPool.CreateBarrier) mainCollider.isTrigger = false;
                 mainCollider.radius = Radius;
                 mainCollider.height = RainHeight;
                 rainParticles.transform.localPosition = (Vector3.up * (RainHeight / 2));
@@ -66,6 +69,15 @@ namespace Spells.SpellClasses
             if (other.CompareTag("Mob"))
             {
                 var mob = other.gameObject.GetComponent<MobBehaviour>();
+                mob.AddReceivedEffects(new Effect[] { new SlownessEffect(1 - SlownessValue, (int)EffectTime), new WeaknessEffect((int)EffectTime, BasicElement.Lightning, 1 / LightningMultiplier) });
+            }
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.CompareTag("Mob"))
+            {
+                var mob = collision.gameObject.GetComponent<MobBehaviour>();
                 mob.AddReceivedEffects(new Effect[] { new SlownessEffect(1 - SlownessValue, (int)EffectTime), new WeaknessEffect((int)EffectTime, BasicElement.Lightning, 1 / LightningMultiplier) });
             }
         }
