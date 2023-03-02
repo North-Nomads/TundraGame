@@ -1162,6 +1162,7 @@ MonoBehaviour:
   - {fileID: 8376989281409088420}
   - {fileID: 6305465823278987638}
   - {fileID: 0}
+  - {fileID: 0}
   mobModel: {fileID: 8671833239330951028}
 --- !u!95 &6057633037458583791
 Animator:

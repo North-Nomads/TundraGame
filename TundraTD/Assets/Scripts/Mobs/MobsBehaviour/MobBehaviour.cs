@@ -125,6 +125,7 @@ namespace Mobs.MobsBehaviour
             
             foreach (var effect in CurrentEffects)
             {
+                Debug.Log((int)Mathf.Log((int)effect.Code, 2));
                 int effectIndex = (int)Mathf.Log((int)effect.Code, 2);
                 if (effectPrefabs[effectIndex] != null)
                     effectPrefabs[effectIndex].SetActive(true);

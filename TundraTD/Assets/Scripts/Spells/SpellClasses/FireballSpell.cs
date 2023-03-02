@@ -67,7 +67,7 @@ namespace Spells.SpellClasses
         [IncreasableProperty(BasicElement.Lightning, 2f)]
         public float SlownessDuration { get; set; }
 
-        public override void InstantiateSpellExecution()
+        public override void ExecuteSpell()
         {
             if (_mainCamera == null)
                 _mainCamera = Camera.main;
@@ -81,7 +81,7 @@ namespace Spells.SpellClasses
                 var reflect = Vector3.Reflect(Quaternion.Euler(0, -90, 0) * Camera.main.transform.forward, hit.normal).normalized;
                 transform.position = hit.point + (reflect * FlyDistance);
                 transform.forward = (_target - transform.position).normalized;
-                HitDamageRadius *= FirePool.MeteorRadiusMultiplier;
+                //HitDamageRadius *= FirePool.MeteorRadiusMultiplier;
                 StartCoroutine(LaunchFireball());
             }
             else
@@ -96,10 +96,10 @@ namespace Spells.SpellClasses
             do
             {
                 transform.position += Vector3.Normalize(_target - transform.position) *
-                                      (Time.deltaTime * FlyDistance / (HitDelay - FirePool.MeteorLandingReduction));
+                                      (Time.deltaTime * FlyDistance / HitDelay);
                 yield return new WaitForEndOfFrame();
                 _currentHitTime += Time.deltaTime;
-            } while (_currentHitTime <= HitDelay - FirePool.MeteorLandingReduction);
+            } while (_currentHitTime <= HitDelay);
 
             _source.Stop();
             _source.PlayOneShot(explosionSound);
@@ -108,7 +108,7 @@ namespace Spells.SpellClasses
             int hits = Physics.OverlapSphereNonAlloc(transform.position, HitDamageRadius, AvailableTargetsPool, MobsLayerMask);
             var effects = new List<Effect>
             {
-                new MeteoriteBurningEffect(BurnDamage * FirePool.AfterburnDamageMultiplier, (int)BurnDuration)
+                new MeteoriteBurningEffect(BurnDamage, (int)BurnDuration)
             };
 
             if (FirePool.HasLandingStun)
@@ -148,7 +148,7 @@ namespace Spells.SpellClasses
                 {
                     var target = AvailableTargetsPool[j];
                     var mob = target.GetComponent<MobBehaviour>();
-                    var damage = BurnDamage * FirePool.AfterburnDamageMultiplier;
+                    var damage = BurnDamage;
                     mob.HitThisMob(damage, BasicElement.Fire);
                 }
                 yield return new WaitForSecondsRealtime(1f);

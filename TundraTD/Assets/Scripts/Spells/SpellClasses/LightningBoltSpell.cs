@@ -10,7 +10,7 @@ namespace Spells.SpellClasses
     {
         private readonly List<MobBehaviour> _mobsInRadius = new List<MobBehaviour>();
         [SerializeField] private LineRenderer lightning;
-        public override void InstantiateSpellExecution()
+        public override void ExecuteSpell()
         {
             //Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
             Debug.Log("Lightning Stroke");

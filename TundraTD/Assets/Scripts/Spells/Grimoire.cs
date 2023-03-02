@@ -53,7 +53,7 @@ namespace Spells
             foreach (var element in remainingElements)
                 attr.TryUpgradeProperty(element, prop, spell);
                 
-            spell.InstantiateSpellExecution();
+            spell.ExecuteSpell();
             return spell;
         }
     }

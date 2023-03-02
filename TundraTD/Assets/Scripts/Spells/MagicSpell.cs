@@ -4,6 +4,6 @@ namespace Spells
 {
     public abstract class MagicSpell : MonoBehaviour
     {
-        public abstract void InstantiateSpellExecution();
+        public abstract void ExecuteSpell();
     }
 }
