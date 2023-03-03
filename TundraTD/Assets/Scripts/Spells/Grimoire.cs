@@ -35,6 +35,8 @@ namespace Spells
         {
             BasicElement? mostElement = elements.GroupBy(x => x).FirstOrDefault(x => x.Count() >= 3)?.Key;
 
+            
+
             if (!mostElement.HasValue)
                 return null;
             
