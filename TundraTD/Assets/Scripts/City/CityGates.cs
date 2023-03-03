@@ -79,12 +79,10 @@ namespace City
             {
                 
             }
-
+            Debug.Log($"{mob.name} attacked tower with {mobAttack} damage");
             CurrentCityGatesHealthPoints -= mobAttack;
             mob.HitThisMob(float.PositiveInfinity, BasicElement.None, "City.Gates");
-
             _animator.SetTrigger("DamageTrigger");
-            
         }
 
         public void HandleWaveEnding()
