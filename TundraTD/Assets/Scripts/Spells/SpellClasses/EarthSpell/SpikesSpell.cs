@@ -26,8 +26,6 @@ namespace Spells.SpellClasses.EarthSpell
         private float _touchRegisterMaxTime;
         private float _touchRegisterTime;
         private Camera _mainCamera;
-        
-        public float ApproachDelay { get; } = 0.2f;
 
         private float MaxDrawTime { get; set; } = 2f;
 

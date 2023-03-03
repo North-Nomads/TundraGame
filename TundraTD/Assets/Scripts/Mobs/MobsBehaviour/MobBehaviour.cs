@@ -65,8 +65,14 @@ namespace Mobs.MobsBehaviour
         public void AddReceivedEffects(IEnumerable<Effect> effectsToApply)
         {
             foreach (var effect in effectsToApply)
+            {
                 if (effect.OnAttach(this))
+                {
                     CurrentEffects.Add(effect);
+                    int effectIndex = (int)Mathf.Log((int)effect.Code, 2);
+                    effectPrefabs[effectIndex].SetActive(true);
+                }
+            }
         }
 
         private void ClearMobEffects()
@@ -74,15 +80,11 @@ namespace Mobs.MobsBehaviour
             foreach (var effect in CurrentEffects)
             {
                 effect.OnDetach(this);
+                int effectIndex = (int)Mathf.Log((int)effect.Code, 2);
+                effectPrefabs[effectIndex].SetActive(false);
             }
                 
             CurrentEffects.Clear();
-        }
-
-        public void AddSingleEffect(Effect effect)
-        {
-            CurrentEffects.Add(effect);
-            effect.OnAttach(this);
         }
 
         private void KillThisMob()
@@ -113,23 +115,13 @@ namespace Mobs.MobsBehaviour
                 {
                     CurrentEffects.RemoveAt(i);
                     effect.OnDetach(this);
+                    int effectIndex = (int)Mathf.Log((int)effect.Code, 2);
+                    effectPrefabs[effectIndex].SetActive(false);
                 }
                 else
                 {
                     i++;
                 }
-            }
-            
-            foreach (var prefab in effectPrefabs)
-                if (prefab != null)
-                    prefab.SetActive(false);
-            
-            foreach (var effect in CurrentEffects)
-            {
-                Debug.Log((int)Mathf.Log((int)effect.Code, 2));
-                int effectIndex = (int)Mathf.Log((int)effect.Code, 2);
-                if (effectPrefabs[effectIndex] != null)
-                    effectPrefabs[effectIndex].SetActive(true);
             }
         }
 

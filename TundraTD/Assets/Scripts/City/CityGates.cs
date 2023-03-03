@@ -74,11 +74,7 @@ namespace City
            
             var mob = other.GetComponent<MobBehaviour>();
             var mobAttack = mob.MobModel.CurrentMobDamage;
-
-            if (mob.GetComponent<IroncladBehaviour>() != null)
-            {
-                
-            }
+            
             Debug.Log($"{mob.name} attacked tower with {mobAttack} damage");
             CurrentCityGatesHealthPoints -= mobAttack;
             mob.HitThisMob(float.PositiveInfinity, BasicElement.None, "City.Gates");
