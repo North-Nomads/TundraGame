@@ -7,7 +7,8 @@ namespace Spells.SpellClasses.EarthSpell
 {
     public class SpikesGroup : MonoBehaviour
     {
-        [SerializeField] private ParticleSystem cloudEffect; 
+        [SerializeField] private ParticleSystem cloudEffect;
+        [SerializeField] private Transform pebblesEffect;
         private const int MobsMask = 1 << 8;
         private readonly Collider[] _colliders = new Collider[10];
 
@@ -32,6 +33,8 @@ namespace Spells.SpellClasses.EarthSpell
 
         public void ExecutePebblesExplosion(float pebbleDamage, int pebbleStunTicks)
         {
+            pebblesEffect.gameObject.SetActive(true);
+            
             var touches = Physics.OverlapBoxNonAlloc(transform.position, new Vector3(2f, 1, .5f), _colliders,
                 Quaternion.identity, MobsMask);
             

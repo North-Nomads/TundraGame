@@ -56,8 +56,7 @@ namespace Mobs.MobsBehaviour.Boar
                 TakeChargeMode();
                 _isCharged = true;
             }
-
-
+            
             if (CurrentEffects.Count > 0)
                 TickTimer -= Time.fixedDeltaTime;
         }
