@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 4000996451007599640}
   - component: {fileID: 7987837108767728486}
   m_Layer: 8
-  m_Name: Ironclad
+  m_Name: Bear
   m_TagString: Mob
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -155,6 +155,7 @@ MonoBehaviour:
   defaultMobDamage: 10
   defaultMobSpeed: 3.8
   skinRenderer: {fileID: 0}
+  rigidbody: {fileID: 4000996451007599647}
 --- !u!114 &7987837108767728486
 MonoBehaviour:
   m_ObjectHideFlags: 0

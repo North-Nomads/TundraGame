@@ -7,7 +7,7 @@ namespace Mobs.MobsBehaviour.Ironclad
     ///
     /// </summary>
     [RequireComponent(typeof(MobModel))]
-    public class IroncladBehaviour : MobBehaviour
+    public class BearBehaviour : MobBehaviour
     {
         [SerializeField] private float mobShield;
 

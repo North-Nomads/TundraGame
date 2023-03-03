@@ -7,7 +7,7 @@ namespace Mobs.MobsBehaviour.Undead
     ///
     /// </summary>
     [RequireComponent(typeof(MobModel))]
-    public class UndeadBehaviour : MobBehaviour
+    public class SpiderBehaviour : MobBehaviour
     {
         public override BasicElement MobBasicElement => BasicElement.Water;
         public override BasicElement MobCounterElement => BasicElement.Lightning;

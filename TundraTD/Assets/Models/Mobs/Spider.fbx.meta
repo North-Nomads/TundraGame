@@ -1,11 +1,17 @@
 fileFormatVersion: 2
-guid: e8e9e45f7235bc740afa080b00f99ac9
+guid: 6b56f47084a620140a30ebcfff3715c4
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable:
   - first:
+      74: -2879756342478054094
+    second: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430| Idle"
+  - first:
       74: -6112803813002546056
     second: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430|Running"
+  - first:
+      74: 5295793666081319390
+    second: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430|stun"
   externalObjects: {}
   materials:
     materialImportMode: 1

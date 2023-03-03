@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 4000996451007599640}
   - component: {fileID: 4000996451007599638}
   m_Layer: 8
-  m_Name: Undead
+  m_Name: Spider
   m_TagString: Mob
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -180,7 +180,8 @@ MonoBehaviour:
   maxMobHealth: 80
   defaultMobDamage: 8
   defaultMobSpeed: 5
-  renderer: {fileID: 0}
+  skinRenderer: {fileID: 0}
+  rigidbody: {fileID: 4000996451007599647}
 --- !u!195 &4000996451007599638
 NavMeshAgent:
   m_ObjectHideFlags: 0
