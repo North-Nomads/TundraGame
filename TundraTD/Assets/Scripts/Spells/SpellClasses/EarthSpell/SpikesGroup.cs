@@ -45,6 +45,7 @@ namespace Spells.SpellClasses.EarthSpell
             {
                 var mob = _colliders[i].GetComponent<MobBehaviour>();
                 mob.AddReceivedEffects(new List<Effect> { new SpikesStunEffect(stunTicks) });
+                mob.MobModel.Rigidbody.AddForce(Vector3.up * 100);
             }
         }
 

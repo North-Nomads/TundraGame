@@ -22,14 +22,17 @@ namespace Mobs.MobEffects
             if (mob.CurrentEffects.Any(x => x is SpikesStunEffect))
                 return false;
             
+            mob.MobModel.MobNavMeshAgent.enabled = false;
+            
             mob.HitThisMob(_stunDamage, BasicElement.Earth, "Earth.Stun");
-            mob.MobModel.MobNavMeshAgent.SetDestination(mob.transform.position);
             mob.MobModel.MobNavMeshAgent.angularSpeed = 0;
+            
             return true;
         }
         
         public override void OnDetach(MobBehaviour mob)
         {
+            mob.MobModel.MobNavMeshAgent.enabled = true;
             mob.MobModel.MobNavMeshAgent.SetDestination(mob.DefaultDestinationPoint.position);
             mob.MobModel.MobNavMeshAgent.angularSpeed = mob.MobModel.DefaultMobAngularSpeed;
         }

@@ -1145,6 +1145,7 @@ MonoBehaviour:
   defaultMobDamage: 4
   defaultMobSpeed: 5
   skinRenderer: {fileID: 6667528729859900624}
+  rigidbody: {fileID: 3692616354502211321}
 --- !u!114 &8671833239330950923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1210,7 +1211,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!1 &9038178808612485415
 GameObject:

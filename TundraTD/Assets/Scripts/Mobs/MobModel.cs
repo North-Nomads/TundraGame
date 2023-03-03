@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
 namespace Mobs
 {
@@ -25,6 +26,8 @@ namespace Mobs
         [SerializeField]
         private SkinnedMeshRenderer skinRenderer;
 
+        [SerializeField] private Rigidbody rigidbody;
+
         private Animator _animator;
         private float _defaultMobAngularSpeed;
         private float _currentMobHealth;
@@ -32,6 +35,7 @@ namespace Mobs
         private NavMeshAgent _mobNavMeshAgent;
         private Material _defaultMaterial;
 
+        public Rigidbody Rigidbody => rigidbody;
         public Animator Animator => _animator;
         public float DefaultMobAngularSpeed => _defaultMobAngularSpeed;        
         public Sprite MobSprite => mobSprite;
