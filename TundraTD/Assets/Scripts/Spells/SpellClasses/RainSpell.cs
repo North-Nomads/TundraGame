@@ -2,6 +2,8 @@
 using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Spells.SpellClasses
@@ -118,15 +120,6 @@ namespace Spells.SpellClasses
                 effects.Add(new FreezeEffect(0, 2, (int)EffectTime));
             }
             mob.AddReceivedEffects(effects);
-        }
-
-        private void OnCollisionEnter(Collision collision)
-        {
-            if (collision.gameObject.CompareTag("Mob"))
-            {
-                var mob = collision.gameObject.GetComponent<MobBehaviour>();
-                mob.AddReceivedEffects(new Effect[] { new SlownessEffect(1 - SlownessValue, (int)EffectTime), new WeaknessEffect((int)EffectTime, BasicElement.Lightning, 1 / LightningMultiplier) });
-            }
         }
 
         private void DisableEmissionOnChildren()
