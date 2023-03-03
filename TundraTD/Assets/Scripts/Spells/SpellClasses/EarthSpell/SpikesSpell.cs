@@ -116,11 +116,14 @@ namespace Spells.SpellClasses.EarthSpell
             {
                 spikesSlownessCollider.InitializeTermites(EarthPool.HasTermites);
                 var group = Instantiate(spikesGroupObject, currentPosition, Quaternion.identity, spikesObjectParent.transform);
+                
+                if (EarthPool.HasDustCloud)
+                    group.PlayCloudAnimation();
+                
                 group.transform.localScale *= sizeCoefficient;
                 group.ApplyStunOverlappedOnMobs(FallDamage, (int)(StunTime*10));
-
-                if (!isMainWall)
-                    if (EarthPool.HasExplosivePebbles)
+                
+                if (EarthPool.HasExplosivePebbles & isMainWall)
                         group.ExecutePebblesExplosion(pebbleDamage, pebbleStunTicks);
                 
                 spikes.Add(group);

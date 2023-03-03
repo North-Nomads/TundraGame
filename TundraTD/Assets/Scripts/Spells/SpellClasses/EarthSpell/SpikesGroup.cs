@@ -7,13 +7,17 @@ namespace Spells.SpellClasses.EarthSpell
 {
     public class SpikesGroup : MonoBehaviour
     {
+        [SerializeField] private ParticleSystem cloudEffect; 
         private const int MobsMask = 1 << 8;
-
-        public int StunTicks { get; set; }
-        
-
         private readonly Collider[] _colliders = new Collider[10];
 
+        public int StunTicks { get; set; }
+
+        public void PlayCloudAnimation()
+        {
+            cloudEffect.gameObject.SetActive(true);
+        }
+        
         public void ApplyStunOverlappedOnMobs(float stunDamage, int stunTicks)
         {
             var touches = Physics.OverlapBoxNonAlloc(transform.position, new Vector3(1.5f, 1, .5f), _colliders,

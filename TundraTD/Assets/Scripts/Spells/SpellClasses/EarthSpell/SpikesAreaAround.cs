@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Spells.SpellClasses.EarthSpell
 {
     public class SpikesAreaAround : MonoBehaviour
     {
+        [SerializeField] private ParticleSystem cloudEffect;
         public BoxCollider BoxCollider { get; set; }
 
         private void Start()
