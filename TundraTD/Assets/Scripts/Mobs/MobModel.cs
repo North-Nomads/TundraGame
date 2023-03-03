@@ -23,7 +23,7 @@ namespace Mobs
         private float defaultMobSpeed;
 
         [SerializeField]
-        private SkinnedMeshRenderer renderer;
+        private SkinnedMeshRenderer skinRenderer;
 
         
         private float _defaultMobAngularSpeed;
@@ -68,19 +68,19 @@ namespace Mobs
             _currentMobHealth = maxMobHealth;
             _currentMobSpeed = defaultMobSpeed;
             CurrentMobDamage = defaultMobDamage;
-            _defaultMaterial = renderer.material;
+            _defaultMaterial = skinRenderer.material;
         }
         
         public void SetHitMaterial()
         {
-            renderer.material = hitMaterial;
+            skinRenderer.material = hitMaterial;
             StartCoroutine(VisualEffectDamage());
         }
 
         private IEnumerator VisualEffectDamage()
         {
             yield return new WaitForSeconds(.1f);
-            renderer.material = _defaultMaterial;
+            skinRenderer.material = _defaultMaterial;
         } 
     }
 }
