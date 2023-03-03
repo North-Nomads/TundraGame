@@ -22,7 +22,7 @@ namespace Mobs.MobEffects
             if (mob.CurrentEffects.Any(x => x is SpikesStunEffect))
                 return false;
             
-            mob.HitThisMob(_stunDamage, BasicElement.Earth);
+            mob.HitThisMob(_stunDamage, BasicElement.Earth, "Earth.Stun");
             mob.MobModel.MobNavMeshAgent.SetDestination(mob.transform.position);
             mob.MobModel.MobNavMeshAgent.angularSpeed = 0;
             return true;

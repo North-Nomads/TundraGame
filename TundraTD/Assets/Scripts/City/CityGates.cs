@@ -81,7 +81,7 @@ namespace City
             }
 
             CurrentCityGatesHealthPoints -= mobAttack;
-            mob.HitThisMob(float.PositiveInfinity, BasicElement.None);
+            mob.HitThisMob(float.PositiveInfinity, BasicElement.None, "City.Gates");
 
             _animator.SetTrigger("DamageTrigger");
             

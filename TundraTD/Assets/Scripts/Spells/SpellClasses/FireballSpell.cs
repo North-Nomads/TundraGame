@@ -69,7 +69,7 @@ namespace Spells.SpellClasses
 
         public override void ExecuteSpell()
         {
-            if (_mainCamera == null)
+            if (_mainCamera is null)
                 _mainCamera = Camera.main;
 
             if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out var hit))
@@ -120,7 +120,7 @@ namespace Spells.SpellClasses
                 var mob = target.GetComponent<MobBehaviour>();
                 float damage = HitDamageValue * Vector3.Distance(target.transform.position, transform.position) / HitDamageRadius;
 
-                mob.HitThisMob(damage, BasicElement.Fire);
+                mob.HitThisMob(damage, BasicElement.Fire, "Fire.Landing");
                 mob.AddReceivedEffects(effects);
                 if (FirePool.HasLandingImpulse)
                 {
@@ -149,7 +149,7 @@ namespace Spells.SpellClasses
                     var target = AvailableTargetsPool[j];
                     var mob = target.GetComponent<MobBehaviour>();
                     var damage = BurnDamage;
-                    mob.HitThisMob(damage, BasicElement.Fire);
+                    mob.HitThisMob(damage, BasicElement.Fire, "EarthMods.Lava");
                 }
                 yield return new WaitForSecondsRealtime(1f);
             }

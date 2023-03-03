@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace Spells.SpellClasses.EarthSpell
 {
@@ -67,7 +66,7 @@ namespace Spells.SpellClasses.EarthSpell
             {
                 Debug.Log("Termites bite");
                 foreach (var mobBehaviour in _mobsInCollider)
-                    mobBehaviour.HitThisMob(TermitesDamage, BasicElement.Earth);
+                    mobBehaviour.HitThisMob(TermitesDamage, BasicElement.Earth, "EarthMods.Termites");
                 
                 yield return new WaitForSeconds(1f);
             }

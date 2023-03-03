@@ -38,7 +38,7 @@ namespace Spells.SpellClasses
 
         private void LaunchStrike(MobBehaviour mobToStrike, int strikesLeft)
         {
-            mobToStrike.HitThisMob(10000, BasicElement.Lightning);
+            mobToStrike.HitThisMob(10000, BasicElement.Lightning, "Lightning.Strike");
             _mobsInRadius.Remove(mobToStrike);
             if(strikesLeft == 0 || _mobsInRadius.Count == 0)
                 return;

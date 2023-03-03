@@ -15,7 +15,7 @@ namespace Mobs.MobEffects
 
         public override bool OnAttach(MobBehaviour mob)
         {
-            mob.HitThisMob(StunDamage, BasicElement.Earth);
+            mob.HitThisMob(StunDamage, BasicElement.Earth, "EarthMod.Pebbles");
             mob.MobModel.MobNavMeshAgent.SetDestination(mob.transform.position);
             mob.MobModel.MobNavMeshAgent.angularSpeed = 0;
             return true;

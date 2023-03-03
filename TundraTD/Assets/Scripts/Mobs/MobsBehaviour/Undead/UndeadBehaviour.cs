@@ -24,7 +24,7 @@ namespace Mobs.MobsBehaviour.Undead
                 multiplier = 0.8f;
             else if (damageElement == MobCounterElement)
                 multiplier = 1.2f;
-
+            
             MobModel.CurrentMobHealth -= damage * multiplier;
         }
 
