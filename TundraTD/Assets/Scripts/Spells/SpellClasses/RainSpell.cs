@@ -40,9 +40,11 @@ namespace Spells.SpellClasses
                 rainSplashes.transform.position = (transform.position = _targetPosition) + Vector3.up;
                 rainParticles.SetActive(true);
                 rainSplashes.SetActive(true);
-                if (WaterPool.UnlimitedRadius) Radius = float.PositiveInfinity;
-                rainParticles.transform.localScale = new Vector3(Radius / 10, RainHeight, Radius / 10);
+                if (WaterPool.UnlimitedRadius) Radius = 1000;
                 if (WaterPool.CreateBarrier) mainCollider.isTrigger = false;
+                if (WaterPool.AdditionalSlowness) SlownessValue *= 3;
+                if (WaterPool.AllowSuperLightning) LightningMultiplier *= 3;
+                rainParticles.transform.localScale = new Vector3(Radius / 10, RainHeight, Radius / 10);
                 mainCollider.radius = Radius;
                 mainCollider.height = RainHeight;
                 rainParticles.transform.localPosition = (Vector3.up * (RainHeight / 2));
@@ -69,8 +71,53 @@ namespace Spells.SpellClasses
             if (other.CompareTag("Mob"))
             {
                 var mob = other.gameObject.GetComponent<MobBehaviour>();
-                mob.AddReceivedEffects(new Effect[] { new SlownessEffect(1 - SlownessValue, (int)EffectTime), new WeaknessEffect((int)EffectTime, BasicElement.Lightning, 1 / LightningMultiplier) });
+                ApplyEffects(mob);
             }
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.CompareTag("Mob"))
+            {
+                var mob = collision.gameObject.GetComponent<MobBehaviour>();
+                ApplyEffects(mob);
+            }
+        }
+
+        private void OnTriggerStay(Collider other)
+        {
+            if (WaterPool.CastSnowInsteadOfRain && other.CompareTag("Mob"))
+            {
+                var mob = other.gameObject.GetComponent<MobBehaviour>();
+                var freeze = mob.CurrentEffects.OfType<FreezeEffect>().FirstOrDefault();
+                if (freeze != null)
+                {
+                    freeze.ContinueFreeze = true;
+                }
+                else
+                {
+                    mob.AddSingleEffect(new FreezeEffect(0, 2, (int)EffectTime));
+                }
+            }
+        }
+
+        private void ApplyEffects(MobBehaviour mob)
+        {
+            // Add here basic effects
+            var effects = new List<Effect>()
+            {
+                new SlownessEffect(1 - SlownessValue, (int)EffectTime),
+                new VulnerabilityEffect((int)EffectTime, BasicElement.Lightning, 1 / LightningMultiplier)
+            };
+            if (WaterPool.ApplyWeaknessOnEnemies)
+            {
+                effects.Add(new WeaknessEffect((int)EffectTime, 0.5f));
+            }
+            if (WaterPool.CastSnowInsteadOfRain)
+            {
+                effects.Add(new FreezeEffect(0, 2, (int)EffectTime));
+            }
+            mob.AddReceivedEffects(effects);
         }
 
         private void OnCollisionEnter(Collision collision)
