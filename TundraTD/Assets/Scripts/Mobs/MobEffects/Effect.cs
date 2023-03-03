@@ -75,7 +75,7 @@ namespace Mobs.MobEffects
         /// <summary>
         /// Represents the slowness effect of any spell
         /// </summary>
-        Disorientation = 1 << 4,
+        Fear = 1 << 4,
 
         /// <summary>
         /// Represents the weakness effect.

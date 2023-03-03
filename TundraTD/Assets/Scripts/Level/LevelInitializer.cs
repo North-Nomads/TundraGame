@@ -31,7 +31,7 @@ namespace Level
             
             pauseMode.SetPause(false);
             InitializeArchitectValues();
-            ResetMagicPools();
+            //ResetMagicPools();
         }
 
         private void ResetMagicPools()

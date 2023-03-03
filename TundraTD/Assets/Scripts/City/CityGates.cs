@@ -80,6 +80,7 @@ namespace City
                 
             }
 
+            Debug.Log($"{mob.name} attacked tower with {mobAttack} damage");
             CurrentCityGatesHealthPoints -= mobAttack;
             mob.HitThisMob(float.PositiveInfinity, BasicElement.None);
 

@@ -6,7 +6,7 @@ namespace City.Building.ElementPools
 
 		public static bool AllowSuperLightning { get; set; }
 
-		public static bool CreateBarrier { get; set; }
+		public static bool CreateBarrier { get; set; } = true;
 
 		public static bool UnlimitedRadius { get; set; }
 

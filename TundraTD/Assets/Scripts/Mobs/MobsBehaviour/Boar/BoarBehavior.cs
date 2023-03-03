@@ -10,7 +10,7 @@ namespace Mobs.MobsBehaviour.Boar
     public class BoarBehavior : MobBehaviour
     {
         private float _chargeLeftTime;
-
+        private bool _isCharged;
         public override BasicElement MobBasicElement => BasicElement.Earth;
         public override BasicElement MobCounterElement => BasicElement.Air;
 
@@ -50,8 +50,11 @@ namespace Mobs.MobsBehaviour.Boar
             if (_chargeLeftTime > 0)
                 _chargeLeftTime -= Time.fixedDeltaTime;
 
-            if (_chargeLeftTime <= 0)
+            if (_chargeLeftTime <= 0 && !_isCharged)
+            {
                 TakeChargeMode();
+                _isCharged = true;
+            }
 
             if (CurrentEffects.Count > 0)
                 TickTimer -= Time.fixedDeltaTime;

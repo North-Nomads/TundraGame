@@ -28,6 +28,7 @@ namespace Mobs.MobEffects
         public override bool OnAttach(MobBehaviour mob)
         {
             ContinueFreeze = true;
+            Debug.Log("Effect attached.");
             SpeedModifier = mob.MobModel.DefaultMobAngularSpeed;
             return !mob.CurrentEffects.OfType<FreezeEffect>().Any();
         }

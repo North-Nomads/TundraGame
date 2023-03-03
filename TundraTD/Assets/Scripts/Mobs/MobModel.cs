@@ -64,7 +64,7 @@ namespace Mobs
         public void InstantiateMobModel()
         {
             _mobNavMeshAgent = GetComponent<NavMeshAgent>();
-            _defaultMobAngularSpeed = _mobNavMeshAgent.angularSpeed;
+            _defaultMobAngularSpeed = _mobNavMeshAgent.speed;
             _currentMobHealth = maxMobHealth;
             _currentMobSpeed = defaultMobSpeed;
             CurrentMobDamage = defaultMobDamage;
