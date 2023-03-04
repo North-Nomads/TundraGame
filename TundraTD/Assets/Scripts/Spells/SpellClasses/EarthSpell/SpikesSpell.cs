@@ -157,6 +157,7 @@ namespace Spells.SpellClasses.EarthSpell
                 StartCoroutine(spike.InitializeSpikesShrinking());
                 yield return new WaitForSeconds(SpikeDisappearCooldown);
             }
+            Destroy(gameObject);
         }
     }
 }
