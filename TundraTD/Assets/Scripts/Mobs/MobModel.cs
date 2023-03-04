@@ -26,7 +26,7 @@ namespace Mobs
         [SerializeField]
         private SkinnedMeshRenderer skinRenderer;
 
-        [SerializeField] private Rigidbody rigidbody;
+        [SerializeField] new private Rigidbody rigidbody;
 
         private Animator _animator;
         private float _defaultMobAngularSpeed;
