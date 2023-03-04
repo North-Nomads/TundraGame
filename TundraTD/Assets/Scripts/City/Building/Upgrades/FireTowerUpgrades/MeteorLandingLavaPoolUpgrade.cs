@@ -8,7 +8,7 @@ namespace City.Building.Upgrades.FireTowerUpgrades
     {
         public BasicElement UpgradeTowerElement => BasicElement.Fire;
         public int PurchasePriceInTowerMenu => 350;
-        public int SpellPurchaseRequiredLevel => 2;
+        public int SpellPurchaseRequiredLevel => 3;
         public string UpgradeDescriptionText => "Meteor leaves behind a lava crater";
         public Sprite UpgradeShowcaseSprite => Resources.Load<Sprite>("UpgradeIcons/Arcanist1");
 

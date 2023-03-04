@@ -11,7 +11,7 @@ namespace Spells
         /// <summary>
         /// Amount by which to increase the value of the property.
         /// </summary>
-        private float Amount { get; set; }
+        public float Amount { get; set; }
 
         /// <summary>
         /// Creates the new instance of a <see cref="IncreasablePropertyAttribute"/> class.
@@ -50,7 +50,7 @@ namespace Spells
         /// <summary>
         /// Amount to multiply.
         /// </summary>
-        private float Amount { get; set; }
+        public float Amount { get; set; }
 
         /// <summary>
         /// Creates the new instance of a <see cref="MultiplictablePropertyAttribute"/> class.
@@ -84,13 +84,13 @@ namespace Spells
     /// <summary>
     /// Represents an attribute for any upgradeable properties.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = true, Inherited = true)]
     public abstract class UpgradeablePropertyAttribute : Attribute
     {
         /// <summary>
         /// Elements that activates the trigger to upgrade property value.
         /// </summary>
-        protected BasicElement ConfirmableElements { get; set; }
+        public BasicElement ConfirmableElements { get; set; }
 
         /// <summary>
         /// Tries to upgrade the property using given element.
@@ -99,10 +99,11 @@ namespace Spells
         /// <param name="property">Property to upgrade.</param>
         /// <param name="obj">Object to upgrade.</param>
         /// <returns><see langword="true"/> if property was upgraded, <see langword="false"/> otherwise.</returns>
-        public void TryUpgradeProperty(BasicElement element, PropertyInfo property, object obj)
+        public virtual bool TryUpgradeProperty(BasicElement element, PropertyInfo property, object obj)
         {
-            if (!ConfirmableElements.HasFlag(element)) return;
+            if (!ConfirmableElements.HasFlag(element)) return false;
             UpgradeProperty(property, obj);
+            return true;
         }
 
         /// <summary>

@@ -1,3 +1,7 @@
+using Spells;
+using System;
+using System.Collections.Generic;
+
 namespace City.Building.ElementPools
 {
     /// <summary>
@@ -5,12 +9,20 @@ namespace City.Building.ElementPools
     /// </summary>
     public static class FirePool
     {
+        public static Dictionary<BasicElement, float> DamageAgainstElementMultipliers { get; set; } = new Dictionary<BasicElement, float>();
+        public static float MeteorRadiusMultiplier { get; set; } = 1f;
+        public static float AfterburnDamageMultiplier { get; set; } = 1f;
+        public static float MeteorLandingReduction { get; set; }
         public static bool HasLandingLavaPool { get; set; }
-        public static bool HasWaterResist { get; set; }
         public static bool HasLandingStun { get; set; }
-        public static bool HasLavaPool { get; set; }
         public static bool HasLandingImpulse { get; set; }
-        public static bool HasLandingTraps { get; set; }
-        public static bool HasLandingGhost { get; set; }
+
+        static FirePool()
+        {
+            foreach (BasicElement element in Enum.GetValues(typeof(BasicElement)))
+            {
+                if (element != BasicElement.None) DamageAgainstElementMultipliers.Add(element, 1f);
+            }
+        }
     }
 }

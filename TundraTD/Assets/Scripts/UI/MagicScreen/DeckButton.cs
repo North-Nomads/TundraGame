@@ -10,11 +10,12 @@ namespace UI.MagicScreen
     /// </summary>
     public class DeckButton : MonoBehaviour
     {
-        [SerializeField] private DeckButtons buttonsHolder;
-        [SerializeField] private int deckIndex;
+        [SerializeField] private UpperButtonElements buttonsHolder;
+
         private Sprite _startIcon;
 
         public BasicElement Element { get; set; }
+
         public Image ElementIcon { get; set; }
 
         private void Start()
@@ -25,15 +26,18 @@ namespace UI.MagicScreen
 
         public void OnButtonClick()
         {
-            int index = Array.IndexOf(buttonsHolder.deckButtons, this);
-            if (index < PlayerDeck.DeckElements.Count) 
-                PlayerDeck.DeckElements.RemoveAt(index);
-        }
-
-        public void UpdateButtonElement(BasicElement element)
-        {
-            ElementIcon.sprite = PlayerDeck.ElementIcons[element];
-            Element = element;
+            int index = Array.IndexOf(buttonsHolder.ElementScripts, this);
+            if (index == 4)
+            {
+                Clear();
+            }
+            else
+            {
+                var nextButton = buttonsHolder.ElementScripts[index + 1];
+                ElementIcon.sprite = nextButton.ElementIcon.sprite;
+                Element = nextButton.Element;
+                nextButton.OnButtonClick();
+            }
         }
 
         public void Clear()

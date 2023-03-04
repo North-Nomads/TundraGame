@@ -9,8 +9,9 @@ namespace Mobs.MobsBehaviour.Boar
     [RequireComponent(typeof(MobModel))]
     public class BoarBehavior : MobBehaviour
     {
+        private bool _canDistractFromCurrentTarget;
+
         private float _chargeLeftTime;
-        private bool _isCharged;
 
         public override BasicElement MobBasicElement => BasicElement.Earth;
         public override BasicElement MobCounterElement => BasicElement.Air;
@@ -26,11 +27,6 @@ namespace Mobs.MobsBehaviour.Boar
             MobModel.CurrentMobHealth -= damage * multiplier;
         }
 
-        public override void EnableDisorientation()
-        {
-            MobModel.MobNavMeshAgent.SetDestination(MobPortal.transform.position);
-        }
-
         public override void MoveTowards(Vector3 point)
         {
             MobModel.MobNavMeshAgent.SetDestination(point);
@@ -40,6 +36,7 @@ namespace Mobs.MobsBehaviour.Boar
         {
             MobPortal = mobPortal;
             MobModel.InstantiateMobModel();
+            _canDistractFromCurrentTarget = true;
             _chargeLeftTime = 3f;
 
             DefaultDestinationPoint = gates;
@@ -51,19 +48,16 @@ namespace Mobs.MobsBehaviour.Boar
             if (_chargeLeftTime > 0)
                 _chargeLeftTime -= Time.fixedDeltaTime;
 
-            if (_chargeLeftTime <= 0 & !_isCharged)
-            {
+            if (_chargeLeftTime <= 0 && _canDistractFromCurrentTarget)
                 TakeChargeMode();
-                _isCharged = true;
-            }
-            
+
             if (CurrentEffects.Count > 0)
                 TickTimer -= Time.fixedDeltaTime;
         }
 
         private void TakeChargeMode()
         {
-            Debug.Log(MobModel.CurrentMobDamage);
+            _canDistractFromCurrentTarget = false;
             MobModel.CurrentMobSpeed *= 1.5f;
             MobModel.CurrentMobDamage *= 2f;
         }

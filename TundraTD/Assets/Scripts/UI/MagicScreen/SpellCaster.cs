@@ -1,28 +1,21 @@
-﻿using System.Linq;
-using Spells;
+﻿using Spells;
 using UnityEngine;
 
 namespace UI.MagicScreen
 {
-    /// <summary>
-    /// A button orders grimoire to generate spell of current deck 
-    /// </summary>
     public class SpellCaster : MonoBehaviour
     {
+        [SerializeField] private UpperButtonElements buttonsHolder;
+        private readonly BasicElement[] HoldSpells = new BasicElement[5];
+
         public void OnButtonClick()
         {
-            Grimoire.TurnElementsIntoSpell(PlayerDeck.DeckElements.ToList(), Vector3.zero);
-            PlayerDeck.DeckElements.Clear();
-        }
-
-        //For debug purposes only. Remove it before pulling
-        public void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.P))
+            for (int i = 0; i < 5; i++)
             {
-                OnButtonClick();
+                HoldSpells[i] = buttonsHolder.ElementScripts[i].Element;
+                buttonsHolder.ElementScripts[i].Clear();
             }
+            Grimoire.TurnElementsIntoSpell(HoldSpells);
         }
-
     }
 }

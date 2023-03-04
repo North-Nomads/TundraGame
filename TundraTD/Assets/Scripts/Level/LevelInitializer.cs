@@ -1,10 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using City;
 using City.Building;
-using City.Building.ElementPools;
 using Spells;
 using UnityEngine;
 
@@ -22,7 +18,7 @@ namespace Level
         [SerializeField] private CityGatesUI influencePointsHolder;
         [SerializeField] private TowerPlacementSlot[] placementSlots;
         [SerializeField] private ElementalTower[] elementalTowerPrefabs;
-        [SerializeField] private MagicSpell[] spellInitializers;
+        [SerializeField] private GameObject[] spellPrefabs;
 
         private void Start()
         {
@@ -31,15 +27,6 @@ namespace Level
             
             pauseMode.SetPause(false);
             InitializeArchitectValues();
-            ResetMagicPools();
-        }
-
-        private void ResetMagicPools()
-        {
-            // TODO: add other pools
-            var pools = new List<Type> { typeof(EarthPool), typeof(FirePool), typeof(WaterPool) };
-            foreach (var prop in pools.SelectMany(pool => pool.GetProperties()))
-                prop.SetValue(null, false);
         }
 
         private void InitializeArchitectValues()
@@ -50,8 +37,9 @@ namespace Level
             Architect.PlacementSlots = placementSlots;
             Architect.WaveCompletionMinInfluencePointsAward = minWaveAward;
             Architect.WaveCompletionMaxInfluencePointsAward = maxWaveAward;
-            Grimoire.SpellInitializers = spellInitializers;
-            
+
+            Grimoire.SpellPrefabs = spellPrefabs;
+
             // DEBUG: Temporary giving 100 points
             Architect.DEBUG_GetStartPoints();
         }

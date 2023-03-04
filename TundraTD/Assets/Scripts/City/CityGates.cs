@@ -1,6 +1,6 @@
-using System.Collections.Generic;
-using City.Building;
+﻿using City.Building;
 using Level;
+using Mobs;
 using Mobs.MobsBehaviour;
 using Mobs.MobsBehaviour.Ironclad;
 using Spells;
@@ -52,18 +52,9 @@ namespace City
         private void Update()
         {
             // HACK: made here fireball casting to test, remove later
-            if (Input.GetKey(KeyCode.C) && !PauseMode.IsGamePaused)
+            if (Input.GetKeyDown(KeyCode.C) && !PauseMode.IsGamePaused)
             {
-                if (Input.GetKeyDown(KeyCode.Alpha1))
-                    Grimoire.TurnElementsIntoSpell(new List<BasicElement> { BasicElement.Fire, BasicElement.Fire, BasicElement.Fire, BasicElement.Earth, BasicElement.Earth }, Vector3.zero);
-                if (Input.GetKeyDown(KeyCode.Alpha2))
-                    Grimoire.TurnElementsIntoSpell(new List<BasicElement> { BasicElement.Water, BasicElement.Water, BasicElement.Water, BasicElement.Earth, BasicElement.Earth }, Vector3.zero);
-                if (Input.GetKeyDown(KeyCode.Alpha3))
-                    Grimoire.TurnElementsIntoSpell(new List<BasicElement> { BasicElement.Earth, BasicElement.Earth, BasicElement.Earth, BasicElement.Earth, BasicElement.Earth }, Vector3.zero);
-                if (Input.GetKeyDown(KeyCode.Alpha4))
-                    Grimoire.TurnElementsIntoSpell(new List<BasicElement> { BasicElement.Lightning, BasicElement.Lightning, BasicElement.Lightning, BasicElement.Earth, BasicElement.Earth }, Vector3.zero);
-                if (Input.GetKeyDown(KeyCode.Alpha5))
-                    Grimoire.TurnElementsIntoSpell(new List<BasicElement> { BasicElement.Air, BasicElement.Air, BasicElement.Air, BasicElement.Earth, BasicElement.Earth }, Vector3.zero);
+                Grimoire.TurnElementsIntoSpell(new BasicElement[] { BasicElement.Fire, BasicElement.Fire, BasicElement.Fire, BasicElement.Earth, BasicElement.Earth });
             }
         }
 
@@ -71,14 +62,21 @@ namespace City
         {
             if (!other.CompareTag("Mob"))
                 return;
-           
+            
+
             var mob = other.GetComponent<MobBehaviour>();
             var mobAttack = mob.MobModel.CurrentMobDamage;
-            
-            Debug.Log($"{mob.name} attacked tower with {mobAttack} damage");
+
+            if (mob.GetComponent<IroncladBehaviour>() != null)
+            {
+                
+            }
+
             CurrentCityGatesHealthPoints -= mobAttack;
-            mob.HitThisMob(float.PositiveInfinity, BasicElement.None, "City.Gates");
+            mob.HitThisMob(float.PositiveInfinity, BasicElement.None);
+
             _animator.SetTrigger("DamageTrigger");
+            
         }
 
         public void HandleWaveEnding()

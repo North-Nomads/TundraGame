@@ -99,7 +99,7 @@ namespace Mobs
         private void NotifyPortalOnMobDeath(MobBehaviour mob)
         {
             MobsLeftThisWave--;
-            //Debug.Log($"UPDATE: {MobsLeftThisWave}: {mob.name}");
+            Debug.Log($"UPDATE: {MobsLeftThisWave}: {mob.name}");
         }
 
         [Serializable]
