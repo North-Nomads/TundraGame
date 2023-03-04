@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -24,12 +23,20 @@ namespace Mobs
         private float defaultMobSpeed;
 
         [SerializeField]
-        private SkinnedMeshRenderer renderer;
+        private SkinnedMeshRenderer skinRenderer;
 
+        [SerializeField] private new Rigidbody rigidbody;
+
+        private Animator _animator;
+        private float _defaultMobAngularSpeed;
         private float _currentMobHealth;
         private float _currentMobSpeed;
         private NavMeshAgent _mobNavMeshAgent;
         private Material _defaultMaterial;
+
+        public Rigidbody Rigidbody => rigidbody;
+        public Animator Animator => _animator;
+        public float DefaultMobAngularSpeed => _defaultMobAngularSpeed;        
         public Sprite MobSprite => mobSprite;
         public NavMeshAgent MobNavMeshAgent => _mobNavMeshAgent;
         public bool IsAlive => CurrentMobHealth > 0;
@@ -61,21 +68,24 @@ namespace Mobs
         public void InstantiateMobModel()
         {
             _mobNavMeshAgent = GetComponent<NavMeshAgent>();
+            _animator = GetComponent<Animator>();
+            _defaultMobAngularSpeed = _mobNavMeshAgent.angularSpeed;
             _currentMobHealth = maxMobHealth;
             _currentMobSpeed = defaultMobSpeed;
             CurrentMobDamage = defaultMobDamage;
-            _defaultMaterial = renderer.material;
+            _defaultMaterial = skinRenderer.material;
         }
+        
         public void SetHitMaterial()
         {
-            renderer.material = hitMaterial;
+            skinRenderer.material = hitMaterial;
             StartCoroutine(VisualEffectDamage());
         }
 
         private IEnumerator VisualEffectDamage()
         {
             yield return new WaitForSeconds(.1f);
-            renderer.material = _defaultMaterial;
+            skinRenderer.material = _defaultMaterial;
         } 
     }
 }

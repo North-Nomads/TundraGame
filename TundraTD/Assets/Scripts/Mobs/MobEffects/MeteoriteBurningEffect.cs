@@ -9,7 +9,7 @@ namespace Mobs.MobEffects
 
         public override int MaxTicksAmount { get; }
 
-        public override EffectCode Code => EffectCode.MeteoriteBurning;
+        public override VisualEffectCode Code => VisualEffectCode.MeteoriteBurning;
 
         public MeteoriteBurningEffect(float burningDamage, int maxTicksAmount)
         {
@@ -19,7 +19,7 @@ namespace Mobs.MobEffects
 
         public override void HandleTick(MobBehaviour mob)
         {
-            mob.HitThisMob(BurningDamage, BasicElement.Fire);
+            mob.HitThisMob(BurningDamage, BasicElement.Fire, "Fire.MeteoriteBurning");
             CurrentTicksAmount++;
         }
     }

@@ -35,26 +35,26 @@ namespace Spells.SpellClasses
         /// <summary>
         /// The radius of the hit area
         /// </summary>
-        public float HitDamageRadius { get; set; } = 5f;
+        private float HitDamageRadius { get; set; } = 5f;
 
         /// <summary>
         /// The damage of the hit epicenter.
         /// </summary>
         [MultiplictableProperty(BasicElement.Earth, 1.35f)]
-        public float HitDamageValue { get; set; } = 40f;
+        private float HitDamageValue { get; set; } = 40f;
 
         /// <summary>
         /// Duration of the burn effect.
         /// </summary>
         [IncreasableProperty(BasicElement.Air, 5f)]
-        public float BurnDuration { get; set; } = 3f;
+        private float BurnDuration { get; set; } = 3f;
 
         /// <summary>
         /// Damage of the burn effect.
         /// </summary>
         [MultiplictableProperty(BasicElement.Fire, 1.25f)]
         [MultiplictableProperty(BasicElement.Water, 0.75f)]
-        public float BurnDamage { get; set; } = 7f;
+        private float BurnDamage { get; set; } = 7f;
 
         /// <summary>
         /// Value of the slowness effect.
@@ -81,7 +81,7 @@ namespace Spells.SpellClasses
                 var reflect = Vector3.Reflect(Quaternion.Euler(0, -90, 0) * Camera.main.transform.forward, hit.normal).normalized;
                 transform.position = hit.point + (reflect * FlyDistance);
                 transform.forward = (_target - transform.position).normalized;
-                HitDamageRadius *= FirePool.MeteorRadiusMultiplier;
+                //HitDamageRadius *= FirePool.MeteorRadiusMultiplier;
                 StartCoroutine(LaunchFireball());
             }
             else
@@ -96,10 +96,10 @@ namespace Spells.SpellClasses
             do
             {
                 transform.position += Vector3.Normalize(_target - transform.position) *
-                                      (Time.deltaTime * FlyDistance / (HitDelay - FirePool.MeteorLandingReduction));
+                                      (Time.deltaTime * FlyDistance / HitDelay);
                 yield return new WaitForEndOfFrame();
                 _currentHitTime += Time.deltaTime;
-            } while (_currentHitTime <= HitDelay - FirePool.MeteorLandingReduction);
+            } while (_currentHitTime <= HitDelay);
 
             _source.Stop();
             _source.PlayOneShot(explosionSound);
@@ -108,11 +108,11 @@ namespace Spells.SpellClasses
             int hits = Physics.OverlapSphereNonAlloc(transform.position, HitDamageRadius, AvailableTargetsPool, MobsLayerMask);
             var effects = new List<Effect>
             {
-                new MeteoriteBurningEffect(BurnDamage * FirePool.AfterburnDamageMultiplier, (int)BurnDuration)
+                new MeteoriteBurningEffect(BurnDamage, (int)BurnDuration)
             };
 
             if (FirePool.HasLandingStun)
-                effects.Add(new StunEffect()); // TODO: implement stun effect.
+                effects.Add(new SpikesStunEffect(4)); 
 
             for (int i = 0; i < hits; i++)
             {
@@ -120,7 +120,7 @@ namespace Spells.SpellClasses
                 var mob = target.GetComponent<MobBehaviour>();
                 float damage = HitDamageValue * Vector3.Distance(target.transform.position, transform.position) / HitDamageRadius;
 
-                mob.HitThisMob(damage * FirePool.DamageAgainstElementMultipliers[mob.MobBasicElement], BasicElement.Fire);
+                mob.HitThisMob(damage, BasicElement.Fire, "Fire.Landing");
                 mob.AddReceivedEffects(effects);
                 if (FirePool.HasLandingImpulse)
                 {
@@ -148,8 +148,8 @@ namespace Spells.SpellClasses
                 {
                     var target = AvailableTargetsPool[j];
                     var mob = target.GetComponent<MobBehaviour>();
-                    var damage = BurnDamage * FirePool.AfterburnDamageMultiplier;
-                    mob.HitThisMob(damage, BasicElement.Fire);
+                    var damage = BurnDamage;
+                    mob.HitThisMob(damage, BasicElement.Fire, "EarthMods.Lava");
                 }
                 yield return new WaitForSecondsRealtime(1f);
             }
