@@ -1,4 +1,5 @@
-﻿using City.Building.ElementPools;
+﻿using CartoonFX;
+using City.Building.ElementPools;
 using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
 using System.Collections;
@@ -16,6 +17,7 @@ namespace Spells.SpellClasses
         [SerializeField] private GameObject rainParticles;
         [SerializeField] private GameObject rainSplashes;
         [SerializeField] private CapsuleCollider mainCollider;
+        [SerializeField] private GameObject barrierCollider;
         private Vector3 _targetPosition;
 
         [IncreasableProperty(BasicElement.Air, 2f)]
@@ -42,11 +44,15 @@ namespace Spells.SpellClasses
                 rainSplashes.transform.position = (transform.position = _targetPosition) + Vector3.up;
                 rainParticles.SetActive(true);
                 rainSplashes.SetActive(true);
-                if (WaterPool.UnlimitedRadius) Radius = 1000;
-                if (WaterPool.CreateBarrier) mainCollider.isTrigger = false;
+                // TODO: implement it as normal full-map effect.
+                if (WaterPool.UnlimitedRadius) Radius = 50;
+                barrierCollider.SetActive(WaterPool.CreateBarrier);
+                barrierCollider.transform.localScale = new Vector3(Radius * 10, 100, Radius * 10);
                 if (WaterPool.AdditionalSlowness) SlownessValue *= 3;
                 if (WaterPool.AllowSuperLightning) LightningMultiplier *= 3;
-                rainParticles.transform.localScale = new Vector3(Radius / 10, RainHeight, Radius / 10);
+                var shape = rainParticles.GetComponent<ParticleSystem>().shape;
+                shape.radius = Radius / 10;
+                rainParticles.GetComponent<CFXR_EmissionBySurface>().maxEmissionRate = 5 * Radius * Radius * Radius;
                 mainCollider.radius = Radius;
                 mainCollider.height = RainHeight;
                 rainParticles.transform.localPosition = (Vector3.up * (RainHeight / 2));
