@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Serialization;
 
 namespace Mobs
 {
@@ -26,7 +25,7 @@ namespace Mobs
         [SerializeField]
         private SkinnedMeshRenderer skinRenderer;
 
-        [SerializeField] private Rigidbody rigidbody;
+        [SerializeField] private new Rigidbody rigidbody;
 
         private Animator _animator;
         private float _defaultMobAngularSpeed;
@@ -69,6 +68,7 @@ namespace Mobs
         public void InstantiateMobModel()
         {
             _mobNavMeshAgent = GetComponent<NavMeshAgent>();
+            _animator = GetComponent<Animator>();
             _defaultMobAngularSpeed = _mobNavMeshAgent.angularSpeed;
             _currentMobHealth = maxMobHealth;
             _currentMobSpeed = defaultMobSpeed;
