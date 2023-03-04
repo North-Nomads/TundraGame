@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Spells;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace UI.MagicScreen
 {
@@ -9,23 +10,34 @@ namespace UI.MagicScreen
     /// </summary>
     public class SpellCaster : MonoBehaviour
     {
-        public void OnButtonClick(Vector3 _positionOnMap)
+        private Camera cam;
+        private Vector3 _pointOnTap;
+        private const int PlaceableLayer = 1 << 11 | 1 << 10;
+        public void Start()
+        {
+            cam = Camera.main;
+        }
+        public void CastSpellOnPosition(Vector3 _positionOnMap)
         {
             Grimoire.TurnElementsIntoSpell(PlayerDeck.DeckElements.ToList(), _positionOnMap);
             PlayerDeck.DeckElements.Clear();
         }
 
 
-        //For debug purposes only. Remove it before pulling
         public void Update()
         {
-            
-            if (Input.touchCount == 1 && ((Input.GetTouch(0).position.x < 320 || Input.GetTouch(0).position.x > 750) || ((Input.GetTouch(0).position.x > 320 || Input.GetTouch(0).position.x < 750) && Input.GetTouch(0).position.y > 100)))
+            if (Input.touchCount != 1)
+                return;
+            if (!EventSystem.current.IsPointerOverGameObject())
             {
-                print(Input.GetTouch(0).position);
-                Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-                OnButtonClick(ray.origin);
+                Touch _playerTouch = Input.GetTouch(0);
+                var rayEnd = cam.ScreenPointToRay(_playerTouch.position);
+                if (Physics.Raycast(rayEnd, out var hitInfo, float.PositiveInfinity, PlaceableLayer))
+                    _pointOnTap = hitInfo.point;
+                    CastSpellOnPosition(_pointOnTap);
             }
+            // Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+            // OnButtonClick(ray.origin);
         }
     }
 }
