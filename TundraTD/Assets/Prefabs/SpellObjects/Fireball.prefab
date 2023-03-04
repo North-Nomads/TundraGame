@@ -131,6 +131,8 @@ MonoBehaviour:
     type: 3}
   lavaPrefab: {fileID: 3280519133390621005, guid: a71be3e7990efb040a07565c43cbb198,
     type: 3}
+  ghostPrefab: {fileID: 3980780356853463794, guid: 1e9256ee83b5402458f049ea4195a0f4,
+    type: 3}
   explosionDelay: 1
   flightSound: {fileID: 8300000, guid: 40bb4c641b821f9449bd7643b942734b, type: 3}
   explosionSound: {fileID: 8300000, guid: 321e3836d1405cd408cef866fa7b460e, type: 3}

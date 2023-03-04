@@ -23,6 +23,7 @@ namespace Spells.SpellClasses
         [SerializeField] private MeshRenderer meteoriteMesh;
         [SerializeField] private GameObject explosionPrefab;
         [SerializeField] private GameObject lavaPrefab;
+        [SerializeField] private GameObject ghostPrefab;
         [SerializeField] private float explosionDelay;
         [SerializeField] private AudioClip flightSound;
         [SerializeField] private AudioClip explosionSound;
@@ -132,6 +133,8 @@ namespace Spells.SpellClasses
             StartCoroutine(RunExplosionAnimation());
             if (FirePool.HasLavaPool)
                 StartCoroutine(RunLavaPool());
+            if (FirePool.HasLandingGhost)
+                Instantiate(ghostPrefab, _target + Vector3.up * 2, default);
             meteoriteMesh.enabled = false;
         }
 
