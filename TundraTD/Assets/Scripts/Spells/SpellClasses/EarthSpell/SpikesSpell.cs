@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using City.Building.ElementPools;
+using Level;
 using UnityEngine;
 
 namespace Spells.SpellClasses.EarthSpell
@@ -40,8 +41,8 @@ namespace Spells.SpellClasses.EarthSpell
         [MultiplictableProperty(BasicElement.Earth, 1.12f)]
         private float FallDamage { get; set; } = 50f;
 
-        [IncreasableProperty(BasicElement.Fire, 0.3f)]
-        private float StunTime { get; set; } = 0.7f;
+        [IncreasableProperty(BasicElement.Fire, 1f)]
+        private float StunTime { get; set; } = 2f;
 
         [IncreasableProperty(BasicElement.Air, -0.7f)]
         public float SlownessTime { get; set; } = 2f;
@@ -120,7 +121,7 @@ namespace Spells.SpellClasses.EarthSpell
                     group.PlayCloudAnimation();
                 
                 group.transform.localScale *= sizeCoefficient;
-                group.ApplyStunOverlappedOnMobs(FallDamage, (int)(StunTime*10));
+                group.ApplyStunOverlappedOnMobs(FallDamage, StunTime.SecondsToTicks());
                 
                 if (EarthPool.HasExplosivePebbles & isMainWall)
                         group.ExecutePebblesExplosion(pebbleDamage, pebbleStunTicks);

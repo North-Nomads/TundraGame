@@ -3,7 +3,9 @@ using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
 using System.Collections;
 using System.Collections.Generic;
+using Level;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Spells.SpellClasses
 {
@@ -26,6 +28,8 @@ namespace Spells.SpellClasses
         [SerializeField] private float explosionDelay;
         [SerializeField] private AudioClip flightSound;
         [SerializeField] private AudioClip explosionSound;
+
+        [Header("Landing stun value")] [SerializeField] private float stunTime;
         private Camera _mainCamera;
         private float _currentHitTime;
         private Vector3 _target;
@@ -112,7 +116,7 @@ namespace Spells.SpellClasses
             };
 
             if (FirePool.HasLandingStun)
-                effects.Add(new SpikesStunEffect(4)); 
+                effects.Add(new SpikesStunEffect(stunTime.SecondsToTicks())); 
 
             for (int i = 0; i < hits; i++)
             {
