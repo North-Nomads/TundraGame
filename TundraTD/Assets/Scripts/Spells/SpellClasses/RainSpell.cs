@@ -88,17 +88,21 @@ namespace Spells.SpellClasses
 
         private void OnTriggerStay(Collider other)
         {
-            if (WaterPool.CastSnowInsteadOfRain && other.CompareTag("Mob"))
+            if (other.CompareTag("Mob"))
             {
                 var mob = other.gameObject.GetComponent<MobBehaviour>();
-                var freeze = mob.CurrentEffects.OfType<FreezeEffect>().FirstOrDefault();
-                if (freeze != null)
+                mob.RemoveFilteredEffects(x => x is MeteoriteBurningEffect effect && effect.CanBeExtinguished);
+                if (WaterPool.CastSnowInsteadOfRain)
                 {
-                    freeze.ContinueFreeze = true;
-                }
-                else
-                {
-                    mob.AddSingleEffect(new FreezeEffect(0, 2, (int)EffectTime));
+                    var freeze = mob.CurrentEffects.OfType<FreezeEffect>().FirstOrDefault();
+                    if (freeze != null)
+                    {
+                        freeze.ContinueFreeze = true;
+                    }
+                    else
+                    {
+                        mob.AddSingleEffect(new FreezeEffect(0, 2, (int)EffectTime));
+                    }
                 }
             }
         }

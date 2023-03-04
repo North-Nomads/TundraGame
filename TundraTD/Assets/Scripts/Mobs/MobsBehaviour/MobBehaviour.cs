@@ -84,6 +84,19 @@ namespace Mobs.MobsBehaviour
             effect.OnAttach(this);
         }
 
+        public void RemoveFilteredEffects(Func<Effect, bool> filter)
+        {
+            for (int i = 0; i < CurrentEffects.Count; i++)
+            {
+                var effect = CurrentEffects[i];
+                if (filter(effect))
+                {
+                    effect.OnDetach(this);
+                    CurrentEffects.RemoveAt(i--);
+                }
+            }
+        }
+
         private void KillThisMob()
         {
             ClearMobEffects();

@@ -14,7 +14,7 @@ namespace City.Building.Upgrades.FireTowerUpgrades
 
         public void ExecuteOnUpgradeBought()
         {
-            FirePool.HasLandingLavaPool = true;
+            FirePool.HasLavaPool = true;
         }
     }
 }

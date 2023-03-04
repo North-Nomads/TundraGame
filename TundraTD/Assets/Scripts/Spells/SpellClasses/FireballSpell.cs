@@ -81,7 +81,6 @@ namespace Spells.SpellClasses
                 var reflect = Vector3.Reflect(Quaternion.Euler(0, -90, 0) * Camera.main.transform.forward, hit.normal).normalized;
                 transform.position = hit.point + (reflect * FlyDistance);
                 transform.forward = (_target - transform.position).normalized;
-                //HitDamageRadius *= FirePool.MeteorRadiusMultiplier;
                 StartCoroutine(LaunchFireball());
             }
             else
@@ -108,11 +107,11 @@ namespace Spells.SpellClasses
             int hits = Physics.OverlapSphereNonAlloc(transform.position, HitDamageRadius, AvailableTargetsPool, MobsLayerMask);
             var effects = new List<Effect>
             {
-                new MeteoriteBurningEffect(BurnDamage, (int)BurnDuration)
+                new MeteoriteBurningEffect(BurnDamage, (int)BurnDuration, !FirePool.HasWaterResist)
             };
 
             if (FirePool.HasLandingStun)
-                effects.Add(new SpikesStunEffect(4)); 
+                effects.Add(new SpikesStunEffect(4));
 
             for (int i = 0; i < hits; i++)
             {
@@ -125,12 +124,13 @@ namespace Spells.SpellClasses
                 if (FirePool.HasLandingImpulse)
                 {
                     mob.GetComponent<Rigidbody>().AddExplosionForce(damage, _target, HitDamageRadius);
+                    mob.AddSingleEffect(new SpikesStunEffect(2));
                 }
             }
 
             // Aftershock animations & stuff
             StartCoroutine(RunExplosionAnimation());
-            if (FirePool.HasLandingLavaPool)
+            if (FirePool.HasLavaPool)
                 StartCoroutine(RunLavaPool());
             meteoriteMesh.enabled = false;
         }
@@ -162,7 +162,7 @@ namespace Spells.SpellClasses
             DisableEmissionOnChildren();
             obj.transform.position = _target;
             obj.transform.localScale = new Vector3(5, 5, 5);
-            yield return new WaitForSecondsRealtime(FirePool.HasLandingLavaPool ? Mathf.Max(explosionDelay, LavaLifetime) : explosionDelay);
+            yield return new WaitForSecondsRealtime(FirePool.HasLavaPool ? Mathf.Max(explosionDelay, LavaLifetime) : explosionDelay);
             Destroy(gameObject);
         }
         
