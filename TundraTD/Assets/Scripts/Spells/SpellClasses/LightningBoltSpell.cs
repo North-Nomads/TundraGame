@@ -1,4 +1,5 @@
-﻿using Mobs.MobsBehaviour;
+﻿using System;
+using Mobs.MobsBehaviour;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +14,6 @@ namespace Spells.SpellClasses
         public override void ExecuteSpell()
         {
             //Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-            Debug.Log("Lightning Stroke");
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (!Physics.Raycast(ray, out var hit, float.PositiveInfinity, 1<<8|1<<10))
                 return;
@@ -31,14 +31,14 @@ namespace Spells.SpellClasses
                 Debug.Log("Miss");
                 return;
             }
-            
+
             lightning.SetPosition(1, GetClosestMob(hit.point).transform.position);
             LaunchStrike(GetClosestMob(hit.point),5);
         }
 
         private void LaunchStrike(MobBehaviour mobToStrike, int strikesLeft)
         {
-            mobToStrike.HitThisMob(10000, BasicElement.Lightning);
+            mobToStrike.HitThisMob(10000, BasicElement.Lightning, "Lightning.Strike");
             _mobsInRadius.Remove(mobToStrike);
             if(strikesLeft == 0 || _mobsInRadius.Count == 0)
                 return;

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using City.Building.ElementPools;
+using Level;
 using UnityEngine;
 
 namespace Spells.SpellClasses.EarthSpell
@@ -26,8 +27,6 @@ namespace Spells.SpellClasses.EarthSpell
         private float _touchRegisterMaxTime;
         private float _touchRegisterTime;
         private Camera _mainCamera;
-        
-        public float ApproachDelay { get; } = 0.2f;
 
         private float MaxDrawTime { get; set; } = 2f;
 
@@ -42,8 +41,8 @@ namespace Spells.SpellClasses.EarthSpell
         [MultiplictableProperty(BasicElement.Earth, 1.12f)]
         private float FallDamage { get; set; } = 50f;
 
-        [IncreasableProperty(BasicElement.Fire, 0.3f)]
-        private float StunTime { get; set; } = 0.7f;
+        [IncreasableProperty(BasicElement.Fire, 1f)]
+        private float StunTime { get; set; } = 2f;
 
         [IncreasableProperty(BasicElement.Air, -0.7f)]
         public float SlownessTime { get; set; } = 2f;
@@ -67,6 +66,7 @@ namespace Spells.SpellClasses.EarthSpell
 
         private IEnumerator RegisterUserInputs()
         {
+            IsLockedCamera = true;
             var ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
 
             if (!Physics.Raycast(ray, out var hitInfo1, float.PositiveInfinity, PlaceableLayer))
@@ -89,7 +89,7 @@ namespace Spells.SpellClasses.EarthSpell
                 yield break;
 
             StartCoroutine(InstantiateSpikes(position1, position2, true));
-
+            IsLockedCamera = false;
             if (!EarthPool.HasAdditionalWalls) yield break;
             
             StartCoroutine(InstantiateSpikes(position1 + Vector3.left * 3, position2 + Vector3.left * 3, false));
@@ -116,11 +116,15 @@ namespace Spells.SpellClasses.EarthSpell
             {
                 spikesSlownessCollider.InitializeTermites(EarthPool.HasTermites);
                 var group = Instantiate(spikesGroupObject, currentPosition, Quaternion.identity, spikesObjectParent.transform);
+                StartCoroutine(group.InitializeSpikesGrowth());
+                
+                if (EarthPool.HasDustCloud)
+                    group.PlayCloudAnimation();
+                
                 group.transform.localScale *= sizeCoefficient;
-                group.ApplyStunOverlappedOnMobs(FallDamage, (int)(StunTime*10));
-
-                if (!isMainWall)
-                    if (EarthPool.HasExplosivePebbles)
+                group.ApplyStunOverlappedOnMobs(FallDamage, StunTime.SecondsToTicks());
+                
+                if (EarthPool.HasExplosivePebbles & isMainWall)
                         group.ExecutePebblesExplosion(pebbleDamage, pebbleStunTicks);
                 
                 spikes.Add(group);
@@ -152,9 +156,10 @@ namespace Spells.SpellClasses.EarthSpell
             
             foreach (var spike in spikes)
             {
-                Destroy(spike.gameObject);
+                StartCoroutine(spike.InitializeSpikesShrinking());
                 yield return new WaitForSeconds(SpikeDisappearCooldown);
             }
+            Destroy(gameObject);
         }
     }
 }

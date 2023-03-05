@@ -15,14 +15,17 @@ namespace Mobs.MobEffects
 
         public override bool OnAttach(MobBehaviour mob)
         {
-            mob.HitThisMob(StunDamage, BasicElement.Earth);
-            mob.MobModel.MobNavMeshAgent.SetDestination(mob.transform.position);
+            mob.HitThisMob(StunDamage, BasicElement.Earth, "EarthMod.Pebbles");
+            if (mob.MobModel.MobNavMeshAgent.isActiveAndEnabled)
+                mob.MobModel.MobNavMeshAgent.SetDestination(mob.transform.position);
             mob.MobModel.MobNavMeshAgent.angularSpeed = 0;
             return true;
         }
 
         public override void OnDetach(MobBehaviour mob)
         {
+            if (!mob.MobModel.MobNavMeshAgent.isActiveAndEnabled)
+                return;       
             mob.MobModel.MobNavMeshAgent.SetDestination(mob.DefaultDestinationPoint.position);
             mob.MobModel.MobNavMeshAgent.angularSpeed = mob.MobModel.DefaultMobAngularSpeed;
         }

@@ -30,7 +30,7 @@ namespace Spells.SpellClasses.EarthSpell
                     _colliders, Quaternion.identity, 1 << 8);
                 for (int i = 0; i < mobsAmount; i++)
                 {
-                    _colliders[i].GetComponent<MobBehaviour>().HitThisMob(hammerDamage, BasicElement.Earth);
+                    _colliders[i].GetComponent<MobBehaviour>().HitThisMob(hammerDamage, BasicElement.Earth, "EarthMods.Hammer");
                     Debug.Log("Hit the mob");
                 }
                     

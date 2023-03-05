@@ -1,25 +1,25 @@
 ﻿using Spells;
 using UnityEngine;
 
-namespace Mobs.MobsBehaviour.Ironclad
+namespace Mobs.MobsBehaviour.Bear
 {
     /// <summary>
     ///
     /// </summary>
     [RequireComponent(typeof(MobModel))]
-    public class IroncladBehaviour : MobBehaviour
+    public class BearBehaviour : MobBehaviour
     {
-        private float _mobShield;
+        [SerializeField] private float mobShield;
 
         private float MobShield
         {
-            get => _mobShield;
+            get => mobShield;
             set
             {
                 if (value < 0)
-                    _mobShield = 0;
+                    mobShield = 0;
                 else
-                    _mobShield = value;
+                    mobShield = value;
             }
         }
 
@@ -38,31 +38,18 @@ namespace Mobs.MobsBehaviour.Ironclad
                 multiplier = 0.8f;
             else if (damageElement == MobCounterElement)
                 multiplier = 1.2f;
-
             var modifiedDamage = damage * multiplier;
-            
+
             if (MobShield > 0 && !float.IsPositiveInfinity(damage))
-            {
                 MobShield -= modifiedDamage;
-            }
             else
-            {
-                MobModel.CurrentMobHealth -= modifiedDamage;    
-            }
-
-            
-        }
-
-        public override void EnableDisorientation()
-        {
-            throw new System.NotImplementedException();
+                MobModel.CurrentMobHealth -= modifiedDamage;
         }
 
         public override void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal)
         {
             MobModel.InstantiateMobModel();
 
-            MobShield = 10;
             DefaultDestinationPoint = gates;
             MobModel.MobNavMeshAgent.SetDestination(DefaultDestinationPoint.position);
         }

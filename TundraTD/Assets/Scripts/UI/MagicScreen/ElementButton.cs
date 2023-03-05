@@ -24,7 +24,7 @@ namespace UI.MagicScreen
 
         public void OnButtonClick()
         {
-            _elementAudioSource.Play();
+            _elementAudioSource.PlayOneShot(_elementAudioSource.clip);
             PlayerDeck.DeckElements.Add(element);
             
             /*var empty = Array.Find(buttonsHolder.Buttons, x => x.Element == BasicElement.None);

@@ -1,13 +1,13 @@
 ﻿using Spells;
 using UnityEngine;
 
-namespace Mobs.MobsBehaviour.Undead
+namespace Mobs.MobsBehaviour.Spider
 {
     /// <summary>
     ///
     /// </summary>
     [RequireComponent(typeof(MobModel))]
-    public class UndeadBehaviour : MobBehaviour
+    public class SpiderBehaviour : MobBehaviour
     {
         public override BasicElement MobBasicElement => BasicElement.Water;
         public override BasicElement MobCounterElement => BasicElement.Lightning;
@@ -24,17 +24,13 @@ namespace Mobs.MobsBehaviour.Undead
                 multiplier = 0.8f;
             else if (damageElement == MobCounterElement)
                 multiplier = 1.2f;
-
+            
             MobModel.CurrentMobHealth -= damage * multiplier;
-        }
-
-        public override void EnableDisorientation()
-        {
-            throw new System.NotImplementedException();
         }
 
         public override void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal)
         {
+            MobPortal = mobPortal;
             MobModel.InstantiateMobModel();
 
             DefaultDestinationPoint = gates;

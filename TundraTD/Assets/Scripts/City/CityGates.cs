@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using City.Building;
 using Level;
 using Mobs.MobsBehaviour;
-using Mobs.MobsBehaviour.Ironclad;
 using Spells;
 using UnityEngine;
 
@@ -74,18 +73,11 @@ namespace City
            
             var mob = other.GetComponent<MobBehaviour>();
             var mobAttack = mob.MobModel.CurrentMobDamage;
-
-            if (mob.GetComponent<IroncladBehaviour>() != null)
-            {
-                
-            }
-
+            
             Debug.Log($"{mob.name} attacked tower with {mobAttack} damage");
             CurrentCityGatesHealthPoints -= mobAttack;
-            mob.HitThisMob(float.PositiveInfinity, BasicElement.None);
-
+            mob.HitThisMob(float.PositiveInfinity, BasicElement.None, "City.Gates");
             _animator.SetTrigger("DamageTrigger");
-            
         }
 
         public void HandleWaveEnding()

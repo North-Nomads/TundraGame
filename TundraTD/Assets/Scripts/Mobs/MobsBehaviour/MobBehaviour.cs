@@ -37,7 +37,7 @@ namespace Mobs.MobsBehaviour
 
         public MobModel MobModel => mobModel;
 
-        protected MobPortal MobPortal { get; set; }
+        public MobPortal MobPortal { get; protected set; }
 
         protected float TickTimer
         {
@@ -66,8 +66,9 @@ namespace Mobs.MobsBehaviour
 
         protected abstract void HandleIncomeDamage(float damage, BasicElement damageElement);
 
-        public void HitThisMob(float damage, BasicElement damageElement)
+        public void HitThisMob(float damage, BasicElement damageElement, string sourceName)
         {
+            Debug.Log($"Handling {damage} damage from {sourceName} hitting {name}");
             damage = CurrentEffects.Aggregate(damage, (dmg, effect) => effect.OnHitReceived(this, dmg, damageElement));
             HandleIncomeDamage(damage, damageElement);
             MobModel.SetHitMaterial();
@@ -78,8 +79,14 @@ namespace Mobs.MobsBehaviour
         public void AddReceivedEffects(IEnumerable<Effect> effectsToApply)
         {
             foreach (var effect in effectsToApply)
+            {
                 if (effect.OnAttach(this))
+                {
                     CurrentEffects.Add(effect);
+                    int effectIndex = (int)Mathf.Log((int)effect.Code, 2);
+                    effectPrefabs[effectIndex].SetActive(true);
+                }
+            }
         }
 
         private void ClearMobEffects()
@@ -87,6 +94,8 @@ namespace Mobs.MobsBehaviour
             foreach (var effect in CurrentEffects)
             {
                 effect.OnDetach(this);
+                int effectIndex = (int)Mathf.Log((int)effect.Code, 2);
+                effectPrefabs[effectIndex].SetActive(false);
             }
                 
             CurrentEffects.Clear();
@@ -139,25 +148,14 @@ namespace Mobs.MobsBehaviour
                 {
                     CurrentEffects.RemoveAt(i);
                     effect.OnDetach(this);
+                    int effectIndex = (int)Mathf.Log((int)effect.Code, 2);
+                    effectPrefabs[effectIndex].SetActive(false);
                 }
                 else
                 {
                     i++;
                 }
             }
-            
-            foreach (var prefab in effectPrefabs)
-                if (prefab != null)
-                    prefab.SetActive(false);
-            
-            foreach (var effect in CurrentEffects)
-            {
-                int effectIndex = (int)Mathf.Log((int)effect.Code, 2);
-                if (effectIndex < effectPrefabs.Length && effectPrefabs[effectIndex] != null)
-                    effectPrefabs[effectIndex].SetActive(true);
-            }
         }
-
-        public abstract void EnableDisorientation();
     }
 }

@@ -15,18 +15,24 @@ namespace Mobs.MobEffects
 
         public override bool OnAttach(MobBehaviour mob)
         {
+            var agent = mob.MobModel.MobNavMeshAgent;
+            if (!agent.isActiveAndEnabled)
+                return false;
+            
             foreach (var mobCurrentEffect in mob.CurrentEffects.OfType<FearEffect>())
-            {
                 mobCurrentEffect.ClearThisEffectOnMob(mob);
-            }
 
-            mob.EnableDisorientation();
+            agent.SetDestination(mob.MobPortal.transform.position);
             return true;
         }
 
         public override void OnDetach(MobBehaviour mob)
         {
-            mob.MobModel.MobNavMeshAgent.SetDestination(mob.DefaultDestinationPoint.position);
+            var agent = mob.MobModel.MobNavMeshAgent;
+            if (!agent.isActiveAndEnabled)
+                return;
+
+            agent.SetDestination(mob.DefaultDestinationPoint.position);
         }
     }
 }

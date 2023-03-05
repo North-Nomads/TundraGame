@@ -11,6 +11,7 @@ namespace Mobs.MobsBehaviour.Boar
     {
         private float _chargeLeftTime;
         private bool _isCharged;
+
         public override BasicElement MobBasicElement => BasicElement.Earth;
         public override BasicElement MobCounterElement => BasicElement.Air;
 
@@ -23,11 +24,6 @@ namespace Mobs.MobsBehaviour.Boar
                 multiplier = 1.2f;
 
             MobModel.CurrentMobHealth -= damage * multiplier;
-        }
-
-        public override void EnableDisorientation()
-        {
-            MobModel.MobNavMeshAgent.SetDestination(MobPortal.transform.position);
         }
 
         public override void MoveTowards(Vector3 point)

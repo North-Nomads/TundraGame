@@ -10,7 +10,7 @@ namespace Mobs.MobEffects
     /// </summary>
     public abstract class Effect
     {
-        public const float BasicTickTime = 1f;
+        public const float BasicTickTime = .1f;
 
         public int CurrentTicksAmount { get; protected set; }
 
