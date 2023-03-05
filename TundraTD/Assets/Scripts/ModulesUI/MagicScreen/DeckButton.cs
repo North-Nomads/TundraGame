@@ -11,7 +11,6 @@ namespace ModulesUI.MagicScreen
     public class DeckButton : MonoBehaviour
     {
         [SerializeField] private DeckButtons buttonsHolder;
-        [SerializeField] private int deckIndex;
         private Sprite _startIcon;
 
         public BasicElement Element { get; set; }
