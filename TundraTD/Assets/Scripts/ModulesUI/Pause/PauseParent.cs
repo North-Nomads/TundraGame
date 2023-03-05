@@ -1,10 +1,8 @@
 ﻿using Level;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-
-namespace UI.Pause
+namespace ModulesUI.Pause
 {
     /// <summary>
     /// A parent of all 

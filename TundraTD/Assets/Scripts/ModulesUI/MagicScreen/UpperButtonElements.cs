@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace UI.MagicScreen
+namespace ModulesUI.MagicScreen
 {
     public class UpperButtonElements : MonoBehaviour
     {

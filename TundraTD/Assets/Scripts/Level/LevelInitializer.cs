@@ -1,8 +1,8 @@
 using System;
 using City;
 using City.Building;
+using ModulesUI.Pause;
 using Spells;
-using UI.Pause;
 using UnityEngine;
 
 namespace Level

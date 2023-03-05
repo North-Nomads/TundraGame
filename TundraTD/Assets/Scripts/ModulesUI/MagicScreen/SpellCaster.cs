@@ -1,7 +1,7 @@
 ﻿using Spells;
 using UnityEngine;
 
-namespace UI.MagicScreen
+namespace ModulesUI.MagicScreen
 {
     public class SpellCaster : MonoBehaviour
     {

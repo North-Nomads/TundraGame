@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace UI.Pause
+namespace ModulesUI.Pause
 {
     /// <summary>
     /// Responsible for UI panels  

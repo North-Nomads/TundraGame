@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI.MagicScreen
+namespace ModulesUI.MagicScreen
 {
     /// <summary>
     /// A filler that connects the deck and the elements

@@ -24,7 +24,7 @@ namespace Mobs
         private float defaultMobSpeed;
 
         [SerializeField]
-        private SkinnedMeshRenderer renderer;
+        private new SkinnedMeshRenderer renderer;
 
         private float _currentMobHealth;
         private float _currentMobSpeed;
