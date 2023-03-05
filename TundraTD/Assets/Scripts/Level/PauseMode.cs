@@ -39,5 +39,11 @@ namespace Level
         {
             PauseStateSwitched = delegate {  };
         }
+
+        public static void SetEndGamePause()
+        {
+            _isGamePaused = true;
+            Time.timeScale = 0;
+        }
     }
 }

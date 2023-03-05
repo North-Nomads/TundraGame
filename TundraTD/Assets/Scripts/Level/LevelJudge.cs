@@ -19,7 +19,7 @@ namespace Level
             retryButton.gameObject.SetActive(true);
             resultOnEndScreen.text = "Поражение";
             endScreen.gameObject.SetActive(true);
-            PauseMode.SetPause(true);
+            PauseMode.SetEndGamePause();
         }
 
         public void HandlePlayerVictory()
@@ -28,7 +28,7 @@ namespace Level
             nextLevelButton.gameObject.SetActive(true);
             resultOnEndScreen.text = "Победа";
             endScreen.gameObject.SetActive(true);
-            PauseMode.SetPause(true);
+            PauseMode.SetEndGamePause();
         }
     }
 }
