@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8839436558681100104}
   - component: {fileID: 114991594491602772}
   m_Layer: 0
-  m_Name: CFXR Water Ripples
+  m_Name: Weakness
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,8 +41,8 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5137123306192418792}
   serializedVersion: 6
-  lengthInSec: 0.5
-  simulationSpeed: 0.65
+  lengthInSec: 0.7
+  simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -116,8 +116,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.5
-      minScalar: 0.5
+      scalar: 1
+      minScalar: 0.8
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4778,6 +4778,7 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: c12227a2de3f76b448b3af32949c646c, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4833,7 +4834,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9205bc1bbacc90040a998067b5643d16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clearBehavior: 0
+  clearBehavior: 2
   cameraShake:
     enabled: 0
     useMainCamera: 1
