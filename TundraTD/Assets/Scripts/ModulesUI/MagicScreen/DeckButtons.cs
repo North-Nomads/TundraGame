@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using Spells;
 using UnityEngine;
@@ -16,6 +15,11 @@ namespace ModulesUI.MagicScreen
         private void Start()
         {
             PlayerDeck.DeckElements.CollectionChanged += UpdateDeck;
+        }
+
+        private void OnDestroy()
+        {
+            PlayerDeck.DeckElements.CollectionChanged -= UpdateDeck;
         }
 
         private void UpdateDeck(object sender, NotifyCollectionChangedEventArgs e)
