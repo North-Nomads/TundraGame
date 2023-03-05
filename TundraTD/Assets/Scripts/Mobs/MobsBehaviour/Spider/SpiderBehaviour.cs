@@ -1,30 +1,16 @@
 ﻿using Spells;
 using UnityEngine;
 
-namespace Mobs.MobsBehaviour.Ironclad
+namespace Mobs.MobsBehaviour.Spider
 {
     /// <summary>
     ///
     /// </summary>
     [RequireComponent(typeof(MobModel))]
-    public class BearBehaviour : MobBehaviour
+    public class SpiderBehaviour : MobBehaviour
     {
-        [SerializeField] private float mobShield;
-
-        private float MobShield
-        {
-            get => mobShield;
-            set
-            {
-                if (value < 0)
-                    mobShield = 0;
-                else
-                    mobShield = value;
-            }
-        }
-
-        public override BasicElement MobBasicElement => BasicElement.Earth;
-        public override BasicElement MobCounterElement => BasicElement.Air;
+        public override BasicElement MobBasicElement => BasicElement.Water;
+        public override BasicElement MobCounterElement => BasicElement.Lightning;
 
         public override void MoveTowards(Vector3 point)
         {
@@ -38,12 +24,8 @@ namespace Mobs.MobsBehaviour.Ironclad
                 multiplier = 0.8f;
             else if (damageElement == MobCounterElement)
                 multiplier = 1.2f;
-            var modifiedDamage = damage * multiplier;
-
-            if (MobShield > 0 && !float.IsPositiveInfinity(damage))
-                MobShield -= modifiedDamage;
-            else
-                MobModel.CurrentMobHealth -= modifiedDamage;
+            
+            MobModel.CurrentMobHealth -= damage * multiplier;
         }
 
         public override void EnableDisorientation()
