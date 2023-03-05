@@ -494,6 +494,12 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 249963703}
   m_PrefabAsset: {fileID: 0}
+--- !u!224 &251482814 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 437296363605788111, guid: 9f4e7c850b360ee4cafa8588be89688c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1882093952}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &255788525 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1519892301023929430, guid: b98c0540fb41e2e4c9e3211b0ea7471b,
@@ -2215,6 +2221,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89171b4b3730ad846bf6d1a73c4ee2d9, type: 3}
+--- !u!224 &1551995672 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1226415463742077018, guid: 9f4e7c850b360ee4cafa8588be89688c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1882093952}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1593319725 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2072121771150202212, guid: 0354f2fc2db316a4bacb468a83e8f0f2,
@@ -2430,6 +2442,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2122146932}
     m_Modifications:
+    - target: {fileID: 659434138192138402, guid: 9f4e7c850b360ee4cafa8588be89688c,
+        type: 3}
+      propertyPath: deckContent
+      value: 
+      objectReference: {fileID: 251482814}
+    - target: {fileID: 659434138192138402, guid: 9f4e7c850b360ee4cafa8588be89688c,
+        type: 3}
+      propertyPath: elementsContent
+      value: 
+      objectReference: {fileID: 1551995672}
     - target: {fileID: 1033633277897020962, guid: 9f4e7c850b360ee4cafa8588be89688c,
         type: 3}
       propertyPath: m_AnchorMax.y
