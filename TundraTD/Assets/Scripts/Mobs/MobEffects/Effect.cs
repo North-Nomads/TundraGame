@@ -36,6 +36,7 @@ namespace Mobs.MobEffects
         {
             CurrentTicksAmount = MaxTicksAmount - 1;
             OnDetach(mob);
+            mob.CurrentEffects.Remove(this);
         }
 
         public virtual float OnHitReceived(MobBehaviour mob, float damageAmount, BasicElement element) => damageAmount;
