@@ -54,7 +54,7 @@ namespace Spells
             foreach (var element in remainingElements)
                 attr.TryUpgradeProperty(element, prop, spell);
             spell.ExecuteSpell();
-            Debug.Log(Analytics.CustomEvent(spell.name + " Casted"));
+            Analytics.CustomEvent(spell.GetType().ToString().Split('.').Last());
             return spell;
         }
     }

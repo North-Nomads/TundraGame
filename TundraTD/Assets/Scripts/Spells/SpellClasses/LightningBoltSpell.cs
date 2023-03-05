@@ -13,7 +13,6 @@ namespace Spells.SpellClasses
         public override void ExecuteSpell()
         {
             //Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-            Debug.Log("Lightning Stroke");
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (!Physics.Raycast(ray, out var hit, float.PositiveInfinity, 1<<8|1<<10))
                 return;

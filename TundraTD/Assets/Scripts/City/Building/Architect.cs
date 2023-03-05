@@ -58,7 +58,7 @@ namespace City.Building
         public static void ProceedUpgradePurchase(IUpgrade upgrade)
         {
             InfluencePoints -= upgrade.PurchasePriceInTowerMenu;
-            Debug.Log(Analytics.CustomEvent("Upgraded to " + upgrade.UpgradeDescriptionText));
+            Analytics.CustomEvent(upgrade.GetType().ToString().Split('.').Last());
         }
 
         public static void RewardPlayerOnWaveEnd(float cityGatesHPPercent)
