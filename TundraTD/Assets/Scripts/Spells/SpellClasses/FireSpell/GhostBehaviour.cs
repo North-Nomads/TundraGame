@@ -56,7 +56,7 @@ namespace Spells
             {
                 var mob = _mobColliders[i].GetComponent<MobBehaviour>();
                 mob.RemoveFilteredEffects(x => x is DistractEffect);
-                mob.HitThisMob(Damage * Vector3.Distance(transform.position, _mobColliders[i].transform.position) / Radius, BasicElement.Fire);
+                mob.HitThisMob(Damage * Vector3.Distance(transform.position, _mobColliders[i].transform.position) / Radius, BasicElement.Fire, nameof(GhostBehaviour));
                 mob.GetComponent<Rigidbody>().AddExplosionForce(Radius, transform.position, Radius);
             }
             Destroy(gameObject);

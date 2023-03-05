@@ -32,7 +32,7 @@ namespace Spells
             for (int i = 0; i < mobs; i++)
             {
                 var mob = _mobColliders[i].GetComponent<MobBehaviour>();
-                mob.HitThisMob(Damage * Vector3.Distance(transform.position, _mobColliders[i].transform.position) / Radius, BasicElement.Fire);
+                mob.HitThisMob(Damage * Vector3.Distance(transform.position, _mobColliders[i].transform.position) / Radius, BasicElement.Fire, nameof(FireMineBehaviour));
                 mob.GetComponent<Rigidbody>().AddExplosionForce(Radius, transform.position, Radius);
             }
             Destroy(gameObject);

@@ -14388,7 +14388,7 @@ GameObject:
   - component: {fileID: 3280519133390621004}
   - component: {fileID: 3280519133390621041}
   m_Layer: 0
-  m_Name: WetRunes
+  m_Name: FreezeRunes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19310,7 +19310,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0.99215686, g: 0.81830066, b: 0.47058818, a: 1}
+  m_Color: {r: 0.47058818, g: 0.8848217, b: 0.99215686, a: 1}
   m_Intensity: 0
   m_Range: 4
   m_SpotAngle: 30

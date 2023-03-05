@@ -5,6 +5,8 @@ using Mobs.MobsBehaviour;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
+using Level;
 
 namespace Spells.SpellClasses
 {
@@ -118,7 +120,7 @@ namespace Spells.SpellClasses
             };
 
             if (FirePool.HasLandingStun)
-                effects.Add(new SpikesStunEffect(stunTime.SecondsToTicks())); 
+                effects.Add(new SpikesStunEffect(stunTime.SecondsToTicks()));
 
             for (int i = 0; i < hits; i++)
             {
@@ -126,7 +128,7 @@ namespace Spells.SpellClasses
                 var mob = target.GetComponent<MobBehaviour>();
                 float damage = HitDamageValue * Vector3.Distance(target.transform.position, transform.position) / HitDamageRadius;
 
-                mob.HitThisMob(damage, BasicElement.Fire, "Fire.Landing");
+                mob.HitThisMob(damage, BasicElement.Fire, nameof(LaunchFireball));
                 mob.AddReceivedEffects(effects);
                 if (FirePool.HasLandingImpulse)
                 {
@@ -179,7 +181,7 @@ namespace Spells.SpellClasses
                     var target = AvailableTargetsPool[j];
                     var mob = target.GetComponent<MobBehaviour>();
                     var damage = BurnDamage;
-                    mob.HitThisMob(damage, BasicElement.Fire, "EarthMods.Lava");
+                    mob.HitThisMob(damage, BasicElement.Fire, nameof(RunLavaPool));
                 }
                 yield return new WaitForSecondsRealtime(1f);
             }

@@ -83,10 +83,16 @@ namespace Mobs.MobsBehaviour
                 if (effect.OnAttach(this))
                 {
                     CurrentEffects.Add(effect);
-                    int effectIndex = (int)Mathf.Log((int)effect.Code, 2);
-                    effectPrefabs[effectIndex].SetActive(true);
+                    SetVFXPrefab(effect, true);
                 }
             }
+        }
+
+        public void AddSingleEffect(Effect effect)
+        {
+            CurrentEffects.Add(effect);
+            effect.OnAttach(this);
+            SetVFXPrefab(effect, true);
         }
 
         private void ClearMobEffects()
@@ -94,19 +100,19 @@ namespace Mobs.MobsBehaviour
             foreach (var effect in CurrentEffects)
             {
                 effect.OnDetach(this);
-                int effectIndex = (int)Mathf.Log((int)effect.Code, 2);
-                effectPrefabs[effectIndex].SetActive(false);
+                SetVFXPrefab(effect, false);
             }
-                
+
             CurrentEffects.Clear();
         }
 
-        public void AddSingleEffect(Effect effect)
+        private void SetVFXPrefab(Effect effect, bool value)
         {
-            CurrentEffects.Add(effect);
-            effect.OnAttach(this);
+            int effectIndex = (int)Mathf.Log((int)effect.Code, 2);
+            if (effectIndex < effectPrefabs.Length && effectPrefabs[effectIndex] != null)
+                effectPrefabs[effectIndex].SetActive(value);
         }
-
+        
         public void RemoveFilteredEffects(Func<Effect, bool> filter)
         {
             for (int i = 0; i < CurrentEffects.Count; i++)
@@ -115,6 +121,7 @@ namespace Mobs.MobsBehaviour
                 if (filter(effect))
                 {
                     effect.OnDetach(this);
+                    SetVFXPrefab(effect, false);
                     CurrentEffects.RemoveAt(i--);
                 }
             }
@@ -148,8 +155,7 @@ namespace Mobs.MobsBehaviour
                 {
                     CurrentEffects.RemoveAt(i);
                     effect.OnDetach(this);
-                    int effectIndex = (int)Mathf.Log((int)effect.Code, 2);
-                    effectPrefabs[effectIndex].SetActive(false);
+                    SetVFXPrefab(effect, false);
                 }
                 else
                 {
