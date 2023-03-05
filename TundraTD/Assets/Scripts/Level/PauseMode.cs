@@ -35,7 +35,7 @@ namespace Level
         private void Start()
         {
             if (pauseSwitchSound is null)
-                throw new Exception("Pause switching sounds is not attached");
+                throw new NullReferenceException("Pause switching sounds is not attached");
         }
 
         private void Update()
