@@ -2,6 +2,7 @@ using Mobs.MobEffects;
 using Spells;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Mobs.MobsBehaviour
@@ -15,25 +16,28 @@ namespace Mobs.MobsBehaviour
         [SerializeField] private GameObject[] effectPrefabs;
         [SerializeField] private MobModel mobModel;
         private float _tickTimer;
-        private MobPortal _mobPortal;
-        private Transform _defaultDestinationPoint;
-        private Transform _currentDestinationPoint;
-        protected List<Effect> CurrentEffects { get; } = new List<Effect>();
+        public List<Effect> CurrentEffects { get; } = new List<Effect>();
 
         public Transform DefaultDestinationPoint { get; set; }
+
+        public Vector3 CurrentDestinationPoint
+        {
+            get
+            {
+                if (MobModel.MobNavMeshAgent.enabled)
+                    return MobModel.MobNavMeshAgent.destination;
+                return default;
+            }
+            set
+            {
+                if (MobModel.MobNavMeshAgent.enabled)
+                    MobModel.MobNavMeshAgent.SetDestination(value);
+            }
+        }
+
         public MobModel MobModel => mobModel;
 
-        public Transform CurrentDestinationPoint
-        {
-            get => _currentDestinationPoint;
-            set => _currentDestinationPoint = value;
-        }
-
-        protected MobPortal MobPortal
-        {
-            get => _mobPortal;
-            set => _mobPortal = value;
-        }
+        public MobPortal MobPortal { get; protected set; }
 
         protected float TickTimer
         {
@@ -60,28 +64,79 @@ namespace Mobs.MobsBehaviour
 
         public abstract void MoveTowards(Vector3 point);
 
-        public abstract void HandleIncomeDamage(float damage, BasicElement damageElement);
+        protected abstract void HandleIncomeDamage(float damage, BasicElement damageElement);
+
+        public void HitThisMob(float damage, BasicElement damageElement, string sourceName)
+        {
+            Debug.Log($"Handling {damage} damage from {sourceName} hitting {name}");
+            damage = CurrentEffects.Aggregate(damage, (dmg, effect) => effect.OnHitReceived(this, dmg, damageElement));
+            HandleIncomeDamage(damage, damageElement);
+            MobModel.SetHitMaterial();
+            if (!MobModel.IsAlive)
+                KillThisMob();
+        }
 
         public void AddReceivedEffects(IEnumerable<Effect> effectsToApply)
         {
             foreach (var effect in effectsToApply)
             {
-                CurrentEffects.Add(effect);
-                effect.OnAttach(this);
+                if (effect.OnAttach(this))
+                {
+                    CurrentEffects.Add(effect);
+                    SetVFXPrefab(effect, true);
+                }
             }
         }
 
-        public void KillThisMob()
+        public void AddSingleEffect(Effect effect)
         {
-            _mobPortal.NotifyPortalOnMobDeath(this);
+            CurrentEffects.Add(effect);
+            effect.OnAttach(this);
+            SetVFXPrefab(effect, true);
+        }
+
+        private void ClearMobEffects()
+        {
+            foreach (var effect in CurrentEffects)
+            {
+                effect.OnDetach(this);
+                SetVFXPrefab(effect, false);
+            }
+
+            CurrentEffects.Clear();
+        }
+
+        private void SetVFXPrefab(Effect effect, bool value)
+        {
+            int effectIndex = (int)Mathf.Log((int)effect.Code, 2);
+            if (effectIndex < effectPrefabs.Length && effectPrefabs[effectIndex] != null)
+                effectPrefabs[effectIndex].SetActive(value);
+        }
+        
+        public void RemoveFilteredEffects(Func<Effect, bool> filter)
+        {
+            for (int i = 0; i < CurrentEffects.Count; i++)
+            {
+                var effect = CurrentEffects[i];
+                if (filter(effect))
+                {
+                    effect.OnDetach(this);
+                    SetVFXPrefab(effect, false);
+                    CurrentEffects.RemoveAt(i--);
+                }
+            }
+        }
+
+        private void KillThisMob()
+        {
+            ClearMobEffects();
             Destroy(gameObject);
-            OnMobDied(mobModel, null);
+            OnMobDied(this, null);
         }
 
         protected virtual void Start()
         {
             mobModel = GetComponent<MobModel>();
-            mobModel.OnMobDied += OnMobDied;
             foreach (var prefab in effectPrefabs)
             {
                 if (prefab != null)
@@ -98,22 +153,14 @@ namespace Mobs.MobsBehaviour
 
                 if (effect.CurrentTicksAmount == effect.MaxTicksAmount)
                 {
-                    CurrentEffects.RemoveAt(i);
                     effect.OnDetach(this);
+                    SetVFXPrefab(effect, false);
+                    CurrentEffects.RemoveAt(i);
                 }
                 else
                 {
                     i++;
                 }
-            }
-            foreach (var prefab in effectPrefabs)
-                if (prefab != null)
-                    prefab.SetActive(false);
-            foreach (var effect in CurrentEffects)
-            {
-                int effectIndex = (int)Mathf.Log((int)effect.Code, 2);
-                if (effectPrefabs[effectIndex] != null)
-                    effectPrefabs[effectIndex].SetActive(true);
             }
         }
     }

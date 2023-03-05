@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6206681401840262360}
   - component: {fileID: 6206681401840262367}
+  - component: {fileID: 6041116271896837347}
   m_Layer: 0
   m_Name: FlameTowerBasement
   m_TagString: Untagged
@@ -48,6 +49,19 @@ MonoBehaviour:
   towerPurchasePrice: 20
   elementalTowerUIPrefab: {fileID: 5413445776950507049, guid: 3bb36302d1515a849a702ef749c48701,
     type: 3}
+--- !u!65 &6041116271896837347
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6206681401840262361}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 8, z: 3}
+  m_Center: {x: -0.3, y: 3.5, z: 0}
 --- !u!1001 &6206681402072055820
 PrefabInstance:
   m_ObjectHideFlags: 0

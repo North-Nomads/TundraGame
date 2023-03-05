@@ -7,19 +7,22 @@ namespace Mobs.MobEffects
     {
         private float BurningDamage { get; }
 
+        public bool CanBeExtinguished { get; set; }
+
         public override int MaxTicksAmount { get; }
 
-        public override EffectCode Code => EffectCode.MeteoriteBurning;
+        public override VisualEffectCode Code => VisualEffectCode.MeteoriteBurning;
 
-        public MeteoriteBurningEffect(float burningDamage, int maxTicksAmount)
+        public MeteoriteBurningEffect(float burningDamage, int maxTicksAmount, bool canBeExtinguished = true)
         {
             BurningDamage = burningDamage;
             MaxTicksAmount = maxTicksAmount;
+            CanBeExtinguished = canBeExtinguished;
         }
 
         public override void HandleTick(MobBehaviour mob)
         {
-            mob.HandleIncomeDamage(BurningDamage, BasicElement.Fire);
+            mob.HitThisMob(BurningDamage, BasicElement.Fire, "Fire.MeteoriteBurning");
             CurrentTicksAmount++;
         }
     }
