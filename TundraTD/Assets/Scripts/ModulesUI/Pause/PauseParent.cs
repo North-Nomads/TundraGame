@@ -1,4 +1,5 @@
-﻿using Level;
+﻿using System;
+using Level;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,8 +13,8 @@ namespace ModulesUI.Pause
         [Header("Hierarchy objects")]
         [SerializeField] private PauseCanvas pauseCanvas;
         [SerializeField] private Button hudPauseButton;
+        [SerializeField] private Transform hideOnPauseCanvases;
         public PauseCanvas PauseCanvas => pauseCanvas;
-
 
         /// <summary>
         /// Is called on pause button clicked 
@@ -27,6 +28,7 @@ namespace ModulesUI.Pause
         {
             pauseCanvas.gameObject.SetActive(value);
             hudPauseButton.gameObject.SetActive(!value);
+            hideOnPauseCanvases.gameObject.SetActive(!value);
         }
 
         public void SubscribeToPauseMode()
