@@ -242,8 +242,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1beece05e2e04d92bdf333f5515ba66d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pauseCanvas: {fileID: 8810041114911639528}
-  _hudPauseButton: {fileID: 4082485897476992166}
+  pauseCanvas: {fileID: 8810041114911639528}
+  hudPauseButton: {fileID: 4082485897476992166}
 --- !u!1001 &4223954127529908582
 PrefabInstance:
   m_ObjectHideFlags: 0

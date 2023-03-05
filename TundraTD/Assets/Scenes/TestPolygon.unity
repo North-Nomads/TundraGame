@@ -414,6 +414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92c5216ad5e0462fb914937482a374db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseParent: {fileID: 1735223256}
   minWaveAward: 10
   maxWaveAward: 100
   canvasesParent: {fileID: 503922768}
@@ -2308,6 +2309,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1735223256 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8490451723628965445, guid: 95c8901c5b8b4ca459aa73b2febe3a56,
+    type: 3}
+  m_PrefabInstance: {fileID: 1592217148}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1beece05e2e04d92bdf333f5515ba66d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1773886432 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6898345882200444540, guid: 79fe965c09f9a5b4c893997b57de3098,
