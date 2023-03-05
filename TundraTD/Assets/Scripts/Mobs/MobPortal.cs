@@ -38,6 +38,7 @@ namespace Mobs
             _allWaveMobs = new List<MobBehaviour>();
             WavesAmount = mobWaves.Length;
             IsInstantiated = true;
+            infoPanel.SendNewWaveMobs(_currentMobWave);
         }
 
         private void OnMouseDown()
@@ -45,21 +46,16 @@ namespace Mobs
             if (LevelCornerman.IsInWaveMode || EventSystem.current.IsPointerOverGameObject())
                 return;
             
-            Sprite[] mBox = new Sprite[8];
-            var count = 0;
-            foreach (var mob in _currentMobWave.MobProperties)
-            {
-                mBox[count] = mob.Mob.MobModel.MobSprite;
-                count++;
-            }
             infoPanel.gameObject.SetActive(true);
-            infoPanel.LoadImagesInCards(mBox);
         }
 
         public void EquipNextWave()
         {
             if (_currentMobWaveIndex >= mobWaves.Length)
                 return;
+            
+            infoPanel.SendNewWaveMobs(_currentMobWave);
+            
             _allWaveMobs.Clear();
             _currentMobIndex = 0;
 
@@ -102,7 +98,7 @@ namespace Mobs
         }
 
         [Serializable]
-        private class MobWave
+        public class MobWave
         {
             [SerializeField]
             private MobProperty[] mobProperties;
@@ -111,7 +107,7 @@ namespace Mobs
         }
 
         [Serializable]
-        private class MobProperty
+        public class MobProperty
         {
             [SerializeField] private MobBehaviour mob;
             [SerializeField] private int mobQuantity;

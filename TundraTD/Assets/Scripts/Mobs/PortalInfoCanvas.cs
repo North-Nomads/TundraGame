@@ -10,12 +10,15 @@ namespace Mobs
         [SerializeField] private Sprite border;
         [SerializeField] private Sprite closedBorder;
 
+        private int _currentWaveIndex;
+        public int LastRequestedWaveIndex => _currentWaveIndex;
+
         private void Start()
         {
             gameObject.SetActive(false);
         }
 
-        public void LoadImagesInCards(Sprite[] images)
+        private void LoadImagesInCards(Sprite[] images)
         {
             for (int i = 0; i < borderImages.Length; i++)
             {
@@ -29,6 +32,18 @@ namespace Mobs
                     mobPortraits[i].sprite = images[i];
                 }
             }
+        }
+
+        public void SendNewWaveMobs(MobPortal.MobWave currentMobWave)
+        {
+            Sprite[] mBox = new Sprite[8];
+            var count = 0;
+            foreach (var mob in currentMobWave.MobProperties)
+            {
+                mBox[count] = mob.Mob.MobModel.MobSprite;
+                count++;
+            }
+            LoadImagesInCards(mBox);
         }
     }
 }
