@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using Spells;
 using UnityEngine;
 
-namespace UI.MagicScreen
+namespace ModulesUI.MagicScreen
 {
     /// <summary>
     /// A static class that holds the player's deck and element icons

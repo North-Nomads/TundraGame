@@ -2,7 +2,7 @@
 using Spells;
 using UnityEngine;
 
-namespace UI.MagicScreen
+namespace ModulesUI.MagicScreen
 {
     /// <summary>
     /// Class that manages deck buttons sprites

@@ -2,7 +2,7 @@
 using Spells;
 using UnityEngine;
 
-namespace UI.MagicScreen
+namespace ModulesUI.MagicScreen
 {
     /// <summary>
     /// A button orders grimoire to generate spell of current deck 

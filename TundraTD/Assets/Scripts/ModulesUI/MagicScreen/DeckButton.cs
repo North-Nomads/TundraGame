@@ -1,9 +1,9 @@
-﻿using Spells;
-using System;
+﻿using System;
+using Spells;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI.MagicScreen
+namespace ModulesUI.MagicScreen
 {
     /// <summary>
     /// A button that shows a part of player's current deck
