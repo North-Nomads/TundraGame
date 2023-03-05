@@ -12,8 +12,6 @@ namespace ModulesUI.MagicScreen
     public class ElementButton : MonoBehaviour
     {
         [SerializeField] private BasicElement element;
-        [SerializeField] private DeckButtons buttonsHolder;
-        [SerializeField] private Image elementIcon;
         private AudioSource _elementAudioSource;
 
         private void Start()

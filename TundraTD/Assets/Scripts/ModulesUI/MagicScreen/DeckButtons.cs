@@ -1,7 +1,6 @@
 ﻿using System.Collections.Specialized;
 using Spells;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace ModulesUI.MagicScreen
 {
@@ -11,7 +10,7 @@ namespace ModulesUI.MagicScreen
     public class DeckButtons : MonoBehaviour
     {
         [SerializeField] public DeckButton[] deckButtons;
-        [SerializeField] private Image image;
+
         private void Start()
         {
             PlayerDeck.DeckElements.CollectionChanged += UpdateDeck;
