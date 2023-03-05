@@ -13,10 +13,11 @@ namespace Spells
         const int DistractTime = 3;
         const float Damage = 15;
         const float Radius = 10;
-        const int mobsMask = 1 << 8;
-        private float _currentTime;
+        const int MobsMask = 1 << 8;
         [SerializeField] private GameObject explosionPrefab;
-        private readonly Collider[] _mobColliders = new Collider[50];
+        private readonly Collider[] _mobColliders = new Collider[50];        
+        private float _currentTime;
+
 
         private void Update()
         {
