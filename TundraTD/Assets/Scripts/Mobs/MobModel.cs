@@ -23,20 +23,27 @@ namespace Mobs
         private float defaultMobSpeed;
 
         [SerializeField]
-        private SkinnedMeshRenderer renderer;
+        private new SkinnedMeshRenderer renderer;
 
-        
+
+        [SerializeField] private new Rigidbody rigidbody;
+
+        private Animator _animator;
         private float _defaultMobAngularSpeed;
         private float _currentMobHealth;
         private float _currentMobSpeed;
         private NavMeshAgent _mobNavMeshAgent;
         private Material _defaultMaterial;
-        
+
+        public Rigidbody Rigidbody => rigidbody;
+        public Animator Animator => _animator;
         public float DefaultMobAngularSpeed => _defaultMobAngularSpeed;        
         public Sprite MobSprite => mobSprite;
         public NavMeshAgent MobNavMeshAgent => _mobNavMeshAgent;
         public bool IsAlive => CurrentMobHealth > 0;
 
+        public float DefaultMobSpeed => defaultMobSpeed;
+        
         public float CurrentMobHealth
         {
             get => _currentMobHealth;
@@ -64,7 +71,8 @@ namespace Mobs
         public void InstantiateMobModel()
         {
             _mobNavMeshAgent = GetComponent<NavMeshAgent>();
-            _defaultMobAngularSpeed = _mobNavMeshAgent.angularSpeed;
+            _animator = GetComponent<Animator>();
+            _defaultMobAngularSpeed = _mobNavMeshAgent.speed;
             _currentMobHealth = maxMobHealth;
             _currentMobSpeed = defaultMobSpeed;
             CurrentMobDamage = defaultMobDamage;

@@ -1,5 +1,4 @@
 using Mobs.MobsBehaviour;
-using Spells;
 
 namespace Mobs.MobEffects
 {
@@ -9,24 +8,23 @@ namespace Mobs.MobEffects
 
         public override VisualEffectCode Code => VisualEffectCode.Weakness;
 
-        public BasicElement TargetElements { get; }
-
         public float DamageCoefficient { get; }
 
-        public WeaknessEffect(int maxTicksAmount, BasicElement targetElements, float damageCoefficient)
+        public WeaknessEffect(int maxTicksAmount, float damageCoefficient)
         {
             MaxTicksAmount = maxTicksAmount;
-            TargetElements = targetElements;
             DamageCoefficient = damageCoefficient;
         }
 
-        public override float OnHitReceived(MobBehaviour mob, float damageAmount, BasicElement element)
+        public override bool OnAttach(MobBehaviour mob)
         {
-            if ((TargetElements & element) == element)
-            {
-                return damageAmount * DamageCoefficient;
-            }
-            return damageAmount;
+            mob.MobModel.CurrentMobDamage *= DamageCoefficient;
+            return true;
+        }
+
+        public override void OnDetach(MobBehaviour mob)
+        {
+            mob.MobModel.CurrentMobDamage /= DamageCoefficient;
         }
     }
 }

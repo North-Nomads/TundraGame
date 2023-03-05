@@ -25,15 +25,10 @@ namespace Spells.SpellClasses.EarthSpell
             while (true)
             {
                 yield return new WaitForSeconds(hammerCooldown);
-                Debug.Log("Ram");
                 var mobsAmount = Physics.OverlapBoxNonAlloc(floorHitMarker.transform.position, floorHitMarker.size,
                     _colliders, Quaternion.identity, 1 << 8);
                 for (int i = 0; i < mobsAmount; i++)
-                {
-                    _colliders[i].GetComponent<MobBehaviour>().HitThisMob(hammerDamage, BasicElement.Earth);
-                    Debug.Log("Hit the mob");
-                }
-                    
+                    _colliders[i].GetComponent<MobBehaviour>().HitThisMob(hammerDamage, BasicElement.Earth, "EarthMods.Hammer");
             }
         }
 
@@ -41,11 +36,6 @@ namespace Spells.SpellClasses.EarthSpell
         {
             if (hammerCooldown < 0.01)
                 hammerCooldown = 0.01f;
-        }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.DrawCube(floorHitMarker.transform.position, floorHitMarker.size);
         }
     }
 }
