@@ -16,11 +16,25 @@ namespace Mobs.MobsBehaviour
         [SerializeField] private GameObject[] effectPrefabs;
         [SerializeField] private MobModel mobModel;
         private float _tickTimer;
-        private Transform _defaultDestinationPoint;
-        private Transform _currentDestinationPoint;
         public List<Effect> CurrentEffects { get; } = new List<Effect>();
 
         public Transform DefaultDestinationPoint { get; set; }
+
+        public Vector3 CurrentDestinationPoint
+        {
+            get
+            {
+                if (MobModel.MobNavMeshAgent.enabled)
+                    return MobModel.MobNavMeshAgent.destination;
+                return default;
+            }
+            set
+            {
+                if (MobModel.MobNavMeshAgent.enabled)
+                    MobModel.MobNavMeshAgent.SetDestination(value);
+            }
+        }
+
         public MobModel MobModel => mobModel;
 
         protected MobPortal MobPortal { get; set; }
@@ -139,7 +153,7 @@ namespace Mobs.MobsBehaviour
             foreach (var effect in CurrentEffects)
             {
                 int effectIndex = (int)Mathf.Log((int)effect.Code, 2);
-                if (effectPrefabs[effectIndex] != null)
+                if (effectIndex < effectPrefabs.Length && effectPrefabs[effectIndex] != null)
                     effectPrefabs[effectIndex].SetActive(true);
             }
         }

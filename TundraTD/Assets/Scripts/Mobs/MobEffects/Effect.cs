@@ -86,5 +86,10 @@ namespace Mobs.MobEffects
         /// Represents the freeze effect.
         /// </summary>
         Freeze = 1 << 6,
+
+        /// <summary>
+        /// Represents the distract effect.
+        /// </summary>
+        Distract = 1 << 7,
     }
 }

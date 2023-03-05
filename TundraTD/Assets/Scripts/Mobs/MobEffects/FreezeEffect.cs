@@ -28,7 +28,6 @@ namespace Mobs.MobEffects
         public override bool OnAttach(MobBehaviour mob)
         {
             ContinueFreeze = true;
-            Debug.Log("Effect attached.");
             SpeedModifier = mob.MobModel.DefaultMobAngularSpeed;
             return !mob.CurrentEffects.OfType<FreezeEffect>().Any();
         }
@@ -36,9 +35,7 @@ namespace Mobs.MobEffects
         public override void HandleTick(MobBehaviour mob)
         {
             base.HandleTick(mob);
-            Debug.Log($"Current mob speed: {mob.MobModel.CurrentMobSpeed}");
             float step = (mob.MobModel.DefaultMobAngularSpeed - MinSpeedModifier) * BasicTickTime / TimeModifier;
-            Debug.Log($"Speed step: {step}");
             if (ContinueFreeze)
             {
                 step *= -1;
@@ -46,7 +43,6 @@ namespace Mobs.MobEffects
             }
             SpeedModifier += step;
             SpeedModifier = Mathf.Clamp(SpeedModifier, MinSpeedModifier, mob.MobModel.DefaultMobAngularSpeed);
-            Debug.Log($"Current mob speed: {SpeedModifier}");
             mob.MobModel.CurrentMobSpeed = SpeedModifier;
         }
 

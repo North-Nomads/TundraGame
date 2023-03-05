@@ -136,6 +136,8 @@ MonoBehaviour:
   explosionDelay: 1
   flightSound: {fileID: 8300000, guid: 40bb4c641b821f9449bd7643b942734b, type: 3}
   explosionSound: {fileID: 8300000, guid: 321e3836d1405cd408cef866fa7b460e, type: 3}
+  trapPrefab: {fileID: 1765291281952691561, guid: 9fc46db88714c054aad09bab3dc0147f,
+    type: 3}
 --- !u!82 &1966632456261989343
 AudioSource:
   m_ObjectHideFlags: 0

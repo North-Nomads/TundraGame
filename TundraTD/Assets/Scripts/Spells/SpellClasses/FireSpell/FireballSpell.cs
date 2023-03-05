@@ -3,6 +3,7 @@ using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 namespace Spells.SpellClasses
@@ -17,6 +18,7 @@ namespace Spells.SpellClasses
         private const float HitDelay = 0.5f;
         private const int MobsLayerMask = 1 << 8;
         private const int LavaLifetime = 5;
+        private const int TrapsAmount = 5;
 
         private static readonly Collider[] AvailableTargetsPool = new Collider[1000];
 
@@ -27,6 +29,7 @@ namespace Spells.SpellClasses
         [SerializeField] private float explosionDelay;
         [SerializeField] private AudioClip flightSound;
         [SerializeField] private AudioClip explosionSound;
+        [SerializeField] private GameObject trapPrefab;
         private Camera _mainCamera;
         private float _currentHitTime;
         private Vector3 _target;
@@ -124,7 +127,7 @@ namespace Spells.SpellClasses
                 mob.AddReceivedEffects(effects);
                 if (FirePool.HasLandingImpulse)
                 {
-                    mob.GetComponent<Rigidbody>().AddExplosionForce(damage, _target, HitDamageRadius);
+                    mob.GetComponent<Rigidbody>().AddExplosionForce(HitDamageRadius * HitDamageRadius, _target, HitDamageRadius);
                     mob.AddSingleEffect(new SpikesStunEffect(2));
                 }
             }
@@ -135,6 +138,27 @@ namespace Spells.SpellClasses
                 StartCoroutine(RunLavaPool());
             if (FirePool.HasLandingGhost)
                 Instantiate(ghostPrefab, _target + Vector3.up * 2, default);
+            if (FirePool.HasLandingTraps)
+            {
+                var hitInfos = new RaycastHit[5];
+                for (int i = 0; i < TrapsAmount; i++)
+                {
+                    float deltaX = Random.Range(-5, 5);
+                    float deltaZ = Random.Range(-5, 5);
+                    Ray summonRay = new Ray(new Vector3(_target.x + deltaX, _target.y + 10, _target.z + deltaZ), Vector3.down);
+                    if (Physics.Raycast(summonRay, out var hitInfo, 15))
+                    {
+                        hitInfos[i] = hitInfo;
+                    }
+                }
+                foreach (var hit in hitInfos)
+                {
+                    if (hit.collider != null)
+                    {
+                        Instantiate(trapPrefab, hit.point, Random.rotation);
+                    }
+                }
+            }
             meteoriteMesh.enabled = false;
         }
 
