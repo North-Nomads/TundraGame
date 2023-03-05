@@ -19,9 +19,8 @@ namespace Mobs.MobEffects
             if (!agent.isActiveAndEnabled)
                 return false;
             
-            foreach (var mobCurrentEffect in mob.CurrentEffects.OfType<FearEffect>())
-                mobCurrentEffect.ClearThisEffectOnMob(mob);
-
+            mob.RemoveFilteredEffects(x => x is FearEffect);
+            
             agent.SetDestination(mob.MobPortal.transform.position);
             return true;
         }

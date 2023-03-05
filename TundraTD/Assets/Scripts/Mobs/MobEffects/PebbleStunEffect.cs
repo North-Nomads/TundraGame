@@ -1,6 +1,5 @@
 ﻿using Mobs.MobsBehaviour;
 using Spells;
-using UnityEngine;
 
 namespace Mobs.MobEffects
 {
@@ -11,7 +10,6 @@ namespace Mobs.MobEffects
 
         public override int MaxTicksAmount => StunTicks;
         public override VisualEffectCode Code => VisualEffectCode.Stun;
-        // I think EffectCode should be renamed to VisualEffectCode
 
         public override bool OnAttach(MobBehaviour mob)
         {
