@@ -19,7 +19,7 @@ namespace City.Building.Upgrades
         {
             foreach (BasicElement element in Enum.GetValues(typeof(BasicElement)))
                 if (element != BasicElement.None)
-                    UpgradesMap.Add(element, new IUpgrade[4, 2]);
+                    UpgradesMap.Add(element, new IUpgrade[3, 2]);
 
             var upgradeClasses = Assembly.GetExecutingAssembly().GetTypes().Where(x => typeof(IUpgrade).IsAssignableFrom(x) && !x.IsAbstract);
 

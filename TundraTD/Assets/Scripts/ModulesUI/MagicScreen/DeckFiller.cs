@@ -9,28 +9,23 @@ namespace ModulesUI.MagicScreen
     /// </summary>
     [RequireComponent(typeof(Image))]
     [RequireComponent(typeof(AudioSource))]
-    public class DeckFiller : MonoBehaviour
+    public class ElementButton : MonoBehaviour
     {
         [SerializeField] private BasicElement element;
-        [SerializeField] private UpperButtonElements buttonsHolder;
-        private Image _elementIcon;
+        [SerializeField] private DeckButtons buttonsHolder;
+        [SerializeField] private Image elementIcon;
         private AudioSource _elementAudioSource;
 
         private void Start()
         {
-            _elementIcon = GetComponent<Image>();
+            GetComponent<Image>();
             _elementAudioSource = GetComponent<AudioSource>();
         }
-        [SerializeField] private Image elementIcon;
 
         public void OnButtonClick()
         {
-            _elementAudioSource.Play();
-            var empty = System.Array.Find(buttonsHolder.ElementScripts, x => x.Element == BasicElement.None);
-            if (empty == null) return;
-            
-            empty.ElementIcon.sprite = elementIcon.sprite;
-            empty.Element = element;
+            _elementAudioSource.PlayOneShot(_elementAudioSource.clip);
+            PlayerDeck.DeckElements.Add(element);
         }
     }
 }

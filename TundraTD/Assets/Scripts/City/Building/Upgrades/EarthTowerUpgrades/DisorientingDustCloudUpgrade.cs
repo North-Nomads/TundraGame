@@ -7,14 +7,14 @@ namespace City.Building.Upgrades.EarthTowerUpgrades
     public class DisorientingDustCloudUpgrade : IUpgrade
     {
         public BasicElement UpgradeTowerElement => BasicElement.Earth;
-        public int PurchasePriceInTowerMenu => 700;
-        public int SpellPurchaseRequiredLevel => 4;
-        public string UpgradeDescriptionText => "Create cloud of disorienting dust around the spikes";
+        public int PurchasePriceInTowerMenu => 200;
+        public int SpellPurchaseRequiredLevel => 2;
+        public string UpgradeDescriptionText => "Creates a dust cloud on spikes raising and confuses the enemies";
         public Sprite UpgradeShowcaseSprite => Resources.Load<Sprite>("UpgradeIcons/Arcanist1");
 
         public void ExecuteOnUpgradeBought()
         {
-            EarthPool.CloudDisorientingDust = true;
+            EarthPool.HasDustCloud = true;
         }
     }
 }

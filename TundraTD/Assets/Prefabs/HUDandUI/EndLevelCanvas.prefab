@@ -127,7 +127,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: loss
+          m_StringArgument: victory
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &1850288426265321290
@@ -257,7 +257,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: victory
+          m_StringArgument: loss
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &1885385537897024185
