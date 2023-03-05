@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using ModulesUI.MagicScreen;
 using UnityEngine;
+using UnityEngine.U2D;
 using Object = UnityEngine.Object;
 
 namespace Spells
@@ -29,20 +31,25 @@ namespace Spells
         /// <summary>
         /// Turns elements into a spell if it's available.
         /// </summary>
-        /// <param name="elements">Elements list.</param>
         /// <param name="hitInfo"></param>
+        /// <param name="testMostElement">Manually set mostelement for debug</param>
         /// <returns>Created spell which is ready to cast.</returns>
-        public static void TurnElementsIntoSpell(List<BasicElement> elements, RaycastHit hitInfo)
+        public static void TurnElementsIntoSpell(RaycastHit hitInfo, BasicElement testMostElement=BasicElement.None)
         {
-            BasicElement? mostElement = elements.GroupBy(x => x).FirstOrDefault(x => x.Count() >= 3)?.Key;
-            
-            if (!mostElement.HasValue) return;
+            // Try to apply debug value
+            var mostElement = testMostElement;
+            if (mostElement == BasicElement.None) // And if it is none, then try to get it from the deck
+                mostElement = PlayerDeck.CurrentMostElement;    
+            // And don't move forward if there is no element atm
+            if (mostElement == BasicElement.None) return;
 
+            var elements = PlayerDeck.DeckElements.ToList();
             elements.Sort();
-            int startMostIndex = elements.IndexOf(mostElement.Value); 
+            
+            int startMostIndex = elements.IndexOf(mostElement); 
             var remainingElements = elements.Where((x, i) => x != mostElement || i >= startMostIndex + 3);
 
-            if (!SpellTypes.TryGetValue(mostElement.Value, out Type spellType)) return;
+            if (!SpellTypes.TryGetValue(mostElement, out Type spellType)) return;
 
             var spellObject = SpellInitializers[(int)Math.Log((int)mostElement, 2)];
             

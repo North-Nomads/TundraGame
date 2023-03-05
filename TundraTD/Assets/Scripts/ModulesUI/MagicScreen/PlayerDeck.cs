@@ -10,7 +10,9 @@ namespace ModulesUI.MagicScreen
     /// </summary>
     public static class PlayerDeck
     {
+        public static BasicElement CurrentMostElement;
         public static ObservableCollection<BasicElement> DeckElements { get; } = new ObservableCollection<BasicElement>();
+        public static Dictionary<BasicElement, int> ElementsInDeck { get; } 
         public static Dictionary<BasicElement, Sprite> ElementIcons { get; }
 
         static PlayerDeck()
@@ -24,6 +26,16 @@ namespace ModulesUI.MagicScreen
                 [BasicElement.Lightning] = loadedIcons[4],
                 [BasicElement.Water] = loadedIcons[5],
                 [BasicElement.None] = null
+            };
+
+            ElementsInDeck = new Dictionary<BasicElement, int>
+            {
+                [BasicElement.Air] = 0,
+                [BasicElement.Earth] = 0,
+                [BasicElement.Fire] = 0,
+                [BasicElement.Lightning] = 0,
+                [BasicElement.Water] = 0,
+                [BasicElement.None] = 5
             };
         }
     }

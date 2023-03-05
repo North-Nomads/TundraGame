@@ -21,7 +21,7 @@ namespace ModulesUI.MagicScreen
 
         private void CastSpellOnPosition(RaycastHit hitInfo)
         {
-            Grimoire.TurnElementsIntoSpell(PlayerDeck.DeckElements.ToList(), hitInfo);
+            Grimoire.TurnElementsIntoSpell(hitInfo);
             PlayerDeck.DeckElements.Clear();
         }
         
