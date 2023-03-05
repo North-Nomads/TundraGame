@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿
+using System.Linq;
 using Spells;
 using UnityEngine;
 
@@ -23,6 +24,5 @@ namespace ModulesUI.MagicScreen
                 OnButtonClick();
             }
         }
-
     }
 }
