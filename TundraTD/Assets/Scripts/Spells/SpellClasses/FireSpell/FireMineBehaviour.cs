@@ -25,8 +25,11 @@ namespace Spells
             Destroy(gameObject);
         }
 
-        private IEnumerator CastExplosion()
+        private void OnTriggerEnter(Collider other)
         {
+            if (!other.CompareTag("Mob"))
+                return;
+
             var explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             int mobs = Physics.OverlapSphereNonAlloc(transform.position, Radius, _mobColliders, mobsMask);
             for (int i = 0; i < mobs; i++)
@@ -36,16 +39,6 @@ namespace Spells
                 mob.GetComponent<Rigidbody>().AddExplosionForce(Radius, transform.position, Radius);
             }
             Destroy(gameObject);
-            yield return new WaitForSeconds(ExplosionLifetime);
-            Destroy(explosion);
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (!other.CompareTag("Mob"))
-                return;
-
-            StartCoroutine(CastExplosion());
         }
     }
 }

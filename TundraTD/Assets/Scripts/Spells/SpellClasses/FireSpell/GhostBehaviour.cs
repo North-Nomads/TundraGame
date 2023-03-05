@@ -18,10 +18,6 @@ namespace Spells
         [SerializeField] private GameObject explosionPrefab;
         private readonly Collider[] _mobColliders = new Collider[50];
 
-        private void Start()
-        {
-        }
-
         private void Update()
         {
             _currentTime += Time.deltaTime;
@@ -45,11 +41,6 @@ namespace Spells
             if (!other.CompareTag("Mob"))
                 return;
 
-            StartCoroutine(CastExplosion());
-        }
-
-        private IEnumerator CastExplosion()
-        {
             var explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             int mobs = Physics.OverlapSphereNonAlloc(transform.position, Radius, _mobColliders, mobsMask);
             for (int i = 0; i < mobs; i++)
@@ -60,8 +51,6 @@ namespace Spells
                 mob.GetComponent<Rigidbody>().AddExplosionForce(Radius, transform.position, Radius);
             }
             Destroy(gameObject);
-            yield return new WaitForSeconds(ExplosionLifetime);
-            Destroy(explosion);
         }
     }
 }

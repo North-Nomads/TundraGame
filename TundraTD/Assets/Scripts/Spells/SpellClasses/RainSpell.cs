@@ -1,5 +1,6 @@
 ﻿using CartoonFX;
 using City.Building.ElementPools;
+using Level;
 using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
 using System.Collections;
@@ -107,7 +108,7 @@ namespace Spells.SpellClasses
                     }
                     else
                     {
-                        mob.AddSingleEffect(new FreezeEffect(0, 2, (int)EffectTime));
+                        mob.AddSingleEffect(new FreezeEffect(0, 2, EffectTime.SecondsToTicks()));
                     }
                 }
             }
@@ -118,16 +119,16 @@ namespace Spells.SpellClasses
             // Add here basic effects
             var effects = new List<Effect>()
             {
-                new SlownessEffect(1 - SlownessValue, (int)EffectTime),
-                new VulnerabilityEffect((int)EffectTime, BasicElement.Lightning, 1 / LightningMultiplier)
+                new SlownessEffect(1 - SlownessValue, EffectTime.SecondsToTicks()),
+                new VulnerabilityEffect(EffectTime.SecondsToTicks(), BasicElement.Lightning, 1 / LightningMultiplier)
             };
             if (WaterPool.ApplyWeaknessOnEnemies)
             {
-                effects.Add(new WeaknessEffect((int)EffectTime, 0.5f));
+                effects.Add(new WeaknessEffect(EffectTime.SecondsToTicks(), 0.5f));
             }
             if (WaterPool.CastSnowInsteadOfRain)
             {
-                effects.Add(new FreezeEffect(0, 2, (int)EffectTime));
+                effects.Add(new FreezeEffect(0, 2, EffectTime.SecondsToTicks()));
             }
             mob.AddReceivedEffects(effects);
         }

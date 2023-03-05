@@ -153,9 +153,9 @@ namespace Mobs.MobsBehaviour
 
                 if (effect.CurrentTicksAmount == effect.MaxTicksAmount)
                 {
-                    CurrentEffects.RemoveAt(i);
                     effect.OnDetach(this);
                     SetVFXPrefab(effect, false);
+                    CurrentEffects.RemoveAt(i);
                 }
                 else
                 {
