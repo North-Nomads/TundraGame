@@ -37,7 +37,7 @@ namespace Level
 
         public static void SetPause(bool setPause)
         {
-            _isGamePaused = setPause;
+            IsGamePaused = setPause;
             Time.timeScale = setPause ? 0 : 1;
         }
     }
