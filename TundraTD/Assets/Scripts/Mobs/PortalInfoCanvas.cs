@@ -5,27 +5,28 @@ namespace Mobs
 {
     public class PortalInfoCanvas : MonoBehaviour
     {
-        [SerializeField] private GridLayoutGroup mobCardsContent;
-        private Image[] _mobCards;
+        [SerializeField] private Image[] mobPortraits;
+        [SerializeField] private Image[] borderImages;
+        [SerializeField] private Sprite border;
+        [SerializeField] private Sprite closedBorder;
 
         private void Start()
         {
-            _mobCards = mobCardsContent.GetComponentsInChildren<Image>();
             gameObject.SetActive(false);
         }
 
         public void LoadImagesInCards(Sprite[] images)
         {
-            for (int i = 0; i < _mobCards.Length; i++)
+            for (int i = 0; i < borderImages.Length; i++)
             {
                 if (images[i] == null)
                 {
-                    _mobCards[i].gameObject.SetActive(false);
+                    borderImages[i].sprite = closedBorder;
                 }
                 else
                 {
-                    _mobCards[i].gameObject.SetActive(true);
-                    _mobCards[i].sprite = images[i];
+                    borderImages[i].sprite = border;
+                    mobPortraits[i].sprite = images[i];
                 }
             }
         }
