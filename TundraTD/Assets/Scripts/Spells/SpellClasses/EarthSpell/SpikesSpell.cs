@@ -96,7 +96,7 @@ namespace Spells.SpellClasses.EarthSpell
             StartCoroutine(InstantiateSpikes(position1 + Vector3.right * 3, position2 + Vector3.right * 3, false));
 
         }
-
+        
         private IEnumerator InstantiateSpikes(Vector3 start, Vector3 finish, bool isMainWall)
         {
             var spikes = new List<SpikesGroup>();
@@ -108,10 +108,12 @@ namespace Spells.SpellClasses.EarthSpell
             if (count > 10)
                 count = 10;
             
+            // Handling tower modifications
             spikesSlownessCollider.BoxCollider.isTrigger = !EarthPool.HasSolidWalls;
             spikesAreaAround.gameObject.SetActive(EarthPool.HasDustCloud & isMainWall);
 
             var sizeCoefficient = isMainWall ? 1f : .6f;
+            // Place SpikesGroup from start position to finish position but max quantity is 10 
             while (count > 0)
             {
                 spikesSlownessCollider.InitializeTermites(EarthPool.HasTermites);
@@ -122,12 +124,14 @@ namespace Spells.SpellClasses.EarthSpell
                     group.PlayCloudAnimation();
                 
                 group.transform.localScale *= sizeCoefficient;
-                group.ApplyStunOverlappedOnMobs(FallDamage, StunTime.SecondsToTicks());
+                group.ApplyStunOnOverlappedMobs(FallDamage, StunTime.SecondsToTicks()); // Stun mobs on spawn position
                 
+                // Check pebbles modification
                 if (EarthPool.HasExplosivePebbles & isMainWall)
                         group.ExecutePebblesExplosion(pebbleDamage, pebbleStunTicks);
                 
                 spikes.Add(group);
+                // Expand slowness collider size to fit current amount of spikes
                 spikesSlownessCollider.SetColliderParameters(spikes, finish);
                 currentPosition += step * spikesOffset;
                 count--;

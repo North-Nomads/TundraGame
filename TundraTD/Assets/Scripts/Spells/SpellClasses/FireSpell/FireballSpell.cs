@@ -1,14 +1,13 @@
-﻿using System;
+﻿using System.Collections;
+using System.Collections.Generic;
 using City.Building.ElementPools;
+using Level;
 using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
-using Level;
 
-namespace Spells.SpellClasses
+namespace Spells.SpellClasses.FireSpell
 {
     /// <summary>
     /// Fireball (or meteorite) spell. Manages the behaviour of the spell on execution and until it's destruction
