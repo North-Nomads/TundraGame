@@ -28,27 +28,27 @@ namespace Mobs.MobEffects
         public override bool OnAttach(MobBehaviour mob)
         {
             ContinueFreeze = true;
-            SpeedModifier = mob.MobModel.DefaultMobAngularSpeed;
+            SpeedModifier = mob.MobModel.DefaultMobSpeed;
             return !mob.CurrentEffects.OfType<FreezeEffect>().Any();
         }
 
         public override void HandleTick(MobBehaviour mob)
         {
             base.HandleTick(mob);
-            float step = (mob.MobModel.DefaultMobAngularSpeed - MinSpeedModifier) * BasicTickTime / TimeModifier;
+            float step = (mob.MobModel.DefaultMobSpeed - MinSpeedModifier) * BasicTickTime / TimeModifier;
             if (ContinueFreeze)
             {
                 step *= -1;
                 ContinueFreeze = false;
             }
             SpeedModifier += step;
-            SpeedModifier = Mathf.Clamp(SpeedModifier, MinSpeedModifier, mob.MobModel.DefaultMobAngularSpeed);
+            SpeedModifier = Mathf.Clamp(SpeedModifier, MinSpeedModifier, mob.MobModel.DefaultMobSpeed);
             mob.MobModel.CurrentMobSpeed = SpeedModifier;
         }
 
         public override void OnDetach(MobBehaviour mob)
         {
-            mob.MobModel.CurrentMobSpeed = mob.MobModel.DefaultMobAngularSpeed;
+            mob.MobModel.CurrentMobSpeed = mob.MobModel.DefaultMobSpeed;
         }
     }
 }

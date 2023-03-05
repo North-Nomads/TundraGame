@@ -41,6 +41,8 @@ namespace Mobs
         public NavMeshAgent MobNavMeshAgent => _mobNavMeshAgent;
         public bool IsAlive => CurrentMobHealth > 0;
 
+        public float DefaultMobSpeed => defaultMobSpeed;
+        
         public float CurrentMobHealth
         {
             get => _currentMobHealth;

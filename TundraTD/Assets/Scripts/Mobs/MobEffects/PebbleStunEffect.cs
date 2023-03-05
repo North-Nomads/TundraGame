@@ -25,7 +25,7 @@ namespace Mobs.MobEffects
             if (!mob.MobModel.MobNavMeshAgent.isActiveAndEnabled)
                 return;       
             mob.MobModel.MobNavMeshAgent.SetDestination(mob.DefaultDestinationPoint.position);
-            mob.MobModel.MobNavMeshAgent.angularSpeed = mob.MobModel.DefaultMobAngularSpeed;
+            mob.MobModel.CurrentMobSpeed = mob.MobModel.DefaultMobSpeed;
         }
 
         public PebbleStunEffect(int stunTicks, float stunDamage)
