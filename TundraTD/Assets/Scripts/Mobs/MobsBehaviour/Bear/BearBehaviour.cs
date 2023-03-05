@@ -48,7 +48,7 @@ namespace Mobs.MobsBehaviour.Bear
 
         public override void EnableDisorientation()
         {
-            throw new System.NotImplementedException();
+            MobModel.MobNavMeshAgent.SetDestination(MobPortal.transform.position);
         }
 
         public override void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal)
