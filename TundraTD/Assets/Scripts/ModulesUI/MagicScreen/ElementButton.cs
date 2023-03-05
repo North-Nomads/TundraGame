@@ -22,6 +22,9 @@ namespace ModulesUI.MagicScreen
 
         public void OnButtonClick()
         {
+            if (PlayerDeck.DeckElements.Count == 5)
+                return;
+            
             _elementAudioSource.PlayOneShot(_elementAudioSource.clip);
             PlayerDeck.DeckElements.Add(element);
         }

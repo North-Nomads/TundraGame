@@ -64,6 +64,7 @@ namespace Spells
             foreach (var element in remainingElements)
                 attr.TryUpgradeProperty(element, prop, spell);
             
+            PlayerDeck.DeckElements.Clear();
             spell.SpellCameraLock += HandleSpellCameraLock;
             spell.ExecuteSpell(hitInfo);
         }
