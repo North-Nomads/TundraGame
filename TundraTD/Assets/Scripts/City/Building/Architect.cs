@@ -3,6 +3,7 @@ using Spells;
 using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 namespace City.Building
 {
@@ -57,6 +58,7 @@ namespace City.Building
         public static void ProceedUpgradePurchase(IUpgrade upgrade)
         {
             InfluencePoints -= upgrade.PurchasePriceInTowerMenu;
+            Debug.Log(Analytics.CustomEvent("Upgraded to " + upgrade.UpgradeDescriptionText));
         }
 
         public static void RewardPlayerOnWaveEnd(float cityGatesHPPercent)

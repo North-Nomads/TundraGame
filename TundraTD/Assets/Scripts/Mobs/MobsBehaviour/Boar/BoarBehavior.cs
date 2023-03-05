@@ -63,7 +63,6 @@ namespace Mobs.MobsBehaviour.Boar
 
         private void TakeChargeMode()
         {
-            Debug.Log(MobModel.CurrentMobDamage);
             MobModel.CurrentMobSpeed *= 1.5f;
             MobModel.CurrentMobDamage *= 2f;
         }

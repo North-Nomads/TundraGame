@@ -1,4 +1,6 @@
-﻿public static class StatisticsTracker
+﻿using UnityEngine.Analytics;
+
+public static class StatisticsTracker
 {
     public static float PlayTime;
     //0 - Метеор; 1 - Водичка; 2 - Земелька
