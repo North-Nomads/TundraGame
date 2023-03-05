@@ -30,7 +30,6 @@ namespace ModulesUI.Pause
         {
             _immortalAudioSource.PlayOneShot(buttonClick);
             PauseMode.SetPause(false);
-            //PauseMode.ResetSubscribers();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
@@ -38,7 +37,6 @@ namespace ModulesUI.Pause
         {
             _immortalAudioSource.PlayOneShot(buttonClick);
             PauseMode.SetPause(false);
-            //PauseMode.ResetSubscribers();
             SceneManager.LoadScene(0);
         }
     }
