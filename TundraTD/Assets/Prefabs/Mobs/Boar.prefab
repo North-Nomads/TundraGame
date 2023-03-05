@@ -1146,7 +1146,7 @@ MonoBehaviour:
   maxMobHealth: 95
   defaultMobDamage: 4
   defaultMobSpeed: 5
-  skinRenderer: {fileID: 6667528729859900624}
+  renderer: {fileID: 6667528729859900624}
   rigidbody: {fileID: 3692616354502211321}
 --- !u!114 &8671833239330950923
 MonoBehaviour:
