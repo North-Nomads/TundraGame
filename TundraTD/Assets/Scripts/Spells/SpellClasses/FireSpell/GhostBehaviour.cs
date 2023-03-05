@@ -28,7 +28,7 @@ namespace Spells
                 return;
             }
 
-            int mobs = Physics.OverlapSphereNonAlloc(transform.position, Radius, _mobColliders, mobsMask);
+            int mobs = Physics.OverlapSphereNonAlloc(transform.position, Radius, _mobColliders, MobsMask);
             for (int i = 0; i < mobs; i++)
             {
                 var mob = _mobColliders[i].GetComponent<MobBehaviour>();
@@ -43,7 +43,7 @@ namespace Spells
                 return;
 
             var explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-            int mobs = Physics.OverlapSphereNonAlloc(transform.position, Radius, _mobColliders, mobsMask);
+            int mobs = Physics.OverlapSphereNonAlloc(transform.position, Radius, _mobColliders, MobsMask);
             for (int i = 0; i < mobs; i++)
             {
                 var mob = _mobColliders[i].GetComponent<MobBehaviour>();

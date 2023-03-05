@@ -446,12 +446,7 @@ MonoBehaviour:
   - {fileID: 6206681401840262367, guid: 735527298e8b22745943729ce2b83048, type: 3}
   - {fileID: 1464022968876451410, guid: b9ce7bfe846ccc040b21f7a749d31c78, type: 3}
   - {fileID: 1375228325848268812, guid: 68cc9112e2ba8f64a9d3deb73d7ad475, type: 3}
-  spellInitializers:
-  - {fileID: -6803395362427656954, guid: 4c9b0db6e89c5d5478a5d9554eef8b15, type: 3}
-  - {fileID: -4578980917677416286, guid: 63c23b93473c487498b3a119909f2730, type: 3}
-  - {fileID: 5897343516089144008, guid: 569ca27ecc454d1459097d81eaa6522a, type: 3}
-  - {fileID: 1876299875775892076, guid: 097b99181f2f3a24790b651f7543adca, type: 3}
-  - {fileID: 0}
+  spellInitializers: []
 --- !u!1 &375244294
 GameObject:
   m_ObjectHideFlags: 0
@@ -784,8 +779,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 745454640}
-  - component: {fileID: 745454639}
   - component: {fileID: 745454641}
+  - component: {fileID: 745454639}
   m_Layer: 0
   m_Name: George
   m_TagString: Untagged
@@ -832,7 +827,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 2bbd34c86d849554697f702365b50c57, type: 3}
+  m_audioClip: {fileID: 8300000, guid: f7b9dbfc17992f44794d4410b4774e3a, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -1001,7 +996,7 @@ MonoBehaviour:
   nextLevelButton: {fileID: 795918837}
   retryButton: {fileID: 1667614113}
   endScreen: {fileID: 321822039}
-  pauseMenu: {fileID: 745454639}
+  pauseMenu: {fileID: 0}
 --- !u!4 &900667158
 Transform:
   m_ObjectHideFlags: 0
@@ -2596,6 +2591,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 745454639}
+    - target: {fileID: 3429623911041747534, guid: 7af25049a8cccdb4f80a1404263cef87,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SwitchPause
+      objectReference: {fileID: 0}
     - target: {fileID: 4648827190873921802, guid: 7af25049a8cccdb4f80a1404263cef87,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
