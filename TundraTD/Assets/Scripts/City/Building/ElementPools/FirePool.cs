@@ -5,7 +5,6 @@ namespace City.Building.ElementPools
     /// </summary>
     public static class FirePool
     {
-        public static bool HasLandingLavaPool { get; set; }
         public static bool HasWaterResist { get; set; }
         public static bool HasLandingStun { get; set; }
         public static bool HasLavaPool { get; set; }

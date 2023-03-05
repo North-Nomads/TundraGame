@@ -46,12 +46,12 @@ namespace Mobs.MobsBehaviour.Boar
             if (_chargeLeftTime > 0)
                 _chargeLeftTime -= Time.fixedDeltaTime;
 
-            if (_chargeLeftTime <= 0 & !_isCharged)
+            if (_chargeLeftTime <= 0 && !_isCharged)
             {
                 TakeChargeMode();
                 _isCharged = true;
             }
-            
+
             if (CurrentEffects.Count > 0)
                 TickTimer -= Time.fixedDeltaTime;
         }

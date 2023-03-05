@@ -1167,6 +1167,8 @@ MonoBehaviour:
   - {fileID: 8277710439076675335}
   - {fileID: 0}
   - {fileID: 2479481726941189459}
+  - {fileID: 2479481726941189459}
+  - {fileID: 2479481726941189459}
   mobModel: {fileID: 8671833239330951028}
 --- !u!95 &6057633037458583791
 Animator:
@@ -1288,7 +1290,7 @@ PrefabInstance:
     - target: {fileID: 3280519133390621005, guid: 7ac7832a2fe852f45a8cbe90aa571f31,
         type: 3}
       propertyPath: m_Name
-      value: WetRunes
+      value: FreezeRunes
       objectReference: {fileID: 0}
     - target: {fileID: 3280519133390621042, guid: 7ac7832a2fe852f45a8cbe90aa571f31,
         type: 3}
@@ -1348,7 +1350,7 @@ PrefabInstance:
     - target: {fileID: 3280519133430969737, guid: 7ac7832a2fe852f45a8cbe90aa571f31,
         type: 3}
       propertyPath: m_Intensity
-      value: 0
+      value: 2.9176366
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ac7832a2fe852f45a8cbe90aa571f31, type: 3}

@@ -4,9 +4,9 @@ using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
 using System.Collections;
 using System.Collections.Generic;
-using Level;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using Random = UnityEngine.Random;
+using Level;
 
 namespace Spells.SpellClasses
 {
@@ -20,17 +20,20 @@ namespace Spells.SpellClasses
         private const float HitDelay = 0.5f;
         private const int MobsLayerMask = 1 << 8;
         private const int LavaLifetime = 5;
+        private const int TrapsAmount = 5;
 
         private static readonly Collider[] AvailableTargetsPool = new Collider[1000];
 
         [SerializeField] private MeshRenderer meteoriteMesh;
         [SerializeField] private GameObject explosionPrefab;
         [SerializeField] private GameObject lavaPrefab;
+        [SerializeField] private GameObject ghostPrefab;
         [SerializeField] private float explosionDelay;
         [SerializeField] private AudioClip flightSound;
         [SerializeField] private AudioClip explosionSound;
 
         [Header("Landing stun value")] [SerializeField] private float stunTime;
+        [SerializeField] private GameObject trapPrefab;
         private Camera _mainCamera;
         private float _currentHitTime;
         private Vector3 _target;
@@ -74,7 +77,7 @@ namespace Spells.SpellClasses
 
         public override void ExecuteSpell()
         {
-            if (_mainCamera is null)
+            if (_mainCamera == null)
                 _mainCamera = Camera.main;
 
             if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out var hit))
@@ -113,11 +116,11 @@ namespace Spells.SpellClasses
             int hits = Physics.OverlapSphereNonAlloc(transform.position, HitDamageRadius, AvailableTargetsPool, MobsLayerMask);
             var effects = new List<Effect>
             {
-                new MeteoriteBurningEffect(BurnDamage, (int)BurnDuration)
+                new MeteoriteBurningEffect(BurnDamage, (int)BurnDuration, !FirePool.HasWaterResist)
             };
 
             if (FirePool.HasLandingStun)
-                effects.Add(new SpikesStunEffect(stunTime.SecondsToTicks())); 
+                effects.Add(new SpikesStunEffect(stunTime.SecondsToTicks()));
 
             for (int i = 0; i < hits; i++)
             {
@@ -125,18 +128,42 @@ namespace Spells.SpellClasses
                 var mob = target.GetComponent<MobBehaviour>();
                 float damage = HitDamageValue * Vector3.Distance(target.transform.position, transform.position) / HitDamageRadius;
 
-                mob.HitThisMob(damage, BasicElement.Fire, "Fire.Landing");
+                mob.HitThisMob(damage, BasicElement.Fire, nameof(LaunchFireball));
                 mob.AddReceivedEffects(effects);
                 if (FirePool.HasLandingImpulse)
                 {
-                    mob.GetComponent<Rigidbody>().AddExplosionForce(damage, _target, HitDamageRadius);
+                    mob.GetComponent<Rigidbody>().AddExplosionForce(HitDamageRadius * HitDamageRadius, _target, HitDamageRadius);
+                    mob.AddSingleEffect(new SpikesStunEffect(2));
                 }
             }
 
             // Aftershock animations & stuff
             StartCoroutine(RunExplosionAnimation());
-            if (FirePool.HasLandingLavaPool)
+            if (FirePool.HasLavaPool)
                 StartCoroutine(RunLavaPool());
+            if (FirePool.HasLandingGhost)
+                Instantiate(ghostPrefab, _target + Vector3.up * 2, default);
+            if (FirePool.HasLandingTraps)
+            {
+                var hitInfos = new RaycastHit[5];
+                for (int i = 0; i < TrapsAmount; i++)
+                {
+                    float deltaX = Random.Range(-5, 5);
+                    float deltaZ = Random.Range(-5, 5);
+                    Ray summonRay = new Ray(new Vector3(_target.x + deltaX, _target.y + 10, _target.z + deltaZ), Vector3.down);
+                    if (Physics.Raycast(summonRay, out var hitInfo, 15))
+                    {
+                        hitInfos[i] = hitInfo;
+                    }
+                }
+                foreach (var hit in hitInfos)
+                {
+                    if (hit.collider != null)
+                    {
+                        Instantiate(trapPrefab, hit.point, Random.rotation);
+                    }
+                }
+            }
             meteoriteMesh.enabled = false;
         }
 
@@ -154,7 +181,7 @@ namespace Spells.SpellClasses
                     var target = AvailableTargetsPool[j];
                     var mob = target.GetComponent<MobBehaviour>();
                     var damage = BurnDamage;
-                    mob.HitThisMob(damage, BasicElement.Fire, "EarthMods.Lava");
+                    mob.HitThisMob(damage, BasicElement.Fire, nameof(RunLavaPool));
                 }
                 yield return new WaitForSecondsRealtime(1f);
             }
@@ -167,7 +194,7 @@ namespace Spells.SpellClasses
             DisableEmissionOnChildren();
             obj.transform.position = _target;
             obj.transform.localScale = new Vector3(5, 5, 5);
-            yield return new WaitForSecondsRealtime(FirePool.HasLandingLavaPool ? Mathf.Max(explosionDelay, LavaLifetime) : explosionDelay);
+            yield return new WaitForSecondsRealtime(FirePool.HasLavaPool ? Mathf.Max(explosionDelay, LavaLifetime) : explosionDelay);
             Destroy(gameObject);
         }
         

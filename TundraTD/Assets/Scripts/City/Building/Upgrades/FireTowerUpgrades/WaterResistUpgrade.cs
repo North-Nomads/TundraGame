@@ -4,17 +4,17 @@ using UnityEngine;
 
 namespace City.Building.Upgrades.FireTowerUpgrades
 {
-    public class MeteorLandingImpulseUpgrade : IUpgrade
+    public class WaterResistUpgrade : IUpgrade
     {
         public BasicElement UpgradeTowerElement => BasicElement.Fire;
-        public int PurchasePriceInTowerMenu => 200;
-        public int SpellPurchaseRequiredLevel => 2;
-        public string UpgradeDescriptionText => "When a meteor lands, all opponents are thrown away from the epicenter";
+        public int PurchasePriceInTowerMenu => 0;
+        public int SpellPurchaseRequiredLevel => 1;
+        public string UpgradeDescriptionText => "Burning effect becomes water resistant";
         public Sprite UpgradeShowcaseSprite => Resources.Load<Sprite>("UpgradeIcons/Arcanist1");
 
         public void ExecuteOnUpgradeBought()
         {
-            FirePool.HasLandingImpulse = true;
+            FirePool.HasWaterResist = true;
         }
     }
 }

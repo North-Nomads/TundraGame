@@ -69,7 +69,7 @@ namespace Mobs
         {
             _mobNavMeshAgent = GetComponent<NavMeshAgent>();
             _animator = GetComponent<Animator>();
-            _defaultMobAngularSpeed = _mobNavMeshAgent.angularSpeed;
+            _defaultMobAngularSpeed = _mobNavMeshAgent.speed;
             _currentMobHealth = maxMobHealth;
             _currentMobSpeed = defaultMobSpeed;
             CurrentMobDamage = defaultMobDamage;
