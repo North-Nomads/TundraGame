@@ -66,7 +66,7 @@ namespace Spells.SpellClasses.EarthSpell
 
         private IEnumerator RegisterUserInputs()
         {
-            IsLockedCamera = true;
+            IsCameraLocked = true;
             var ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
 
             if (!Physics.Raycast(ray, out var hitInfo1, float.PositiveInfinity, PlaceableLayer))
@@ -89,7 +89,7 @@ namespace Spells.SpellClasses.EarthSpell
                 yield break;
 
             StartCoroutine(InstantiateSpikes(position1, position2, true));
-            IsLockedCamera = false;
+            IsCameraLocked = false;
             if (!EarthPool.HasAdditionalWalls) yield break;
             
             StartCoroutine(InstantiateSpikes(position1 + Vector3.left * 3, position2 + Vector3.left * 3, false));

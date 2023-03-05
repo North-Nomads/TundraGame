@@ -5,15 +5,15 @@ namespace Spells
 {
     public abstract class MagicSpell : MonoBehaviour
     {
-        private bool _isLockedCamera;
+        private bool _isCameraLocked;
 
-        public bool IsLockedCamera
+        public bool IsCameraLocked
         {
-            get => _isLockedCamera;
+            get => _isCameraLocked;
             protected set
             {
                 SpellCameraLock(this, value);
-                _isLockedCamera = value;
+                _isCameraLocked = value;
             }
         }
 
