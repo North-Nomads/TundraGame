@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Mobs
+namespace ModulesUI.MobPortal
 {
     public class PortalInfoCanvas : MonoBehaviour
     {
@@ -9,10 +9,7 @@ namespace Mobs
         [SerializeField] private Image[] borderImages;
         [SerializeField] private Sprite border;
         [SerializeField] private Sprite closedBorder;
-
-        private int _currentWaveIndex;
-        public int LastRequestedWaveIndex => _currentWaveIndex;
-
+        
         private void Start()
         {
             gameObject.SetActive(false);
@@ -22,7 +19,7 @@ namespace Mobs
         {
             for (int i = 0; i < borderImages.Length; i++)
             {
-                if (images[i] == null)
+                if (images[i] is null)
                 {
                     borderImages[i].sprite = closedBorder;
                 }
@@ -34,7 +31,7 @@ namespace Mobs
             }
         }
 
-        public void SendNewWaveMobs(MobPortal.MobWave currentMobWave)
+        public void SendNewWaveMobs(Mobs.MobPortal.MobWave currentMobWave)
         {
             Sprite[] mBox = new Sprite[8];
             var count = 0;

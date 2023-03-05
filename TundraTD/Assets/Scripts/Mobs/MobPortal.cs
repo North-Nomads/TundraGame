@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Level;
+using ModulesUI.MobPortal;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -53,9 +54,7 @@ namespace Mobs
         {
             if (_currentMobWaveIndex >= mobWaves.Length)
                 return;
-            
-            infoPanel.SendNewWaveMobs(_currentMobWave);
-            
+
             _allWaveMobs.Clear();
             _currentMobIndex = 0;
 
@@ -73,6 +72,7 @@ namespace Mobs
             if (_currentMobWaveIndex >= mobWaves.Length)
                 return;
             _currentMobWave = mobWaves[_currentMobWaveIndex];
+            infoPanel.SendNewWaveMobs(_currentMobWave);
         }
 
         public void SpawnNextMob()
