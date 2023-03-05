@@ -2,6 +2,7 @@ using System;
 using City;
 using City.Building;
 using Spells;
+using UI.Pause;
 using UnityEngine;
 
 namespace Level
@@ -11,6 +12,8 @@ namespace Level
     /// </summary>
     public class LevelInitializer : MonoBehaviour
     {
+        [Tooltip("An object that holds pause button and panel")]
+        [SerializeField] private PauseParent pauseParent;
         [SerializeField] private int minWaveAward;
         [SerializeField] private int maxWaveAward;
         [SerializeField] private Transform canvasesParent;
@@ -23,8 +26,9 @@ namespace Level
         {
             if (placementSlots.Length == 0)
                 throw new NullReferenceException("No slots were assigned");
-            
-            PauseMode.SetPause(false);
+
+            PauseMode.ResetSubscribers();
+            pauseParent.SubscribeToPauseMode();
             InitializeArchitectValues();
         }
 

@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 namespace Level
 {
+    /// <summary>
+    /// A static class that manages pause state
+    /// </summary>
     public static class PauseMode
     {
         private static bool _isGamePaused;
@@ -26,19 +29,15 @@ namespace Level
         /// </summary>
         public static event EventHandler<bool> PauseStateSwitched = delegate { };
 
-        /// <summary>
-        /// Switches current pause game state.
-        /// </summary>
-        public static void SwitchPause()
-        {
-            IsGamePaused = !IsGamePaused;
-            Time.timeScale = IsGamePaused ? 0 : 1;
-        }
-
         public static void SetPause(bool setPause)
         {
             IsGamePaused = setPause;
             Time.timeScale = setPause ? 0 : 1;
+        }
+
+        public static void ResetSubscribers()
+        {
+            PauseStateSwitched = delegate {  };
         }
     }
 }

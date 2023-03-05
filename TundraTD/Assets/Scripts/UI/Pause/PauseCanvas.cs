@@ -11,18 +11,24 @@ namespace UI.Pause
     {
         public void ResumeOnClick()
         {
+            Debug.Log("Resume: PauseCanvas");
             PauseMode.SetPause(false);
         }
 
         public void RestartScene()
         {
+            Debug.Log("Restart: PauseCanvas");
+
             PauseMode.SetPause(false);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            PauseMode.ResetSubscribers();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         public void ReturnToMainMenu()
         {
+            Debug.Log("Return: PauseCanvas");
             PauseMode.SetPause(false);
+            PauseMode.ResetSubscribers();
             SceneManager.LoadScene(0);
         }
     }
