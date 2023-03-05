@@ -11,7 +11,6 @@ namespace Level
     /// </summary>
     public class LevelInitializer : MonoBehaviour
     {
-        [SerializeField] private PauseMode pauseMode;
         [SerializeField] private int minWaveAward;
         [SerializeField] private int maxWaveAward;
         [SerializeField] private Transform canvasesParent;
@@ -25,7 +24,7 @@ namespace Level
             if (placementSlots.Length == 0)
                 throw new NullReferenceException("No slots were assigned");
             
-            pauseMode.SetPause(false);
+            PauseMode.SetPause(false);
             InitializeArchitectValues();
         }
 

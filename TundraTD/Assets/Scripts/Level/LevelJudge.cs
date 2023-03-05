@@ -12,7 +12,6 @@ namespace Level
         [SerializeField] private Button nextLevelButton;
         [SerializeField] private Button retryButton;
         [SerializeField] private Canvas endScreen;
-        [SerializeField] private PauseMode pauseMenu;
 
         public void HandlePlayerDefeat()
         {
@@ -20,7 +19,7 @@ namespace Level
             retryButton.gameObject.SetActive(true);
             resultOnEndScreen.text = "Поражение";
             endScreen.gameObject.SetActive(true);
-            pauseMenu.SetPause(true, false);
+            PauseMode.SetPause(true);
         }
 
         public void HandlePlayerVictory()
@@ -29,7 +28,7 @@ namespace Level
             nextLevelButton.gameObject.SetActive(true);
             resultOnEndScreen.text = "Победа";
             endScreen.gameObject.SetActive(true);
-            pauseMenu.SetPause(true, false);
+            PauseMode.SetPause(true);
         }
     }
 }
