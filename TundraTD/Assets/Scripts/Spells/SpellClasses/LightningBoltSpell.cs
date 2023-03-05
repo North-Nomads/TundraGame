@@ -11,7 +11,7 @@ namespace Spells.SpellClasses
     {
         private readonly List<MobBehaviour> _mobsInRadius = new List<MobBehaviour>();
         [SerializeField] private LineRenderer lightning;
-        public override void ExecuteSpell()
+        public override void ExecuteSpell(RaycastHit castPosition)
         {
             //Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

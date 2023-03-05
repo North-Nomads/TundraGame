@@ -74,26 +74,20 @@ namespace Spells.SpellClasses.FireSpell
         [IncreasableProperty(BasicElement.Lightning, 2f)]
         public float SlownessDuration { get; set; }
 
-        public override void ExecuteSpell()
+        public override void ExecuteSpell(RaycastHit hitInfo)
         {
-            if (_mainCamera == null)
+            if (_mainCamera is null)
                 _mainCamera = Camera.main;
 
-            if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out var hit))
-            {
-                _source = GetComponent<AudioSource>();
-                _source.clip = flightSound;
-                _source.Play();
-                _target = hit.point;
-                var reflect = Vector3.Reflect(Quaternion.Euler(0, -90, 0) * Camera.main.transform.forward, hit.normal).normalized;
-                transform.position = hit.point + (reflect * FlyDistance);
-                transform.forward = (_target - transform.position).normalized;
-                StartCoroutine(LaunchFireball());
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
+            _target = hitInfo.point;
+            _source = GetComponent<AudioSource>();
+            _source.clip = flightSound;
+            _source.Play();
+            
+            var reflect = Vector3.Reflect(Quaternion.Euler(0, -90, 0) * Camera.main.transform.forward, hitInfo.normal).normalized;
+            transform.position = _target + reflect * FlyDistance;
+            transform.forward = (_target - transform.position).normalized;
+            StartCoroutine(LaunchFireball());
         }
         
 

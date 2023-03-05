@@ -11,34 +11,30 @@ namespace ModulesUI.MagicScreen
     /// </summary>
     public class SpellCaster : MonoBehaviour
     {
-        private Camera cam;
+        private Camera _camera;
         private Vector3 _pointOnTap;
         private const int PlaceableLayer = 1 << 11 | 1 << 10;
         public void Start()
         {
-            cam = Camera.main;
+            _camera = Camera.main;
         }
-        public void CastSpellOnPosition(Vector3 _positionOnMap)
+
+        private void CastSpellOnPosition(RaycastHit hitInfo)
         {
-            Grimoire.TurnElementsIntoSpell(PlayerDeck.DeckElements.ToList(), _positionOnMap);
+            Grimoire.TurnElementsIntoSpell(PlayerDeck.DeckElements.ToList(), hitInfo);
             PlayerDeck.DeckElements.Clear();
         }
-
-
+        
         public void Update()
         {
-            if (Input.touchCount != 1)
+            if (Input.touchCount != 1 || EventSystem.current.IsPointerOverGameObject())
                 return;
-            if (!EventSystem.current.IsPointerOverGameObject())
-            {
-                Touch _playerTouch = Input.GetTouch(0);
-                var rayEnd = cam.ScreenPointToRay(_playerTouch.position);
-                if (Physics.Raycast(rayEnd, out var hitInfo, float.PositiveInfinity, PlaceableLayer))
-                    _pointOnTap = hitInfo.point;
-                    CastSpellOnPosition(_pointOnTap);
-            }
-            // Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-            // OnButtonClick(ray.origin);
+            
+            var playerTouch = Input.GetTouch(0);
+            var rayEnd = _camera.ScreenPointToRay(playerTouch.position);
+            if (!Physics.Raycast(rayEnd, out var hitInfo, float.PositiveInfinity, PlaceableLayer)) return;
+            
+            CastSpellOnPosition(hitInfo);
         }
     }
 }

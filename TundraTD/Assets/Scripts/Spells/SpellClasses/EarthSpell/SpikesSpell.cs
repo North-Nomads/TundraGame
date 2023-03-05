@@ -52,7 +52,7 @@ namespace Spells.SpellClasses.EarthSpell
 
         private int Lifetime { get; set; } = 4;
         
-        public override void ExecuteSpell()
+        public override void ExecuteSpell(RaycastHit castPosition)
         {
             _mainCamera = Camera.main;
             spikesSlownessCollider.SendSlownessValues(Lifetime, SlownessValue);
@@ -61,19 +61,14 @@ namespace Spells.SpellClasses.EarthSpell
             spikesSlownessCollider.TermitesDamage = termitesDamage;
             _touchRegisterTime = 0f;
             _touchRegisterMaxTime = MaxDrawTime;
-            StartCoroutine(RegisterUserInputs());
+            StartCoroutine(RegisterUserInputs(castPosition.point));
         }
 
-        private IEnumerator RegisterUserInputs()
+        private IEnumerator RegisterUserInputs(Vector3 startPosition)
         {
             IsCameraLocked = true;
-            var ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
 
-            if (!Physics.Raycast(ray, out var hitInfo1, float.PositiveInfinity, PlaceableLayer))
-                yield break;
-            
-            var position1 = hitInfo1.point;
-            var position2 = position1;
+            var position2 = startPosition;
 
             while (_touchRegisterTime < _touchRegisterMaxTime)
             {
@@ -85,15 +80,15 @@ namespace Spells.SpellClasses.EarthSpell
                 yield return null;
             }
             
-            if (position1 == position2)
+            if (startPosition == position2)
                 yield break;
 
-            StartCoroutine(InstantiateSpikes(position1, position2, true));
+            StartCoroutine(InstantiateSpikes(startPosition, position2, true));
             IsCameraLocked = false;
             if (!EarthPool.HasAdditionalWalls) yield break;
             
-            StartCoroutine(InstantiateSpikes(position1 + Vector3.left * 3, position2 + Vector3.left * 3, false));
-            StartCoroutine(InstantiateSpikes(position1 + Vector3.right * 3, position2 + Vector3.right * 3, false));
+            StartCoroutine(InstantiateSpikes(startPosition + Vector3.left * 3, position2 + Vector3.left * 3, false));
+            StartCoroutine(InstantiateSpikes(startPosition + Vector3.right * 3, position2 + Vector3.right * 3, false));
 
         }
         

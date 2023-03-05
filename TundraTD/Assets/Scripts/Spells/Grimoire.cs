@@ -31,12 +31,10 @@ namespace Spells
         /// </summary>
         /// <param name="elements">Elements list.</param>
         /// <returns>Created spell which is ready to cast.</returns>
-        public static MagicSpell TurnElementsIntoSpell(List<BasicElement> elements, Vector3 castPosition)
+        public static MagicSpell TurnElementsIntoSpell(List<BasicElement> elements, RaycastHit hitInfo)
         {
             BasicElement? mostElement = elements.GroupBy(x => x).FirstOrDefault(x => x.Count() >= 3)?.Key;
-
             
-
             if (!mostElement.HasValue)
                 return null;
 
@@ -62,7 +60,7 @@ namespace Spells
                 attr.TryUpgradeProperty(element, prop, spell);
             
             spell.SpellCameraLock += HandleSpellCameraLock;
-            spell.ExecuteSpell();
+            spell.ExecuteSpell(hitInfo);
             return spell;
         }
 

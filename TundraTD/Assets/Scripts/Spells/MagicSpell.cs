@@ -17,7 +17,7 @@ namespace Spells
             }
         }
 
-        public abstract void ExecuteSpell();
+        public abstract void ExecuteSpell(RaycastHit hitInfo);
         public event EventHandler<bool> SpellCameraLock = delegate { };
     }
 }
