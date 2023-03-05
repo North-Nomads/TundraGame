@@ -44,8 +44,14 @@ namespace Spells
 
             if (!SpellTypes.TryGetValue(mostElement.Value, out Type spellType))
                 return null;
-                
+            
             var spellObject = SpellInitializers[(int)Math.Log((int)mostElement, 2)];
+            
+            // don't call any spell if this spell was not implemented (for alpha purposes only)
+            // TODO: Remove
+            if (spellObject is null)
+                return null;
+            
             var spell = Object.Instantiate(spellObject);
             
             foreach (var prop in spellType.GetProperties(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public))
