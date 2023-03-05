@@ -1,11 +1,12 @@
-﻿using City.Building.ElementPools;
+﻿using System;
+using City.Building.ElementPools;
 using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
 using System.Collections;
 using System.Collections.Generic;
 using Level;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Spells.SpellClasses
 {
@@ -85,14 +86,16 @@ namespace Spells.SpellClasses
                 var reflect = Vector3.Reflect(Quaternion.Euler(0, -90, 0) * Camera.main.transform.forward, hit.normal).normalized;
                 transform.position = hit.point + (reflect * FlyDistance);
                 transform.forward = (_target - transform.position).normalized;
-                //HitDamageRadius *= FirePool.MeteorRadiusMultiplier;
                 StartCoroutine(LaunchFireball());
+                SpellCameraLock(this, null);
             }
             else
             {
                 Destroy(gameObject);
             }
         }
+
+        public override event EventHandler SpellCameraLock = delegate {  };
 
         private IEnumerator LaunchFireball()
         {

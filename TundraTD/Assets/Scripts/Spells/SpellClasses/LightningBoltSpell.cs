@@ -1,4 +1,5 @@
-﻿using Mobs.MobsBehaviour;
+﻿using System;
+using Mobs.MobsBehaviour;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,10 +32,13 @@ namespace Spells.SpellClasses
                 Debug.Log("Miss");
                 return;
             }
-            
+
+            SpellCameraLock(this, null);
             lightning.SetPosition(1, GetClosestMob(hit.point).transform.position);
             LaunchStrike(GetClosestMob(hit.point),5);
         }
+
+        public override event EventHandler SpellCameraLock = delegate {  };
 
         private void LaunchStrike(MobBehaviour mobToStrike, int strikesLeft)
         {

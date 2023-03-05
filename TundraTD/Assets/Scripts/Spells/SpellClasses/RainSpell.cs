@@ -1,4 +1,5 @@
-﻿using City.Building.ElementPools;
+﻿using System;
+using City.Building.ElementPools;
 using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
 using System.Collections;
@@ -53,7 +54,10 @@ namespace Spells.SpellClasses
             {
                 Destroy(gameObject);
             }
+            SpellCameraLock(this, null);
         }
+
+        public override event EventHandler SpellCameraLock = delegate {  };
 
         private IEnumerator WaitTime()
         {

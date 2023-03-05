@@ -13,9 +13,9 @@ namespace Spells
     public static class Grimoire
     {
         private static readonly Dictionary<BasicElement, Type> SpellTypes;
-
-        // HACK: temporary solution to avoid errors
+        private static bool _isCastingSpell = false;
         public static MagicSpell[] SpellInitializers { get; set; }
+        public static bool IsCastingSpell => _isCastingSpell;
 
         static Grimoire()
         {
@@ -37,7 +37,7 @@ namespace Spells
 
             if (!mostElement.HasValue)
                 return null;
-            
+
             elements.Sort();
             int startMostIndex = elements.IndexOf(mostElement.Value); 
             var remainingElements = elements.Where((x, i) => x != mostElement || i >= startMostIndex + 3);
@@ -47,14 +47,21 @@ namespace Spells
                 
             var spellObject = SpellInitializers[(int)Math.Log((int)mostElement, 2)];
             var spell = Object.Instantiate(spellObject);
-                
+            
             foreach (var prop in spellType.GetProperties(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public))
             foreach (var attr in prop.GetCustomAttributes<UpgradeablePropertyAttribute>(true))
             foreach (var element in remainingElements)
                 attr.TryUpgradeProperty(element, prop, spell);
-                
+            
+            _isCastingSpell = true;
+            spell.SpellCameraLock += (_, __) => HandleSpellCameraLock();
             spell.ExecuteSpell();
             return spell;
+        }
+
+        private static void HandleSpellCameraLock()
+        {
+            _isCastingSpell = false;
         }
     }
 }
