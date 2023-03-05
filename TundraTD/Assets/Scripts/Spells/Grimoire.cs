@@ -53,15 +53,14 @@ namespace Spells
             foreach (var element in remainingElements)
                 attr.TryUpgradeProperty(element, prop, spell);
             
-            _isCastingSpell = true;
-            spell.SpellCameraLock += (_, __) => HandleSpellCameraLock();
+            spell.SpellCameraLock += HandleSpellCameraLock;
             spell.ExecuteSpell();
             return spell;
         }
 
-        private static void HandleSpellCameraLock()
+        private static void HandleSpellCameraLock(object sender, bool value)
         {
-            _isCastingSpell = false;
+            _isCastingSpell = value;
         }
     }
 }

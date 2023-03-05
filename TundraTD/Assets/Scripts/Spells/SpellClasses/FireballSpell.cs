@@ -87,15 +87,13 @@ namespace Spells.SpellClasses
                 transform.position = hit.point + (reflect * FlyDistance);
                 transform.forward = (_target - transform.position).normalized;
                 StartCoroutine(LaunchFireball());
-                SpellCameraLock(this, null);
             }
             else
             {
                 Destroy(gameObject);
             }
         }
-
-        public override event EventHandler SpellCameraLock = delegate {  };
+        
 
         private IEnumerator LaunchFireball()
         {

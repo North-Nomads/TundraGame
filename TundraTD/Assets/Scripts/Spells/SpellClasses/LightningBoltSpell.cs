@@ -14,7 +14,6 @@ namespace Spells.SpellClasses
         public override void ExecuteSpell()
         {
             //Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-            Debug.Log("Lightning Stroke");
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (!Physics.Raycast(ray, out var hit, float.PositiveInfinity, 1<<8|1<<10))
                 return;
@@ -33,12 +32,9 @@ namespace Spells.SpellClasses
                 return;
             }
 
-            SpellCameraLock(this, null);
             lightning.SetPosition(1, GetClosestMob(hit.point).transform.position);
             LaunchStrike(GetClosestMob(hit.point),5);
         }
-
-        public override event EventHandler SpellCameraLock = delegate {  };
 
         private void LaunchStrike(MobBehaviour mobToStrike, int strikesLeft)
         {
