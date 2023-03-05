@@ -2,6 +2,7 @@ using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
 using Spells;
 using System.Collections;
+using Level;
 using UnityEngine;
 
 namespace Spells
@@ -10,7 +11,7 @@ namespace Spells
     {
         const float Lifetime = 2;
         const float ExplosionLifetime = 1;
-        const int DistractTime = 3;
+        const float DistractTime = 3;
         const float Damage = 15;
         const float Radius = 10;
         const int MobsMask = 1 << 8;
@@ -33,7 +34,7 @@ namespace Spells
             {
                 var mob = _mobColliders[i].GetComponent<MobBehaviour>();
                 if (mob != null)
-                    mob.AddSingleEffect(new DistractEffect(transform, DistractTime));
+                    mob.AddSingleEffect(new DistractEffect(transform, DistractTime.SecondsToTicks()));
             }
         }
 

@@ -115,7 +115,7 @@ namespace Spells.SpellClasses.FireSpell
             int hits = Physics.OverlapSphereNonAlloc(transform.position, HitDamageRadius, AvailableTargetsPool, MobsLayerMask);
             var effects = new List<Effect>
             {
-                new MeteoriteBurningEffect(BurnDamage, (int)BurnDuration, !FirePool.HasWaterResist)
+                new MeteoriteBurningEffect(BurnDamage, BurnDuration.SecondsToTicks(), !FirePool.HasWaterResist)
             };
 
             if (FirePool.HasLandingStun)
@@ -132,7 +132,7 @@ namespace Spells.SpellClasses.FireSpell
                 if (FirePool.HasLandingImpulse)
                 {
                     mob.GetComponent<Rigidbody>().AddExplosionForce(HitDamageRadius * HitDamageRadius, _target, HitDamageRadius);
-                    mob.AddSingleEffect(new SpikesStunEffect(2));
+                    mob.AddSingleEffect(new SpikesStunEffect(stunTime.SecondsToTicks()));
                 }
             }
 
