@@ -251,6 +251,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6322046993713249936}
     m_Modifications:
+    - target: {fileID: 2480300238094785601, guid: 5fedaf144bce89347950e72c77fe193f,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417182692783280801, guid: 5fedaf144bce89347950e72c77fe193f,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5810349828842211006, guid: 5fedaf144bce89347950e72c77fe193f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6208400911166176594, guid: 5fedaf144bce89347950e72c77fe193f,
         type: 3}
       propertyPath: m_Pivot.x

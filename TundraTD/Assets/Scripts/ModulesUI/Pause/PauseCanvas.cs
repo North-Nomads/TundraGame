@@ -1,4 +1,5 @@
-﻿using Level;
+﻿using System;
+using Level;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,26 +10,35 @@ namespace ModulesUI.Pause
     /// </summary>
     public class PauseCanvas : MonoBehaviour
     {
+        [Header("Audio clips")] 
+        [SerializeField] private AudioClip buttonClick;
+        
+        private AudioSource _immortalAudioSource;
+
+        public void SetImmortalAudioSource(AudioSource source)
+        {
+            _immortalAudioSource = source;
+        }
+        
         public void ResumeOnClick()
         {
-            Debug.Log("Resume: PauseCanvas");
+            _immortalAudioSource.PlayOneShot(buttonClick);
             PauseMode.SetPause(false);
         }
 
         public void RestartScene()
         {
-            Debug.Log("Restart: PauseCanvas");
-
+            _immortalAudioSource.PlayOneShot(buttonClick);
             PauseMode.SetPause(false);
-            PauseMode.ResetSubscribers();
+            //PauseMode.ResetSubscribers();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         public void ReturnToMainMenu()
         {
-            Debug.Log("Return: PauseCanvas");
+            _immortalAudioSource.PlayOneShot(buttonClick);
             PauseMode.SetPause(false);
-            PauseMode.ResetSubscribers();
+            //PauseMode.ResetSubscribers();
             SceneManager.LoadScene(0);
         }
     }

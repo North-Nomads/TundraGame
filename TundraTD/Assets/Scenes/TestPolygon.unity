@@ -414,6 +414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92c5216ad5e0462fb914937482a374db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 1391844801}
   pauseParent: {fileID: 1735223256}
   minWaveAward: 10
   maxWaveAward: 100
@@ -1789,7 +1790,7 @@ Canvas:
     type: 3}
   m_PrefabInstance: {fileID: 651472404}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1315328619
+--- !u!1 &1391844799
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1797,36 +1798,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1315328620}
-  - component: {fileID: 1315328621}
+  - component: {fileID: 1391844800}
+  - component: {fileID: 1391844801}
+  - component: {fileID: 1391844802}
   m_Layer: 0
-  m_Name: ImmortalAudioSource
+  m_Name: ImmortalSoundSource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1315328620
+--- !u!4 &1391844800
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1315328619}
+  m_GameObject: {fileID: 1391844799}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.673516, y: -9.586586, z: -19.281418}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &1315328621
+--- !u!82 &1391844801
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1315328619}
+  m_GameObject: {fileID: 1391844799}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
@@ -1916,6 +1918,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1391844802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1391844799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7a0439943f16d648900d4a8e650229e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1420109404 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8496030803195590843, guid: b98c0540fb41e2e4c9e3211b0ea7471b,
@@ -2256,6 +2270,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseParent
       objectReference: {fileID: 0}
+    - target: {fileID: 8490451723628965445, guid: 95c8901c5b8b4ca459aa73b2febe3a56,
+        type: 3}
+      propertyPath: buttonClick
+      value: 
+      objectReference: {fileID: 8300000, guid: f7b9dbfc17992f44794d4410b4774e3a, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95c8901c5b8b4ca459aa73b2febe3a56, type: 3}
 --- !u!224 &1592217149 stripped

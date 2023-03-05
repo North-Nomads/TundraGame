@@ -12,6 +12,7 @@ namespace Level
     /// </summary>
     public class LevelInitializer : MonoBehaviour
     {
+        [SerializeField] private AudioSource audioSource;
         [Tooltip("An object that holds pause button and panel")]
         [SerializeField] private PauseParent pauseParent;
         [SerializeField] private int minWaveAward;
@@ -27,9 +28,15 @@ namespace Level
             if (placementSlots.Length == 0)
                 throw new NullReferenceException("No slots were assigned");
 
+            InitializePauseMode();
+            InitializeArchitectValues();
+        }
+
+        private void InitializePauseMode()
+        {
             PauseMode.ResetSubscribers();
             pauseParent.SubscribeToPauseMode();
-            InitializeArchitectValues();
+            pauseParent.PauseCanvas.SetImmortalAudioSource(audioSource);
         }
 
         private void InitializeArchitectValues()
