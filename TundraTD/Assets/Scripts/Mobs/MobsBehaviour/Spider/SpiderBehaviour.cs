@@ -28,13 +28,9 @@ namespace Mobs.MobsBehaviour.Spider
             MobModel.CurrentMobHealth -= damage * multiplier;
         }
 
-        public override void EnableDisorientation()
-        {
-            MobModel.MobNavMeshAgent.SetDestination(MobPortal.transform.position);
-        }
-
         public override void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal)
         {
+            MobPortal = mobPortal;
             MobModel.InstantiateMobModel();
 
             DefaultDestinationPoint = gates;

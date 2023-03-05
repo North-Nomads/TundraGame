@@ -46,11 +46,6 @@ namespace Mobs.MobsBehaviour.Bear
                 MobModel.CurrentMobHealth -= modifiedDamage;
         }
 
-        public override void EnableDisorientation()
-        {
-            MobModel.MobNavMeshAgent.SetDestination(MobPortal.transform.position);
-        }
-
         public override void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal)
         {
             MobModel.InstantiateMobModel();

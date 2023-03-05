@@ -23,7 +23,7 @@ namespace Mobs.MobsBehaviour
         public Transform DefaultDestinationPoint { get; set; }
         public MobModel MobModel => mobModel;
 
-        protected MobPortal MobPortal { get; set; }
+        public MobPortal MobPortal { get; protected set; }
 
         protected float TickTimer
         {
@@ -124,7 +124,5 @@ namespace Mobs.MobsBehaviour
                 }
             }
         }
-
-        public abstract void EnableDisorientation();
     }
 }
