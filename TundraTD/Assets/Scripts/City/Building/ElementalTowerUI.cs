@@ -1,6 +1,7 @@
 using City.Building.Upgrades;
 using System;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.UI;
 
 namespace City.Building
@@ -66,6 +67,7 @@ namespace City.Building
                         : upgradeLevels[x].LeftCard;
 
                     var upgrade = upgrades[x, y];
+                    
                     if (upgrade is null)
                         throw new NullReferenceException($"Upgrade in dictionary on [{x}, {y}] is null");
 

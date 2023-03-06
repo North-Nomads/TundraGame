@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.Analytics;
 using Object = UnityEngine.Object;
 
 namespace Spells
@@ -58,9 +59,10 @@ namespace Spells
             foreach (var attr in prop.GetCustomAttributes<UpgradeablePropertyAttribute>(true))
             foreach (var element in remainingElements)
                 attr.TryUpgradeProperty(element, prop, spell);
-            
+
             spell.SpellCameraLock += HandleSpellCameraLock;
             spell.ExecuteSpell();
+            Analytics.CustomEvent(spell.GetType().ToString().Split('.').Last());
             return spell;
         }
 
