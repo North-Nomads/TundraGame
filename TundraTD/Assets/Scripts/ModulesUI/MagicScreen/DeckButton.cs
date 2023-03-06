@@ -11,13 +11,13 @@ namespace ModulesUI.MagicScreen
     public class DeckButton : MonoBehaviour
     {
         [SerializeField] private DeckButtons buttonsHolder;
-
-        public BasicElement Element { get; set; }
-        public Image ElementIcon { get; set; }
+        [SerializeField] private Image iconHolder;
+        
+        private Sprite _nullElementSprite;
 
         private void Start()
         {
-            ElementIcon = GetComponent<Image>();
+            _nullElementSprite = Resources.Load<Sprite>("Elements/BorderCircle");
         }
 
         public void OnButtonClick()
@@ -29,8 +29,12 @@ namespace ModulesUI.MagicScreen
 
         public void UpdateButtonElement(BasicElement element)
         {
-            ElementIcon.sprite = PlayerDeck.ElementIcons[element];
-            Element = element;
+            var sprite = PlayerDeck.ElementIcons[element];
+            
+            if (sprite is null)
+                iconHolder.sprite = _nullElementSprite;
+            else
+                iconHolder.sprite = sprite;
         }
     }
 }
