@@ -55,7 +55,6 @@ namespace ModulesUI.MagicScreen
             if (PlayerDeck.DeckElements.Count == 5)
                 return;
             
-            Debug.Log(PlayerDeck.DeckElements.Count);
             PlayerDeck.DeckElements.Add(element);
         }
     }

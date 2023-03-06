@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Specialized;
+using System.Linq;
 using Spells;
 using UnityEngine;
 
@@ -27,46 +28,45 @@ namespace ModulesUI.MagicScreen
             var elements = PlayerDeck.DeckElements;
             PlayerDeck.CurrentMostElement = BasicElement.None;
 
-            foreach (BasicElement element in Enum.GetValues(typeof(BasicElement)))
-                PlayerDeck.ElementsQuantity[element] = 0;
-            
+            // Set deck icon depending on value of BasicElement or BasicElement.None 
             for (int i = 0; i < deckButtons.Length; i++)
+                deckButtons[i].UpdateButtonElement(i < PlayerDeck.DeckElements.Count ? elements[i] : BasicElement.None);
+
+            
+            var mostElement = GetMostElement();
+            PlayerDeck.CurrentMostElement = mostElement;
+            
+            // Remove all selections if most element is None
+            if (mostElement == BasicElement.None)
             {
-                if (i < PlayerDeck.DeckElements.Count)
+                foreach (var deckButton in deckButtons)
+                    deckButton.RemoveBorderSelection();
+            }
+            else
+            {
+                // otherwise set the ones which are same as the most one
+                foreach (var deckButton in deckButtons)
                 {
-                    PlayerDeck.ElementsQuantity[elements[i]]++;
-                    deckButtons[i].UpdateButtonElement(elements[i]);
-                }
-                else
-                {
-                    PlayerDeck.ElementsQuantity[BasicElement.None]++;
-                    deckButtons[i].UpdateButtonElement(BasicElement.None);
+                    if (deckButton.Element == mostElement)
+                        deckButton.SetBorderSelection();
+                    else
+                        deckButton.RemoveBorderSelection();
                 }
             }
             
-            // Find most element in player deck
-            foreach (var pair in PlayerDeck.ElementsQuantity)
+            // Used to calculate the occurrences of each element
+            BasicElement GetMostElement()
             {
-                Debug.Log(pair);                
-                
-                if (pair.Value < 3) continue;
-                
-                PlayerDeck.CurrentMostElement = pair.Key;
-                
-                // Iterate through elements collection and select or deselect borders  
-                for (int i = 0; i < PlayerDeck.DeckElements.Count; i++)
+                var occurrences = new[] { 0, 0, 0, 0, 0, 0 };
+                foreach (var element in PlayerDeck.DeckElements)
                 {
-                    if (PlayerDeck.DeckElements[i] == PlayerDeck.CurrentMostElement)
-                        deckButtons[i].SetBorderSelection();
-                    else
-                        deckButtons[i].ResetBorderSelection();
+                    var index = (int)Math.Log((int)element, 2);
+                    occurrences[index]++;
+                    if (occurrences[index] >= 3)
+                        return element;
                 }
 
-                for (int i = PlayerDeck.DeckElements.Count; i < deckButtons.Length; i++)
-                    deckButtons[i].ResetBorderSelection();
-                
-                
-                return;
+                return BasicElement.None;
             }
         }
     }

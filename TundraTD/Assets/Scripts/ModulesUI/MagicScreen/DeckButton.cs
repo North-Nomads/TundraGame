@@ -17,11 +17,13 @@ namespace ModulesUI.MagicScreen
         private Sprite _nullElementSprite;
         private Sprite _defaultBorder;
         private Sprite _selectedBorder;
-        
+        private BasicElement _element;
 
+        public BasicElement Element => _element;
+        
         private void Start()
         {
-            _nullElementSprite = Resources.Load<Sprite>("Elements/BorderCircle");
+            _nullElementSprite = Resources.Load<Sprite>("Elements/None");
             _defaultBorder = Resources.Load<Sprite>("Elements/BorderDefaultCircle");
             _selectedBorder = Resources.Load<Sprite>("Elements/BorderSelectedCircle");
         }
@@ -29,7 +31,7 @@ namespace ModulesUI.MagicScreen
         public void OnButtonClick()
         {
             int index = Array.IndexOf(buttonsHolder.deckButtons, this);
-            if (index < PlayerDeck.DeckElements.Count) 
+            if (index < PlayerDeck.DeckElements.Count)
                 PlayerDeck.DeckElements.RemoveAt(index);
         }
 
@@ -41,6 +43,8 @@ namespace ModulesUI.MagicScreen
                 iconHolder.sprite = _nullElementSprite;
             else
                 iconHolder.sprite = sprite;
+
+            _element = element;
         }
 
         public void SetBorderSelection()
@@ -48,7 +52,7 @@ namespace ModulesUI.MagicScreen
             borderHolder.sprite = _selectedBorder;
         }
 
-        public void ResetBorderSelection()
+        public void RemoveBorderSelection()
         {
             borderHolder.sprite = _defaultBorder;
         }
