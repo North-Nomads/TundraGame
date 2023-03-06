@@ -902,6 +902,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ad8215438ad4b2eb841641380e73ca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &631698062 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4841377348204293228, guid: 9f4e7c850b360ee4cafa8588be89688c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1882093952}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &631698067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 631698062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 855aae58a8a03af4fb9547cebb58fade, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &701197037 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6727683424728350792, guid: 89171b4b3730ad846bf6d1a73c4ee2d9,
@@ -1715,7 +1733,7 @@ MonoBehaviour:
   minimalCameraSize: 5
   maximumCameraSize: 8
   wasdCameraMoveSpeed: 10
-  usingWASD: 1
+  usingWASD: 0
 --- !u!1001 &1034351870
 PrefabInstance:
   m_ObjectHideFlags: 0

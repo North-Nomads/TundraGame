@@ -14,10 +14,10 @@ namespace ModulesUI.MagicScreen
         [SerializeField] private Image iconHolder;
         [SerializeField] private Image borderHolder;
 
-        private BasicElement _element;
         private Sprite _nullElementSprite;
         private Sprite _defaultBorder;
         private Sprite _selectedBorder;
+        
 
         private void Start()
         {
@@ -31,13 +31,11 @@ namespace ModulesUI.MagicScreen
             int index = Array.IndexOf(buttonsHolder.deckButtons, this);
             if (index < PlayerDeck.DeckElements.Count) 
                 PlayerDeck.DeckElements.RemoveAt(index);
-            _element = BasicElement.None; 
         }
 
         public void UpdateButtonElement(BasicElement element)
         {
             var sprite = PlayerDeck.ElementIcons[element];
-            _element = element;
             
             if (sprite is null)
                 iconHolder.sprite = _nullElementSprite;
