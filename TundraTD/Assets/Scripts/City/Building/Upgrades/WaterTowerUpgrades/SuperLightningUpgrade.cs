@@ -6,7 +6,7 @@ namespace City.Building.Upgrades.WaterTowerUpgrades
 {
     public class SuperLightningUpgrade : IUpgrade
     {
-        public Sprite UpgradeShowcaseSprite { get; } = Resources.Load<Sprite>("UpgradeIcons/Arcanist1");
+        public Sprite UpgradeShowcaseSprite { get; } = Resources.Load<Sprite>("UpgradeIcons/Water/Shaman1");
 
         public BasicElement UpgradeTowerElement => BasicElement.Water;
 

@@ -10,7 +10,7 @@ namespace City.Building.Upgrades.FireTowerUpgrades
         public int PurchasePriceInTowerMenu => 0;
         public int SpellPurchaseRequiredLevel => 1;
         public string UpgradeDescriptionText => "Burning effect becomes water resistant";
-        public Sprite UpgradeShowcaseSprite => Resources.Load<Sprite>("UpgradeIcons/Arcanist1");
+        public Sprite UpgradeShowcaseSprite => Resources.Load<Sprite>("UpgradeIcons/Fire/Enchanter2");
 
         public void ExecuteOnUpgradeBought()
         {
