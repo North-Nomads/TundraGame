@@ -34,12 +34,12 @@ namespace ModulesUI.MagicScreen
             {
                 if (i < PlayerDeck.DeckElements.Count)
                 {
-                    PlayerDeck.ElementsQuantity[elements[i]] += 1;
+                    PlayerDeck.ElementsQuantity[elements[i]]++;
                     deckButtons[i].UpdateButtonElement(elements[i]);
                 }
                 else
                 {
-                    PlayerDeck.ElementsQuantity[BasicElement.None] += 1;
+                    PlayerDeck.ElementsQuantity[BasicElement.None]++;
                     deckButtons[i].UpdateButtonElement(BasicElement.None);
                 }
             }

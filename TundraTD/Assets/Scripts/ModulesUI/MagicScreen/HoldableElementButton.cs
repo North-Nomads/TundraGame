@@ -1,11 +1,9 @@
 ﻿using Spells;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace ModulesUI.MagicScreen
 {
-    [RequireComponent(typeof(Image))]
     [RequireComponent(typeof(AudioSource))]
     public class HoldableElementButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
@@ -30,6 +28,7 @@ namespace ModulesUI.MagicScreen
             if (_holdingTime >= AddListThreshold && !_isFilled)
             {
                 var amount = 5 - PlayerDeck.DeckElements.Count;
+                Debug.Log(PlayerDeck.DeckElements.Count);
                 for (int i = 0; i < amount; i++)
                     PlayerDeck.DeckElements.Add(element);
 
@@ -51,11 +50,12 @@ namespace ModulesUI.MagicScreen
             _holdingTime = 0;
         }
         
-        public void OnButtonClick()
+        public void AddElementToDeck()
         {
             if (PlayerDeck.DeckElements.Count == 5)
                 return;
             
+            Debug.Log(PlayerDeck.DeckElements.Count);
             PlayerDeck.DeckElements.Add(element);
         }
     }
