@@ -16,14 +16,12 @@ namespace Mobs.MobEffects
         public override bool OnAttach(MobBehaviour mob)
         {
             mob.MobModel.CurrentMobSpeed *= SpeedModifier;
-            //mob.MobModel.Animator.speed *= SpeedModifier;
             return true;
         }
 
         public override void OnDetach(MobBehaviour mob)
         {
             mob.MobModel.CurrentMobSpeed /= SpeedModifier;
-            //mob.MobModel.Animator.speed /= SpeedModifier;
         }
     }
 }

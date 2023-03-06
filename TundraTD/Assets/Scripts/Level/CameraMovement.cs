@@ -1,4 +1,5 @@
 ﻿using System;
+using Spells;
 using UnityEngine;
 
 namespace Level
@@ -33,6 +34,9 @@ namespace Level
         private void Update()
         {
             HandleCameraInertialMovement();
+
+            if (Grimoire.IsCastingSpell)
+                return;
             
             if (usingWASD)
             {

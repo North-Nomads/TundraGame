@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Serialization;
 
 namespace Mobs
 {
@@ -24,9 +23,11 @@ namespace Mobs
         private float defaultMobSpeed;
 
         [SerializeField]
-        private SkinnedMeshRenderer skinRenderer;
+        private new SkinnedMeshRenderer renderer;
+
 
         [SerializeField] new private Rigidbody rigidbody;
+
 
         private Animator _animator;
         private float _defaultMobAngularSpeed;
@@ -42,6 +43,8 @@ namespace Mobs
         public NavMeshAgent MobNavMeshAgent => _mobNavMeshAgent;
         public bool IsAlive => CurrentMobHealth > 0;
 
+        public float DefaultMobSpeed => defaultMobSpeed;
+        
         public float CurrentMobHealth
         {
             get => _currentMobHealth;
@@ -69,23 +72,24 @@ namespace Mobs
         public void InstantiateMobModel()
         {
             _mobNavMeshAgent = GetComponent<NavMeshAgent>();
-            _defaultMobAngularSpeed = _mobNavMeshAgent.angularSpeed;
+            _animator = GetComponent<Animator>();
+            _defaultMobAngularSpeed = _mobNavMeshAgent.speed;
             _currentMobHealth = maxMobHealth;
             _currentMobSpeed = defaultMobSpeed;
             CurrentMobDamage = defaultMobDamage;
-            _defaultMaterial = skinRenderer.material;
+            _defaultMaterial = renderer.material;
         }
         
         public void SetHitMaterial()
         {
-            skinRenderer.material = hitMaterial;
+            renderer.material = hitMaterial;
             StartCoroutine(VisualEffectDamage());
         }
 
         private IEnumerator VisualEffectDamage()
         {
             yield return new WaitForSeconds(.1f);
-            skinRenderer.material = _defaultMaterial;
+            renderer.material = _defaultMaterial;
         } 
     }
 }

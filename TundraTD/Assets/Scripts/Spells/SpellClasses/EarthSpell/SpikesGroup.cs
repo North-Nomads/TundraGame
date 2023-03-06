@@ -36,7 +36,7 @@ namespace Spells.SpellClasses.EarthSpell
             cloudEffect.gameObject.SetActive(true);
         }
         
-        public void ApplyStunOverlappedOnMobs(float stunDamage, int stunTicks)
+        public void ApplyStunOnOverlappedMobs(float stunDamage, int stunTicks)
         {
             var touches = Physics.OverlapBoxNonAlloc(transform.position, new Vector3(1.5f, 1, .5f), _colliders,
                 Quaternion.identity, MobsMask);
