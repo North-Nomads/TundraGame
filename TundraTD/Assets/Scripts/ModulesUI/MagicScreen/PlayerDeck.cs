@@ -25,7 +25,7 @@ namespace ModulesUI.MagicScreen
                 loadedIcons[i] = Resources.Load<Sprite>($"Elements/{element}");
                 i++;
             }
-            //var loadedIcons = Resources.LoadAll<Sprite>("Elements/");
+
             ElementIcons = new Dictionary<BasicElement, Sprite>
             {
                 [BasicElement.None] = loadedIcons[0],

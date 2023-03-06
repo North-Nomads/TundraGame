@@ -18,11 +18,8 @@ namespace ModulesUI.MagicScreen
             _camera = Camera.main;
         }
 
-        private void CastSpellOnPosition(RaycastHit hitInfo)
-        {
-            Grimoire.TurnElementsIntoSpell(hitInfo);
-            PlayerDeck.DeckElements.Clear();
-        }
+        private void CastSpellOnPosition(RaycastHit hitInfo) => Grimoire.TurnElementsIntoSpell(hitInfo);
+        
         
         public void Update()
         {
