@@ -25,6 +25,7 @@ namespace ModulesUI.MagicScreen
         private void UpdateDeck(object sender, NotifyCollectionChangedEventArgs e)
         {
             var elements = PlayerDeck.DeckElements;
+            PlayerDeck.CurrentMostElement = BasicElement.None;
 
             foreach (BasicElement element in Enum.GetValues(typeof(BasicElement)))
                 PlayerDeck.ElementsQuantity[element] = 0;
@@ -42,12 +43,29 @@ namespace ModulesUI.MagicScreen
                     deckButtons[i].UpdateButtonElement(BasicElement.None);
                 }
             }
-
+            
+            // Find most element in player deck
             foreach (var pair in PlayerDeck.ElementsQuantity)
             {
+                Debug.Log(pair);                
+                
                 if (pair.Value < 3) continue;
                 
                 PlayerDeck.CurrentMostElement = pair.Key;
+                
+                // Iterate through elements collection and select or deselect borders  
+                for (int i = 0; i < PlayerDeck.DeckElements.Count; i++)
+                {
+                    if (PlayerDeck.DeckElements[i] == PlayerDeck.CurrentMostElement)
+                        deckButtons[i].SetBorderSelection();
+                    else
+                        deckButtons[i].ResetBorderSelection();
+                }
+
+                for (int i = PlayerDeck.DeckElements.Count; i < deckButtons.Length; i++)
+                    deckButtons[i].ResetBorderSelection();
+                
+                
                 return;
             }
         }
