@@ -18,23 +18,10 @@ namespace ModulesUI.MagicScreen
 
         static PlayerDeck()
         {
-            var loadedIcons = new Sprite[6];
-            int i = 0;
+            ElementIcons = new Dictionary<BasicElement, Sprite>();
             foreach (var element in (BasicElement[])Enum.GetValues(typeof(BasicElement)))
-            {
-                loadedIcons[i] = Resources.Load<Sprite>($"Elements/{element}");
-                i++;
-            }
-
-            ElementIcons = new Dictionary<BasicElement, Sprite>
-            {
-                [BasicElement.None] = loadedIcons[0],
-                [BasicElement.Fire] = loadedIcons[1],
-                [BasicElement.Water] = loadedIcons[2],
-                [BasicElement.Earth] = loadedIcons[3],
-                [BasicElement.Lightning] = loadedIcons[4],
-                [BasicElement.Air] = loadedIcons[5]
-            };
+                ElementIcons.Add(element, Resources.Load<Sprite>($"Elements/{element}"));
+            
 
             ElementsQuantity = new Dictionary<BasicElement, int>
             {
