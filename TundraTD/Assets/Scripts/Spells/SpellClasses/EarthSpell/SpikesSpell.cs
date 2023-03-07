@@ -66,30 +66,38 @@ namespace Spells.SpellClasses.EarthSpell
 
         private IEnumerator RegisterUserInputs(Vector3 startPosition)
         {
-            IsCameraLocked = true;
-
-            var position2 = startPosition;
-
+            Debug.Log(startPosition);
             while (_touchRegisterTime < _touchRegisterMaxTime)
             {
-                var rayEnd = _mainCamera.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(rayEnd, out var hitInfo2, float.PositiveInfinity, PlaceableLayer))
-                    position2 = hitInfo2.point;
+                if (Input.touchCount == 1)
+                {
+                    Touch endTouch = Input.GetTouch(0);
+                    var rayEnd = _mainCamera.ScreenPointToRay(endTouch.position);
+                    Vector3 endPosition = endTouch.position;
+                    
+                    if (Physics.Raycast(rayEnd, out var hitInfo, float.PositiveInfinity, PlaceableLayer))
+                        endPosition = hitInfo.point;
+                    
+                    Debug.Log(endPosition);
+
+                    if (startPosition != endPosition)
+                    {
+                        Instantiate(spikesGroupObject, startPosition, Quaternion.identity, spikesObjectParent.transform);
+                        Instantiate(spikesGroupObject, endPosition, Quaternion.identity, spikesObjectParent.transform);
+                        Debug.Log("Passed");
+                    }
+                    
+                    
+                    /*StartCoroutine(InstantiateSpikes(startPosition, endPosition, true));
+                    if (!EarthPool.HasAdditionalWalls) yield break;
+            
+                    StartCoroutine(InstantiateSpikes(startPosition + Vector3.left * 3, endPosition + Vector3.left * 3, false));
+                    StartCoroutine(InstantiateSpikes(startPosition + Vector3.right * 3, endPosition + Vector3.right * 3, false));*/
+                }
 
                 _touchRegisterTime += Time.deltaTime;
                 yield return null;
             }
-            
-            if (startPosition == position2)
-                yield break;
-
-            StartCoroutine(InstantiateSpikes(startPosition, position2, true));
-            IsCameraLocked = false;
-            if (!EarthPool.HasAdditionalWalls) yield break;
-            
-            StartCoroutine(InstantiateSpikes(startPosition + Vector3.left * 3, position2 + Vector3.left * 3, false));
-            StartCoroutine(InstantiateSpikes(startPosition + Vector3.right * 3, position2 + Vector3.right * 3, false));
-
         }
         
         private IEnumerator InstantiateSpikes(Vector3 start, Vector3 finish, bool isMainWall)

@@ -15,9 +15,7 @@ namespace Spells
     public static class Grimoire
     {
         private static readonly Dictionary<BasicElement, Type> SpellTypes;
-        private static bool _isCastingSpell = false;
         public static MagicSpell[] SpellInitializers { get; set; }
-        public static bool IsCastingSpell => _isCastingSpell;
 
         static Grimoire()
         {
@@ -65,13 +63,7 @@ namespace Spells
                 attr.TryUpgradeProperty(element, prop, spell);
             
             PlayerDeck.DeckElements.Clear();
-            spell.SpellCameraLock += HandleSpellCameraLock;
             spell.ExecuteSpell(hitInfo);
-        }
-
-        private static void HandleSpellCameraLock(object sender, bool value)
-        {
-            _isCastingSpell = value;
         }
     }
 }

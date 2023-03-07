@@ -35,7 +35,6 @@ namespace ModulesUI.MagicScreen
                 if (playerTouch.phase == TouchPhase.Ended)
                     return;
                 
-                Debug.Log("Executing spell");
                 var rayEnd = _camera.ScreenPointToRay(playerTouch.position);
                 if (!Physics.Raycast(rayEnd, out var hitInfo, float.PositiveInfinity, PlaceableLayer)) return;
             
