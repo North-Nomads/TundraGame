@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using Level;
 using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
 using UnityEngine;
@@ -7,8 +7,8 @@ namespace Spells.SpellClasses.EarthSpell
 {
     public class SpikesAreaAround : MonoBehaviour
     {
-        [SerializeField] private ParticleSystem cloudEffect;
-        public BoxCollider BoxCollider { get; set; }
+        public BoxCollider BoxCollider { get; private set; }
+        private const float FearDuration = 1f;  
 
         private void Start()
         {
@@ -18,7 +18,7 @@ namespace Spells.SpellClasses.EarthSpell
         private void OnTriggerEnter(Collider other)
         {
             var mob = other.GetComponent<MobBehaviour>();
-            mob.AddReceivedEffects(new List<Effect> { new FearEffect(4) });
+            mob.AddSingleEffect(new FearEffect(FearDuration.SecondsToTicks()));
         }
     }
 }
