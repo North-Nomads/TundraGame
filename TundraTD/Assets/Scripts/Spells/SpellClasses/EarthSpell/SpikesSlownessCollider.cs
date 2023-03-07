@@ -50,6 +50,9 @@ namespace Spells.SpellClasses.EarthSpell
         private void OnTriggerEnter(Collider other)
         {
             var mob = other.GetComponent<MobBehaviour>();
+            if (mob is null)
+                return;
+            
             _mobsInCollider.Add(mob);
             mob.AddReceivedEffects(new List<Effect> { new SlownessEffect(_slownessPercent, _slownessTicks) });
         }
@@ -64,8 +67,21 @@ namespace Spells.SpellClasses.EarthSpell
         {
             while (true)
             {
+                //_mobsInCollider.RemoveAll(x => x is null);
+                
                 foreach (var mobBehaviour in _mobsInCollider)
+                {
                     mobBehaviour.HitThisMob(TermitesDamage, BasicElement.Earth, "EarthMods.Termites");
+                    
+                    /*catch
+                    {
+                        print(mobBehaviour.name);
+                        Debug.Break();
+                    }*/
+                    
+
+                }
+                    
                 
                 yield return new WaitForSeconds(1f);
             }
