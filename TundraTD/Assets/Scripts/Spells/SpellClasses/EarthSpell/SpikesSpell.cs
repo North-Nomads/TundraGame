@@ -70,6 +70,7 @@ namespace Spells.SpellClasses.EarthSpell
         {
             var group = Instantiate(spikesGroupObject, startPosition, Quaternion.identity, spikesObjectParent.transform);
             _spikes.Add(group);
+            yield return new WaitForEndOfFrame();
             while (_touchRegisterTime < _touchRegisterMaxTime)
             {
                 if (Input.touchCount == 1)
@@ -81,20 +82,15 @@ namespace Spells.SpellClasses.EarthSpell
                     if (Physics.Raycast(rayEnd, out var hitInfo, float.PositiveInfinity, PlaceableLayer))
                         endPosition = hitInfo.point;
                     
-                    if (startPosition != endPosition)
+                    if (Mathf.Abs(startPosition.magnitude - endPosition.magnitude) >= 1)
                     {
+                        Debug.Log("Started coroutine");
                         StartCoroutine(InstantiateSpikesPath(startPosition, endPosition, false));
                         if (!EarthPool.HasAdditionalWalls) yield break;
                         StartCoroutine(InstantiateSpikesPath(startPosition + Vector3.left * 3, endPosition + Vector3.left * 3, false));
                         StartCoroutine(InstantiateSpikesPath(startPosition + Vector3.right * 3, endPosition + Vector3.right * 3, false));
                     }
-                    else
-                    {
-                        _spikes.Clear();
-                        Destroy(group);
-                    }
                 }
-
                 _touchRegisterTime += Time.deltaTime;
                 yield return null;
             }
