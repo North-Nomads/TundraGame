@@ -85,7 +85,7 @@ namespace Spells.SpellClasses.EarthSpell
                     if (Mathf.Abs(startPosition.magnitude - endPosition.magnitude) >= 1)
                     {
                         Debug.Log("Started coroutine");
-                        StartCoroutine(InstantiateSpikesPath(startPosition, endPosition, false));
+                        StartCoroutine(InstantiateSpikesPath(startPosition, endPosition, true));
                         if (!EarthPool.HasAdditionalWalls) yield break;
                         StartCoroutine(InstantiateSpikesPath(startPosition + Vector3.left * 3, endPosition + Vector3.left * 3, false));
                         StartCoroutine(InstantiateSpikesPath(startPosition + Vector3.right * 3, endPosition + Vector3.right * 3, false));
