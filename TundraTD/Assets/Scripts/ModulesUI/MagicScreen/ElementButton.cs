@@ -1,4 +1,5 @@
-﻿using Spells;
+﻿using Level;
+using Spells;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +21,7 @@ namespace ModulesUI.MagicScreen
         {
             GetComponent<Image>();
             _elementAudioSource = GetComponent<AudioSource>();
+            _elementAudioSource.volume = GameParameters.EffectsVolumeModifier;
         }
 
         public void OnButtonClick()

@@ -83,6 +83,7 @@ namespace Spells.SpellClasses.FireSpell
             {
                 _source = GetComponent<AudioSource>();
                 _source.clip = flightSound;
+                _source.volume = GameParameters.EffectsVolumeModifier;
                 _source.Play();
                 _target = hit.point;
                 var reflect = Vector3.Reflect(Quaternion.Euler(0, -90, 0) * Camera.main.transform.forward, hit.normal).normalized;
