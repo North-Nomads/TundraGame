@@ -67,21 +67,8 @@ namespace Spells.SpellClasses.EarthSpell
         {
             while (true)
             {
-                //_mobsInCollider.RemoveAll(x => x is null);
-                
                 foreach (var mobBehaviour in _mobsInCollider)
-                {
                     mobBehaviour.HitThisMob(TermitesDamage, BasicElement.Earth, "EarthMods.Termites");
-                    
-                    /*catch
-                    {
-                        print(mobBehaviour.name);
-                        Debug.Break();
-                    }*/
-                    
-
-                }
-                    
                 
                 yield return new WaitForSeconds(1f);
             }
