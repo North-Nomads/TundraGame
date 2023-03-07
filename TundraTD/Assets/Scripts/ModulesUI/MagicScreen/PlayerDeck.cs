@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Spells;
 using UnityEngine;
@@ -10,21 +11,15 @@ namespace ModulesUI.MagicScreen
     /// </summary>
     public static class PlayerDeck
     {
+        public static BasicElement CurrentMostElement;
         public static ObservableCollection<BasicElement> DeckElements { get; } = new ObservableCollection<BasicElement>();
         public static Dictionary<BasicElement, Sprite> ElementIcons { get; }
 
         static PlayerDeck()
         {
-            var loadedIcons = Resources.LoadAll<Sprite>("Elements/");
-            ElementIcons = new Dictionary<BasicElement, Sprite>
-            {
-                [BasicElement.Air] = loadedIcons[1],
-                [BasicElement.Earth] = loadedIcons[2],
-                [BasicElement.Fire] = loadedIcons[3],
-                [BasicElement.Lightning] = loadedIcons[4],
-                [BasicElement.Water] = loadedIcons[5],
-                [BasicElement.None] = null
-            };
+            ElementIcons = new Dictionary<BasicElement, Sprite>();
+            foreach (var element in (BasicElement[])Enum.GetValues(typeof(BasicElement)))
+                ElementIcons.Add(element, Resources.Load<Sprite>($"Elements/{element}"));
         }
     }
     

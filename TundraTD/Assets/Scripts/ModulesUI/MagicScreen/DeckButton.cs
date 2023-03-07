@@ -11,34 +11,50 @@ namespace ModulesUI.MagicScreen
     public class DeckButton : MonoBehaviour
     {
         [SerializeField] private DeckButtons buttonsHolder;
-        private Sprite _startIcon;
+        [SerializeField] private Image iconHolder;
+        [SerializeField] private Image borderHolder;
 
-        public BasicElement Element { get; set; }
-        public Image ElementIcon { get; set; }
+        private Sprite _nullElementSprite;
+        private Sprite _defaultBorder;
+        private Sprite _selectedBorder;
+        private BasicElement _element;
 
+        public BasicElement Element => _element;
+        
         private void Start()
         {
-            ElementIcon = GetComponent<Image>();
-            _startIcon = ElementIcon.sprite;
+            _nullElementSprite = Resources.Load<Sprite>("Elements/None");
+            _defaultBorder = Resources.Load<Sprite>("Elements/BorderDefaultCircle");
+            _selectedBorder = Resources.Load<Sprite>("Elements/BorderSelectedCircle");
         }
 
         public void OnButtonClick()
         {
             int index = Array.IndexOf(buttonsHolder.deckButtons, this);
-            if (index < PlayerDeck.DeckElements.Count) 
+            if (index < PlayerDeck.DeckElements.Count)
                 PlayerDeck.DeckElements.RemoveAt(index);
         }
 
         public void UpdateButtonElement(BasicElement element)
         {
-            ElementIcon.sprite = PlayerDeck.ElementIcons[element];
-            Element = element;
+            var sprite = PlayerDeck.ElementIcons[element];
+            
+            if (sprite is null)
+                iconHolder.sprite = _nullElementSprite;
+            else
+                iconHolder.sprite = sprite;
+
+            _element = element;
         }
 
-        public void Clear()
+        public void SetBorderSelection()
         {
-            ElementIcon.sprite = _startIcon;
-            Element = BasicElement.None;
+            borderHolder.sprite = _selectedBorder;
+        }
+
+        public void RemoveBorderSelection()
+        {
+            borderHolder.sprite = _defaultBorder;
         }
     }
 }

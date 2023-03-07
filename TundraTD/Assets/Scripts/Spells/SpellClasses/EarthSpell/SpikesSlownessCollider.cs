@@ -50,6 +50,9 @@ namespace Spells.SpellClasses.EarthSpell
         private void OnTriggerEnter(Collider other)
         {
             var mob = other.GetComponent<MobBehaviour>();
+            if (mob is null)
+                return;
+            
             _mobsInCollider.Add(mob);
             mob.AddReceivedEffects(new List<Effect> { new SlownessEffect(_slownessPercent, _slownessTicks) });
         }

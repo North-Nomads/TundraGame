@@ -35,9 +35,6 @@ namespace Level
         {
             HandleCameraInertialMovement();
 
-            if (Grimoire.IsCastingSpell)
-                return;
-            
             if (usingWASD)
             {
                 MoveCameraOnWASD();

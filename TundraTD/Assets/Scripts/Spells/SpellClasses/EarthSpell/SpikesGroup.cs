@@ -16,8 +16,12 @@ namespace Spells.SpellClasses.EarthSpell
 
         public int StunTicks { get; set; }
 
+        private void Start()
+        {
+            StartCoroutine(InitializeSpikesGrowth());
+        }
 
-        public IEnumerator InitializeSpikesGrowth()
+        private IEnumerator InitializeSpikesGrowth()
         {
             float size = 0;
             float increment = 0;
@@ -51,9 +55,10 @@ namespace Spells.SpellClasses.EarthSpell
 
         public void ExecutePebblesExplosion(float pebbleDamage, int pebbleStunTicks)
         {
+            Debug.Log("Pebbles");
             pebblesEffect.gameObject.SetActive(true);
             
-            var touches = Physics.OverlapBoxNonAlloc(transform.position, new Vector3(2f, 1, .5f), _colliders,
+            var touches = Physics.OverlapBoxNonAlloc(transform.position, new Vector3(3f, 1, .5f), _colliders,
                 Quaternion.identity, MobsMask);
             
             for (int i = 0; i < touches; i++)
