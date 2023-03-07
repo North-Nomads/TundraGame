@@ -5,6 +5,7 @@ using System.Reflection;
 using ModulesUI.MagicScreen;
 using UnityEngine;
 using UnityEngine.U2D;
+using UnityEngine.Analytics;
 using Object = UnityEngine.Object;
 
 namespace Spells
@@ -31,7 +32,6 @@ namespace Spells
         /// </summary>
         /// <param name="hitInfo"></param>
         /// <param name="testMostElement">Manually set mostelement for debug</param>
-        /// <returns>Created spell which is ready to cast.</returns>
         public static void TurnElementsIntoSpell(RaycastHit hitInfo, BasicElement testMostElement=BasicElement.None)
         {
             // Try to apply debug value
@@ -61,9 +61,10 @@ namespace Spells
             foreach (var attr in prop.GetCustomAttributes<UpgradeablePropertyAttribute>(true))
             foreach (var element in remainingElements)
                 attr.TryUpgradeProperty(element, prop, spell);
-            
+      
             PlayerDeck.DeckElements.Clear();
             spell.ExecuteSpell(hitInfo);
+            Analytics.CustomEvent(spell.GetType().ToString().Split('.').Last());
         }
     }
 }

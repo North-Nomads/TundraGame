@@ -70,7 +70,7 @@ namespace Mobs.MobsBehaviour
         {
             if (!MobModel.IsAlive) return;
             Debug.Log($"Handling {damage} damage from {sourceName} hitting {name}");
-            
+
             damage = CurrentEffects.Aggregate(damage, (dmg, effect) => effect.OnHitReceived(this, dmg, damageElement));
             HandleIncomeDamage(damage, damageElement);
             MobModel.SetHitMaterial();
