@@ -16,8 +16,12 @@ namespace Spells.SpellClasses.EarthSpell
 
         public int StunTicks { get; set; }
 
+        private void Start()
+        {
+            StartCoroutine(InitializeSpikesGrowth());
+        }
 
-        public IEnumerator InitializeSpikesGrowth()
+        private IEnumerator InitializeSpikesGrowth()
         {
             float size = 0;
             float increment = 0;

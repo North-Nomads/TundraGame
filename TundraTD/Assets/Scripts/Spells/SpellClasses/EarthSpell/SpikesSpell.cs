@@ -118,7 +118,6 @@ namespace Spells.SpellClasses.EarthSpell
             {
                 spikesSlownessCollider.InitializeTermites(EarthPool.HasTermites);
                 var group = Instantiate(spikesGroupObject, currentPosition, Quaternion.identity, spikesObjectParent.transform);
-                StartCoroutine(group.InitializeSpikesGrowth());
                 
                 if (EarthPool.HasDustCloud)
                     group.PlayCloudAnimation();
