@@ -1,5 +1,6 @@
 using City.Building.Upgrades;
 using System;
+using Spells;
 using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.UI;
@@ -14,6 +15,7 @@ namespace City.Building
         [SerializeField] private TowerUpgradeLevel[] upgradeLevels;
         [SerializeField] private Image upgradeLevelIndicator;
         [SerializeField] private Text allUpgradesBoughtPage;
+        [SerializeField] private Text canvasTitle;
 
         private ElementalTower _elementalTower;
 
@@ -75,7 +77,9 @@ namespace City.Building
 
         public void SetLinkedTower(ElementalTower tower)
         {
+            var name = Enum.GetName(typeof(BasicElement), tower.TowerElement);
             _elementalTower = tower;
+            canvasTitle.text = $"{name} tower".ToUpper();
         }
 
         public void OpenTowerMenu()
