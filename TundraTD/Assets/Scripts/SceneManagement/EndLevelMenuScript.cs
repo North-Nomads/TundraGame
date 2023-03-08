@@ -12,7 +12,7 @@ namespace SceneManagement
             if (result == "victory" && SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings)
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             else if (result == "victory")
-                Debug.LogError("No More Scenes to load");
+                SceneManager.LoadScene(LevelsSceneID);
             else
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
