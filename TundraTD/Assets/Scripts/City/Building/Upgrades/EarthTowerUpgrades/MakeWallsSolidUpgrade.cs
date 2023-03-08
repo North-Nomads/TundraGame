@@ -10,7 +10,7 @@ namespace City.Building.Upgrades.EarthTowerUpgrades
         public int PurchasePriceInTowerMenu => 100;
         public int SpellPurchaseRequiredLevel => 1;
         public string UpgradeDescriptionText => "Spikes turn into a solid wall that can't be walked through";
-        public Sprite UpgradeShowcaseSprite => Resources.Load<Sprite>("UpgradeIcons/Arcanist1");
+        public Sprite UpgradeShowcaseSprite => Resources.Load<Sprite>("UpgradeIcons/Earth/Brawler18");
 
         public void ExecuteOnUpgradeBought()
         {

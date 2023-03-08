@@ -1,5 +1,6 @@
 using City.Building.Upgrades;
 using System;
+using Spells;
 using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.UI;
@@ -12,25 +13,21 @@ namespace City.Building
     public class ElementalTowerUI : MonoBehaviour
     {
         [SerializeField] private TowerUpgradeLevel[] upgradeLevels;
-        [SerializeField] private Image[] upgradeLevelIndicators;
+        [SerializeField] private Image upgradeLevelIndicator;
         [SerializeField] private Text allUpgradesBoughtPage;
+        [SerializeField] private Text canvasTitle;
 
         private ElementalTower _elementalTower;
-        private Sprite _achievedLevelIndicator;
-        private Sprite _unachievedLevelIndicator;
 
         private void Start()
         {
             gameObject.SetActive(false);
             allUpgradesBoughtPage.gameObject.SetActive(false);
-            _achievedLevelIndicator = Resources.Load<Sprite>("UpgradeIcons/Green");
-            _unachievedLevelIndicator = Resources.Load<Sprite>("UpgradeIcons/White");
-
-            foreach (var levelIndicator in upgradeLevelIndicators)
-                levelIndicator.sprite = _unachievedLevelIndicator;
 
             foreach (var upgradeLevel in upgradeLevels)
                 upgradeLevel.gameObject.SetActive(false);
+
+            upgradeLevelIndicator.fillAmount = 0;
         }
 
         private void OnEnable()
@@ -50,7 +47,7 @@ namespace City.Building
                 upgradeLevels[_elementalTower.TowerUpgradeLevel].gameObject.SetActive(true);
 
             upgradeLevels[_elementalTower.TowerUpgradeLevel - 1].gameObject.SetActive(false);
-            upgradeLevelIndicators[_elementalTower.TowerUpgradeLevel - 1].sprite = _achievedLevelIndicator;
+            upgradeLevelIndicator.fillAmount = (float)_elementalTower.TowerUpgradeLevel / upgradeLevels.Length;
         }
 
         public void LoadUpgradesInTowerMenu(IUpgrade[,] upgrades)
@@ -80,7 +77,9 @@ namespace City.Building
 
         public void SetLinkedTower(ElementalTower tower)
         {
+            var name = Enum.GetName(typeof(BasicElement), tower.TowerElement);
             _elementalTower = tower;
+            canvasTitle.text = $"{name} tower".ToUpper();
         }
 
         public void OpenTowerMenu()

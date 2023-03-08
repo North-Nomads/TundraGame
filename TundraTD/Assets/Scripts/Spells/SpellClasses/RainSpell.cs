@@ -37,33 +37,26 @@ namespace Spells.SpellClasses
         [IncreasableProperty(BasicElement.Fire, 0.02f)]
         private float LightningMultiplier { get; set; } = 1.1f;
 
-        public override void ExecuteSpell()
+        public override void ExecuteSpell(RaycastHit hitInfo)
         {
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out var hit))
-            {
-                _targetPosition = hit.point;
-                rainSplashes.transform.position = (transform.position = _targetPosition) + Vector3.up;
-                rainParticles.SetActive(true);
-                rainSplashes.SetActive(true);
-                // TODO: implement it as normal full-map effect.
-                if (WaterPool.UnlimitedRadius) Radius = 50;
-                barrierCollider.SetActive(WaterPool.CreateBarrier);
-                barrierCollider.transform.localScale = new Vector3(Radius * 10, 100, Radius * 10);
-                if (WaterPool.AdditionalSlowness) SlownessValue *= 3;
-                if (WaterPool.AllowSuperLightning) LightningMultiplier *= 3;
-                var shape = rainParticles.GetComponent<ParticleSystem>().shape;
-                shape.radius = Radius / 10;
-                rainParticles.GetComponent<CFXR_EmissionBySurface>().maxEmissionRate = 5 * Radius * Radius * Radius;
-                mainCollider.radius = Radius;
-                mainCollider.height = RainHeight;
-                rainParticles.transform.localPosition = (Vector3.up * (RainHeight / 2));
-                rainSplashes.transform.localScale = new Vector3(Radius / 10, 1, Radius / 10);
-                StartCoroutine(WaitTime());
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
+            _targetPosition = hitInfo.point;
+            rainSplashes.transform.position = (transform.position = _targetPosition) + Vector3.up;
+            rainParticles.SetActive(true);
+            rainSplashes.SetActive(true);
+            // TODO: implement it as normal full-map effect.
+            if (WaterPool.UnlimitedRadius) Radius = 50;
+            barrierCollider.SetActive(WaterPool.CreateBarrier);
+            barrierCollider.transform.localScale = new Vector3(Radius * 10, 100, Radius * 10);
+            if (WaterPool.AdditionalSlowness) SlownessValue *= 3;
+            if (WaterPool.AllowSuperLightning) LightningMultiplier *= 3;
+            var shape = rainParticles.GetComponent<ParticleSystem>().shape;
+            shape.radius = Radius / 10;
+            rainParticles.GetComponent<CFXR_EmissionBySurface>().maxEmissionRate = 5 * Radius * Radius * Radius;
+            mainCollider.radius = Radius;
+            mainCollider.height = RainHeight;
+            rainParticles.transform.localPosition = (Vector3.up * (RainHeight / 2));
+            rainSplashes.transform.localScale = new Vector3(Radius / 10, 1, Radius / 10);
+            StartCoroutine(WaitTime());
         }
 
         private IEnumerator WaitTime()

@@ -1,6 +1,7 @@
 ﻿using System;
 using Spells;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Level
 {
@@ -33,11 +34,11 @@ namespace Level
 
         private void Update()
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+                return;
+
             HandleCameraInertialMovement();
 
-            if (Grimoire.IsCastingSpell)
-                return;
-            
             if (usingWASD)
             {
                 MoveCameraOnWASD();

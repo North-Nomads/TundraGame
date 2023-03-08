@@ -4,6 +4,7 @@ using System.Linq;
 using City;
 using City.Building;
 using City.Building.ElementPools;
+using ModulesUI.MagicScreen;
 using ModulesUI.Pause;
 using Spells;
 using UnityEngine;
@@ -35,6 +36,7 @@ namespace Level
             InitializePauseMode();
             InitializeArchitectValues();
             ResetMagicPools();
+            PlayerDeck.DeckElements.Clear();
         }
 
         private void ResetMagicPools()
