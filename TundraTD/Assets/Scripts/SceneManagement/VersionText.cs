@@ -1,19 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Global
+namespace SceneManagement
 {
     public class VersionText : MonoBehaviour
     {
-        [SerializeField]
-        private Text VText;
+        [SerializeField] private Text versionText;
 
         private void Awake()
         {
-            VText.text = "Alpha " + Application.version;
-            DontDestroyOnLoad(this.gameObject);
+            versionText.text += Application.version;
+            DontDestroyOnLoad(gameObject);
         }
     }
 }
