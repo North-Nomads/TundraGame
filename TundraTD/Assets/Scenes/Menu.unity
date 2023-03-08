@@ -190,7 +190,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "SFX\n\u0412\u041A\u041B"
+  m_Text: 'SFX
+
+    ON'
 --- !u!222 &214823087
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -304,7 +306,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u0423\u0440\u043E\u0432\u043D\u0438"
+  m_Text: LEVELS
 --- !u!222 &415669058
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -382,7 +384,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u041C\u0443\u0437\u044B\u043A\u0430 \u0412\u041A\u041B"
+  m_Text: MUSIC ON
 --- !u!222 &469912486
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1707,8 +1709,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u0414\u0430\u0442\u044C \u043E\u0431\u0440\u0430\u0442\u043D\u0443\u044E
-    \u0441\u0432\u044F\u0437\u044C"
+  m_Text: GIVE FEEDBACK
 --- !u!222 &1125992754
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1884,7 +1885,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u0418\u0433\u0440\u0430\u0442\u044C"
+  m_Text: PLAY
 --- !u!222 &1559508551
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2327,7 +2328,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u0421\u043E\u043E\u0431\u0449\u0438\u0442\u044C \u043E \u0431\u0430\u0433\u0435"
+  m_Text: REPORT BUG
 --- !u!222 &2105919678
 CanvasRenderer:
   m_ObjectHideFlags: 0

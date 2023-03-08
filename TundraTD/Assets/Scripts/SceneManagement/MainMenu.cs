@@ -46,12 +46,12 @@ namespace SceneManagement
             if (GameParameters.EffectsVolumeModifier == 1)
             {
                 GameParameters.EffectsVolumeModifier = 0;
-                sender.GetComponentInChildren<Text>().text = "SFX\nÂÛÊË";
+                sender.GetComponentInChildren<Text>().text = "SFX\nOFF";
             }
             else
             {
                 GameParameters.EffectsVolumeModifier = 1;
-                sender.GetComponentInChildren<Text>().text = "SFX\nÂÊË";
+                sender.GetComponentInChildren<Text>().text = "SFX\nON";
             }
 
         }
@@ -61,12 +61,12 @@ namespace SceneManagement
             if (GameParameters.MusicVolumeModifier == 1)
             {
                 GameParameters.MusicVolumeModifier = 0;
-                sender.GetComponentInChildren<Text>().text = "Ìóçûêà\nÂÛÊË";
+                sender.GetComponentInChildren<Text>().text = "Music\nOFF";
             }
             else
             {
                 GameParameters.MusicVolumeModifier = 1;
-                sender.GetComponentInChildren<Text>().text = "Ìóçûêà\nÂÊË";
+                sender.GetComponentInChildren<Text>().text = "Music\nON";
             }
         }
     }
