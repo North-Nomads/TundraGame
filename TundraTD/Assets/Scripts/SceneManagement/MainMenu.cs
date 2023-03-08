@@ -11,7 +11,7 @@ namespace SceneManagement
     /// </summary>
     public class MainMenu : MonoBehaviour
     {
-        private const int FirstSceneID = 3;
+        private const int FirstSceneID = 4;
         private const int LevelsSceneID = 1;
         private AudioSource source;
 
@@ -41,6 +41,11 @@ namespace SceneManagement
             SceneManager.LoadScene(LevelsSceneID);
         }
 
+        public void OpenTutorialScene()
+        {
+            SceneManager.LoadScene(2);
+        }
+        
         public void SwitchEffectsSound(GameObject sender)
         {
             if (GameParameters.EffectsVolumeModifier == 1)
