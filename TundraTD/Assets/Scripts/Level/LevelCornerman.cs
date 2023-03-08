@@ -26,6 +26,7 @@ namespace Level
             IsInWaveMode = false;
             waveStartTimer.gameObject.SetActive(false);
             _soundEffect = GetComponent<AudioSource>();
+            _soundEffect.volume = GameParameters.EffectsVolumeModifier;
             StartCoroutine(WaitPortalsInstantiation());
         }
 

@@ -38,6 +38,7 @@ namespace City.Building
             var position = transform.position;
             _bottomCentreBuildingAnchor = new Vector3(position.x, position.y + Mathf.Abs(_slotHeight / 2), position.z);
             _soundEffect = GetComponent<AudioSource>();
+            _soundEffect.volume = GameParameters.EffectsVolumeModifier;
             IsOccupied = false;
         }
 

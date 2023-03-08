@@ -81,6 +81,7 @@ namespace Spells.SpellClasses.FireSpell
 
             _target = hitInfo.point;
             _source = GetComponent<AudioSource>();
+            _source.volume = GameParameters.EffectsVolumeModifier;
             _source.clip = flightSound;
             _source.Play();
             
