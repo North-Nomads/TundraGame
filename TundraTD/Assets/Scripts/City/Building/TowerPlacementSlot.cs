@@ -12,6 +12,7 @@ namespace City.Building
     {
         [SerializeField] private TowerPurchaseMenu purchaseMenu;
         [SerializeField] private int slotID;
+        [SerializeField] private float levelTowerSizeModifier = 1;
         private float _slotHeight;
         private Vector3 _bottomCentreBuildingAnchor;
         private AudioSource _soundEffect;
@@ -21,7 +22,8 @@ namespace City.Building
         public void BuildElementalTowerOnThisSlot(ElementalTower prefab)
         {
             // we define new spawn position higher than the anchor because unity defines axis in the center of a model
-            Instantiate(prefab, _bottomCentreBuildingAnchor, Quaternion.identity);
+            var tower = Instantiate(prefab, _bottomCentreBuildingAnchor, Quaternion.identity);
+            tower.transform.localScale *= levelTowerSizeModifier;
             _soundEffect.Play();
             IsOccupied = true;
         }

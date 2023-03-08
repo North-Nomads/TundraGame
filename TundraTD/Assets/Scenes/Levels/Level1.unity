@@ -252,6 +252,11 @@ PrefabInstance:
       propertyPath: purchaseMenu
       value: 
       objectReference: {fileID: 470384693}
+    - target: {fileID: 2072121771150202212, guid: 0354f2fc2db316a4bacb468a83e8f0f2,
+        type: 3}
+      propertyPath: levelTowerSizeModifier
+      value: 0.55
+      objectReference: {fileID: 0}
     - target: {fileID: 7293345401955936625, guid: 0354f2fc2db316a4bacb468a83e8f0f2,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -3001,6 +3006,11 @@ PrefabInstance:
       propertyPath: purchaseMenu
       value: 
       objectReference: {fileID: 470384693}
+    - target: {fileID: 2072121771150202212, guid: 0354f2fc2db316a4bacb468a83e8f0f2,
+        type: 3}
+      propertyPath: levelTowerSizeModifier
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7293345401955936625, guid: 0354f2fc2db316a4bacb468a83e8f0f2,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -4485,7 +4495,7 @@ MonoBehaviour:
   minimalCameraSize: 5
   maximumCameraSize: 8
   wasdCameraMoveSpeed: 10
-  usingWASD: 0
+  usingWASD: 1
 --- !u!81 &1696383891
 AudioListener:
   m_ObjectHideFlags: 0
@@ -5291,6 +5301,11 @@ PrefabInstance:
       propertyPath: purchaseMenu
       value: 
       objectReference: {fileID: 470384693}
+    - target: {fileID: 2072121771150202212, guid: 0354f2fc2db316a4bacb468a83e8f0f2,
+        type: 3}
+      propertyPath: levelTowerSizeModifier
+      value: 0.55
+      objectReference: {fileID: 0}
     - target: {fileID: 7293345401955936625, guid: 0354f2fc2db316a4bacb468a83e8f0f2,
         type: 3}
       propertyPath: m_Materials.Array.data[0]

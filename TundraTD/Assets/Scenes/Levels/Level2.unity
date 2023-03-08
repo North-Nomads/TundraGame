@@ -1467,7 +1467,7 @@ PrefabInstance:
     - target: {fileID: 1966699441297535625, guid: 0354f2fc2db316a4bacb468a83e8f0f2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.4340334
+      value: -2.997
       objectReference: {fileID: 0}
     - target: {fileID: 1966699441297535625, guid: 0354f2fc2db316a4bacb468a83e8f0f2,
         type: 3}
@@ -1477,7 +1477,7 @@ PrefabInstance:
     - target: {fileID: 1966699441297535625, guid: 0354f2fc2db316a4bacb468a83e8f0f2,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.549667
+      value: 5.539
       objectReference: {fileID: 0}
     - target: {fileID: 1966699441297535625, guid: 0354f2fc2db316a4bacb468a83e8f0f2,
         type: 3}
@@ -1524,6 +1524,11 @@ PrefabInstance:
       propertyPath: purchaseMenu
       value: 
       objectReference: {fileID: 1572136484}
+    - target: {fileID: 2072121771150202212, guid: 0354f2fc2db316a4bacb468a83e8f0f2,
+        type: 3}
+      propertyPath: levelTowerSizeModifier
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 7293345401955936625, guid: 0354f2fc2db316a4bacb468a83e8f0f2,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1601,9 +1606,9 @@ MonoBehaviour:
   maximalCameraMoveThreshold: 5
   inertiaMultiplier: 3
   minimalCameraSize: 1
-  maximumCameraSize: 5
+  maximumCameraSize: 3
   wasdCameraMoveSpeed: 10
-  usingWASD: 0
+  usingWASD: 1
 --- !u!81 &787943249
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1639,7 +1644,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 2
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2021,6 +2026,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4137042975492822719, guid: fbdf270ea3f26014389c9d7c00a89dcf,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a5d53895eb36ee047bf1dc504f3b409e, type: 2}
+    - target: {fileID: -516619514930945665, guid: fbdf270ea3f26014389c9d7c00a89dcf,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a4765646a54963a4d803596f0aab5242, type: 2}
     - target: {fileID: 919132149155446097, guid: fbdf270ea3f26014389c9d7c00a89dcf,
         type: 3}
       propertyPath: m_Name
@@ -4796,17 +4811,17 @@ PrefabInstance:
     - target: {fileID: 1966699441297535625, guid: 0354f2fc2db316a4bacb468a83e8f0f2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.2185345
+      value: -1.416
       objectReference: {fileID: 0}
     - target: {fileID: 1966699441297535625, guid: 0354f2fc2db316a4bacb468a83e8f0f2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12.252001
+      value: 12.267
       objectReference: {fileID: 0}
     - target: {fileID: 1966699441297535625, guid: 0354f2fc2db316a4bacb468a83e8f0f2,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.380289
+      value: 6.423
       objectReference: {fileID: 0}
     - target: {fileID: 1966699441297535625, guid: 0354f2fc2db316a4bacb468a83e8f0f2,
         type: 3}
@@ -4853,6 +4868,11 @@ PrefabInstance:
       propertyPath: purchaseMenu
       value: 
       objectReference: {fileID: 1572136484}
+    - target: {fileID: 2072121771150202212, guid: 0354f2fc2db316a4bacb468a83e8f0f2,
+        type: 3}
+      propertyPath: levelTowerSizeModifier
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 7293345401955936625, guid: 0354f2fc2db316a4bacb468a83e8f0f2,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -4901,9 +4921,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1884679841}
-  m_LocalRotation: {x: -0, y: -0.3174222, z: -0, w: 0.9482843}
-  m_LocalPosition: {x: -1.7, y: -14.27, z: 3.36}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0.38544786, z: -0, w: 0.9227296}
+  m_LocalPosition: {x: 2.33, y: -20.48, z: 1.76}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 1674618669}
   - {fileID: 457200764}
@@ -4917,7 +4937,7 @@ Transform:
   - {fileID: 1737711310}
   m_Father: {fileID: 1433276609}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: -37.014, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -45.343002, z: 0}
 --- !u!1001 &1944613249
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5033,17 +5053,17 @@ PrefabInstance:
     - target: {fileID: 1966699441297535625, guid: 0354f2fc2db316a4bacb468a83e8f0f2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.95467067
+      value: 0.09
       objectReference: {fileID: 0}
     - target: {fileID: 1966699441297535625, guid: 0354f2fc2db316a4bacb468a83e8f0f2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12.210001
+      value: 12.306
       objectReference: {fileID: 0}
     - target: {fileID: 1966699441297535625, guid: 0354f2fc2db316a4bacb468a83e8f0f2,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.664814
+      value: 5.656
       objectReference: {fileID: 0}
     - target: {fileID: 1966699441297535625, guid: 0354f2fc2db316a4bacb468a83e8f0f2,
         type: 3}
@@ -5090,6 +5110,11 @@ PrefabInstance:
       propertyPath: purchaseMenu
       value: 
       objectReference: {fileID: 1572136484}
+    - target: {fileID: 2072121771150202212, guid: 0354f2fc2db316a4bacb468a83e8f0f2,
+        type: 3}
+      propertyPath: levelTowerSizeModifier
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 7293345401955936625, guid: 0354f2fc2db316a4bacb468a83e8f0f2,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
