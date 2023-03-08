@@ -6,7 +6,7 @@ namespace City.Building.Upgrades.WaterTowerUpgrades
 {
     public class SlownessUpgrade : IUpgrade
     {
-        public Sprite UpgradeShowcaseSprite { get; } = Resources.Load<Sprite>("UpgradeIcons/Arcanist1");
+        public Sprite UpgradeShowcaseSprite { get; } = Resources.Load<Sprite>("UpgradeIcons/Water/Enchanter18");
 
         public BasicElement UpgradeTowerElement => BasicElement.Water;
 
