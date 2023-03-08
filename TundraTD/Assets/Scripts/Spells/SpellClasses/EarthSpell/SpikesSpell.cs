@@ -89,11 +89,13 @@ namespace Spells.SpellClasses.EarthSpell
                         if (!EarthPool.HasAdditionalWalls) yield break;
                         StartCoroutine(InstantiateSpikesPath(startPosition + Vector3.left * 3, endPosition + Vector3.left * 3, false));
                         StartCoroutine(InstantiateSpikesPath(startPosition + Vector3.right * 3, endPosition + Vector3.right * 3, false));
+                        yield break;
                     }
                 }
                 _touchRegisterTime += Time.deltaTime;
                 yield return null;
             }
+            yield return HandleSpikesSpellEnding();
         }
         
         private IEnumerator InstantiateSpikesPath(Vector3 start, Vector3 finish, bool isMainWall)
