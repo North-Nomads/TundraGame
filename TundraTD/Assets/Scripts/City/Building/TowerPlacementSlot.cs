@@ -44,7 +44,7 @@ namespace City.Building
 
         private void OnMouseDown()
         {
-            if (EventSystem.current.IsPointerOverGameObject())
+            if (EventSystem.current.IsPointerOverGameObject() || IsOccupied)
                 return;
             
             if (!PauseMode.IsGamePaused)

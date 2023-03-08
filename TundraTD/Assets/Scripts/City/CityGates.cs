@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using City.Building;
 using Level;
 using Mobs.MobsBehaviour;
@@ -79,7 +78,7 @@ namespace City
             var mobAttack = mob.MobModel.CurrentMobDamage;
             CurrentCityGatesHealthPoints -= mobAttack;
             mob.HitThisMob(float.PositiveInfinity, BasicElement.None, "City.Gates");
-            _animator.SetTrigger("DamageTrigger");
+            //_animator.SetTrigger("DamageTrigger");
         }
 
         public void HandleWaveEnding()
