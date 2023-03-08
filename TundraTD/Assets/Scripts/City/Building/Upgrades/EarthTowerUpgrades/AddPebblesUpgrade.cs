@@ -10,7 +10,7 @@ namespace City.Building.Upgrades.EarthTowerUpgrades
         public int PurchasePriceInTowerMenu => 100;
         public int SpellPurchaseRequiredLevel => 1;
         public string UpgradeDescriptionText => "Small pebbles hit and stun the enemies around the walls";
-        public Sprite UpgradeShowcaseSprite => Resources.Load<Sprite>("UpgradeIcons/Arcanist1");
+        public Sprite UpgradeShowcaseSprite => Resources.Load<Sprite>("UpgradeIcons/Earth/Geomancer2");
 
         public void ExecuteOnUpgradeBought()
         {

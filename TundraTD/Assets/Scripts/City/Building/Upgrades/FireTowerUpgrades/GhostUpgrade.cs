@@ -10,7 +10,7 @@ namespace City.Building.Upgrades.FireTowerUpgrades
         public int PurchasePriceInTowerMenu => 350;
         public int SpellPurchaseRequiredLevel => 3;
         public string UpgradeDescriptionText => "When a meteor lands, a ghost appears and triggers all enemies on it";
-        public Sprite UpgradeShowcaseSprite => Resources.Load<Sprite>("UpgradeIcons/Arcanist1");
+        public Sprite UpgradeShowcaseSprite => Resources.Load<Sprite>("UpgradeIcons/Fire/Barbarian20");
 
         public void ExecuteOnUpgradeBought()
         {

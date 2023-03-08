@@ -6,7 +6,7 @@ namespace City.Building.Upgrades.WaterTowerUpgrades
 {
     public class WeaknessUpgrade : IUpgrade
     {
-        public Sprite UpgradeShowcaseSprite { get; } = Resources.Load<Sprite>("UpgradeIcons/Arcanist1");
+        public Sprite UpgradeShowcaseSprite { get; } = Resources.Load<Sprite>("UpgradeIcons/Water/Guardian8");
 
         public BasicElement UpgradeTowerElement => BasicElement.Water;
 
