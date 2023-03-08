@@ -23,10 +23,10 @@ namespace Mobs
         private float defaultMobSpeed;
 
         [SerializeField]
-        private new SkinnedMeshRenderer renderer;
-
-
-        [SerializeField] new private Rigidbody rigidbody;
+        private new Renderer renderer;
+        
+        [SerializeField] 
+        private new Rigidbody rigidbody;
 
 
         private Animator _animator;

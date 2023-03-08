@@ -32,6 +32,9 @@ namespace Mobs.MobEffects
         
         public override void OnDetach(MobBehaviour mob)
         {
+            if (!mob.MobModel.IsAlive)
+                return;
+            
             mob.MobModel.MobNavMeshAgent.enabled = true;
             mob.MobModel.MobNavMeshAgent.SetDestination(mob.DefaultDestinationPoint.position);
             mob.MobModel.MobNavMeshAgent.angularSpeed = mob.MobModel.DefaultMobAngularSpeed;
