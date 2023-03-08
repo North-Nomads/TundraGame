@@ -16,14 +16,28 @@ namespace Mobs.MobsBehaviour
         [SerializeField] private GameObject[] effectPrefabs;
         [SerializeField] private MobModel mobModel;
         private float _tickTimer;
-        private Transform _defaultDestinationPoint;
-        private Transform _currentDestinationPoint;
         public List<Effect> CurrentEffects { get; } = new List<Effect>();
 
         public Transform DefaultDestinationPoint { get; set; }
+
+        public Vector3 CurrentDestinationPoint
+        {
+            get
+            {
+                if (MobModel.MobNavMeshAgent.enabled)
+                    return MobModel.MobNavMeshAgent.destination;
+                return default;
+            }
+            set
+            {
+                if (MobModel.MobNavMeshAgent.enabled)
+                    MobModel.MobNavMeshAgent.SetDestination(value);
+            }
+        }
+
         public MobModel MobModel => mobModel;
 
-        protected MobPortal MobPortal { get; set; }
+        public MobPortal MobPortal { get; protected set; }
 
         protected float TickTimer
         {
@@ -54,7 +68,9 @@ namespace Mobs.MobsBehaviour
 
         public void HitThisMob(float damage, BasicElement damageElement, string sourceName)
         {
+            if (!MobModel.IsAlive) return;
             Debug.Log($"Handling {damage} damage from {sourceName} hitting {name}");
+
             damage = CurrentEffects.Aggregate(damage, (dmg, effect) => effect.OnHitReceived(this, dmg, damageElement));
             HandleIncomeDamage(damage, damageElement);
             MobModel.SetHitMaterial();
@@ -69,10 +85,16 @@ namespace Mobs.MobsBehaviour
                 if (effect.OnAttach(this))
                 {
                     CurrentEffects.Add(effect);
-                    int effectIndex = (int)Mathf.Log((int)effect.Code, 2);
-                    effectPrefabs[effectIndex].SetActive(true);
+                    SetVFXPrefab(effect, true);
                 }
             }
+        }
+
+        public void AddSingleEffect(Effect effect)
+        {
+            CurrentEffects.Add(effect);
+            effect.OnAttach(this);
+            SetVFXPrefab(effect, true);
         }
 
         private void ClearMobEffects()
@@ -80,11 +102,31 @@ namespace Mobs.MobsBehaviour
             foreach (var effect in CurrentEffects)
             {
                 effect.OnDetach(this);
-                int effectIndex = (int)Mathf.Log((int)effect.Code, 2);
-                effectPrefabs[effectIndex].SetActive(false);
+                SetVFXPrefab(effect, false);
             }
-                
+
             CurrentEffects.Clear();
+        }
+
+        private void SetVFXPrefab(Effect effect, bool value)
+        {
+            int effectIndex = (int)Mathf.Log((int)effect.Code, 2);
+            if (effectIndex < effectPrefabs.Length && effectPrefabs[effectIndex] != null)
+                effectPrefabs[effectIndex].SetActive(value);
+        }
+        
+        public void RemoveFilteredEffects(Func<Effect, bool> filter)
+        {
+            for (int i = 0; i < CurrentEffects.Count; i++)
+            {
+                var effect = CurrentEffects[i];
+                if (filter(effect))
+                {
+                    effect.OnDetach(this);
+                    SetVFXPrefab(effect, false);
+                    CurrentEffects.RemoveAt(i--);
+                }
+            }
         }
 
         private void KillThisMob()
@@ -113,10 +155,9 @@ namespace Mobs.MobsBehaviour
 
                 if (effect.CurrentTicksAmount == effect.MaxTicksAmount)
                 {
-                    CurrentEffects.RemoveAt(i);
                     effect.OnDetach(this);
-                    int effectIndex = (int)Mathf.Log((int)effect.Code, 2);
-                    effectPrefabs[effectIndex].SetActive(false);
+                    SetVFXPrefab(effect, false);
+                    CurrentEffects.RemoveAt(i);
                 }
                 else
                 {
@@ -124,7 +165,5 @@ namespace Mobs.MobsBehaviour
                 }
             }
         }
-
-        public abstract void EnableDisorientation();
     }
 }

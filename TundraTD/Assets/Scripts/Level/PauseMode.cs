@@ -4,12 +4,12 @@ using UnityEngine.UI;
 
 namespace Level
 {
-    public class PauseMode : MonoBehaviour 
+    /// <summary>
+    /// A static class that manages pause state
+    /// </summary>
+    public static class PauseMode
     {
         private static bool _isGamePaused;
-        [SerializeField] private Button pauseButton;
-        [SerializeField] private Button resumeButton;
-        [SerializeField] private AudioSource pauseSwitchSound;
 
         /// <summary>
         /// Indicates if the game is paused.
@@ -20,55 +20,30 @@ namespace Level
             private set
             {
                 _isGamePaused = value;
-                if (value)
-                {
-                    PauseStateSwitched(null, null);
-                }
+                PauseStateSwitched(null, value);
             }
         }
 
         /// <summary>
         /// Triggers when pause state changes.
         /// </summary>
-        public static event EventHandler PauseStateSwitched = delegate { };
+        public static event EventHandler<bool> PauseStateSwitched = delegate { };
 
-        private void Start()
+        public static void SetPause(bool setPause)
         {
-            if (pauseSwitchSound is null)
-                throw new Exception("Pause switching sounds is not attached");
-        }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-                SwitchPause();
-        }
-
-        /// <summary>
-        /// Switches current pause game state.
-        /// </summary>
-        public void SwitchPause()
-        {
-            IsGamePaused = !IsGamePaused;
-            Time.timeScale = IsGamePaused ? 0 : 1;
-            resumeButton.gameObject.SetActive(IsGamePaused);
-            pauseButton.gameObject.SetActive(!IsGamePaused);
-            pauseSwitchSound.Play();
-        }
-
-        public void SetPause(bool setPause, bool enableCanvas = true)
-        {
-            _isGamePaused = setPause;
+            IsGamePaused = setPause;
             Time.timeScale = setPause ? 0 : 1;
-            resumeButton.gameObject.SetActive(IsGamePaused && enableCanvas);
-            pauseButton.gameObject.SetActive(!IsGamePaused);
-            pauseSwitchSound.Play();
         }
 
-        public void ToMainMenu()
+        public static void ResetSubscribers()
         {
-            // TODO: uncomment it and make scene changing when the main menu scene is ready
-            //SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
+            PauseStateSwitched = delegate {  };
+        }
+
+        public static void SetEndGamePause()
+        {
+            _isGamePaused = true;
+            Time.timeScale = 0;
         }
     }
 }

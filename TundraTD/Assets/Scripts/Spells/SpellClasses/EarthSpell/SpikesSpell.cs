@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using City.Building.ElementPools;
+using Level;
 using UnityEngine;
 
 namespace Spells.SpellClasses.EarthSpell
@@ -26,6 +27,7 @@ namespace Spells.SpellClasses.EarthSpell
         private float _touchRegisterMaxTime;
         private float _touchRegisterTime;
         private Camera _mainCamera;
+        private List<SpikesGroup> _spikes;
 
         private float MaxDrawTime { get; set; } = 2f;
 
@@ -40,8 +42,8 @@ namespace Spells.SpellClasses.EarthSpell
         [MultiplictableProperty(BasicElement.Earth, 1.12f)]
         private float FallDamage { get; set; } = 50f;
 
-        [IncreasableProperty(BasicElement.Fire, 0.3f)]
-        private float StunTime { get; set; } = 0.7f;
+        [IncreasableProperty(BasicElement.Fire, 1f)]
+        private float StunTime { get; set; } = 2f;
 
         [IncreasableProperty(BasicElement.Air, -0.7f)]
         public float SlownessTime { get; set; } = 2f;
@@ -51,82 +53,87 @@ namespace Spells.SpellClasses.EarthSpell
 
         private int Lifetime { get; set; } = 4;
         
-        public override void ExecuteSpell()
+        public override void ExecuteSpell(RaycastHit castPosition)
         {
             _mainCamera = Camera.main;
+            _spikes = new List<SpikesGroup>();
             spikesSlownessCollider.SendSlownessValues(Lifetime, SlownessValue);
             spikesGroupObject.StunTicks = 4;
             spikesSlownessCollider.SpikesEnterDamage = CollisionDamage;
             spikesSlownessCollider.TermitesDamage = termitesDamage;
             _touchRegisterTime = 0f;
             _touchRegisterMaxTime = MaxDrawTime;
-            StartCoroutine(RegisterUserInputs());
+            StartCoroutine(RegisterUserInputs(castPosition.point));
         }
 
-        private IEnumerator RegisterUserInputs()
+        private IEnumerator RegisterUserInputs(Vector3 startPosition)
         {
-            var ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
-
-            if (!Physics.Raycast(ray, out var hitInfo1, float.PositiveInfinity, PlaceableLayer))
-                yield break;
-            
-            var position1 = hitInfo1.point;
-            var position2 = position1;
-
+            var group = Instantiate(spikesGroupObject, startPosition, Quaternion.identity, spikesObjectParent.transform);
+            _spikes.Add(group);
+            yield return new WaitForEndOfFrame();
             while (_touchRegisterTime < _touchRegisterMaxTime)
             {
-                var rayEnd = _mainCamera.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(rayEnd, out var hitInfo2, float.PositiveInfinity, PlaceableLayer))
-                    position2 = hitInfo2.point;
-
+                if (Input.touchCount == 1)
+                {
+                    Touch endTouch = Input.GetTouch(0);
+                    var rayEnd = _mainCamera.ScreenPointToRay(endTouch.position);
+                    Vector3 endPosition = endTouch.position;
+                    
+                    if (Physics.Raycast(rayEnd, out var hitInfo, float.PositiveInfinity, PlaceableLayer))
+                        endPosition = hitInfo.point;
+                    
+                    if (Mathf.Abs(startPosition.magnitude - endPosition.magnitude) >= 1)
+                    {
+                        Debug.Log("Started coroutine");
+                        StartCoroutine(InstantiateSpikesPath(startPosition, endPosition, true));
+                        if (!EarthPool.HasAdditionalWalls) yield break;
+                        StartCoroutine(InstantiateSpikesPath(startPosition + Vector3.left * 3, endPosition + Vector3.left * 3, false));
+                        StartCoroutine(InstantiateSpikesPath(startPosition + Vector3.right * 3, endPosition + Vector3.right * 3, false));
+                        yield break;
+                    }
+                }
                 _touchRegisterTime += Time.deltaTime;
                 yield return null;
             }
-            
-            if (position1 == position2)
-                yield break;
-
-            StartCoroutine(InstantiateSpikes(position1, position2, true));
-
-            if (!EarthPool.HasAdditionalWalls) yield break;
-            
-            StartCoroutine(InstantiateSpikes(position1 + Vector3.left * 3, position2 + Vector3.left * 3, false));
-            StartCoroutine(InstantiateSpikes(position1 + Vector3.right * 3, position2 + Vector3.right * 3, false));
-
+            yield return HandleSpikesSpellEnding();
         }
-
-        private IEnumerator InstantiateSpikes(Vector3 start, Vector3 finish, bool isMainWall)
+        
+        private IEnumerator InstantiateSpikesPath(Vector3 start, Vector3 finish, bool isMainWall)
         {
-            var spikes = new List<SpikesGroup>();
             var direction = finish - start;
             var step = direction / direction.magnitude;
-            var count = direction.magnitude / step.magnitude / spikesOffset;
+            var count = direction.magnitude / step.magnitude / spikesOffset - 1;
             var currentPosition = start;
+            if (isMainWall)
+                currentPosition += step;
             
             if (count > 10)
                 count = 10;
             
+            // Handling tower modifications
             spikesSlownessCollider.BoxCollider.isTrigger = !EarthPool.HasSolidWalls;
             spikesAreaAround.gameObject.SetActive(EarthPool.HasDustCloud & isMainWall);
 
             var sizeCoefficient = isMainWall ? 1f : .6f;
+            // Place SpikesGroup from start position to finish position but max quantity is 10 
             while (count > 0)
             {
                 spikesSlownessCollider.InitializeTermites(EarthPool.HasTermites);
                 var group = Instantiate(spikesGroupObject, currentPosition, Quaternion.identity, spikesObjectParent.transform);
-                StartCoroutine(group.InitializeSpikesGrowth());
                 
                 if (EarthPool.HasDustCloud)
                     group.PlayCloudAnimation();
                 
                 group.transform.localScale *= sizeCoefficient;
-                group.ApplyStunOverlappedOnMobs(FallDamage, (int)(StunTime*10));
+                group.ApplyStunOnOverlappedMobs(FallDamage, StunTime.SecondsToTicks()); // Stun mobs on spawn position
                 
+                // Check pebbles modification
                 if (EarthPool.HasExplosivePebbles & isMainWall)
                         group.ExecutePebblesExplosion(pebbleDamage, pebbleStunTicks);
                 
-                spikes.Add(group);
-                spikesSlownessCollider.SetColliderParameters(spikes, finish);
+                _spikes.Add(group);
+                // Expand slowness collider size to fit current amount of spikes
+                spikesSlownessCollider.SetColliderParameters(_spikes, finish);
                 currentPosition += step * spikesOffset;
                 count--;
                 yield return new WaitForSeconds(.02f);
@@ -144,19 +151,20 @@ namespace Spells.SpellClasses.EarthSpell
             }
 
             yield return new WaitForSeconds(Lifetime);
-            yield return HandleSpikesSpellEnding(spikes);
+            yield return HandleSpikesSpellEnding();
         }
 
-        private IEnumerator HandleSpikesSpellEnding(List<SpikesGroup> spikes)
+        private IEnumerator HandleSpikesSpellEnding()
         {
             spikesAreaAround.gameObject.SetActive(false);
             spikesSlownessCollider.gameObject.SetActive(false);
             
-            foreach (var spike in spikes)
+            foreach (var spike in _spikes)
             {
                 StartCoroutine(spike.InitializeSpikesShrinking());
                 yield return new WaitForSeconds(SpikeDisappearCooldown);
             }
+            Destroy(gameObject);
         }
     }
 }

@@ -26,11 +26,6 @@ namespace Mobs.MobsBehaviour.Boar
             MobModel.CurrentMobHealth -= damage * multiplier;
         }
 
-        public override void EnableDisorientation()
-        {
-            MobModel.MobNavMeshAgent.SetDestination(MobPortal.transform.position);
-        }
-
         public override void MoveTowards(Vector3 point)
         {
             MobModel.MobNavMeshAgent.SetDestination(point);
@@ -51,19 +46,18 @@ namespace Mobs.MobsBehaviour.Boar
             if (_chargeLeftTime > 0)
                 _chargeLeftTime -= Time.fixedDeltaTime;
 
-            if (_chargeLeftTime <= 0 & !_isCharged)
+            if (_chargeLeftTime <= 0 && !_isCharged)
             {
                 TakeChargeMode();
                 _isCharged = true;
             }
-            
+
             if (CurrentEffects.Count > 0)
                 TickTimer -= Time.fixedDeltaTime;
         }
 
         private void TakeChargeMode()
         {
-            Debug.Log(MobModel.CurrentMobDamage);
             MobModel.CurrentMobSpeed *= 1.5f;
             MobModel.CurrentMobDamage *= 2f;
         }

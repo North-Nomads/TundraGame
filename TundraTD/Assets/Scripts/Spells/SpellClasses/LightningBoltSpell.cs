@@ -1,4 +1,5 @@
-﻿using Mobs.MobsBehaviour;
+﻿using System;
+using Mobs.MobsBehaviour;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,10 +11,9 @@ namespace Spells.SpellClasses
     {
         private readonly List<MobBehaviour> _mobsInRadius = new List<MobBehaviour>();
         [SerializeField] private LineRenderer lightning;
-        public override void ExecuteSpell()
+        public override void ExecuteSpell(RaycastHit castPosition)
         {
             //Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-            Debug.Log("Lightning Stroke");
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (!Physics.Raycast(ray, out var hit, float.PositiveInfinity, 1<<8|1<<10))
                 return;
@@ -31,7 +31,7 @@ namespace Spells.SpellClasses
                 Debug.Log("Miss");
                 return;
             }
-            
+
             lightning.SetPosition(1, GetClosestMob(hit.point).transform.position);
             LaunchStrike(GetClosestMob(hit.point),5);
         }

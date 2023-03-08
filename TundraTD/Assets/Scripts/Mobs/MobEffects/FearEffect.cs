@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Mobs.MobsBehaviour;
+﻿using Mobs.MobsBehaviour;
 
 namespace Mobs.MobEffects
 {
@@ -15,18 +14,23 @@ namespace Mobs.MobEffects
 
         public override bool OnAttach(MobBehaviour mob)
         {
-            foreach (var mobCurrentEffect in mob.CurrentEffects.OfType<FearEffect>())
-            {
-                mobCurrentEffect.ClearThisEffectOnMob(mob);
-            }
-
-            mob.EnableDisorientation();
+            var agent = mob.MobModel.MobNavMeshAgent;
+            if (!agent.isActiveAndEnabled)
+                return false;
+            
+            mob.RemoveFilteredEffects(x => x is FearEffect);
+            
+            agent.SetDestination(mob.MobPortal.transform.position);
             return true;
         }
 
         public override void OnDetach(MobBehaviour mob)
         {
-            mob.MobModel.MobNavMeshAgent.SetDestination(mob.DefaultDestinationPoint.position);
+            var agent = mob.MobModel.MobNavMeshAgent;
+            if (!agent.isActiveAndEnabled)
+                return;
+
+            agent.SetDestination(mob.DefaultDestinationPoint.position);
         }
     }
 }

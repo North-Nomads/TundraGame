@@ -26,7 +26,7 @@ namespace Mobs.MobEffects
             
             mob.HitThisMob(_stunDamage, BasicElement.Earth, "Earth.Stun");
             mob.MobModel.MobNavMeshAgent.angularSpeed = 0;
-            
+            mob.MobModel.Animator.SetBool("IsStunned", true);
             return true;
         }
         
@@ -35,6 +35,7 @@ namespace Mobs.MobEffects
             mob.MobModel.MobNavMeshAgent.enabled = true;
             mob.MobModel.MobNavMeshAgent.SetDestination(mob.DefaultDestinationPoint.position);
             mob.MobModel.MobNavMeshAgent.angularSpeed = mob.MobModel.DefaultMobAngularSpeed;
+            mob.MobModel.Animator.SetBool("IsStunned", false);
         }
     }
 }

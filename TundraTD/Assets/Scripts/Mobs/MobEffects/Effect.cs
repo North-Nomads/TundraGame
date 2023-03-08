@@ -36,6 +36,7 @@ namespace Mobs.MobEffects
         {
             CurrentTicksAmount = MaxTicksAmount - 1;
             OnDetach(mob);
+            mob.CurrentEffects.Remove(this);
         }
 
         public virtual float OnHitReceived(MobBehaviour mob, float damageAmount, BasicElement element) => damageAmount;
@@ -68,13 +69,28 @@ namespace Mobs.MobEffects
         Slowness = 1 << 2,
 
         /// <summary>
-        /// Represents the weakness effect.
+        /// Represents the vulnerability effect.
         /// </summary>
-        Weakness = 1 << 3,
+        Vulnerability = 1 << 3,
 
         /// <summary>
         /// Represents the slowness effect of any spell
         /// </summary>
-        Fear = 1 << 4
+        Fear = 1 << 4,
+
+        /// <summary>
+        /// Represents the weakness effect.
+        /// </summary>
+        Weakness = 1 << 5,
+
+        /// <summary>
+        /// Represents the freeze effect.
+        /// </summary>
+        Freeze = 1 << 6,
+
+        /// <summary>
+        /// Represents the distract effect.
+        /// </summary>
+        Distract = 1 << 7,
     }
 }

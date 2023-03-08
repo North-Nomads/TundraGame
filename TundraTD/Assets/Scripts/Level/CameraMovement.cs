@@ -1,4 +1,5 @@
 ﻿using System;
+using Spells;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -37,7 +38,7 @@ namespace Level
                 return;
 
             HandleCameraInertialMovement();
-            
+
             if (usingWASD)
             {
                 MoveCameraOnWASD();

@@ -1,7 +1,11 @@
-﻿using City.Building.ElementPools;
+﻿using CartoonFX;
+using City.Building.ElementPools;
+using Level;
 using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Spells.SpellClasses
@@ -14,6 +18,7 @@ namespace Spells.SpellClasses
         [SerializeField] private GameObject rainParticles;
         [SerializeField] private GameObject rainSplashes;
         [SerializeField] private CapsuleCollider mainCollider;
+        [SerializeField] private GameObject barrierCollider;
         private Vector3 _targetPosition;
 
         [IncreasableProperty(BasicElement.Air, 2f)]
@@ -32,27 +37,26 @@ namespace Spells.SpellClasses
         [IncreasableProperty(BasicElement.Fire, 0.02f)]
         private float LightningMultiplier { get; set; } = 1.1f;
 
-        public override void ExecuteSpell()
+        public override void ExecuteSpell(RaycastHit hitInfo)
         {
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out var hit))
-            {
-                _targetPosition = hit.point;
-                rainSplashes.transform.position = (transform.position = _targetPosition) + Vector3.up;
-                rainParticles.SetActive(true);
-                rainSplashes.SetActive(true);
-                if (WaterPool.UnlimitedRadius) Radius = float.PositiveInfinity;
-                rainParticles.transform.localScale = new Vector3(Radius / 10, RainHeight, Radius / 10);
-                if (WaterPool.CreateBarrier) mainCollider.isTrigger = false;
-                mainCollider.radius = Radius;
-                mainCollider.height = RainHeight;
-                rainParticles.transform.localPosition = (Vector3.up * (RainHeight / 2));
-                rainSplashes.transform.localScale = new Vector3(Radius / 10, 1, Radius / 10);
-                StartCoroutine(WaitTime());
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
+            _targetPosition = hitInfo.point;
+            rainSplashes.transform.position = (transform.position = _targetPosition) + Vector3.up;
+            rainParticles.SetActive(true);
+            rainSplashes.SetActive(true);
+            // TODO: implement it as normal full-map effect.
+            if (WaterPool.UnlimitedRadius) Radius = 50;
+            barrierCollider.SetActive(WaterPool.CreateBarrier);
+            barrierCollider.transform.localScale = new Vector3(Radius * 10, 100, Radius * 10);
+            if (WaterPool.AdditionalSlowness) SlownessValue *= 3;
+            if (WaterPool.AllowSuperLightning) LightningMultiplier *= 3;
+            var shape = rainParticles.GetComponent<ParticleSystem>().shape;
+            shape.radius = Radius / 10;
+            rainParticles.GetComponent<CFXR_EmissionBySurface>().maxEmissionRate = 5 * Radius * Radius * Radius;
+            mainCollider.radius = Radius;
+            mainCollider.height = RainHeight;
+            rainParticles.transform.localPosition = (Vector3.up * (RainHeight / 2));
+            rainSplashes.transform.localScale = new Vector3(Radius / 10, 1, Radius / 10);
+            StartCoroutine(WaitTime());
         }
 
         private IEnumerator WaitTime()
@@ -69,7 +73,7 @@ namespace Spells.SpellClasses
             if (other.CompareTag("Mob"))
             {
                 var mob = other.gameObject.GetComponent<MobBehaviour>();
-                mob.AddReceivedEffects(new Effect[] { new SlownessEffect(1 - SlownessValue, (int)EffectTime), new WeaknessEffect((int)EffectTime, BasicElement.Lightning, 1 / LightningMultiplier) });
+                ApplyEffects(mob);
             }
         }
 
@@ -78,8 +82,48 @@ namespace Spells.SpellClasses
             if (collision.gameObject.CompareTag("Mob"))
             {
                 var mob = collision.gameObject.GetComponent<MobBehaviour>();
-                mob.AddReceivedEffects(new Effect[] { new SlownessEffect(1 - SlownessValue, (int)EffectTime), new WeaknessEffect((int)EffectTime, BasicElement.Lightning, 1 / LightningMultiplier) });
+                ApplyEffects(mob);
             }
+        }
+
+        private void OnTriggerStay(Collider other)
+        {
+            if (other.CompareTag("Mob"))
+            {
+                var mob = other.gameObject.GetComponent<MobBehaviour>();
+                mob.RemoveFilteredEffects(x => x is MeteoriteBurningEffect effect && effect.CanBeExtinguished);
+                if (WaterPool.CastSnowInsteadOfRain)
+                {
+                    var freeze = mob.CurrentEffects.OfType<FreezeEffect>().FirstOrDefault();
+                    if (freeze != null)
+                    {
+                        freeze.ContinueFreeze = true;
+                    }
+                    else
+                    {
+                        mob.AddSingleEffect(new FreezeEffect(0, 2, EffectTime.SecondsToTicks()));
+                    }
+                }
+            }
+        }
+
+        private void ApplyEffects(MobBehaviour mob)
+        {
+            // Add here basic effects
+            var effects = new List<Effect>()
+            {
+                new SlownessEffect(1 - SlownessValue, EffectTime.SecondsToTicks()),
+                new VulnerabilityEffect(EffectTime.SecondsToTicks(), BasicElement.Lightning, 1 / LightningMultiplier)
+            };
+            if (WaterPool.ApplyWeaknessOnEnemies)
+            {
+                effects.Add(new WeaknessEffect(EffectTime.SecondsToTicks(), 0.5f));
+            }
+            if (WaterPool.CastSnowInsteadOfRain)
+            {
+                effects.Add(new FreezeEffect(0, 2, EffectTime.SecondsToTicks()));
+            }
+            mob.AddReceivedEffects(effects);
         }
 
         private void DisableEmissionOnChildren()

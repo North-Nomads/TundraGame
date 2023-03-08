@@ -172,6 +172,11 @@ MonoBehaviour:
   - {fileID: 5558122282592001586}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   mobModel: {fileID: 4000996451007599640}
   mobShield: 100
 --- !u!1 &7985978790672266077

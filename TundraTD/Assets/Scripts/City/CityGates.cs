@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using City.Building;
 using Level;
 using Mobs.MobsBehaviour;
-using Mobs.MobsBehaviour.Ironclad;
 using Spells;
 using UnityEngine;
 
@@ -13,8 +12,6 @@ namespace City
     /// </summary>
     [RequireComponent(typeof(CityGatesUI))]
     public class CityGates : MonoBehaviour
-
-
     {
         [SerializeField] private float maxCityGatesHealthPoints;
         [SerializeField] private LevelJudge levelJudge;
@@ -22,6 +19,9 @@ namespace City
         private float _cityGatesHealthPercent;
         private CityGatesUI _cityGatesUI;
         private Animator _animator;
+        
+        // Const is used by raycast in update which is debug purpose only 
+        private const int PlaceableLayer = 1 << 11 | 1 << 10;
 
         private float CurrentCityGatesHealthPoints
         {
@@ -54,16 +54,19 @@ namespace City
             // HACK: made here fireball casting to test, remove later
             if (Input.GetKey(KeyCode.C) && !PauseMode.IsGamePaused)
             {
+                var rayEnd = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (!Physics.Raycast(rayEnd, out var hitInfo, float.PositiveInfinity, PlaceableLayer)) return;
+                
                 if (Input.GetKeyDown(KeyCode.Alpha1))
-                    Grimoire.TurnElementsIntoSpell(new List<BasicElement> { BasicElement.Fire, BasicElement.Fire, BasicElement.Fire, BasicElement.Earth, BasicElement.Earth }, Vector3.zero);
+                    Grimoire.TurnElementsIntoSpell(hitInfo, BasicElement.Fire);
                 if (Input.GetKeyDown(KeyCode.Alpha2))
-                    Grimoire.TurnElementsIntoSpell(new List<BasicElement> { BasicElement.Water, BasicElement.Water, BasicElement.Water, BasicElement.Earth, BasicElement.Earth }, Vector3.zero);
+                    Grimoire.TurnElementsIntoSpell(hitInfo, BasicElement.Air);
                 if (Input.GetKeyDown(KeyCode.Alpha3))
-                    Grimoire.TurnElementsIntoSpell(new List<BasicElement> { BasicElement.Earth, BasicElement.Earth, BasicElement.Earth, BasicElement.Earth, BasicElement.Earth }, Vector3.zero);
+                    Grimoire.TurnElementsIntoSpell(hitInfo, BasicElement.Water);
                 if (Input.GetKeyDown(KeyCode.Alpha4))
-                    Grimoire.TurnElementsIntoSpell(new List<BasicElement> { BasicElement.Lightning, BasicElement.Lightning, BasicElement.Lightning, BasicElement.Earth, BasicElement.Earth }, Vector3.zero);
+                    Grimoire.TurnElementsIntoSpell(hitInfo, BasicElement.Lightning);
                 if (Input.GetKeyDown(KeyCode.Alpha5))
-                    Grimoire.TurnElementsIntoSpell(new List<BasicElement> { BasicElement.Air, BasicElement.Air, BasicElement.Air, BasicElement.Earth, BasicElement.Earth }, Vector3.zero);
+                    Grimoire.TurnElementsIntoSpell(hitInfo, BasicElement.Earth);
             }
         }
 
@@ -74,8 +77,6 @@ namespace City
            
             var mob = other.GetComponent<MobBehaviour>();
             var mobAttack = mob.MobModel.CurrentMobDamage;
-            
-            Debug.Log($"{mob.name} attacked tower with {mobAttack} damage");
             CurrentCityGatesHealthPoints -= mobAttack;
             mob.HitThisMob(float.PositiveInfinity, BasicElement.None, "City.Gates");
             _animator.SetTrigger("DamageTrigger");

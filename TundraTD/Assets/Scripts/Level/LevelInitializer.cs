@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using City;
 using City.Building;
 using City.Building.ElementPools;
+using ModulesUI.MagicScreen;
+using ModulesUI.Pause;
 using Spells;
 using UnityEngine;
+
 
 namespace Level
 {
@@ -15,7 +17,9 @@ namespace Level
     /// </summary>
     public class LevelInitializer : MonoBehaviour
     {
-        [SerializeField] private PauseMode pauseMode;
+        [SerializeField] private AudioSource audioSource;
+        [Tooltip("An object that holds pause button and panel")]
+        [SerializeField] private PauseParent pauseParent;
         [SerializeField] private int minWaveAward;
         [SerializeField] private int maxWaveAward;
         [SerializeField] private Transform canvasesParent;
@@ -28,10 +32,11 @@ namespace Level
         {
             if (placementSlots.Length == 0)
                 throw new NullReferenceException("No slots were assigned");
-            
-            pauseMode.SetPause(false);
+
+            InitializePauseMode();
             InitializeArchitectValues();
             ResetMagicPools();
+            PlayerDeck.DeckElements.Clear();
         }
 
         private void ResetMagicPools()
@@ -40,6 +45,13 @@ namespace Level
             var pools = new List<Type> { typeof(EarthPool), typeof(FirePool), typeof(WaterPool) };
             foreach (var prop in pools.SelectMany(pool => pool.GetProperties()))
                 prop.SetValue(null, false);
+        }
+
+        private void InitializePauseMode()
+        {
+            PauseMode.ResetSubscribers();
+            pauseParent.SubscribeToPauseMode();
+            pauseParent.PauseCanvas.SetImmortalAudioSource(audioSource);
         }
 
         private void InitializeArchitectValues()
