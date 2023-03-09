@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tutorial.unity
     guid: cfaa01d6aba084a4dbd1d010ed8835fa
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TestPolygon_Earth.unity
     guid: 62bc90f1f2cd65f4db79b1a366e6556e
   - enabled: 1

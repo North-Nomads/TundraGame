@@ -19,8 +19,7 @@ namespace ModulesUI.MagicScreen
         }
 
         private void CastSpellOnPosition(RaycastHit hitInfo) => Grimoire.TurnElementsIntoSpell(hitInfo);
-        
-        
+
         public void Update()
         {
             if (Input.touchCount == 0)
@@ -28,18 +27,18 @@ namespace ModulesUI.MagicScreen
             
             var playerTouch = Input.GetTouch(0);
 
-            // Clicking over level surface
-            if (!(EventSystem.current.IsPointerOverGameObject(playerTouch.fingerId) || EventSystem.current.IsPointerOverGameObject(playerTouch.fingerId)))
-            {
-                // Prevent executing spell right after finger lifting after clicking the element 
-                if (playerTouch.phase == TouchPhase.Ended)
-                    return;
-                
-                var rayEnd = _camera.ScreenPointToRay(playerTouch.position);
-                if (!Physics.Raycast(rayEnd, out var hitInfo, float.PositiveInfinity, PlaceableLayer)) return;
+            // Clicking over UI surface
+            if (EventSystem.current.IsPointerOverGameObject(playerTouch.fingerId)) return;
             
-                CastSpellOnPosition(hitInfo);
-            }
+            // Prevent executing spell right after finger lifting after clicking the element 
+            if (playerTouch.phase == TouchPhase.Ended)
+                return;
+                
+            var rayEnd = _camera.ScreenPointToRay(playerTouch.position);
+            if (!Physics.Raycast(rayEnd, out var hitInfo, float.PositiveInfinity, PlaceableLayer))
+                return;
+                
+            CastSpellOnPosition(hitInfo);
         }
     }
 }

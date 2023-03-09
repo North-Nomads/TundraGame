@@ -11,7 +11,7 @@ namespace SceneManagement
     /// </summary>
     public class MainMenu : MonoBehaviour
     {
-        private const int FirstSceneID = 4;
+        private const int FirstSceneID = 3;
         private const int LevelsSceneID = 1;
         private AudioSource source;
 

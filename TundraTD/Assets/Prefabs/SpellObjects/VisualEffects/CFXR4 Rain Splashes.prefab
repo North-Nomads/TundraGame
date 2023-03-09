@@ -4768,7 +4768,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 1907056c31c502d498df765288c92228, type: 2}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4824,7 +4823,6 @@ GameObject:
   - component: {fileID: 1172081452124834315}
   - component: {fileID: 1172081452124834312}
   - component: {fileID: 1172081452124834313}
-  - component: {fileID: 1172081452124834318}
   m_Layer: 0
   m_Name: CFXR4 Rain Splashes
   m_TagString: Untagged
@@ -9525,7 +9523,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: f2beba2f11be47c4b93abe40da54b177, type: 2}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9617,19 +9614,3 @@ MonoBehaviour:
     shakesDelay: 0
   animatedLights: []
   fadeOutReference: {fileID: 0}
---- !u!114 &1172081452124834318
-MonoBehaviour:
-  m_ObjectHideFlags: 16
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1172081452124834319}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 403cb51292a8b3c4c870cccfc0e68659, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  active: 1
-  particlesPerUnit: 1
-  maxEmissionRate: 10000
-  density: 99.99999
