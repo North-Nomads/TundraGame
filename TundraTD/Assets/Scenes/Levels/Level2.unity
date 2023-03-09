@@ -1608,7 +1608,7 @@ MonoBehaviour:
   minimalCameraSize: 1
   maximumCameraSize: 3
   wasdCameraMoveSpeed: 10
-  usingWASD: 1
+  usingWASD: 0
 --- !u!81 &787943249
 AudioListener:
   m_ObjectHideFlags: 0

@@ -759,7 +759,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectPrefabs:
   - {fileID: 2603142632087040750}
-  - {fileID: 0}
+  - {fileID: 6515686786312285598}
   - {fileID: 5982518211596710924}
   - {fileID: 3489817827187770725}
   - {fileID: 0}
@@ -2905,6 +2905,12 @@ PrefabInstance:
 --- !u!4 &6515686786312285601 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 141433446842962274, guid: a3b4e53c53fe3754f8d312b9c67aebfb,
+    type: 3}
+  m_PrefabInstance: {fileID: 6600630415805299907}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6515686786312285598 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 141433446842962269, guid: a3b4e53c53fe3754f8d312b9c67aebfb,
     type: 3}
   m_PrefabInstance: {fileID: 6600630415805299907}
   m_PrefabAsset: {fileID: 0}
