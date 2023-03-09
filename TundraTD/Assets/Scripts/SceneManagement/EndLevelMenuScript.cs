@@ -5,7 +5,7 @@ namespace SceneManagement
 {
     public class EndLevelMenuScript : MonoBehaviour
     {
-        private const int LevelsSceneID = 0;
+        private const int LevelsSceneID = 1;
 
         public void KeepPlaying(string result)
         {
