@@ -1,6 +1,7 @@
 using Spells;
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace City.Building
 {
@@ -11,6 +12,11 @@ namespace City.Building
         private void Start()
         {
             gameObject.SetActive(false);
+            if(EventSystem.current.IsPointerOverGameObject())
+			{
+				gameObject.SetActive(false);
+			}
+            
         }
 
         public void BuildTower(string elementName)

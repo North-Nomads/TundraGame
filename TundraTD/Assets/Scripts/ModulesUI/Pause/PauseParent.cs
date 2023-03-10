@@ -1,6 +1,7 @@
 ﻿using System;
 using Level;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace ModulesUI.Pause
@@ -21,7 +22,10 @@ namespace ModulesUI.Pause
         /// </summary>
         public void OpenPauseUI()
         {
-            PauseMode.SetPause(true);
+            if(EventSystem.current.IsPointerOverGameObject())
+			{
+                PauseMode.SetPause(true);
+            }
         }
 
         private void HandlePauseSwitching(object sender, bool value)
