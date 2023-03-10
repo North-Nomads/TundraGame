@@ -15,6 +15,7 @@ namespace Mobs
     /// </summary>
     public class MobPortal : MonoBehaviour
     {
+        [SerializeField] private MobPool mobPool;
         [SerializeField] private PortalInfoCanvas infoPanel;
         [SerializeField] private CityGates gates;
         [SerializeField] private Transform mobSpawner;
@@ -30,6 +31,7 @@ namespace Mobs
         private int MobsTotalCountOnWave { get; set; }
         public bool IsInstantiated { get; private set; }
 
+        public MobPool MobPool => mobPool;
         public int TotalWaveMobQuantity => _currentMobWave.MobProperties.Sum(x => x.MobQuantity);
 
         private void Start()
@@ -45,7 +47,7 @@ namespace Mobs
                     {
                         var mob = Instantiate(mobProperty.Mob);
                         mob.gameObject.SetActive(false);
-                        MobPool.InstantiateMob(mob);
+                        mobPool.InstantiateMob(mob);
                     }
                 }
             }
@@ -69,7 +71,7 @@ namespace Mobs
                 return;
             
             _currentMobIndex = 0;
-            _waveMobs = MobPool.GetMobsList(_currentMobWave);
+            _waveMobs = mobPool.GetMobsList(_currentMobWave);
             MobsTotalCountOnWave = _waveMobs.Count;
         }
 
@@ -88,7 +90,7 @@ namespace Mobs
                 return;
 
             var mob = _waveMobs[_currentMobIndex];
-            mob.RespawnMobFromPool(mobSpawner);
+            mob.RespawnMobFromPool(mobPool.transform);
             mob.ExecuteOnMobSpawn(gates.transform, this);
             _currentMobIndex++;
         }

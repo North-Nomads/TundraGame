@@ -5,32 +5,31 @@ using Mobs.MobsBehaviour;
 using Mobs.MobsBehaviour.Bear;
 using Mobs.MobsBehaviour.Boar;
 using Mobs.MobsBehaviour.Spider;
+using UnityEngine;
 
 namespace Level
 {
-    public static class MobPool
+    public class MobPool : MonoBehaviour
     {
-        private static List<MobBehaviour> _mobsOnLevel;
-        private static List<MobBehaviour> _pendingMobs;
-        private static List<MobBehaviour> _mobsToDestroy;
+        private List<MobBehaviour> _mobsOnLevel;
 
         private static int _boarStartIndexMarker;
         private static int _bearStartIndexMarker;
         private static int _spiderStartIndexMarker;
 
-        static MobPool()
+        private void Start()
         {
             _mobsOnLevel = new List<MobBehaviour>();
         }
 
-        public static void InstantiateMob(MobBehaviour mob) => _mobsOnLevel.Add(mob);
+        public void InstantiateMob(MobBehaviour mob) => _mobsOnLevel.Add(mob);
 
-        public static bool AreAllMobDead()
+        public bool AreAllMobDead()
         {
             return _mobsOnLevel.All(mobs => !mobs.MobModel.IsAlive);
         }
 
-        public static void EndMobInstantiation()
+        public void EndMobInstantiation()
         {
             _mobsOnLevel.Sort((x, y) => OrderOnType(x).CompareTo(OrderOnType(y)));
             _boarStartIndexMarker = _mobsOnLevel.FindIndex(x => x is BoarBehaviour);
@@ -53,8 +52,7 @@ namespace Level
             }
         }
         
-
-        public static List<MobBehaviour> GetMobsList(MobPortal.MobWave mobsList)
+        public List<MobBehaviour> GetMobsList(MobPortal.MobWave mobsList)
         {
             var list = new List<MobBehaviour>();
             
