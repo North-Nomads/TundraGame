@@ -1117,7 +1117,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 1.25
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -1145,7 +1145,7 @@ MonoBehaviour:
   mobSprite: {fileID: 21300000, guid: d8d738703ed70674a843199268819755, type: 3}
   maxMobHealth: 95
   defaultMobDamage: 4
-  defaultMobSpeed: 5
+  defaultMobSpeed: 1.25
   renderer: {fileID: 6667528729859900624}
   rigidbody: {fileID: 3692616354502211321}
 --- !u!114 &8671833239330950923

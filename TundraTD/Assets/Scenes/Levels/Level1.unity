@@ -4716,7 +4716,7 @@ PrefabInstance:
     - target: {fileID: 7281453124406245003, guid: 2b4eec4f6c456dc4c88b4572ed764b8e,
         type: 3}
       propertyPath: maxCityGatesHealthPoints
-      value: 221
+      value: 44
       objectReference: {fileID: 0}
     - target: {fileID: 7281453124406245004, guid: 2b4eec4f6c456dc4c88b4572ed764b8e,
         type: 3}
