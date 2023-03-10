@@ -71,8 +71,16 @@ namespace Mobs
 
         public void InstantiateMobModel()
         {
-            _mobNavMeshAgent = GetComponent<NavMeshAgent>();
-            _animator = GetComponent<Animator>();
+            SetDefaultValues();
+        }
+
+        public void SetDefaultValues()
+        {
+            if (_mobNavMeshAgent is null)
+                _mobNavMeshAgent = GetComponent<NavMeshAgent>();
+            if (_animator is null)
+                _animator = GetComponent<Animator>();
+            
             _defaultMobAngularSpeed = _mobNavMeshAgent.speed;
             _currentMobHealth = maxMobHealth;
             _currentMobSpeed = defaultMobSpeed;
@@ -89,7 +97,12 @@ namespace Mobs
         private IEnumerator VisualEffectDamage()
         {
             yield return new WaitForSeconds(.1f);
+            SetDefaultMaterial();
+        }
+
+        public void SetDefaultMaterial()
+        {
             renderer.material = _defaultMaterial;
-        } 
+        }
     }
 }

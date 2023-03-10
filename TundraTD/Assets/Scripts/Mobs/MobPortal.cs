@@ -21,12 +21,12 @@ namespace Mobs
         [SerializeField] private MobWave[] mobWaves;
 
         private MobWave _currentMobWave;
-        private List<MobBehaviour> _allWaveMobs;
+        private List<MobBehaviour> _waveMobs;
         private int _currentMobWaveIndex;
         private int _currentMobIndex;
 
         public int WavesAmount { get; private set; }
-        public int MobsLeftThisWave { get; private set; }
+        //public int MobsLeftThisWave { get; private set; }
         private int MobsTotalCountOnWave { get; set; }
         public bool IsInstantiated { get; private set; }
 
@@ -36,10 +36,23 @@ namespace Mobs
         {
             _currentMobWaveIndex = 0;
             _currentMobWave = mobWaves[_currentMobWaveIndex];
-            _allWaveMobs = new List<MobBehaviour>();
+
+            foreach (var mobWave in mobWaves)
+            {
+                foreach (var mobProperty in mobWave.MobProperties)
+                {
+                    for (int i = 0; i < mobProperty.MobQuantity; i++)
+                    {
+                        var mob = Instantiate(mobProperty.Mob);
+                        mob.gameObject.SetActive(false);
+                        MobPool.InstantiateMob(mob);
+                    }
+                }
+            }
+
             WavesAmount = mobWaves.Length;
             IsInstantiated = true;
-            infoPanel.SendNewWaveMobs(_currentMobWave);
+            infoPanel.LoadMobsInPortalPanel(_currentMobWave);
         }
 
         private void OnMouseDown()
@@ -54,16 +67,10 @@ namespace Mobs
         {
             if (_currentMobWaveIndex >= mobWaves.Length)
                 return;
-
-            _allWaveMobs.Clear();
+            
             _currentMobIndex = 0;
-
-            foreach (var property in _currentMobWave.MobProperties)
-                for (int i = 0; i < property.MobQuantity; i++)
-                    _allWaveMobs.Add(property.Mob);
-
-            MobsLeftThisWave = _allWaveMobs.Count;
-            MobsTotalCountOnWave = MobsLeftThisWave;
+            _waveMobs = MobPool.GetMobsList(_currentMobWave);
+            MobsTotalCountOnWave = _waveMobs.Count;
         }
 
         public void OnWaveEnded()
@@ -72,7 +79,7 @@ namespace Mobs
             if (_currentMobWaveIndex >= mobWaves.Length)
                 return;
             _currentMobWave = mobWaves[_currentMobWaveIndex];
-            infoPanel.SendNewWaveMobs(_currentMobWave);
+            infoPanel.LoadMobsInPortalPanel(_currentMobWave);
         }
 
         public void SpawnNextMob()
@@ -80,21 +87,10 @@ namespace Mobs
             if (_currentMobIndex >= MobsTotalCountOnWave)
                 return;
 
-            var mobObject = _allWaveMobs[_currentMobIndex];
-            var mob = Instantiate(
-                mobObject,
-                mobSpawner.position,
-                Quaternion.identity,
-                mobSpawner.transform
-            );
+            var mob = _waveMobs[_currentMobIndex];
+            mob.RespawnMobFromPool(mobSpawner);
             mob.ExecuteOnMobSpawn(gates.transform, this);
-            mob.OnMobDied += (_, __) => NotifyPortalOnMobDeath(mob);
             _currentMobIndex++;
-        }
-
-        private void NotifyPortalOnMobDeath(MobBehaviour mob)
-        {
-            MobsLeftThisWave--;
         }
 
         [Serializable]

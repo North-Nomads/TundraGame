@@ -34,6 +34,7 @@ namespace Level
         {
             yield return new WaitUntil(() => mobPortals.All(x => x.IsInstantiated));
             _maxWavesAmongPortals = mobPortals.Max(x => x.WavesAmount);
+            MobPool.EndMobInstantiation();
         }
 
         private IEnumerator StartWavesLoop()
@@ -52,7 +53,8 @@ namespace Level
                     mobPortal.EquipNextWave();
                     yield return StartMobSpawning(mobPortal);
                 }
-                yield return new WaitUntil(() => mobPortals.Sum(x => x.MobsLeftThisWave) == 0);
+                
+                yield return new WaitUntil(MobPool.AreAllMobDead);
                 IsInWaveMode = false;
                 // Handle the ending of the wave (from all portals)
                 foreach (var mobPortal in mobPortals)
