@@ -1723,6 +1723,20 @@ MonoBehaviour:
   m_VoxelSize: 0.06666667
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 23800000, guid: 4b21402f6143e5a4192870af90bc9389, type: 2}
+--- !u!64 &710013050
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710013045}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3203504332989725025, guid: fbdf270ea3f26014389c9d7c00a89dcf, type: 3}
 --- !u!1 &787943247
 GameObject:
   m_ObjectHideFlags: 0
@@ -1757,8 +1771,8 @@ MonoBehaviour:
   minimalInertiaThreshold: 3
   maximalCameraMoveThreshold: 5
   inertiaMultiplier: 3
-  minimalCameraSize: 1
-  maximumCameraSize: 3
+  minimalCameraSize: 5
+  maximumCameraSize: 8
   wasdCameraMoveSpeed: 10
   usingWASD: 0
 --- !u!81 &787943249
@@ -1796,7 +1810,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 2
+  orthographic size: 4
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -4116,7 +4130,7 @@ Transform:
   m_GameObject: {fileID: 1433276608}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 1478228445}
   - {fileID: 1620983872}
