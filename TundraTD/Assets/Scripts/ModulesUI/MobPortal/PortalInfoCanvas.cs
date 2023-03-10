@@ -31,7 +31,7 @@ namespace ModulesUI.MobPortal
             }
         }
 
-        public void SendNewWaveMobs(Mobs.MobPortal.MobWave currentMobWave)
+        public void LoadMobsInPortalPanel(Mobs.MobPortal.MobWave currentMobWave)
         {
             Sprite[] mBox = new Sprite[8];
             var count = 0;

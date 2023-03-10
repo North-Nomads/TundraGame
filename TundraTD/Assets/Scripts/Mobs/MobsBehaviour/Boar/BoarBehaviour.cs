@@ -7,7 +7,7 @@ namespace Mobs.MobsBehaviour.Boar
     /// Handles boar mob movement and taking and dealing damage behaviour
     /// </summary>
     [RequireComponent(typeof(MobModel))]
-    public class BoarBehavior : MobBehaviour
+    public class BoarBehaviour : MobBehaviour
     {
         private float _chargeLeftTime;
         private bool _isCharged;
