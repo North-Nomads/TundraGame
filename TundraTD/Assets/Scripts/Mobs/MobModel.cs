@@ -24,6 +24,8 @@ namespace Mobs
 
         [SerializeField]
         private new Renderer renderer;
+
+        [SerializeField] private Material defaultMaterial;
         
         [SerializeField] 
         private new Rigidbody rigidbody;
@@ -34,7 +36,6 @@ namespace Mobs
         private float _currentMobHealth;
         private float _currentMobSpeed;
         private NavMeshAgent _mobNavMeshAgent;
-        private Material _defaultMaterial;
 
         public Rigidbody Rigidbody => rigidbody;
         public Animator Animator => _animator;
@@ -85,7 +86,6 @@ namespace Mobs
             _currentMobHealth = maxMobHealth;
             _currentMobSpeed = defaultMobSpeed;
             CurrentMobDamage = defaultMobDamage;
-            _defaultMaterial = renderer.material;
         }
         
         public IEnumerator ShowHitVFX()
@@ -97,7 +97,7 @@ namespace Mobs
 
         public void SetDefaultMaterial()
         {
-            renderer.material = _defaultMaterial;
+            renderer.material = defaultMaterial;
         }
     }
 }

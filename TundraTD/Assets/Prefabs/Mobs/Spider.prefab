@@ -744,6 +744,7 @@ MonoBehaviour:
   defaultMobDamage: 10
   defaultMobSpeed: 1
   renderer: {fileID: 6333348448848291545}
+  defaultMaterial: {fileID: 2100000, guid: 900cc785c3455ae48ac3a8f83ee5d0ce, type: 2}
   rigidbody: {fileID: 4081599098900397479}
 --- !u!114 &4081599098900397475
 MonoBehaviour:
