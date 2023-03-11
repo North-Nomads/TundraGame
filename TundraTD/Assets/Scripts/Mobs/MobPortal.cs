@@ -90,7 +90,7 @@ namespace Mobs
                 return;
 
             var mob = _waveMobs[_currentMobIndex];
-            mob.RespawnMobFromPool(mobPool.transform);
+            mob.RespawnMobFromPool(mobPool.transform.position);
             mob.ExecuteOnMobSpawn(gates.transform, this);
             _currentMobIndex++;
         }

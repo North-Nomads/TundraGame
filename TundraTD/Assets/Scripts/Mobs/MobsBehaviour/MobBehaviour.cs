@@ -164,16 +164,14 @@ namespace Mobs.MobsBehaviour
             }
         }
         
-        public void RespawnMobFromPool(Transform parent)
+        public void RespawnMobFromPool(Vector3 position)
         {
-            // Set parent to mob portal
+            // Set mob position
             var mobTransform = transform;
-            mobTransform.parent = parent;
-            mobTransform.position = parent.position;
+            mobTransform.position = position;
             
             // Set visual effects
             gameObject.SetActive(true);
-            transform.localScale = Vector3.one;
             MobModel.SetDefaultMaterial();
             
             // Set hp, speed & etc 
