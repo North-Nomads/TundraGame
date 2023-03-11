@@ -73,7 +73,7 @@ namespace Mobs.MobsBehaviour
 
             damage = CurrentEffects.Aggregate(damage, (dmg, effect) => effect.OnHitReceived(this, dmg, damageElement));
             HandleIncomeDamage(damage, damageElement);
-            MobModel.SetHitMaterial();
+            StartCoroutine(MobModel.ShowHitVFX());
             if (!MobModel.IsAlive)
                 KillThisMob();
         }

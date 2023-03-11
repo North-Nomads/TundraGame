@@ -80,16 +80,11 @@ namespace Mobs
             _defaultMaterial = renderer.material;
         }
         
-        public void SetHitMaterial()
+        public IEnumerator ShowHitVFX()
         {
             renderer.material = hitMaterial;
-            StartCoroutine(VisualEffectDamage());
-        }
-
-        private IEnumerator VisualEffectDamage()
-        {
             yield return new WaitForSeconds(.1f);
             renderer.material = _defaultMaterial;
-        } 
+        }
     }
 }
