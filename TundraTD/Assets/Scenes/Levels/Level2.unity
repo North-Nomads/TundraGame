@@ -1771,8 +1771,8 @@ MonoBehaviour:
   minimalInertiaThreshold: 3
   maximalCameraMoveThreshold: 5
   inertiaMultiplier: 3
-  minimalCameraSize: 5
-  maximumCameraSize: 8
+  minimalCameraSize: 7
+  maximumCameraSize: 10
   wasdCameraMoveSpeed: 10
   usingWASD: 0
 --- !u!81 &787943249
@@ -1810,7 +1810,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
