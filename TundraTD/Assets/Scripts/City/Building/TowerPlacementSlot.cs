@@ -55,8 +55,10 @@ namespace City.Building
 
         private void CallPurchaseMenuOnEmptySlotClicked()
         {
-            purchaseMenu.gameObject.SetActive(true);
-            purchaseMenu.SelectedSlotID = slotID;
+            if (EventSystem.current.IsPointerOverGameObject()){
+                purchaseMenu.gameObject.SetActive(true);
+                purchaseMenu.SelectedSlotID = slotID;
+            }
         }
     }
 }

@@ -22,7 +22,7 @@ namespace ModulesUI.Pause
         /// </summary>
         public void OpenPauseUI()
         {
-            if(EventSystem.current.IsPointerOverGameObject())
+            if(EventSystem.current.IsPointerOverGameObject() || Input.touchCount > 1)
 			{
                 PauseMode.SetPause(true);
             }
