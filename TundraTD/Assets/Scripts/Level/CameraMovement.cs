@@ -1,4 +1,5 @@
 ﻿using System;
+using ModulesUI.MagicScreen;
 using Spells;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -42,6 +43,7 @@ namespace Level
             if (usingWASD)
             {
                 MoveCameraOnWASD();
+                if (Input.GetKeyDown(KeyCode.C)) SpellCaster.PerformDebugCast();
             }
             else
             {
