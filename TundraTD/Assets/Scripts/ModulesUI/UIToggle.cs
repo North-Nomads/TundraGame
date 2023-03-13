@@ -9,8 +9,9 @@ namespace ModulesUI
 {
     public static class UIToggle
     {
-        public static readonly List<TundraCanvas> AllCanvases;
         private static CanvasGroup _blockedGroups;
+        public static readonly List<TundraCanvas> AllCanvases;
+        public static CanvasGroup BlockedGroups => _blockedGroups;
 
         static UIToggle()
         {
@@ -47,6 +48,8 @@ namespace ModulesUI
             else
                 TryOpenCanvas(AllCanvases.OfType<LaunchWaveButton>().FirstOrDefault());
             TryOpenCanvas(AllCanvases.OfType<CityGatesUI>().FirstOrDefault());
+
+            // If there is anything blocking UI -> the screen is yet occupied
         }
     }
     
@@ -59,6 +62,7 @@ namespace ModulesUI
         Portal = 1 << 2,
         Pause = 1 << 3,
         City = 1 << 4,
-        Everything = MagicHUD | Building | Portal | Pause | City
+        Camera = 1 << 5,
+        Everything = MagicHUD | Building | Portal | Pause | City | Camera
     }
 }

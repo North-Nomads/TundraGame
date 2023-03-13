@@ -6,7 +6,7 @@ namespace ModulesUI.MobPortal
     public class PortalInfoCanvas : TundraCanvas
     {
         public override CanvasGroup CanvasGroup => CanvasGroup.Portal;
-        public override CanvasGroup BlockList => CanvasGroup.Building | CanvasGroup.Portal | CanvasGroup.MagicHUD;
+        public override CanvasGroup BlockList => CanvasGroup.Building | CanvasGroup.Portal | CanvasGroup.MagicHUD | CanvasGroup.Camera;
         
         [SerializeField] private Image[] mobPortraits;
         [SerializeField] private Image[] borderImages;
@@ -17,7 +17,6 @@ namespace ModulesUI.MobPortal
         {
             gameObject.SetActive(false);
             UIToggle.AllCanvases.Add(this);
-
         }
 
         private void LoadImagesInCards(Sprite[] images)
@@ -36,6 +35,11 @@ namespace ModulesUI.MobPortal
             }
         }
 
+        public void DisableInfoCanvas()
+        {
+            UIToggle.HandleCanvasClosing(this);
+        }
+        
         public void SendNewWaveMobs(Mobs.MobPortal.MobWave currentMobWave)
         {
             Sprite[] mBox = new Sprite[8];

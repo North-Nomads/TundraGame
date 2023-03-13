@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Level;
+using ModulesUI;
 using ModulesUI.MobPortal;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -47,7 +48,7 @@ namespace Mobs
             if (LevelCornerman.IsInWaveMode || EventSystem.current.IsPointerOverGameObject())
                 return;
             
-            infoPanel.gameObject.SetActive(true);
+            UIToggle.TryOpenCanvas(infoPanel);
         }
 
         public void EquipNextWave()

@@ -7,7 +7,7 @@ namespace ModulesUI.Building
     public class TowerPurchaseMenu : TundraCanvas
     {
         public override CanvasGroup CanvasGroup => CanvasGroup.Building;
-        public override CanvasGroup BlockList => CanvasGroup.MagicHUD | CanvasGroup.Portal | CanvasGroup.City | CanvasGroup.Building;
+        public override CanvasGroup BlockList => CanvasGroup.MagicHUD | CanvasGroup.Portal | CanvasGroup.City | CanvasGroup.Building | CanvasGroup.Camera;
         
         private int _selectedSlot;
         
