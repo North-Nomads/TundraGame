@@ -18,6 +18,7 @@ namespace ModulesUI.MagicScreen
         
         public void Start()
         {
+            gameObject.SetActive(false);
             _camera = Camera.main;
             UIToggle.AllCanvases.Add(this);
         }
@@ -52,16 +53,6 @@ namespace ModulesUI.MagicScreen
                 return;
 
             CastSpellOnPosition(hitInfo);
-        }
-        
-        public override void ExecuteOnOpening()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override void ExecuteOnClosing()
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

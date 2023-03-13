@@ -3,8 +3,11 @@ using UnityEngine.UI;
 
 namespace ModulesUI.MobPortal
 {
-    public class PortalInfoCanvas : MonoBehaviour
+    public class PortalInfoCanvas : TundraCanvas
     {
+        public override CanvasGroup CanvasGroup => CanvasGroup.Portal;
+        public override CanvasGroup BlockList => CanvasGroup.Building | CanvasGroup.Portal | CanvasGroup.MagicHUD;
+        
         [SerializeField] private Image[] mobPortraits;
         [SerializeField] private Image[] borderImages;
         [SerializeField] private Sprite border;
@@ -13,6 +16,8 @@ namespace ModulesUI.MobPortal
         private void Start()
         {
             gameObject.SetActive(false);
+            UIToggle.AllCanvases.Add(this);
+
         }
 
         private void LoadImagesInCards(Sprite[] images)

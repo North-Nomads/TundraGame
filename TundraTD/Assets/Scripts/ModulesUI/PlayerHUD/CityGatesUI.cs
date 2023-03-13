@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using City;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,9 +8,11 @@ namespace ModulesUI.PlayerHUD
     /// <summary>
     /// Represents the UI behaviour of CityGates
     /// </summary>
-    [RequireComponent(typeof(CityGates))]
-    public class CityGatesUI : MonoBehaviour
+    public class CityGatesUI : TundraCanvas
     {
+        public override CanvasGroup CanvasGroup => CanvasGroup.City;
+        public override CanvasGroup BlockList => CanvasGroup.None;
+        
         private const float DecreaseHealthBarValueBoost = 0.005f;
         private const float DecreaseHealthBarValue = 0.000002f;
         private const float WhiteSpriteGlowingTime = 2;
@@ -23,9 +24,11 @@ namespace ModulesUI.PlayerHUD
 
         private void Start()
         {
-
             if (topHealthBar.sprite == null)
                 throw new ArgumentNullException("topHealthBar.sprite", "Value of HealthBar sprite was not assigned");
+            
+            UIToggle.AllCanvases.Add(this);
+            
             topHealthBar.fillAmount = 1f;
             takenDamageSprite.fillAmount = 0;
             _targetPercent = topHealthBar.fillAmount;

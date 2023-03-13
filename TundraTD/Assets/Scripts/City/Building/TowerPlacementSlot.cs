@@ -2,7 +2,6 @@
 using Level;
 using ModulesUI;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace City.Building
 {

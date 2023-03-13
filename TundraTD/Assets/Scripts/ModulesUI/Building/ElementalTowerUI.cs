@@ -10,8 +10,11 @@ namespace ModulesUI.Building
     /// <summary>
     /// UI component of any elemental tower
     /// </summary>
-    public class ElementalTowerUI : MonoBehaviour
+    public class ElementalTowerUI : TundraCanvas
     {
+        public override CanvasGroup CanvasGroup => CanvasGroup.Building;
+        public override CanvasGroup BlockList => CanvasGroup.MagicHUD | CanvasGroup.Portal | CanvasGroup.City;
+        
         [SerializeField] private TowerUpgradeLevel[] upgradeLevels;
         [SerializeField] private Image upgradeLevelIndicator;
         [SerializeField] private Text allUpgradesBoughtPage;
@@ -23,6 +26,7 @@ namespace ModulesUI.Building
         {
             gameObject.SetActive(false);
             allUpgradesBoughtPage.gameObject.SetActive(false);
+            UIToggle.AllCanvases.Add(this);
 
             foreach (var upgradeLevel in upgradeLevels)
                 upgradeLevel.gameObject.SetActive(false);
