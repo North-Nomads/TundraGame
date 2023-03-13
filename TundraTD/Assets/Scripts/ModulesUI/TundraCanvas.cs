@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ModulesUI
 {
@@ -8,7 +7,14 @@ namespace ModulesUI
         public abstract CanvasGroup CanvasGroup { get; }
         public abstract CanvasGroup BlockList { get; }
 
-        public abstract void ExecuteOnOpening();
-        public abstract void ExecuteOnClosing();
+        public virtual void ExecuteOnOpening()
+        {
+            gameObject.SetActive(true);
+        }
+
+        public virtual void ExecuteOnClosing()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
