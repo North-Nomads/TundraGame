@@ -18,7 +18,7 @@ namespace ModulesUI.MagicScreen
             _camera = Camera.main;
         }
 
-        private void CastSpellOnPosition(RaycastHit hitInfo) => Grimoire.TurnElementsIntoSpell(hitInfo);
+        private static void CastSpellOnPosition(RaycastHit hitInfo) => Grimoire.TurnElementsIntoSpell(hitInfo);
 
         public void Update()
         {
@@ -38,6 +38,15 @@ namespace ModulesUI.MagicScreen
             if (!Physics.Raycast(rayEnd, out var hitInfo, float.PositiveInfinity, PlaceableLayer))
                 return;
                 
+            CastSpellOnPosition(hitInfo);
+        }
+
+        public static void PerformDebugCast()
+        {
+            var rayEnd = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (!Physics.Raycast(rayEnd, out var hitInfo, float.PositiveInfinity, PlaceableLayer))
+                return;
+
             CastSpellOnPosition(hitInfo);
         }
     }
