@@ -48,17 +48,14 @@ namespace City.Building
         {
             if (EventSystem.current.IsPointerOverGameObject() || IsOccupied)
                 return;
-            
             if (!PauseMode.IsGamePaused)
                 CallPurchaseMenuOnEmptySlotClicked();
         }
 
         private void CallPurchaseMenuOnEmptySlotClicked()
         {
-            if (EventSystem.current.IsPointerOverGameObject()){
-                purchaseMenu.gameObject.SetActive(true);
-                purchaseMenu.SelectedSlotID = slotID;
-            }
+            purchaseMenu.gameObject.SetActive(true);
+            purchaseMenu.SelectedSlotID = slotID;
         }
     }
 }
