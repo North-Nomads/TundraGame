@@ -1,11 +1,11 @@
-using City.Building.Upgrades;
 using System;
+using City.Building;
+using City.Building.Upgrades;
 using Spells;
 using UnityEngine;
-using UnityEngine.Analytics;
 using UnityEngine.UI;
 
-namespace City.Building
+namespace ModulesUI.Building
 {
     /// <summary>
     /// UI component of any elemental tower

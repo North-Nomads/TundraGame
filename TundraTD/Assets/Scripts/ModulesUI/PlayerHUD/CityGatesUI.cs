@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections;
+using City;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace City
+namespace ModulesUI.PlayerHUD
 {
     /// <summary>
     /// Represents the UI behaviour of CityGates
