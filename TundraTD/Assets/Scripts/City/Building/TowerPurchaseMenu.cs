@@ -1,6 +1,7 @@
 using Spells;
 using System;
 using ModulesUI;
+using ModulesUI.PlayerHUD;
 using CanvasGroup = ModulesUI.CanvasGroup;
 
 namespace City.Building
@@ -8,7 +9,7 @@ namespace City.Building
     public class TowerPurchaseMenu : TundraCanvas
     {
         public override CanvasGroup CanvasGroup => CanvasGroup.Building;
-        public override CanvasGroup BlockList => CanvasGroup.MagicHUD | CanvasGroup.Portal;
+        public override CanvasGroup BlockList => CanvasGroup.MagicHUD | CanvasGroup.Portal | CanvasGroup.City;
         
         private int _selectedSlot;
         
