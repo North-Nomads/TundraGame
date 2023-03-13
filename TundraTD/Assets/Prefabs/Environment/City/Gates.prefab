@@ -759,7 +759,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7099452524227793251}
   - component: {fileID: 7281453124406245004}
-  - component: {fileID: 7281453124406245002}
   - component: {fileID: 7281453124406245003}
   - component: {fileID: 9067856430413999971}
   m_Layer: 0
@@ -800,20 +799,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.1658, y: 0.1, z: 0.08}
   m_Center: {x: 0, y: 0, z: -0.05}
---- !u!114 &7281453124406245002
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7623893609857240025}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdd0f35ce7f3437eb17f9fcb4dd291a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  topHealthBar: {fileID: 0}
-  influencePointsHolder: {fileID: 0}
 --- !u!114 &7281453124406245003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -826,6 +811,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e787731aa6a4a0147a3d7a04658387dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cityGatesUI: {fileID: 0}
   maxCityGatesHealthPoints: 0
   levelJudge: {fileID: 0}
 --- !u!95 &9067856430413999971
