@@ -780,12 +780,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19d8890f87054c1990401f81680e0b6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &571882142 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 2547954452792009132, guid: 5ccee0490a89024418ebbeda744fde24,
-    type: 3}
-  m_PrefabInstance: {fileID: 5518835992730627677}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &596569528
 GameObject:
   m_ObjectHideFlags: 0
@@ -833,8 +827,8 @@ MonoBehaviour:
   pauseParent: {fileID: 738121008}
   minWaveAward: 10
   maxWaveAward: 100
-  canvasesParent: {fileID: 571882142}
-  influencePointsHolder: {fileID: 0}
+  canvasesParent: {fileID: 1946200205}
+  influencePointsHolder: {fileID: 2053122070}
   placementSlots:
   - {fileID: 1892214172}
   - {fileID: 124227731}

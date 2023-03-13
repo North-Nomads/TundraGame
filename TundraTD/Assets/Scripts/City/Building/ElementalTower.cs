@@ -1,4 +1,5 @@
 using City.Building.Upgrades;
+using ModulesUI;
 using ModulesUI.Building;
 using Spells;
 using UnityEngine;
@@ -29,10 +30,7 @@ namespace City.Building
 
         private void OnMouseDown()
         {
-            if (EventSystem.current.IsPointerOverGameObject())
-                return;
-            
-            _elementalTowerUI.OpenTowerMenu();
+            UIToggle.TryOpenCanvas(_elementalTowerUI);
         }
 
         private void InitializeTowerUIOnTowerBuild()

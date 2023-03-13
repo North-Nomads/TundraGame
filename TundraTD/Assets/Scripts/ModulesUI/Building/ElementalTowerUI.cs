@@ -13,7 +13,7 @@ namespace ModulesUI.Building
     public class ElementalTowerUI : TundraCanvas
     {
         public override CanvasGroup CanvasGroup => CanvasGroup.Building;
-        public override CanvasGroup BlockList => CanvasGroup.MagicHUD | CanvasGroup.Portal | CanvasGroup.City;
+        public override CanvasGroup BlockList => CanvasGroup.MagicHUD | CanvasGroup.Portal | CanvasGroup.City | CanvasGroup.Building;
         
         [SerializeField] private TowerUpgradeLevel[] upgradeLevels;
         [SerializeField] private Image upgradeLevelIndicator;
@@ -86,14 +86,9 @@ namespace ModulesUI.Building
             canvasTitle.text = $"{name} tower".ToUpper();
         }
 
-        public void OpenTowerMenu()
-        {
-            gameObject.SetActive(true);
-        }
-
         public void CloseTowerMenu()
         {
-            gameObject.SetActive(false);
+            UIToggle.HandleCanvasClosing(this);
         }
     }
 }
