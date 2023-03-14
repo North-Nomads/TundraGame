@@ -67,8 +67,6 @@ namespace Mobs.MobsBehaviour
         public void HitThisMob(float damage, BasicElement damageElement, string sourceName)
         {
             if (!MobModel.IsAlive) return;
-//            Debug.Log($"Handling {damage} damage from {sourceName} hitting {name}");
-            Debug.Log($"{mobModel.CurrentMobHealth} for {name}");
 
             damage = CurrentEffects.Aggregate(damage, (dmg, effect) => effect.OnHitReceived(this, dmg, damageElement));
             HandleIncomeDamage(damage, damageElement);
@@ -151,6 +149,9 @@ namespace Mobs.MobsBehaviour
             {
                 var effect = CurrentEffects[i];
                 effect.HandleTick(this);
+
+                if (!mobModel.IsAlive)
+                    return;
 
                 if (effect.CurrentTicksAmount == effect.MaxTicksAmount)
                 {
