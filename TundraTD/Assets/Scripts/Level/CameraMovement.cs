@@ -1,8 +1,7 @@
 ﻿using System;
-using ModulesUI.MagicScreen;
-using Spells;
+using ModulesUI;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using CanvasGroup = ModulesUI.CanvasGroup;
 
 namespace Level
 {
@@ -35,15 +34,14 @@ namespace Level
 
         private void Update()
         {
-            if (EventSystem.current.IsPointerOverGameObject())
-                return;
-
             HandleCameraInertialMovement();
+
+            if (UIToggle.BlockedGroups.HasFlag(CanvasGroup.Camera))
+                return;
 
             if (usingWASD)
             {
                 MoveCameraOnWASD();
-                if (Input.GetKeyDown(KeyCode.C)) SpellCaster.PerformDebugCast();
             }
             else
             {

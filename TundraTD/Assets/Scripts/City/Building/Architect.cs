@@ -2,6 +2,7 @@
 using Spells;
 using System;
 using System.Linq;
+using ModulesUI.PlayerHUD;
 using UnityEngine;
 using UnityEngine.Analytics;
 

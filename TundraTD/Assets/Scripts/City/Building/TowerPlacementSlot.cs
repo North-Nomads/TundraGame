@@ -1,7 +1,8 @@
 ﻿using System;
 using Level;
+using ModulesUI;
+using ModulesUI.Building;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace City.Building
 {
@@ -33,6 +34,7 @@ namespace City.Building
             if (purchaseMenu is null)
                 throw new NullReferenceException("No purchase menu was assigned for the placement slot");
 
+            //UIToggle.AllCanvases.Add(this);
 
             var meshRenderers = GetComponentsInChildren<MeshRenderer>();
             _slotHeight = meshRenderers[0].bounds.size.y - meshRenderers[1].bounds.size.y;
@@ -46,17 +48,8 @@ namespace City.Building
 
         private void OnMouseDown()
         {
-            if (EventSystem.current.IsPointerOverGameObject() || IsOccupied)
-                return;
-            
-            if (!PauseMode.IsGamePaused)
-                CallPurchaseMenuOnEmptySlotClicked();
-        }
-
-        private void CallPurchaseMenuOnEmptySlotClicked()
-        {
-            purchaseMenu.gameObject.SetActive(true);
-            purchaseMenu.SelectedSlotID = slotID;
+            UIToggle.TryOpenCanvas(purchaseMenu);
+            purchaseMenu.SetPurchaseID(slotID);
         }
     }
 }

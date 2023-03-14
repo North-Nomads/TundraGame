@@ -1,5 +1,4 @@
-﻿using System;
-using Level;
+﻿using Level;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +12,6 @@ namespace ModulesUI.Pause
         [Header("Hierarchy objects")]
         [SerializeField] private PauseCanvas pauseCanvas;
         [SerializeField] private Button hudPauseButton;
-        [SerializeField] private Transform hideOnPauseCanvases;
         public PauseCanvas PauseCanvas => pauseCanvas;
 
         /// <summary>
@@ -26,15 +24,16 @@ namespace ModulesUI.Pause
 
         private void HandlePauseSwitching(object sender, bool value)
         {
-            pauseCanvas.gameObject.SetActive(value);
+            if (value)
+                UIToggle.TryOpenCanvas(pauseCanvas);
+            else
+                UIToggle.HandleCanvasClosing(pauseCanvas);
             hudPauseButton.gameObject.SetActive(!value);
-            hideOnPauseCanvases.gameObject.SetActive(!value);
         }
 
         public void SubscribeToPauseMode()
         {
             PauseMode.PauseStateSwitched += HandlePauseSwitching;
-            PauseMode.SetPause(false);
         }
     }
 }

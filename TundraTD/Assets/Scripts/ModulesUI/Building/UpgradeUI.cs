@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace City.Building.Upgrades
+namespace ModulesUI.Building
 {
     public class UpgradeUI : MonoBehaviour
     {
