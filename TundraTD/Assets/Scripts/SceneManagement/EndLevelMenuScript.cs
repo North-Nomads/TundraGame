@@ -1,10 +1,15 @@
-﻿using UnityEngine;
+﻿using ModulesUI;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using CanvasGroup = ModulesUI.CanvasGroup;
 
 namespace SceneManagement
 {
-    public class EndLevelMenuScript : MonoBehaviour
+    public class EndLevelMenuScript : TundraCanvas
     {
+        public override CanvasGroup CanvasGroup => CanvasGroup.Pause;
+        public override CanvasGroup BlockList => CanvasGroup.Everything;
+        
         private const int LevelsSceneID = 1;
 
         public void KeepPlaying(string result)

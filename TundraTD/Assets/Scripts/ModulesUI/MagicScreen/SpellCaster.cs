@@ -7,15 +7,20 @@ namespace ModulesUI.MagicScreen
     /// <summary>
     /// A button orders grimoire to generate spell of current deck 
     /// </summary>
-    public class SpellCaster : MonoBehaviour
+    public class SpellCaster : TundraCanvas
     {
+        public override CanvasGroup CanvasGroup => CanvasGroup.MagicHUD;
+        public override CanvasGroup BlockList => CanvasGroup.None;
+        
         private Camera _camera;
         private Vector3 _pointOnTap;
         private const int PlaceableLayer = 1 << 11 | 1 << 10;
         
         public void Start()
         {
+            gameObject.SetActive(false);
             _camera = Camera.main;
+            UIToggle.AllCanvases.Add(this);
         }
 
         private static void CastSpellOnPosition(RaycastHit hitInfo) => Grimoire.TurnElementsIntoSpell(hitInfo);

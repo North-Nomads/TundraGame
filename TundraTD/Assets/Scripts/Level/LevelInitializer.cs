@@ -6,6 +6,7 @@ using City.Building;
 using City.Building.ElementPools;
 using ModulesUI.MagicScreen;
 using ModulesUI.Pause;
+using ModulesUI.PlayerHUD;
 using Spells;
 using UnityEngine;
 

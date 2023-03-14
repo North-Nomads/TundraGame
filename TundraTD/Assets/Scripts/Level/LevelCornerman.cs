@@ -11,6 +11,9 @@ namespace Level
     /// </summary>
     public class LevelCornerman : MonoBehaviour
     {
+        private static bool _isInPlayMode;
+        public static bool IsInPlayMode => _isInPlayMode;
+        
         [SerializeField] private MobPortal[] mobPortals;
         [SerializeField] private LevelJudge levelJudge;
         [SerializeField] private Text waveStartTimer;
@@ -94,6 +97,7 @@ namespace Level
         public void StartFirstWave()
         {
             StartCoroutine(StartWavesLoop());
+            _isInPlayMode = true;
         }
     }
 }
