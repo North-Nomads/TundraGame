@@ -55,8 +55,6 @@ namespace Mobs.MobsBehaviour
             }
         }
 
-        public event EventHandler OnMobDied = delegate { };
-
         public abstract BasicElement MobBasicElement { get; }
         public abstract BasicElement MobCounterElement { get; }
 
@@ -132,8 +130,8 @@ namespace Mobs.MobsBehaviour
         private void KillThisMob()
         {
             ClearMobEffects();
-            Destroy(gameObject);
-            OnMobDied(this, null);
+            gameObject.SetActive(false);
+            transform.parent = null;
         }
 
         protected virtual void Start()
@@ -164,6 +162,20 @@ namespace Mobs.MobsBehaviour
                     i++;
                 }
             }
+        }
+        
+        public void RespawnMobFromPool(Vector3 position)
+        {
+            // Set mob position
+            var mobTransform = transform;
+            mobTransform.position = position;
+            
+            // Set visual effects
+            gameObject.SetActive(true);
+            MobModel.SetDefaultMaterial();
+            
+            // Set hp, speed & etc 
+            mobModel.SetDefaultValues();
         }
     }
 }
