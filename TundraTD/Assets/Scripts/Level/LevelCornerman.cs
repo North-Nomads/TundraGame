@@ -56,11 +56,6 @@ namespace Level
                     yield return StartMobSpawning(mobPortal);
                 }
 
-                foreach (var portal in mobPortals)
-                {
-                    portal.MobPool.AreAllMobDead();
-                }
-
                 yield return new WaitUntil(() => mobPortals.Count(x => !x.MobPool.AreAllMobDead()) == 0);
                 IsInWaveMode = false;
                 // Handle the ending of the wave (from all portals)
