@@ -24,6 +24,8 @@ namespace Mobs
 
         [SerializeField]
         private new Renderer renderer;
+
+        [SerializeField] private Material defaultMaterial;
         
         [SerializeField] 
         private new Rigidbody rigidbody;
@@ -34,7 +36,6 @@ namespace Mobs
         private float _currentMobHealth;
         private float _currentMobSpeed;
         private NavMeshAgent _mobNavMeshAgent;
-        private Material _defaultMaterial;
 
         public Rigidbody Rigidbody => rigidbody;
         public Animator Animator => _animator;
@@ -71,20 +72,32 @@ namespace Mobs
 
         public void InstantiateMobModel()
         {
-            _mobNavMeshAgent = GetComponent<NavMeshAgent>();
-            _animator = GetComponent<Animator>();
+            SetDefaultValues();
+        }
+
+        public void SetDefaultValues()
+        {
+            if (_mobNavMeshAgent is null)
+                _mobNavMeshAgent = GetComponent<NavMeshAgent>();
+            if (_animator is null)
+                _animator = GetComponent<Animator>();
+            
             _defaultMobAngularSpeed = _mobNavMeshAgent.speed;
             _currentMobHealth = maxMobHealth;
             _currentMobSpeed = defaultMobSpeed;
             CurrentMobDamage = defaultMobDamage;
-            _defaultMaterial = renderer.material;
         }
         
         public IEnumerator ShowHitVFX()
         {
             renderer.material = hitMaterial;
             yield return new WaitForSeconds(.1f);
-            renderer.material = _defaultMaterial;
+            SetDefaultMaterial();
+        }
+
+        public void SetDefaultMaterial()
+        {
+            renderer.material = defaultMaterial;
         }
     }
 }
