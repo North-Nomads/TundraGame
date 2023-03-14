@@ -55,7 +55,7 @@ namespace Mobs
 
             WavesAmount = mobWaves.Length;
             IsInstantiated = true;
-            infoPanel.LoadMobsInPortalPanel(_currentMobWave);
+            infoPanel.LoadWaveInPanel(_currentMobWave);
         }
 
         private void OnMouseDown()
@@ -82,7 +82,7 @@ namespace Mobs
             if (_currentMobWaveIndex >= mobWaves.Length)
                 return;
             _currentMobWave = mobWaves[_currentMobWaveIndex];
-            infoPanel.LoadMobsInPortalPanel(_currentMobWave);
+            infoPanel.LoadWaveInPanel(_currentMobWave);
         }
 
         public void SpawnNextMob()

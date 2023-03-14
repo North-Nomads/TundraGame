@@ -40,7 +40,7 @@ namespace ModulesUI.MobPortal
             UIToggle.HandleCanvasClosing(this);
         }
         
-        public void SendNewWaveMobs(Mobs.MobPortal.MobWave currentMobWave)
+        public void LoadWaveInPanel(Mobs.MobPortal.MobWave currentMobWave)
         {
             Sprite[] mBox = new Sprite[8];
             var count = 0;
