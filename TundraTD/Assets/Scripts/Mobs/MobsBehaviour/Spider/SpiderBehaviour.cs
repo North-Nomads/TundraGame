@@ -34,6 +34,7 @@ namespace Mobs.MobsBehaviour.Spider
             MobModel.InstantiateMobModel();
 
             DefaultDestinationPoint = gates;
+            MobModel.MobNavMeshAgent.enabled = true;
             MobModel.MobNavMeshAgent.SetDestination(DefaultDestinationPoint.position);
         }
 

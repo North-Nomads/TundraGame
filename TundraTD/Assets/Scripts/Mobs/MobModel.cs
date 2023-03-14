@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
 namespace Mobs
 {
@@ -25,21 +26,24 @@ namespace Mobs
         [SerializeField]
         private new Renderer renderer;
 
-        [SerializeField] private Material defaultMaterial;
+        [SerializeField] 
+        private Material defaultMaterial;
         
         [SerializeField] 
         private new Rigidbody rigidbody;
 
+        [SerializeField]
+        private float defaultMobAngularSpeed;
 
         private Animator _animator;
-        private float _defaultMobAngularSpeed;
         private float _currentMobHealth;
         private float _currentMobSpeed;
+        private float _currentMobAngularSpeed;
         private NavMeshAgent _mobNavMeshAgent;
 
         public Rigidbody Rigidbody => rigidbody;
         public Animator Animator => _animator;
-        public float DefaultMobAngularSpeed => _defaultMobAngularSpeed;        
+        public float DefaultMobAngularSpeed => defaultMobAngularSpeed;        
         public Sprite MobSprite => mobSprite;
         public NavMeshAgent MobNavMeshAgent => _mobNavMeshAgent;
         public bool IsAlive => CurrentMobHealth > 0;
@@ -60,6 +64,15 @@ namespace Mobs
 
         public float CurrentMobDamage { get; set; }
 
+        public float CurrentMobAngularSpeed
+        {
+            get => _currentMobAngularSpeed;
+            set
+            {
+                _currentMobAngularSpeed = value;
+                _mobNavMeshAgent.angularSpeed = _currentMobAngularSpeed;
+            }
+        }
         public float CurrentMobSpeed
         {
             get => _currentMobSpeed;
@@ -82,9 +95,11 @@ namespace Mobs
             if (_animator is null)
                 _animator = GetComponent<Animator>();
             
-            _defaultMobAngularSpeed = _mobNavMeshAgent.speed;
+            rigidbody.velocity = Vector3.zero;
+            
+            _currentMobSpeed = DefaultMobSpeed;
+            _currentMobAngularSpeed = CurrentMobAngularSpeed;
             _currentMobHealth = maxMobHealth;
-            _currentMobSpeed = defaultMobSpeed;
             CurrentMobDamage = defaultMobDamage;
         }
         

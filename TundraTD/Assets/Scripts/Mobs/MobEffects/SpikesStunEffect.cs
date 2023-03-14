@@ -37,7 +37,7 @@ namespace Mobs.MobEffects
             
             mob.MobModel.MobNavMeshAgent.enabled = true;
             mob.MobModel.MobNavMeshAgent.SetDestination(mob.DefaultDestinationPoint.position);
-            mob.MobModel.MobNavMeshAgent.angularSpeed = mob.MobModel.DefaultMobAngularSpeed;
+            mob.MobModel.CurrentMobAngularSpeed = mob.MobModel.DefaultMobAngularSpeed;
             mob.MobModel.Animator.SetBool("IsStunned", false);
         }
     }

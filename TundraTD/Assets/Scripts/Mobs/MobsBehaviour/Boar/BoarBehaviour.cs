@@ -38,6 +38,7 @@ namespace Mobs.MobsBehaviour.Boar
             _chargeLeftTime = 3f;
 
             DefaultDestinationPoint = gates;
+            MobModel.MobNavMeshAgent.enabled = true;
             MobModel.MobNavMeshAgent.SetDestination(DefaultDestinationPoint.position);
         }
 

@@ -51,6 +51,7 @@ namespace Mobs.MobsBehaviour.Bear
             MobModel.InstantiateMobModel();
 
             DefaultDestinationPoint = gates;
+            MobModel.MobNavMeshAgent.enabled = true;
             MobModel.MobNavMeshAgent.SetDestination(DefaultDestinationPoint.position);
         }
 
