@@ -1,13 +1,12 @@
 ﻿using System.Linq;
 using Mobs.MobsBehaviour;
 using Spells;
-using UnityEngine;
 
 namespace Mobs.MobEffects
 {
     public class SpikesStunEffect : Effect
     {
-        private float _stunDamage = 50f;
+        private const float StunDamage = 50f;
         public override int MaxTicksAmount { get; }
 
         public override VisualEffectCode Code => VisualEffectCode.Stun;
@@ -19,13 +18,13 @@ namespace Mobs.MobEffects
         
         public override bool OnAttach(MobBehaviour mob)
         {
-            if (mob.CurrentEffects.Any(x => x is SpikesStunEffect))
-                return false;
+            var stun = mob.CurrentEffects.OfType<SpikesStunEffect>().FirstOrDefault();
+            if (!(stun is null))
+                mob.CurrentEffects.Remove(stun); 
             
-            mob.MobModel.MobNavMeshAgent.enabled = false;
-            
-            mob.HitThisMob(_stunDamage, BasicElement.Earth, "Earth.Stun");
             mob.MobModel.MobNavMeshAgent.angularSpeed = 0;
+            mob.MobModel.MobNavMeshAgent.enabled = false;
+            mob.HitThisMob(StunDamage, BasicElement.Earth, "Earth.Stun");
             mob.MobModel.Animator.SetBool("IsStunned", true);
             return true;
         }
