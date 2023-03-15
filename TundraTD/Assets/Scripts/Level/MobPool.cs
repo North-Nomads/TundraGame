@@ -19,10 +19,17 @@ namespace Level
 
         private void Start()
         {
-            _mobsOnLevel = new List<MobBehaviour>();
+            if (_mobsOnLevel is null)
+                _mobsOnLevel = new List<MobBehaviour>();
         }
 
-        public void InstantiateMob(MobBehaviour mob) => _mobsOnLevel.Add(mob);
+        public void InstantiateMob(MobBehaviour mob)
+        {
+            if (_mobsOnLevel is null)
+                _mobsOnLevel = new List<MobBehaviour>();
+            
+            _mobsOnLevel.Add(mob);   
+        }
 
         public bool AreAllMobDead()
         {
@@ -76,6 +83,11 @@ namespace Level
             }
 
             return list;
+        }
+
+        public void ResetValues()
+        {
+            _mobsOnLevel.Clear();
         }
     }
 }
