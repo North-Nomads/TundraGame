@@ -51,6 +51,13 @@ namespace ModulesUI
 
             // If there is anything blocking UI -> the screen is yet occupied
         }
+
+        public static void ResetValues()
+        {
+            _blockedGroups = CanvasGroup.None;
+            AllCanvases.Clear();
+        }
+        
     }
     
     [Flags]

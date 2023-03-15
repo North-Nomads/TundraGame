@@ -4,6 +4,7 @@ using System.Linq;
 using City;
 using City.Building;
 using City.Building.ElementPools;
+using ModulesUI;
 using ModulesUI.MagicScreen;
 using ModulesUI.Pause;
 using ModulesUI.PlayerHUD;
@@ -28,7 +29,9 @@ namespace Level
         [SerializeField] private TowerPlacementSlot[] placementSlots;
         [SerializeField] private ElementalTower[] elementalTowerPrefabs;
         [SerializeField] private MagicSpell[] spellInitializers;
-
+        [SerializeField] private MobPool[] mobPools;
+        
+        
         private void Start()
         {
             if (placementSlots.Length == 0)
@@ -38,6 +41,16 @@ namespace Level
             InitializeArchitectValues();
             ResetMagicPools();
             PlayerDeck.DeckElements.Clear();
+            UIToggle.ResetValues();
+            ResetMobPools();
+        }
+
+        private void ResetMobPools()
+        {
+            foreach (var mobPool in mobPools)
+            {
+                mobPool.ResetValues();
+            }
         }
 
         private void ResetMagicPools()
