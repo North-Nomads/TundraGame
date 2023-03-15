@@ -26,11 +26,6 @@ namespace Mobs.MobsBehaviour.Boar
             MobModel.CurrentMobHealth -= damage * multiplier;
         }
 
-        public override void MoveTowards(Vector3 point)
-        {
-            MobModel.MobNavMeshAgent.SetDestination(point);
-        }
-
         public override void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal)
         {
             MobPortal = mobPortal;

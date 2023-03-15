@@ -60,8 +60,6 @@ namespace Mobs.MobsBehaviour
 
         public abstract void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal);
 
-        public abstract void MoveTowards(Vector3 point);
-
         protected abstract void HandleIncomeDamage(float damage, BasicElement damageElement);
 
         public void HitThisMob(float damage, BasicElement damageElement, string sourceName)
