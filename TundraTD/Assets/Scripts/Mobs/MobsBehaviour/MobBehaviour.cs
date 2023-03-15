@@ -170,6 +170,8 @@ namespace Mobs.MobsBehaviour
             var mobTransform = transform;
             mobTransform.position = position;
             
+            ClearMobEffects();
+            
             // Set visual effects
             gameObject.SetActive(true);
             MobModel.SetDefaultMaterial();
