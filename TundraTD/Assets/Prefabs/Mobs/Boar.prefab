@@ -1149,6 +1149,7 @@ MonoBehaviour:
   renderer: {fileID: 6667528729859900624}
   defaultMaterial: {fileID: 2100000, guid: 035ddc13ab447214fa5ae29d78f8641e, type: 2}
   rigidbody: {fileID: 3692616354502211321}
+  defaultMobAngularSpeed: 1000
 --- !u!114 &8671833239330950923
 MonoBehaviour:
   m_ObjectHideFlags: 0
