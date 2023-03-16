@@ -1,6 +1,8 @@
+using System;
 using Mobs;
 using System.Collections;
 using System.Linq;
+using ModulesUI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -98,6 +100,11 @@ namespace Level
         {
             StartCoroutine(StartWavesLoop());
             _isInPlayMode = true;
+        }
+
+        private void OnDestroy()
+        {
+            UIToggle.ResetValues();
         }
     }
 }

@@ -22,7 +22,6 @@ namespace Level
             
             UIToggle.AllCanvases.Add(this);
             UIToggle.TryOpenCanvas(this);
-           // magicUI.gameObject.SetActive(false);
         }
 
         public void LaunchFirstWave()

@@ -41,7 +41,6 @@ namespace Level
             InitializeArchitectValues();
             ResetMagicPools();
             PlayerDeck.DeckElements.Clear();
-            UIToggle.ResetValues();
             ResetMobPools();
         }
 
