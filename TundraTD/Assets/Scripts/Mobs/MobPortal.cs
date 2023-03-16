@@ -14,12 +14,11 @@ namespace Mobs
     /// <summary>
     /// Spawns mobs and manages waves
     /// </summary>
-    public class MobPortal : MonoBehaviour
+    public class MobPortal : MonoBehaviour, IPointerClickHandler
     {
         [SerializeField] private MobPool mobPool;
         [SerializeField] private PortalInfoCanvas infoPanel;
         [SerializeField] private CityGates gates;
-        [SerializeField] private Transform mobSpawner;
         [SerializeField] private MobWave[] mobWaves;
 
         private MobWave _currentMobWave;
@@ -57,15 +56,15 @@ namespace Mobs
             IsInstantiated = true;
             infoPanel.LoadWaveInPanel(_currentMobWave);
         }
-
-        private void OnMouseDown()
+        
+        public void OnPointerClick(PointerEventData eventData)
         {
-            if (LevelCornerman.IsInWaveMode || EventSystem.current.IsPointerOverGameObject())
+            if (LevelCornerman.IsInWaveMode)
                 return;
             
             UIToggle.TryOpenCanvas(infoPanel);
         }
-
+        
         public void EquipNextWave()
         {
             if (_currentMobWaveIndex >= mobWaves.Length)

@@ -117,8 +117,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.23261058, y: 0.020908939, z: 0.20297922}
-  m_Center: {x: 0, y: 0.010810395, z: 0}
+  m_Size: {x: 0.23261058, y: 0.095252156, z: 0.19340408}
+  m_Center: {x: -0.000000025927429, y: 0.047981862, z: -0.05490799}
 --- !u!114 &6165614670995634803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,8 +137,27 @@ MonoBehaviour:
   mobSpawner: {fileID: 6165614669553682626}
   mobWaves:
   - mobProperties:
-    - mob: {fileID: 4000996451007599641, guid: f5414b311da4f80499a5e14d23b10945, type: 3}
-      mobQuantity: 1
+    - mob: {fileID: 8671833239330950923, guid: 431421a7745e5ed4d94bbeabaa240f5c, type: 3}
+      mobQuantity: 3
+  - mobProperties:
+    - mob: {fileID: 8671833239330950923, guid: 431421a7745e5ed4d94bbeabaa240f5c, type: 3}
+      mobQuantity: 2
+    - mob: {fileID: 4081599098900397475, guid: 41498cfd0a0fccf4491dee7833b319fc, type: 3}
+      mobQuantity: 4
+  - mobProperties:
+    - mob: {fileID: 7987837108767728486, guid: b4f507c285d21a343a4592c444a51ddd, type: 3}
+      mobQuantity: 2
+    - mob: {fileID: 4081599098900397475, guid: 41498cfd0a0fccf4491dee7833b319fc, type: 3}
+      mobQuantity: 3
+    - mob: {fileID: 8671833239330950923, guid: 431421a7745e5ed4d94bbeabaa240f5c, type: 3}
+      mobQuantity: 3
+  - mobProperties:
+    - mob: {fileID: 7987837108767728486, guid: b4f507c285d21a343a4592c444a51ddd, type: 3}
+      mobQuantity: 3
+    - mob: {fileID: 8671833239330950923, guid: 431421a7745e5ed4d94bbeabaa240f5c, type: 3}
+      mobQuantity: 4
+    - mob: {fileID: 4081599098900397475, guid: 41498cfd0a0fccf4491dee7833b319fc, type: 3}
+      mobQuantity: 6
 --- !u!1001 &6165614671495718053
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -3,13 +3,14 @@ using Level;
 using ModulesUI;
 using ModulesUI.Building;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace City.Building
 {
     /// <summary>
     /// A slot to build a new tower
     /// </summary>
-    public class TowerPlacementSlot : MonoBehaviour
+    public class TowerPlacementSlot : MonoBehaviour, IPointerClickHandler
     {
         [SerializeField] private TowerPurchaseMenu purchaseMenu;
         [SerializeField] private int slotID;
@@ -17,6 +18,7 @@ namespace City.Building
         private float _slotHeight;
         private Vector3 _bottomCentreBuildingAnchor;
         private AudioSource _soundEffect;
+        private Collider _hitCollider;
         public bool IsOccupied { get; private set; }
         public int SlotID => slotID;
 
@@ -27,6 +29,7 @@ namespace City.Building
             tower.transform.localScale *= levelTowerSizeModifier;
             _soundEffect.Play();
             IsOccupied = true;
+            _hitCollider.enabled = false;
         }
 
         private void Start()
@@ -34,7 +37,7 @@ namespace City.Building
             if (purchaseMenu is null)
                 throw new NullReferenceException("No purchase menu was assigned for the placement slot");
 
-            //UIToggle.AllCanvases.Add(this);
+            _hitCollider = GetComponent<Collider>();
 
             var meshRenderers = GetComponentsInChildren<MeshRenderer>();
             _slotHeight = meshRenderers[0].bounds.size.y - meshRenderers[1].bounds.size.y;
@@ -45,10 +48,11 @@ namespace City.Building
             _soundEffect.volume = GameParameters.EffectsVolumeModifier;
             IsOccupied = false;
         }
-
-        private void OnMouseDown()
+        
+        public void OnPointerClick(PointerEventData eventData)
         {
-            UIToggle.TryOpenCanvas(purchaseMenu);
+            if (!UIToggle.TryOpenCanvas(purchaseMenu)) return;
+            
             purchaseMenu.SetPurchaseID(slotID);
         }
     }

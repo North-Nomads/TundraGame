@@ -18,12 +18,13 @@ namespace ModulesUI
             AllCanvases = new List<TundraCanvas>();
         }
 
-        public static void TryOpenCanvas(TundraCanvas canvas)
+        public static bool TryOpenCanvas(TundraCanvas canvas)
         {
             if (_blockedGroups.HasFlag(canvas.CanvasGroup))
-                return;
+                return false;
             
             _blockedGroups |= canvas.BlockList;
+            
 
             foreach (var tundraCanvas in AllCanvases)
                 if (tundraCanvas.isActiveAndEnabled)
@@ -31,6 +32,7 @@ namespace ModulesUI
                         tundraCanvas.ExecuteOnClosing();
             
             canvas.ExecuteOnOpening();
+            return true;
         }
 
         public static void HandleCanvasClosing(TundraCanvas canvas)
