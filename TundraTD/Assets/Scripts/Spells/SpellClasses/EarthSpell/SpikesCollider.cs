@@ -8,8 +8,9 @@ using UnityEngine;
 namespace Spells.SpellClasses.EarthSpell
 {
     [RequireComponent(typeof(BoxCollider))]
-    public class SpikesSlownessCollider : MonoBehaviour
+    public class SpikesCollider : MonoBehaviour
     {
+        [SerializeField] private SpikesSpell spell;
         private int _slownessTicks;
         private float _slownessPercent;
         private Vector3 _halfHeight;
@@ -93,6 +94,17 @@ namespace Spells.SpellClasses.EarthSpell
         {
             _slownessTicks = ticks;
             _slownessPercent = modifier;
+        }
+
+        public void ForcePushOnSolidWalls()
+        {
+            var mobs = Physics.OverlapBox(BoxCollider.transform.position, BoxCollider.size / 2,
+                BoxCollider.transform.rotation, 1 << 8);
+            foreach (var mob in mobs)
+            {
+                mob.GetComponent<MobBehaviour>().AddSingleEffect(new StuckEffect(spell.Lifetime));
+            }
+
         }
     }
 }

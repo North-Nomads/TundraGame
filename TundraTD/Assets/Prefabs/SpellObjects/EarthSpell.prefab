@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a0054b63c0446ccb5c7589bae1ee148, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spell: {fileID: 5897343516089144008}
 --- !u!65 &5897343515616406802
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -107,7 +108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spikesOffset: 1.4
   spikesObjectParent: {fileID: 5897343517032278554}
-  spikesSlownessCollider: {fileID: 5897343515616406803}
+  spikesCollider: {fileID: 5897343515616406803}
   spikesAreaAround: {fileID: 5897343517281618221}
   spikesGroupObject: {fileID: 3677793465474994362, guid: 96b5e82558f8f4543999ec6d13f8c926,
     type: 3}

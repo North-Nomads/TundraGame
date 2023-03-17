@@ -55,7 +55,6 @@ namespace Spells.SpellClasses.EarthSpell
 
         public void ExecutePebblesExplosion(float pebbleDamage, int pebbleStunTicks)
         {
-            Debug.Log("Pebbles");
             pebblesEffect.gameObject.SetActive(true);
             
             var touches = Physics.OverlapBoxNonAlloc(transform.position, new Vector3(3f, 1, .5f), _colliders,
