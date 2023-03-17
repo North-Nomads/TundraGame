@@ -113,7 +113,7 @@ namespace Spells.SpellClasses.EarthSpell
             // Handling tower modifications
             if (EarthPool.HasSolidWalls)
             {
-                spikesCollider.BoxCollider.isTrigger = true;
+                spikesCollider.BoxCollider.isTrigger = false;
                 spikesCollider.ForcePushOnSolidWalls();
             }
             

@@ -16,6 +16,7 @@ namespace Spells.SpellClasses.EarthSpell
         private Vector3 _halfHeight;
         private List<MobBehaviour> _mobsInCollider;
         private SpikesAreaAround _spikesAreaAround;
+        private readonly Collider[] _mobsInSolidWall = new Collider[20];
 
         public float SpikesEnterDamage { get; set; }
         public BoxCollider BoxCollider { get; private set; }
@@ -98,13 +99,11 @@ namespace Spells.SpellClasses.EarthSpell
 
         public void ForcePushOnSolidWalls()
         {
-            var mobs = Physics.OverlapBox(BoxCollider.transform.position, BoxCollider.size / 2,
-                BoxCollider.transform.rotation, 1 << 8);
-            foreach (var mob in mobs)
-            {
-                mob.GetComponent<MobBehaviour>().AddSingleEffect(new StuckEffect(spell.Lifetime));
-            }
+            var size = Physics.OverlapBoxNonAlloc(BoxCollider.transform.position, BoxCollider.size / 2,
+                _mobsInSolidWall, BoxCollider.transform.rotation, 1 << 8);
+            for (int i = 0; i < size; i++)
 
+                _mobsInSolidWall[i].GetComponent<MobBehaviour>().AddSingleEffect(new StuckEffect(spell.Lifetime));
         }
     }
 }
