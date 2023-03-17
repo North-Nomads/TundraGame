@@ -43,7 +43,7 @@ namespace Level
             {
                 MoveCameraOnWASD();
             }
-            //else
+            else
             {
                 if (Input.touchCount == 1)
                 {

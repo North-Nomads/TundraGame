@@ -1,4 +1,6 @@
-﻿using Spells;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Spells;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -33,8 +35,9 @@ namespace ModulesUI.MagicScreen
             var playerTouch = Input.GetTouch(0);
 
             // Clicking over UI surface
-            if (EventSystem.current.IsPointerOverGameObject(playerTouch.fingerId)) return;
-            
+            if (Input.touches.Any(touch => EventSystem.current.IsPointerOverGameObject(touch.fingerId)))
+                return;
+
             // Prevent executing spell right after finger lifting after clicking the element 
             if (playerTouch.phase == TouchPhase.Ended)
                 return;
