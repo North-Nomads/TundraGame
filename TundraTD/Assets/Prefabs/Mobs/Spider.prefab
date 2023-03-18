@@ -670,7 +670,7 @@ Transform:
   m_GameObject: {fileID: 3775609751783473393}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 1859763677079587731}
   - {fileID: 1588881891167934623}
@@ -746,6 +746,7 @@ MonoBehaviour:
   renderer: {fileID: 6333348448848291545}
   defaultMaterial: {fileID: 2100000, guid: 900cc785c3455ae48ac3a8f83ee5d0ce, type: 2}
   rigidbody: {fileID: 4081599098900397479}
+  defaultMobAngularSpeed: 0
 --- !u!114 &4081599098900397475
 MonoBehaviour:
   m_ObjectHideFlags: 0
