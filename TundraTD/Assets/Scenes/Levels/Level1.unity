@@ -138,6 +138,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1153148091257317427, guid: 0354f2fc2db316a4bacb468a83e8f0f2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 1966699441297535625, guid: 0354f2fc2db316a4bacb468a83e8f0f2,
         type: 3}
       propertyPath: m_RootOrder
@@ -1433,6 +1438,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Portal
       objectReference: {fileID: 0}
+    - target: {fileID: 6436136661733431796, guid: 82f908a53c183df4fb4dc007f98d738a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82f908a53c183df4fb4dc007f98d738a, type: 3}
 --- !u!4 &980112460 stripped
@@ -1659,6 +1669,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform
+      objectReference: {fileID: 0}
+    - target: {fileID: 1153148091257317427, guid: 0354f2fc2db316a4bacb468a83e8f0f2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1966699441297535625, guid: 0354f2fc2db316a4bacb468a83e8f0f2,
         type: 3}
@@ -2480,7 +2495,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EventMask:
     serializedVersion: 2
-    m_Bits: 3072
+    m_Bits: 4096
   m_MaxRayIntersections: 0
 --- !u!1001 &1723114534
 PrefabInstance:
@@ -2896,6 +2911,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1153148091257317427, guid: 0354f2fc2db316a4bacb468a83e8f0f2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1966699441297535625, guid: 0354f2fc2db316a4bacb468a83e8f0f2,
         type: 3}
