@@ -63,6 +63,7 @@ namespace Level
         private void InitializePauseMode()
         {
             PauseMode.ResetSubscribers();
+            PauseMode.SetPause(false);
             pauseParent.SubscribeToPauseMode();
             pauseParent.PauseCanvas.SetImmortalAudioSource(audioSource);
         }

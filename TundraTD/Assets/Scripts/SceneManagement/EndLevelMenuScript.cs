@@ -14,6 +14,7 @@ namespace SceneManagement
 
         public void KeepPlaying(string result)
         {
+            UIToggle.ResetValues();
             if (result == "victory" && SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings)
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             else if (result == "victory")
