@@ -29,7 +29,7 @@ namespace Level
         {
             _mainCamera = GetComponent<Camera>();
             if (!_mainCamera.orthographic)
-                throw new Exception("Camera must be in orthographic mode");
+                throw new NotSupportedException("Camera must be in orthographic mode");
         }
 
         private void Update()
