@@ -44,6 +44,12 @@ namespace ModulesUI.PlayerHUD
         {
             _targetPercent = percent;
         }
+
+        private void OnEnable()
+        {
+            StartCoroutine(PlayHealthBarAnimation());
+        }
+
         private IEnumerator PlayHealthBarAnimation()
         {
             var decreaseHealthBarRate = DecreaseHealthBarValue;
