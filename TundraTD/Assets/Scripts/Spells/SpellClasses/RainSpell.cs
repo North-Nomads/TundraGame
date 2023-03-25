@@ -122,6 +122,7 @@ namespace Spells.SpellClasses
             {
                 effects.Add(new FreezeEffect(0, 2, EffectTime.SecondsToTicks()));
             }
+            effects.Add(new WetEffect(EffectTime.SecondsToTicks()));
             mob.AddReceivedEffects(effects);
         }
 
