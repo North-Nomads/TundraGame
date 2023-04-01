@@ -28,6 +28,7 @@ namespace ModulesUI.MagicScreen
         {
             BasicElement core = PlayerDeck.DeckElements.FirstOrDefault() | PlayerDeck.DeckElements.ElementAtOrDefault(1);
             BasicElement addition = PlayerDeck.DeckElements.ElementAtOrDefault(2);
+            PlayerDeck.DeckElements.Clear();
             var spell = MagicSpell.Instantiate(core, addition);
             if (spell != null)
             {

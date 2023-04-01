@@ -11,7 +11,7 @@ namespace Spells
     {
         private static Dictionary<BasicElement, MagicSpell> _prefabs;
 
-        private static readonly Dictionary<BasicElement, AdditionalSpellEffect> _additionalSpellEffects;
+        public static Dictionary<BasicElement, AdditionalSpellEffect> AdditionalSpellEffects { get; set; }
 
         public AdditionalSpellEffect SpellEffect { get; private set; }
 
@@ -19,8 +19,7 @@ namespace Spells
 
         static MagicSpell()
         {
-            // TODO: print here the path to load additional effects.
-            _additionalSpellEffects = Resources.LoadAll<AdditionalSpellEffect>("path/to/load").ToDictionary(x => x.Element, y => y);
+            
         }
 
         public abstract void ExecuteSpell(RaycastHit hitInfo);
@@ -30,9 +29,9 @@ namespace Spells
             if (_prefabs.ContainsKey(basis))
             {
                 var spell = Instantiate(_prefabs[basis]);
-                if (_additionalSpellEffects.ContainsKey(addition))
+                if (addition != BasicElement.None && AdditionalSpellEffects.ContainsKey(addition))
                 {
-                    spell.SpellEffect = _additionalSpellEffects[addition];
+                    spell.SpellEffect = AdditionalSpellEffects[addition];
                 }
                 return spell;
             }
@@ -41,7 +40,7 @@ namespace Spells
 
         public static void SetPrefabs(MagicSpell[] prefabs)
         {
-            _prefabs = prefabs.ToDictionary(x => x.Element, y => y);
+            _prefabs = prefabs.Where(x => x != null).ToDictionary(x => x.Element, y => y);
         }
     }
 }

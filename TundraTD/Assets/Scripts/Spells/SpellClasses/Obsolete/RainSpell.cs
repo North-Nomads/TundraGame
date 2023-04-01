@@ -30,6 +30,8 @@ namespace Spells.SpellClasses
 
         private float LightningMultiplier { get; set; } = 1.1f;
 
+        public override BasicElement Element => throw new System.NotImplementedException();
+
         public override void ExecuteSpell(RaycastHit hitInfo)
         {
             _targetPosition = hitInfo.point;

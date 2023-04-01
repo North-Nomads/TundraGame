@@ -68,6 +68,8 @@ namespace Spells.SpellClasses.FireSpell
         /// </summary>
         public float SlownessDuration { get; set; }
 
+        public override BasicElement Element => throw new System.NotImplementedException();
+
         public override void ExecuteSpell(RaycastHit hitInfo)
         {
             if (_mainCamera is null)

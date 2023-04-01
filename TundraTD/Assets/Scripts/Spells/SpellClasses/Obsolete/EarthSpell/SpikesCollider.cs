@@ -101,9 +101,10 @@ namespace Spells.SpellClasses.EarthSpell
         {
             var size = Physics.OverlapBoxNonAlloc(BoxCollider.transform.position, BoxCollider.size / 2,
                 _mobsInSolidWall, BoxCollider.transform.rotation, 1 << 8);
-            for (int i = 0; i < size; i++)
+            // TODO: remove comment and fix error.
+            //for (int i = 0; i < size; i++)
 
-                _mobsInSolidWall[i].GetComponent<MobBehaviour>().AddSingleEffect(new StuckEffect(spell.Lifetime));
+            //    _mobsInSolidWall[i].GetComponent<MobBehaviour>().AddSingleEffect(new StuckEffect(spell.Lifetime));
         }
     }
 }

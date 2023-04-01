@@ -6,11 +6,13 @@ using UnityEngine;
 
 namespace Spells.SpellClasses
 {
-    [Spell(BasicElement.Lightning, "Lightning", "Shocking!")]
     public class LightningBoltSpell : MagicSpell
     {
         private readonly List<MobBehaviour> _mobsInRadius = new List<MobBehaviour>();
         [SerializeField] private LineRenderer lightning;
+
+        public override BasicElement Element => throw new NotImplementedException();
+
         public override void ExecuteSpell(RaycastHit castPosition)
         {
             //Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);

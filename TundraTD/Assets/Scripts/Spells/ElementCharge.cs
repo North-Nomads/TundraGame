@@ -11,26 +11,25 @@ namespace Assets.Scripts.Spells
     /// <summary>
     /// Represents the model for the rechargeable element selection slots.
     /// </summary>
-    public class ElementSlot
+    public class ElementCharge
     {
-        [SerializeField] private float cooldown;
-        [SerializeField] private BasicElement selectionElement;
-        [SerializeField] private int maximalAmount;
+        private const float cooldown = 2;
+        private const int maxCharges = 6;
 
         private float _currentTime;
 
-        public BasicElement SelectionElement => selectionElement;
+        public int CurrentCharges { get; set; } = maxCharges;
 
-        public int CurrentAmount { get; set; }
+        public float FillAmount => (CurrentCharges + _currentTime / cooldown) / maxCharges;
 
         public void DoTick(float deltaTime)
         {
-            if (CurrentAmount < maximalAmount)
+            if (CurrentCharges < maxCharges)
             {
                 _currentTime += deltaTime;
                 if (_currentTime >= cooldown)
                 {
-                    CurrentAmount++;
+                    CurrentCharges++;
                     _currentTime = 0;
                 }
             }

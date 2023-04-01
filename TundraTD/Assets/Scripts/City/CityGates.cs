@@ -1,6 +1,7 @@
 using City.Building;
 using Level;
 using Mobs.MobsBehaviour;
+using ModulesUI.MagicScreen;
 using ModulesUI.PlayerHUD;
 using Spells;
 using UnityEngine;
@@ -54,6 +55,7 @@ namespace City
                 var rayEnd = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (!Physics.Raycast(rayEnd, out var hitInfo, float.PositiveInfinity, PlaceableLayer)) return;
                 // TODO
+                SpellCaster.PerformDebugCast();
             }
         }
 

@@ -185,22 +185,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7913506393892522128}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65fa06c3f47357240869cce20e8b3fa7, type: 3}
+  m_Script: {fileID: 11500000, guid: 52a98f321a6fe4f418f007266f305cca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meteoriteMesh: {fileID: 5565542183782256543}
-  explosionPrefab: {fileID: 8194992990867289339, guid: 99bc28c0d45f51c4fbac01080b73edc7,
-    type: 3}
-  lavaPrefab: {fileID: 3280519133390621005, guid: a71be3e7990efb040a07565c43cbb198,
-    type: 3}
-  ghostPrefab: {fileID: 3980780356853463794, guid: 1e9256ee83b5402458f049ea4195a0f4,
-    type: 3}
-  explosionDelay: 1
-  flightSound: {fileID: 8300000, guid: 40bb4c641b821f9449bd7643b942734b, type: 3}
-  explosionSound: {fileID: 8300000, guid: 321e3836d1405cd408cef866fa7b460e, type: 3}
-  stunTime: 0
-  trapPrefab: {fileID: 1765291281952691561, guid: 9fc46db88714c054aad09bab3dc0147f,
-    type: 3}
 --- !u!82 &1966632456261989343
 AudioSource:
   m_ObjectHideFlags: 0

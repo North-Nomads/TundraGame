@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Spells;
 using City;
 using City.Building;
 using City.Building.ElementPools;
@@ -77,7 +78,9 @@ namespace Level
             Architect.WaveCompletionMinInfluencePointsAward = minWaveAward;
             Architect.WaveCompletionMaxInfluencePointsAward = maxWaveAward;
             MagicSpell.SetPrefabs(spellInitializers);
-            
+            //// TODO: print here the path to load additional effects.
+            //MagicSpell.AdditionalSpellEffects = Resources.LoadAll<AdditionalSpellEffect>("path/to/load").ToDictionary(x => x.Element, y => y);
+
             // DEBUG: Temporary giving 100 points
             Architect.DEBUG_GetStartPoints();
         }

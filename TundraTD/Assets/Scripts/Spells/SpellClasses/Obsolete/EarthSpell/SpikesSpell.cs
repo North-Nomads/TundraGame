@@ -7,8 +7,7 @@ using UnityEngine.Serialization;
 
 namespace Spells.SpellClasses.EarthSpell
 {
-    [Spell(BasicElement.Earth, "Spikes", "Creates a spikes in front of you to penetrate your enemies.")]
-    public class SpikesSpell : MagicSpell
+    public class SpikesSpell_Obsolete : MagicSpell
     {
         private const int PlaceableLayer = 1 << 11 | 1 << 10;
 
@@ -34,26 +33,22 @@ namespace Spells.SpellClasses.EarthSpell
 
         private float SpikeDisappearCooldown { get; set; } = .1f;
 
-        [IncreasableProperty(BasicElement.Lightning, 10f)]
         public float MaxLength { get; set; } = 30f;
 
-        [MultiplictableProperty(BasicElement.Earth, 1.12f)]
         private float CollisionDamage { get; set; } = 30f;
 
-        [MultiplictableProperty(BasicElement.Earth, 1.12f)]
         private float FallDamage { get; set; } = 50f;
 
-        [IncreasableProperty(BasicElement.Fire, 1f)]
         private float StunTime { get; set; } = 2f;
 
-        [IncreasableProperty(BasicElement.Air, -0.7f)]
         public float SlownessTime { get; set; } = 2f;
 
-        [IncreasableProperty(BasicElement.Water, -.05f)]
         private float SlownessValue { get; set; } = 0.7f;
 
         public int Lifetime { get; private set; } = 4;
-        
+
+        public override BasicElement Element => throw new System.NotImplementedException();
+
         public override void ExecuteSpell(RaycastHit castPosition)
         {
             _mainCamera = Camera.main;
