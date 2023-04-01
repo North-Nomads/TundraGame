@@ -9,19 +9,16 @@ namespace Spells
 {
     public abstract class MagicSpell : MonoBehaviour
     {
-        private static readonly Dictionary<BasicElement, Type> _spellTypes = new Dictionary<BasicElement, Type>();
+        private static Dictionary<BasicElement, MagicSpell> _prefabs;
 
         private static readonly Dictionary<BasicElement, AdditionalSpellEffect> _additionalSpellEffects;
 
         public AdditionalSpellEffect SpellEffect { get; private set; }
 
+        public abstract BasicElement Element { get; }
+
         static MagicSpell()
         {
-            _spellTypes = (from type in Assembly.GetExecutingAssembly().GetTypes()
-                           where typeof(MagicSpell).IsAssignableFrom(type) && !type.IsAbstract
-                           let element = type.GetCustomAttribute<SpellAttribute>()
-                           where element != null
-                           select (element.CoreElement, type)).ToDictionary(x => x.CoreElement, y => y.type);
             // TODO: print here the path to load additional effects.
             _additionalSpellEffects = Resources.LoadAll<AdditionalSpellEffect>("path/to/load").ToDictionary(x => x.Element, y => y);
         }
@@ -30,9 +27,9 @@ namespace Spells
 
         public static MagicSpell Instantiate(BasicElement basis, BasicElement addition = BasicElement.None)
         {
-            if (_spellTypes.ContainsKey(basis))
+            if (_prefabs.ContainsKey(basis))
             {
-                var spell = (MagicSpell)Activator.CreateInstance(_spellTypes[basis]);
+                var spell = Instantiate(_prefabs[basis]);
                 if (_additionalSpellEffects.ContainsKey(addition))
                 {
                     spell.SpellEffect = _additionalSpellEffects[addition];
@@ -40,6 +37,11 @@ namespace Spells
                 return spell;
             }
             return null;
+        }
+
+        public static void SetPrefabs(MagicSpell[] prefabs)
+        {
+            _prefabs = prefabs.ToDictionary(x => x.Element, y => y);
         }
     }
 }

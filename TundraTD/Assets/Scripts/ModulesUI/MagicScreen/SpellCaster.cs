@@ -24,7 +24,16 @@ namespace ModulesUI.MagicScreen
             UIToggle.AllCanvases.Add(this);
         }
 
-        private static void CastSpellOnPosition(RaycastHit hitInfo) => Grimoire.TurnElementsIntoSpell(hitInfo);
+        private static void CastSpellOnPosition(RaycastHit hitInfo)
+        {
+            BasicElement core = PlayerDeck.DeckElements.FirstOrDefault() | PlayerDeck.DeckElements.ElementAtOrDefault(1);
+            BasicElement addition = PlayerDeck.DeckElements.ElementAtOrDefault(2);
+            var spell = MagicSpell.Instantiate(core, addition);
+            if (spell != null)
+            {
+                spell.ExecuteSpell(hitInfo);
+            }
+        }
 
         public void Update()
         {

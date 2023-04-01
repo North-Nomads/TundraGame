@@ -76,7 +76,7 @@ namespace Level
             Architect.PlacementSlots = placementSlots;
             Architect.WaveCompletionMinInfluencePointsAward = minWaveAward;
             Architect.WaveCompletionMaxInfluencePointsAward = maxWaveAward;
-            Grimoire.SpellInitializers = spellInitializers;
+            MagicSpell.SetPrefabs(spellInitializers);
             
             // DEBUG: Temporary giving 100 points
             Architect.DEBUG_GetStartPoints();

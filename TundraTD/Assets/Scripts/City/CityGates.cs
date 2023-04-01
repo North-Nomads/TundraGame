@@ -53,17 +53,7 @@ namespace City
             {
                 var rayEnd = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (!Physics.Raycast(rayEnd, out var hitInfo, float.PositiveInfinity, PlaceableLayer)) return;
-                
-                if (Input.GetKeyDown(KeyCode.Alpha1))
-                    Grimoire.TurnElementsIntoSpell(hitInfo, BasicElement.Fire);
-                if (Input.GetKeyDown(KeyCode.Alpha2))
-                    Grimoire.TurnElementsIntoSpell(hitInfo, BasicElement.Air);
-                if (Input.GetKeyDown(KeyCode.Alpha3))
-                    Grimoire.TurnElementsIntoSpell(hitInfo, BasicElement.Water);
-                if (Input.GetKeyDown(KeyCode.Alpha4))
-                    Grimoire.TurnElementsIntoSpell(hitInfo, BasicElement.Lightning);
-                if (Input.GetKeyDown(KeyCode.Alpha5))
-                    Grimoire.TurnElementsIntoSpell(hitInfo, BasicElement.Earth);
+                // TODO
             }
         }
 

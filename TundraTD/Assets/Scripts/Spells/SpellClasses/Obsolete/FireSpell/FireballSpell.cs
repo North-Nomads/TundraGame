@@ -12,8 +12,7 @@ namespace Spells.SpellClasses.FireSpell
     /// <summary>
     /// Fireball (or meteorite) spell. Manages the behaviour of the spell on execution and until it's destruction
     /// </summary>
-    [Spell(BasicElement.Fire, "Meteor", "Casts a fire meteor on heads of your enemies.")]
-    public class FireballSpell : MagicSpell
+    public class FireballSpell_Obsolete : MagicSpell
     {
         private const float FlyDistance = 30;
         private const float HitDelay = 0.5f;
@@ -47,20 +46,16 @@ namespace Spells.SpellClasses.FireSpell
         /// <summary>
         /// The damage of the hit epicenter.
         /// </summary>
-        [MultiplictableProperty(BasicElement.Earth, 1.35f)]
         private float HitDamageValue { get; set; } = 40f;
 
         /// <summary>
         /// Duration of the burn effect.
         /// </summary>
-        [IncreasableProperty(BasicElement.Air, 5f)]
         private float BurnDuration { get; set; } = 3f;
 
         /// <summary>
         /// Damage of the burn effect.
         /// </summary>
-        [MultiplictableProperty(BasicElement.Fire, 1.25f)]
-        [MultiplictableProperty(BasicElement.Water, 0.75f)]
         private float BurnDamage { get; set; } = 7f;
 
         /// <summary>
@@ -71,7 +66,6 @@ namespace Spells.SpellClasses.FireSpell
         /// <summary>
         /// Duration of the slowness effect.
         /// </summary>
-        [IncreasableProperty(BasicElement.Lightning, 2f)]
         public float SlownessDuration { get; set; }
 
         public override void ExecuteSpell(RaycastHit hitInfo)
