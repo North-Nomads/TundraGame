@@ -11,8 +11,7 @@ namespace SceneManagement
     /// </summary>
     public class MainMenu : MonoBehaviour
     {
-        private const int PolygonSceneID = 2;
-        private const int LevelsSceneID = 1;
+        private const int FirstSceneID = 2;
         private AudioSource source;
 
         private void Start()
@@ -33,25 +32,25 @@ namespace SceneManagement
 
         public void MoveToPolygonScene()
         {
-            SceneManager.LoadScene(PolygonSceneID);
+            SceneManager.LoadScene(FirstSceneID);
         }
 
-        public void MoveToLevelsScene()
+        public void OpenTutorialScene()
         {
-            SceneManager.LoadScene(LevelsSceneID);
+            SceneManager.LoadScene(2);
         }
-
+        
         public void SwitchEffectsSound(GameObject sender)
         {
             if (GameParameters.EffectsVolumeModifier == 1)
             {
                 GameParameters.EffectsVolumeModifier = 0;
-                sender.GetComponentInChildren<Text>().text = "SFX\n¬€ À";
+                sender.GetComponentInChildren<Text>().text = "SFX\nOFF";
             }
             else
             {
                 GameParameters.EffectsVolumeModifier = 1;
-                sender.GetComponentInChildren<Text>().text = "SFX\n¬ À";
+                sender.GetComponentInChildren<Text>().text = "SFX\nON";
             }
 
         }
@@ -61,12 +60,12 @@ namespace SceneManagement
             if (GameParameters.MusicVolumeModifier == 1)
             {
                 GameParameters.MusicVolumeModifier = 0;
-                sender.GetComponentInChildren<Text>().text = "ÃÛÁ˚Í‡\n¬€ À";
+                sender.GetComponentInChildren<Text>().text = "Music\nOFF";
             }
             else
             {
                 GameParameters.MusicVolumeModifier = 1;
-                sender.GetComponentInChildren<Text>().text = "ÃÛÁ˚Í‡\n¬ À";
+                sender.GetComponentInChildren<Text>().text = "Music\nON";
             }
         }
     }

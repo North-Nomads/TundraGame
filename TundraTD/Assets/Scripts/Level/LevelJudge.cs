@@ -15,7 +15,6 @@ namespace Level
 
         public void HandlePlayerDefeat()
         {
-            Debug.Log("Player lost!");
             retryButton.gameObject.SetActive(true);
             resultOnEndScreen.text = "Поражение";
             endScreen.gameObject.SetActive(true);
@@ -24,7 +23,6 @@ namespace Level
 
         public void HandlePlayerVictory()
         {
-            Debug.Log("Player won!");
             nextLevelButton.gameObject.SetActive(true);
             resultOnEndScreen.text = "Победа";
             endScreen.gameObject.SetActive(true);

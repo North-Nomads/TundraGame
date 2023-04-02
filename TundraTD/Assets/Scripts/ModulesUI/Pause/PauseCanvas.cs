@@ -1,5 +1,4 @@
-﻿using System;
-using Level;
+﻿using Level;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,12 +7,21 @@ namespace ModulesUI.Pause
     /// <summary>
     /// Responsible for UI panels  
     /// </summary>
-    public class PauseCanvas : MonoBehaviour
+    public class PauseCanvas : TundraCanvas
     {
+        public override CanvasGroup CanvasGroup => CanvasGroup.Pause;
+
+        public override CanvasGroup BlockList => CanvasGroup.Everything;
+        
         [Header("Audio clips")] 
         [SerializeField] private AudioClip buttonClick;
         
         private AudioSource _immortalAudioSource;
+
+        private void Start()
+        {
+            UIToggle.AllCanvases.Add(this);
+        }
 
         public void SetImmortalAudioSource(AudioSource source)
         {

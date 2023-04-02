@@ -1,11 +1,17 @@
 using System;
+using ModulesUI;
 using UnityEngine;
+using CanvasGroup = ModulesUI.CanvasGroup;
 
 namespace Level
 {
-    public class LaunchWaveButton : MonoBehaviour
+    public class LaunchWaveButton : TundraCanvas
     {
-        [SerializeField] private Canvas magicUI;
+        
+        public override CanvasGroup CanvasGroup => CanvasGroup.MagicHUD;
+        public override CanvasGroup BlockList => CanvasGroup.None;
+        
+        [SerializeField] private TundraCanvas magicUI;
         [SerializeField] private LevelCornerman levelCornerman;
 
         private void Start()
@@ -13,12 +19,14 @@ namespace Level
             if (magicUI == null || levelCornerman == null)
                 throw new ArgumentNullException("magicUI, levelCornerman",
                     "magicUI or levelCorner man were not assigned");
-            magicUI.gameObject.SetActive(false);
+            
+            UIToggle.AllCanvases.Add(this);
+            UIToggle.TryOpenCanvas(this);
         }
 
         public void LaunchFirstWave()
         {
-            magicUI.gameObject.SetActive(true);
+            UIToggle.TryOpenCanvas(magicUI);
             levelCornerman.StartFirstWave();
             gameObject.SetActive(false);
         }

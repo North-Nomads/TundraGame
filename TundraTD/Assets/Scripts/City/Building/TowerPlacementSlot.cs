@@ -1,5 +1,7 @@
 ﻿using System;
 using Level;
+using ModulesUI;
+using ModulesUI.Building;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,22 +10,24 @@ namespace City.Building
     /// <summary>
     /// A slot to build a new tower
     /// </summary>
-    public class TowerPlacementSlot : MonoBehaviour
+    public class TowerPlacementSlot : MonoBehaviour, IPointerClickHandler
     {
         [SerializeField] private TowerPurchaseMenu purchaseMenu;
         [SerializeField] private int slotID;
         private float _slotHeight;
         private Vector3 _bottomCentreBuildingAnchor;
         private AudioSource _soundEffect;
+        private Collider _hitCollider;
         public bool IsOccupied { get; private set; }
         public int SlotID => slotID;
 
         public void BuildElementalTowerOnThisSlot(ElementalTower prefab)
         {
             // we define new spawn position higher than the anchor because unity defines axis in the center of a model
-            Instantiate(prefab, _bottomCentreBuildingAnchor, Quaternion.identity);
+            var tower = Instantiate(prefab, _bottomCentreBuildingAnchor, Quaternion.identity);
             _soundEffect.Play();
             IsOccupied = true;
+            _hitCollider.enabled = false;
         }
 
         private void Start()
@@ -31,6 +35,7 @@ namespace City.Building
             if (purchaseMenu is null)
                 throw new NullReferenceException("No purchase menu was assigned for the placement slot");
 
+            _hitCollider = GetComponent<Collider>();
 
             var meshRenderers = GetComponentsInChildren<MeshRenderer>();
             _slotHeight = meshRenderers[0].bounds.size.y - meshRenderers[1].bounds.size.y;
@@ -41,20 +46,12 @@ namespace City.Building
             _soundEffect.volume = GameParameters.EffectsVolumeModifier;
             IsOccupied = false;
         }
-
-        private void OnMouseDown()
+        
+        public void OnPointerClick(PointerEventData eventData)
         {
-            if (EventSystem.current.IsPointerOverGameObject())
-                return;
+            if (!UIToggle.TryOpenCanvas(purchaseMenu)) return;
             
-            if (!PauseMode.IsGamePaused)
-                CallPurchaseMenuOnEmptySlotClicked();
-        }
-
-        private void CallPurchaseMenuOnEmptySlotClicked()
-        {
-            purchaseMenu.gameObject.SetActive(true);
-            purchaseMenu.SelectedSlotID = slotID;
+            purchaseMenu.SetPurchaseID(slotID);
         }
     }
 }

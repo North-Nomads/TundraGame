@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using City.Building.ElementPools;
 using Level;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Spells.SpellClasses.EarthSpell
 {
@@ -13,7 +14,7 @@ namespace Spells.SpellClasses.EarthSpell
 
         [SerializeField] private float spikesOffset;
         [Tooltip("The object to which spikes will be assigned as children")] [SerializeField] private Transform spikesObjectParent;
-        [SerializeField] private SpikesSlownessCollider spikesSlownessCollider;
+        [FormerlySerializedAs("spikesSlownessCollider")] [SerializeField] private SpikesCollider spikesCollider;
         [SerializeField] private SpikesAreaAround spikesAreaAround;
         [SerializeField] private SpikesGroup spikesGroupObject;
         [Header("Pebble spell")]
@@ -51,16 +52,16 @@ namespace Spells.SpellClasses.EarthSpell
         [IncreasableProperty(BasicElement.Water, -.05f)]
         private float SlownessValue { get; set; } = 0.7f;
 
-        private int Lifetime { get; set; } = 4;
+        public int Lifetime { get; private set; } = 4;
         
         public override void ExecuteSpell(RaycastHit castPosition)
         {
             _mainCamera = Camera.main;
             _spikes = new List<SpikesGroup>();
-            spikesSlownessCollider.SendSlownessValues(Lifetime, SlownessValue);
+            spikesCollider.SendSlownessValues(Lifetime, SlownessValue);
             spikesGroupObject.StunTicks = 4;
-            spikesSlownessCollider.SpikesEnterDamage = CollisionDamage;
-            spikesSlownessCollider.TermitesDamage = termitesDamage;
+            spikesCollider.SpikesEnterDamage = CollisionDamage;
+            spikesCollider.TermitesDamage = termitesDamage;
             _touchRegisterTime = 0f;
             _touchRegisterMaxTime = MaxDrawTime;
             StartCoroutine(RegisterUserInputs(castPosition.point));
@@ -84,7 +85,6 @@ namespace Spells.SpellClasses.EarthSpell
                     
                     if (Mathf.Abs(startPosition.magnitude - endPosition.magnitude) >= 1)
                     {
-                        Debug.Log("Started coroutine");
                         StartCoroutine(InstantiateSpikesPath(startPosition, endPosition, true));
                         if (!EarthPool.HasAdditionalWalls) yield break;
                         StartCoroutine(InstantiateSpikesPath(startPosition + Vector3.left * 3, endPosition + Vector3.left * 3, false));
@@ -111,14 +111,19 @@ namespace Spells.SpellClasses.EarthSpell
                 count = 10;
             
             // Handling tower modifications
-            spikesSlownessCollider.BoxCollider.isTrigger = !EarthPool.HasSolidWalls;
+            if (EarthPool.HasSolidWalls)
+            {
+                spikesCollider.BoxCollider.isTrigger = false;
+                spikesCollider.ForcePushOnSolidWalls();
+            }
+            
             spikesAreaAround.gameObject.SetActive(EarthPool.HasDustCloud & isMainWall);
 
             var sizeCoefficient = isMainWall ? 1f : .6f;
             // Place SpikesGroup from start position to finish position but max quantity is 10 
             while (count > 0)
             {
-                spikesSlownessCollider.InitializeTermites(EarthPool.HasTermites);
+                spikesCollider.InitializeTermites(EarthPool.HasTermites);
                 var group = Instantiate(spikesGroupObject, currentPosition, Quaternion.identity, spikesObjectParent.transform);
                 
                 if (EarthPool.HasDustCloud)
@@ -133,7 +138,7 @@ namespace Spells.SpellClasses.EarthSpell
                 
                 _spikes.Add(group);
                 // Expand slowness collider size to fit current amount of spikes
-                spikesSlownessCollider.SetColliderParameters(_spikes, finish);
+                spikesCollider.SetColliderParameters(_spikes, finish);
                 currentPosition += step * spikesOffset;
                 count--;
                 yield return new WaitForSeconds(.02f);
@@ -157,7 +162,7 @@ namespace Spells.SpellClasses.EarthSpell
         private IEnumerator HandleSpikesSpellEnding()
         {
             spikesAreaAround.gameObject.SetActive(false);
-            spikesSlownessCollider.gameObject.SetActive(false);
+            spikesCollider.gameObject.SetActive(false);
             
             foreach (var spike in _spikes)
             {

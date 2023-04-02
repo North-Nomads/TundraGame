@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.IO;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -7,6 +6,7 @@ namespace SceneManagement
 {
     public class LevelsScene : MonoBehaviour
     {
+        private const int NonLevelScenesAmount = 3;
         [SerializeField] private RectTransform buttonsHolder;
         [SerializeField] private Button levelButtonPrefab;
         private int _levelsAmount;
@@ -17,7 +17,7 @@ namespace SceneManagement
             if (_levelsAmount != 0)
                 return;
 
-            _levelsAmount = GetLevelsInBuild();
+            _levelsAmount = SceneManager.sceneCountInBuildSettings - NonLevelScenesAmount;
             InstantiateLevelButtons();
         }
 
@@ -36,12 +36,6 @@ namespace SceneManagement
         private void BindLevelToButton(int number)
         {
             SceneManager.LoadScene($"Level{number}");
-        }
-
-        private int GetLevelsInBuild()
-        {
-            var s = Directory.GetFiles("Assets/Scenes/Levels/", "*.unity", SearchOption.AllDirectories);
-            return s.Length;
         }
     }
 }

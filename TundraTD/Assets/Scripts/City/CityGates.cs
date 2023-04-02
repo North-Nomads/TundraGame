@@ -1,7 +1,7 @@
-using System.Collections.Generic;
 using City.Building;
 using Level;
 using Mobs.MobsBehaviour;
+using ModulesUI.PlayerHUD;
 using Spells;
 using UnityEngine;
 
@@ -10,14 +10,13 @@ namespace City
     /// <summary>
     /// Represents the behaviour of City Gates
     /// </summary>
-    [RequireComponent(typeof(CityGatesUI))]
     public class CityGates : MonoBehaviour
     {
+        [SerializeField] private CityGatesUI cityGatesUI;
         [SerializeField] private float maxCityGatesHealthPoints;
         [SerializeField] private LevelJudge levelJudge;
         private float _currentCityGatesHealthPoints;
         private float _cityGatesHealthPercent;
-        private CityGatesUI _cityGatesUI;
         private Animator _animator;
         
         // Const is used by raycast in update which is debug purpose only 
@@ -37,16 +36,14 @@ namespace City
 
                 _currentCityGatesHealthPoints = value;
                 _cityGatesHealthPercent = _currentCityGatesHealthPoints / maxCityGatesHealthPoints;
-                _cityGatesUI.UpdateHealthBar(_cityGatesHealthPercent);
+                cityGatesUI.UpdateHealthBar(_cityGatesHealthPercent);
             }
         }
 
         private void Start()
         {
-            _cityGatesUI = GetComponent<CityGatesUI>();
             _currentCityGatesHealthPoints = maxCityGatesHealthPoints;
             _animator = GetComponent<Animator>();
-
         }
 
         private void Update()
@@ -79,7 +76,7 @@ namespace City
             var mobAttack = mob.MobModel.CurrentMobDamage;
             CurrentCityGatesHealthPoints -= mobAttack;
             mob.HitThisMob(float.PositiveInfinity, BasicElement.None, "City.Gates");
-            _animator.SetTrigger("DamageTrigger");
+            //_animator.SetTrigger("DamageTrigger");
         }
 
         public void HandleWaveEnding()

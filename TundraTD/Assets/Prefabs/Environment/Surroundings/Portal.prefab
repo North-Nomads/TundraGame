@@ -1,5 +1,48 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4935379038869027144
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8082051113368411619}
+  - component: {fileID: 3441335606142940926}
+  m_Layer: 0
+  m_Name: MobPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8082051113368411619
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4935379038869027144}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6165614671432073510}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3441335606142940926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4935379038869027144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23851f522b3545809e3d56a5a11568cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6165614669553682627
 GameObject:
   m_ObjectHideFlags: 0
@@ -24,7 +67,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6165614669553682627}
   m_LocalRotation: {x: -0, y: 0.3420201, z: -0, w: 0.9396927}
-  m_LocalPosition: {x: 0, y: 4.41, z: 0}
+  m_LocalPosition: {x: -1.05, y: 0.71, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6165614671432073510}
@@ -54,11 +97,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6165614671432073511}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10, y: -7.5, z: -33}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6165614669553682626}
   - {fileID: 5916059327047467854}
+  - {fileID: 8082051113368411619}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -73,8 +117,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.23261058, y: 0.020908939, z: 0.20297922}
-  m_Center: {x: 0, y: 0.010810395, z: 0}
+  m_Size: {x: 0.23261058, y: 0.095252156, z: 0.19340408}
+  m_Center: {x: -0.000000025927429, y: 0.047981862, z: -0.05490799}
 --- !u!114 &6165614670995634803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,14 +131,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 419df6b04e4842e8af26804928477947, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InfoPanel: {fileID: 3047909843090818596, guid: 37cbc575cd4aa10498755ec408447c45,
-    type: 3}
+  mobPool: {fileID: 3441335606142940926}
+  infoPanel: {fileID: 0}
   gates: {fileID: 0}
   mobSpawner: {fileID: 6165614669553682626}
   mobWaves:
   - mobProperties:
-    - mob: {fileID: 4000996451007599641, guid: f5414b311da4f80499a5e14d23b10945, type: 3}
-      mobQuantity: 1
+    - mob: {fileID: 8671833239330950923, guid: 431421a7745e5ed4d94bbeabaa240f5c, type: 3}
+      mobQuantity: 3
+  - mobProperties:
+    - mob: {fileID: 8671833239330950923, guid: 431421a7745e5ed4d94bbeabaa240f5c, type: 3}
+      mobQuantity: 2
+    - mob: {fileID: 4081599098900397475, guid: 41498cfd0a0fccf4491dee7833b319fc, type: 3}
+      mobQuantity: 4
+  - mobProperties:
+    - mob: {fileID: 7987837108767728486, guid: b4f507c285d21a343a4592c444a51ddd, type: 3}
+      mobQuantity: 2
+    - mob: {fileID: 4081599098900397475, guid: 41498cfd0a0fccf4491dee7833b319fc, type: 3}
+      mobQuantity: 3
+    - mob: {fileID: 8671833239330950923, guid: 431421a7745e5ed4d94bbeabaa240f5c, type: 3}
+      mobQuantity: 3
+  - mobProperties:
+    - mob: {fileID: 7987837108767728486, guid: b4f507c285d21a343a4592c444a51ddd, type: 3}
+      mobQuantity: 3
+    - mob: {fileID: 8671833239330950923, guid: 431421a7745e5ed4d94bbeabaa240f5c, type: 3}
+      mobQuantity: 4
+    - mob: {fileID: 4081599098900397475, guid: 41498cfd0a0fccf4491dee7833b319fc, type: 3}
+      mobQuantity: 6
 --- !u!1001 &6165614671495718053
 PrefabInstance:
   m_ObjectHideFlags: 0

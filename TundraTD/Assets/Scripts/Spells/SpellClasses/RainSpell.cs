@@ -51,10 +51,9 @@ namespace Spells.SpellClasses
             if (WaterPool.AllowSuperLightning) LightningMultiplier *= 3;
             var shape = rainParticles.GetComponent<ParticleSystem>().shape;
             shape.radius = Radius / 10;
-            rainParticles.GetComponent<CFXR_EmissionBySurface>().maxEmissionRate = 5 * Radius * Radius * Radius;
             mainCollider.radius = Radius;
             mainCollider.height = RainHeight;
-            rainParticles.transform.localPosition = (Vector3.up * (RainHeight / 2));
+            rainParticles.transform.localPosition = Vector3.up * (RainHeight / 2);
             rainSplashes.transform.localScale = new Vector3(Radius / 10, 1, Radius / 10);
             StartCoroutine(WaitTime());
         }

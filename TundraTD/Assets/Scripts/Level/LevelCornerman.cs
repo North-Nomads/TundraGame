@@ -1,6 +1,8 @@
+using System;
 using Mobs;
 using System.Collections;
 using System.Linq;
+using ModulesUI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +13,9 @@ namespace Level
     /// </summary>
     public class LevelCornerman : MonoBehaviour
     {
+        private static bool _isInPlayMode;
+        public static bool IsInPlayMode => _isInPlayMode;
+        
         [SerializeField] private MobPortal[] mobPortals;
         [SerializeField] private LevelJudge levelJudge;
         [SerializeField] private Text waveStartTimer;
@@ -24,6 +29,7 @@ namespace Level
         private void Start()
         {
             IsInWaveMode = false;
+            _isInPlayMode = false;
             waveStartTimer.gameObject.SetActive(false);
             _soundEffect = GetComponent<AudioSource>();
             _soundEffect.volume = GameParameters.EffectsVolumeModifier;
@@ -34,6 +40,9 @@ namespace Level
         {
             yield return new WaitUntil(() => mobPortals.All(x => x.IsInstantiated));
             _maxWavesAmongPortals = mobPortals.Max(x => x.WavesAmount);
+            
+            foreach (var mobPortal in mobPortals)
+                mobPortal.MobPool.EndMobInstantiation();
         }
 
         private IEnumerator StartWavesLoop()
@@ -52,7 +61,8 @@ namespace Level
                     mobPortal.EquipNextWave();
                     yield return StartMobSpawning(mobPortal);
                 }
-                yield return new WaitUntil(() => mobPortals.Sum(x => x.MobsLeftThisWave) == 0);
+
+                yield return new WaitUntil(() => mobPortals.Count(x => !x.MobPool.AreAllMobDead()) == 0);
                 IsInWaveMode = false;
                 // Handle the ending of the wave (from all portals)
                 foreach (var mobPortal in mobPortals)
@@ -90,6 +100,12 @@ namespace Level
         public void StartFirstWave()
         {
             StartCoroutine(StartWavesLoop());
+            _isInPlayMode = true;
+        }
+
+        private void OnDestroy()
+        {
+            UIToggle.ResetValues();
         }
     }
 }

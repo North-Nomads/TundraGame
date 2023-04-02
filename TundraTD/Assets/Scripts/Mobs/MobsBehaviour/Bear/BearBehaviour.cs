@@ -26,11 +26,6 @@ namespace Mobs.MobsBehaviour.Bear
         public override BasicElement MobBasicElement => BasicElement.Earth;
         public override BasicElement MobCounterElement => BasicElement.Air;
 
-        public override void MoveTowards(Vector3 point)
-        {
-            MobModel.MobNavMeshAgent.SetDestination(point);
-        }
-
         protected override void HandleIncomeDamage(float damage, BasicElement damageElement)
         {
             var multiplier = 1f;
@@ -51,6 +46,7 @@ namespace Mobs.MobsBehaviour.Bear
             MobModel.InstantiateMobModel();
 
             DefaultDestinationPoint = gates;
+            MobModel.MobNavMeshAgent.enabled = true;
             MobModel.MobNavMeshAgent.SetDestination(DefaultDestinationPoint.position);
         }
 

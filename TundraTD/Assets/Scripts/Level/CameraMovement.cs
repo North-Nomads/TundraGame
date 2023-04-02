@@ -1,7 +1,7 @@
 ﻿using System;
-using Spells;
+using ModulesUI;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using CanvasGroup = ModulesUI.CanvasGroup;
 
 namespace Level
 {
@@ -29,15 +29,15 @@ namespace Level
         {
             _mainCamera = GetComponent<Camera>();
             if (!_mainCamera.orthographic)
-                throw new Exception("Camera must be in orthographic mode");
+                throw new NotSupportedException("Camera must be in orthographic mode");
         }
 
         private void Update()
         {
-            if (EventSystem.current.IsPointerOverGameObject())
-                return;
-
             HandleCameraInertialMovement();
+
+            if (UIToggle.BlockedGroups.HasFlag(CanvasGroup.Camera))
+                return;
 
             if (usingWASD)
             {

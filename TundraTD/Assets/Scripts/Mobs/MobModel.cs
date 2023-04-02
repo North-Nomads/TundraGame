@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
 namespace Mobs
 {
@@ -23,22 +24,26 @@ namespace Mobs
         private float defaultMobSpeed;
 
         [SerializeField]
-        private new SkinnedMeshRenderer renderer;
+        private new Renderer renderer;
 
+        [SerializeField] 
+        private Material defaultMaterial;
+        
+        [SerializeField] 
+        private new Rigidbody rigidbody;
 
-        [SerializeField] new private Rigidbody rigidbody;
-
+        [SerializeField]
+        private float defaultMobAngularSpeed;
 
         private Animator _animator;
-        private float _defaultMobAngularSpeed;
         private float _currentMobHealth;
         private float _currentMobSpeed;
+        private float _currentMobAngularSpeed;
         private NavMeshAgent _mobNavMeshAgent;
-        private Material _defaultMaterial;
 
         public Rigidbody Rigidbody => rigidbody;
         public Animator Animator => _animator;
-        public float DefaultMobAngularSpeed => _defaultMobAngularSpeed;        
+        public float DefaultMobAngularSpeed => defaultMobAngularSpeed;        
         public Sprite MobSprite => mobSprite;
         public NavMeshAgent MobNavMeshAgent => _mobNavMeshAgent;
         public bool IsAlive => CurrentMobHealth > 0;
@@ -59,6 +64,15 @@ namespace Mobs
 
         public float CurrentMobDamage { get; set; }
 
+        public float CurrentMobAngularSpeed
+        {
+            get => _currentMobAngularSpeed;
+            set
+            {
+                _currentMobAngularSpeed = value;
+                _mobNavMeshAgent.angularSpeed = _currentMobAngularSpeed;
+            }
+        }
         public float CurrentMobSpeed
         {
             get => _currentMobSpeed;
@@ -71,25 +85,34 @@ namespace Mobs
 
         public void InstantiateMobModel()
         {
-            _mobNavMeshAgent = GetComponent<NavMeshAgent>();
-            _animator = GetComponent<Animator>();
-            _defaultMobAngularSpeed = _mobNavMeshAgent.speed;
-            _currentMobHealth = maxMobHealth;
-            _currentMobSpeed = defaultMobSpeed;
-            CurrentMobDamage = defaultMobDamage;
-            _defaultMaterial = renderer.material;
-        }
-        
-        public void SetHitMaterial()
-        {
-            renderer.material = hitMaterial;
-            StartCoroutine(VisualEffectDamage());
+            SetDefaultValues();
         }
 
-        private IEnumerator VisualEffectDamage()
+        public void SetDefaultValues()
         {
+            if (_mobNavMeshAgent is null)
+                _mobNavMeshAgent = GetComponent<NavMeshAgent>();
+            if (_animator is null)
+                _animator = GetComponent<Animator>();
+            
+            rigidbody.velocity = Vector3.zero;
+            
+            _currentMobSpeed = DefaultMobSpeed;
+            _currentMobAngularSpeed = CurrentMobAngularSpeed;
+            _currentMobHealth = maxMobHealth;
+            CurrentMobDamage = defaultMobDamage;
+        }
+        
+        public IEnumerator ShowHitVFX()
+        {
+            renderer.material = hitMaterial;
             yield return new WaitForSeconds(.1f);
-            renderer.material = _defaultMaterial;
-        } 
+            SetDefaultMaterial();
+        }
+
+        public void SetDefaultMaterial()
+        {
+            renderer.material = defaultMaterial;
+        }
     }
 }
