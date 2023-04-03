@@ -16,9 +16,6 @@ namespace ModulesUI.MagicScreen
         
         public static Dictionary<BasicElement, Sprite> ElementIcons { get; }
 
-        // TODO: talk about implementation of this.
-        public static ElementCharge[] ElementSlots { get; }
-
         static PlayerDeck()
         {
             ElementIcons = new Dictionary<BasicElement, Sprite>();

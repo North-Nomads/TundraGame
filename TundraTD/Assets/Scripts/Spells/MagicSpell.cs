@@ -16,29 +16,26 @@ namespace Spells
         public AdditionalSpellEffect SpellEffect { get; private set; }
 
         public abstract BasicElement Element { get; }
-
-        static MagicSpell()
-        {
-            
-        }
-
+        
         public abstract void ExecuteSpell(RaycastHit hitInfo);
 
-        public static MagicSpell Instantiate(BasicElement basis, BasicElement addition = BasicElement.None)
+        public static MagicSpell InstantiateSpellPrefab(BasicElement basis, BasicElement addition = BasicElement.None)
         {
-            if (_prefabs.ContainsKey(basis))
+            if (!_prefabs.ContainsKey(basis))
+                return null;
+            var spell = Instantiate(_prefabs[basis]);
+            if (addition != BasicElement.None && AdditionalSpellEffects.ContainsKey(addition))
             {
-                var spell = Instantiate(_prefabs[basis]);
-                if (addition != BasicElement.None && AdditionalSpellEffects.ContainsKey(addition))
-                {
-                    spell.SpellEffect = AdditionalSpellEffects[addition];
-                }
-                return spell;
+                spell.SpellEffect = AdditionalSpellEffects[addition];
             }
-            return null;
+            return spell;
         }
 
-        public static void SetPrefabs(MagicSpell[] prefabs)
+        /// <summary>
+        /// Sets spell prefabs into the internal dictionary based on their basic elements.
+        /// </summary>
+        /// <param name="prefabs">Prefabs array that can be set up in the Editor.</param>
+        public static void SetSpellPrefabs(MagicSpell[] prefabs)
         {
             _prefabs = prefabs.Where(x => x != null).ToDictionary(x => x.Element, y => y);
         }

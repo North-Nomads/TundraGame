@@ -31,21 +31,6 @@ namespace City.Building
             }
         }
 
-        //public static void BuildNewTower(int slotID, BasicElement element)
-        //{
-        //    var elementalTower = ElementalTowerPrefabs.First(x => x.TowerElement == element);
-        //    if (InfluencePoints < elementalTower.TowerPurchasePrice)
-        //        return;
-
-        //    var placementSlot = PlacementSlots.First(x => x.SlotID == slotID);
-        //    if (placementSlot.IsOccupied)
-        //        return;
-
-        //    placementSlot.BuildElementalTowerOnThisSlot(elementalTower);
-        //    InfluencePoints -= elementalTower.TowerPurchasePrice;
-        //    InfluencePointsHolder.UpdateInfluencePointsText(InfluencePoints.ToString());
-        //}
-
         public static void DEBUG_GetStartPoints()
         {
             InfluencePoints = 10000;
