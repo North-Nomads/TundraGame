@@ -26,7 +26,6 @@ namespace ModulesUI.MagicScreen
         private void UpdateDeck(object sender, NotifyCollectionChangedEventArgs e)
         {
             var elements = PlayerDeck.DeckElements;
-            PlayerDeck.CurrentMostElement = BasicElement.None;
 
             // Set deck icon depending on value of BasicElement or BasicElement.None 
             for (int i = 0; i < deckButtons.Length; i++)
@@ -34,7 +33,6 @@ namespace ModulesUI.MagicScreen
 
             
             var mostElement = GetMostElement();
-            PlayerDeck.CurrentMostElement = mostElement;
             
             // Remove all selections if most element is None
             if (mostElement == BasicElement.None)
