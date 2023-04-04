@@ -9,7 +9,6 @@ namespace Mobs.MobsBehaviour.Mole
     [RequireComponent(typeof(MobModel))]
     public class MoleBehaviour : MobBehaviour
     {
-        private bool _isCharged;
         private bool _isUnderground = true;
         private MeshRenderer meshRenderer;
         public override BasicElement MobBasicElement => BasicElement.Earth;
