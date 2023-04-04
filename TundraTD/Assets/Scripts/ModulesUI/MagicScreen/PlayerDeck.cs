@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Assets.Scripts.Spells;
 using Spells;
 using UnityEngine;
 
@@ -11,8 +12,8 @@ namespace ModulesUI.MagicScreen
     /// </summary>
     public static class PlayerDeck
     {
-        public static BasicElement CurrentMostElement;
         public static ObservableCollection<BasicElement> DeckElements { get; } = new ObservableCollection<BasicElement>();
+        
         public static Dictionary<BasicElement, Sprite> ElementIcons { get; }
 
         static PlayerDeck()

@@ -22,7 +22,7 @@ namespace Tutorial
             }
             else
             {
-                if (index - 1 <= 0)
+                if (index - 1 < 0)
                 {
                     SceneManager.LoadScene(0);
                     return;

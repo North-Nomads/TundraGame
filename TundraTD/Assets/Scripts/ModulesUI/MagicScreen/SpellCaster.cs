@@ -1,4 +1,5 @@
-﻿using Spells;
+﻿using System.Linq;
+using Spells;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -23,7 +24,17 @@ namespace ModulesUI.MagicScreen
             UIToggle.AllCanvases.Add(this);
         }
 
-        private static void CastSpellOnPosition(RaycastHit hitInfo) => Grimoire.TurnElementsIntoSpell(hitInfo);
+        private static void CastSpellOnPosition(RaycastHit hitInfo)
+        {
+            BasicElement core = PlayerDeck.DeckElements.FirstOrDefault() | PlayerDeck.DeckElements.ElementAtOrDefault(1);
+            BasicElement addition = PlayerDeck.DeckElements.ElementAtOrDefault(2);
+            PlayerDeck.DeckElements.Clear();
+            var spell = MagicSpell.InstantiateSpellPrefab(core, addition);
+            if (spell != null)
+            {
+                spell.ExecuteSpell(hitInfo);
+            }
+        }
 
         public void Update()
         {
@@ -33,8 +44,9 @@ namespace ModulesUI.MagicScreen
             var playerTouch = Input.GetTouch(0);
 
             // Clicking over UI surface
-            if (EventSystem.current.IsPointerOverGameObject(playerTouch.fingerId)) return;
-            
+            if (Input.touches.Any(touch => EventSystem.current.IsPointerOverGameObject(touch.fingerId)))
+                return;
+
             // Prevent executing spell right after finger lifting after clicking the element 
             if (playerTouch.phase == TouchPhase.Ended)
                 return;

@@ -5,6 +5,7 @@ using Mobs.MobsBehaviour;
 using Mobs.MobsBehaviour.Bear;
 using Mobs.MobsBehaviour.Boar;
 using Mobs.MobsBehaviour.Mole;
+using Mobs.MobsBehaviour.Eagle;
 using Mobs.MobsBehaviour.Spider;
 using UnityEngine;
 
@@ -18,7 +19,8 @@ namespace Level
         private static int _bearStartIndexMarker;
         private static int _spiderStartIndexMarker;
         private static int _moleStartIndexMarker;
-
+        private static int _eagleStartIndexMarker;
+        
         private void Start()
         {
             if (_mobsOnLevel is null)
@@ -45,6 +47,7 @@ namespace Level
             _bearStartIndexMarker = _mobsOnLevel.FindIndex(x => x is BearBehaviour);
             _spiderStartIndexMarker = _mobsOnLevel.FindIndex(x => x is SpiderBehaviour);
             _moleStartIndexMarker = _mobsOnLevel.FindIndex(x => x is MoleBehaviour);
+            _eagleStartIndexMarker = _mobsOnLevel.FindIndex(x => x is EagleBehaviour);
 
             int OrderOnType(MobBehaviour item)
             {
@@ -56,6 +59,8 @@ namespace Level
                         return 1;
                     case SpiderBehaviour _:
                         return 2;
+                    case EagleBehaviour _:
+                        return 3;
                     default:
                         return -1;
                 }
@@ -82,6 +87,9 @@ namespace Level
                         break;
                     case MoleBehaviour _:
                         list.AddRange(_mobsOnLevel.GetRange(_moleStartIndexMarker, property.MobQuantity));
+                        break;
+                    case EagleBehaviour _:
+                        list.AddRange(_mobsOnLevel.GetRange(_eagleStartIndexMarker, property.MobQuantity));
                         break;
                     default:
                         throw new KeyNotFoundException("Didn't find mob type in MobPool checklist");

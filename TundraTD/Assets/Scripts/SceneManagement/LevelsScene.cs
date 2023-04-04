@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.IO;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -7,7 +6,7 @@ namespace SceneManagement
 {
     public class LevelsScene : MonoBehaviour
     {
-        public const int NonLevelScenesAmount = 3;
+        private const int NonLevelScenesAmount = 3;
         [SerializeField] private RectTransform buttonsHolder;
         [SerializeField] private Button levelButtonPrefab;
         private int _levelsAmount;

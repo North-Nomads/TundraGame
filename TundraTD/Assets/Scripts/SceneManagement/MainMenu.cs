@@ -11,8 +11,7 @@ namespace SceneManagement
     /// </summary>
     public class MainMenu : MonoBehaviour
     {
-        private const int FirstSceneID = 3;
-        private const int LevelsSceneID = 1;
+        private const int FirstSceneID = 2;
         private AudioSource source;
 
         private void Start()
@@ -34,11 +33,6 @@ namespace SceneManagement
         public void MoveToPolygonScene()
         {
             SceneManager.LoadScene(FirstSceneID);
-        }
-
-        public void MoveToLevelsScene()
-        {
-            SceneManager.LoadScene(LevelsSceneID);
         }
 
         public void OpenTutorialScene()

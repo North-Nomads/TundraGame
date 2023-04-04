@@ -1,6 +1,8 @@
+using System;
 using Mobs;
 using System.Collections;
 using System.Linq;
+using ModulesUI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,6 +29,7 @@ namespace Level
         private void Start()
         {
             IsInWaveMode = false;
+            _isInPlayMode = false;
             waveStartTimer.gameObject.SetActive(false);
             _soundEffect = GetComponent<AudioSource>();
             _soundEffect.volume = GameParameters.EffectsVolumeModifier;
@@ -98,6 +101,11 @@ namespace Level
         {
             StartCoroutine(StartWavesLoop());
             _isInPlayMode = true;
+        }
+
+        private void OnDestroy()
+        {
+            UIToggle.ResetValues();
         }
     }
 }
