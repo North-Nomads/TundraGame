@@ -2,9 +2,9 @@ using UnityEngine;
 
 namespace Spells
 {
-    public class RainSpell : MagicSpell
-    {
-        public override BasicElement Element => BasicElement.Water;
+	public class DischargeSpell : MagicSpell
+	{
+        public override BasicElement Element => BasicElement.Lightning;
 
         public override void ExecuteSpell(RaycastHit hitInfo)
         {
