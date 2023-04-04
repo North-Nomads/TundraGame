@@ -357,7 +357,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4355896113468780106
 RectTransform:
   m_ObjectHideFlags: 0
@@ -463,7 +463,7 @@ GameObject:
   - component: {fileID: 1639329528709038888}
   - component: {fileID: 1759128789791913252}
   m_Layer: 5
-  m_Name: Levels Button
+  m_Name: Menu Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -570,7 +570,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4991980904205685248}
-        m_MethodName: MoveToLevelsScene
+        m_MethodName: MoveToMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -748,7 +748,7 @@ GameObject:
   - component: {fileID: 2391353785798206686}
   - component: {fileID: 387164768673741031}
   m_Layer: 5
-  m_Name: Levels Button Text
+  m_Name: Menu Button Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -813,7 +813,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Levels
+  m_Text: Menu
 --- !u!1 &8974924139648742886
 GameObject:
   m_ObjectHideFlags: 0

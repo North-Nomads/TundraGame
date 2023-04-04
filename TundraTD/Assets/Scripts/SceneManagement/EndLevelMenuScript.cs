@@ -10,7 +10,7 @@ namespace SceneManagement
         public override CanvasGroup CanvasGroup => CanvasGroup.Pause;
         public override CanvasGroup BlockList => CanvasGroup.Everything;
         
-        private const int LevelsSceneID = 1;
+        private const int MainMenuSceneID = 0;
 
         public void KeepPlaying(string result)
         {
@@ -18,14 +18,14 @@ namespace SceneManagement
             if (result == "victory" && SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings)
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             else if (result == "victory")
-                SceneManager.LoadScene(LevelsSceneID);
+                SceneManager.LoadScene(MainMenuSceneID);
             else
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
-        public void MoveToLevelsScene()
+        public void MoveToMainMenu()
         {
-            SceneManager.LoadScene(LevelsSceneID);
+            SceneManager.LoadScene(MainMenuSceneID);
         }
     }
 }
