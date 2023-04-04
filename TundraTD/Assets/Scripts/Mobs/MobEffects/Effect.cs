@@ -90,5 +90,10 @@ namespace Mobs.MobEffects
         /// Represents the distract effect.
         /// </summary>
         Distract = 1 << 7,
+
+        /// <summary>
+        /// Represents the wet effect.
+        /// </summary>
+        Wet = 1 << 8,
     }
 }
