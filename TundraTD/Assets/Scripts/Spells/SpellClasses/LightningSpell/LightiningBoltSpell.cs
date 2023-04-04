@@ -1,5 +1,4 @@
-﻿using City.Building.ElementPools;
-using Mobs.MobEffects;
+﻿using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 namespace Spells.SpellClasses
 {
-    [Spell(BasicElement.Lightning, "Lightning", "Shocking!")]
+    
     public class LightiningBoltSpell : MagicSpell
     {
         private List<MobBehaviour> _mobsInRadius = new List<MobBehaviour>();
@@ -18,6 +17,9 @@ namespace Spells.SpellClasses
         [SerializeField] private int amountOFBounces;
         [SerializeField] private GameObject BallLightning;
         [SerializeField] private GameObject StaticCharge;
+
+        public override BasicElement Element => BasicElement.Lightning;
+
         public override void ExecuteSpell(RaycastHit hit)
         {
             Collider[] collidersInRadius =  new Collider[200];
