@@ -1405,7 +1405,7 @@ MonoBehaviour:
   influencePointsHolder: {fileID: 2053122070}
   spellInitializers:
   - {fileID: -6803395362427656954, guid: 4c9b0db6e89c5d5478a5d9554eef8b15, type: 3}
-  - {fileID: 0}
+  - {fileID: 6680923661109867143, guid: 322fe369764485745997b9ae6cbd40a5, type: 3}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

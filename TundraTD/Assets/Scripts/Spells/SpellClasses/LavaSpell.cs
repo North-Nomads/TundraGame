@@ -2,6 +2,7 @@ using Level;
 using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
 using System.Collections;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Internal;
@@ -33,9 +34,12 @@ namespace Spells
 
         private void OnTriggerStay(Collider other)
         {
-            if (other.CompareTag("Mob"))
+            // Check if the enemy is mob and it's walking on the pool
+            if (other.CompareTag("Mob") && Mathf.Abs(other.transform.position.y - transform.position.y) < 1.5f)
             {
-                other.GetComponent<MobBehaviour>().AddSingleEffect(new BurnEffect(burnDamage, burnTime.SecondsToTicks()));
+                var mob = other.GetComponent<MobBehaviour>();
+                if (!mob.CurrentEffects.OfType<BurnEffect>().Any())
+                    mob.AddSingleEffect(new BurnEffect(burnDamage, burnTime.SecondsToTicks()));
             }
         }
     }
