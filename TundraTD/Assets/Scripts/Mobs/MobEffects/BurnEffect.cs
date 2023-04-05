@@ -3,7 +3,7 @@ using Spells;
 
 namespace Mobs.MobEffects
 {
-    public class MeteoriteBurningEffect : Effect
+    public class BurnEffect : Effect
     {
         private float BurningDamage { get; }
 
@@ -13,7 +13,7 @@ namespace Mobs.MobEffects
 
         public override VisualEffectCode Code => VisualEffectCode.MeteoriteBurning;
 
-        public MeteoriteBurningEffect(float burningDamage, int maxTicksAmount, bool canBeExtinguished = true)
+        public BurnEffect(float burningDamage, int maxTicksAmount, bool canBeExtinguished = true)
         {
             BurningDamage = burningDamage;
             MaxTicksAmount = maxTicksAmount;
