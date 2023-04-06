@@ -92,7 +92,7 @@ namespace Mobs.MobsBehaviour
             SetVFXPrefab(effect, true);
         }
 
-        private void ClearMobEffects()
+        public void ClearMobEffects()
         {
             foreach (var effect in CurrentEffects)
             {
