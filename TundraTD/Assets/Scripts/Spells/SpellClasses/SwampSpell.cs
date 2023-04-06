@@ -16,6 +16,8 @@ namespace Spells
         private float radius_swamp = 10;
         private float mob_position_from_center;
         private float slowdown_mob;
+        private float slowdown_max = 0.8f;
+        private float slowdown_min = 0.2f;
 
         public override BasicElement Element => BasicElement.Earth | BasicElement.Water;
 
@@ -35,30 +37,7 @@ namespace Spells
             if (other.CompareTag("Mob") && Mathf.Abs(other.transform.position.y - transform.position.y) < 1.5f)
             {
                 mob_position_from_center = Vector3.Distance(transform.position, other.transform.position);
-                if (mob_position_from_center >= 10)
-                    slowdown_mob = 0.8f;
-                else if (mob_position_from_center >= 9)
-                    slowdown_mob = 0.75f;
-                else if (mob_position_from_center >= 8)
-                    slowdown_mob = 0.7f;
-                else if (mob_position_from_center >= 7)
-                    slowdown_mob = 0.65f;
-                else if (mob_position_from_center >= 6)
-                    slowdown_mob = 0.6f;
-                else if (mob_position_from_center >= 5)
-                    slowdown_mob = 0.55f;
-                else if (mob_position_from_center >= 4)
-                    slowdown_mob = 0.45f;
-                else if (mob_position_from_center >= 3)
-                    slowdown_mob = 0.4f;
-                else if (mob_position_from_center >= 2)
-                    slowdown_mob = 0.35f;
-                else if (mob_position_from_center >= 1)
-                    slowdown_mob = 0.3f;
-                else if (mob_position_from_center >= 0.5)
-                    slowdown_mob = 0.25f;
-                else if (mob_position_from_center >= 0)
-                    slowdown_mob = 0.2f;
+                slowdown_mob = mob_position_from_center / radius_swamp * (slowdown_max - slowdown_min) + slowdown_min;
 
                 var mob = other.GetComponent<MobBehaviour>();
                 mob.ClearMobEffects();
