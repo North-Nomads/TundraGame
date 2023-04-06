@@ -15,8 +15,6 @@ namespace Spells.SpellClasses
         [SerializeField] private LineRenderer lightining;
         [SerializeField] private float directDamage;
         [SerializeField] private int amountOFBounces;
-        [SerializeField] private GameObject BallLightning;
-        [SerializeField] private GameObject StaticCharge;
 
         public override BasicElement Element => BasicElement.Lightning;
 
