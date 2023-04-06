@@ -5,18 +5,23 @@ namespace Spells.SpellClasses
 {
 	public class SpikesSpell : MagicSpell
     {
+        [SerializeField] private Transform spikesPrefab;
+        
         private const int CirclesAmount = 3;
         private const float RadiusMultiplier = .9f;
         private const float Seconds = .07f;
+        private const float GrowthTime = .03f;
+
+        private Vector3 _targetSpikesScale; 
 
         
-        [SerializeField] private Transform spikesPrefab;
 
         public override BasicElement Element => BasicElement.Earth;
 
         public override void ExecuteSpell(RaycastHit hitInfo)
         {
             var castPosition = hitInfo.point;
+            _targetSpikesScale = spikesPrefab.transform.localScale;
             StartCoroutine(StartRadialSpikesSpawning(castPosition));
         }
 
@@ -25,7 +30,7 @@ namespace Spells.SpellClasses
             var radius = RadiusMultiplier;
             var spikesQuantity = 6;
 
-            StartCoroutine(GrowSpikesPrefab(castPosition));
+            StartCoroutine(ExecuteSpikesLifecycle(castPosition));
             yield return new WaitForSeconds(Seconds);
             
             for (int j = 0; j < CirclesAmount; j++)
@@ -40,19 +45,27 @@ namespace Spells.SpellClasses
                     spikesPos.x += x;
                     spikesPos.z += z;
                     
-                    StartCoroutine(GrowSpikesPrefab(spikesPos));
+                    StartCoroutine(ExecuteSpikesLifecycle(spikesPos));
                 }
                 yield return new WaitForSeconds(Seconds);
                 
                 radius += RadiusMultiplier;
                 spikesQuantity *= 2;
             }
-
-            IEnumerator GrowSpikesPrefab(Vector3 position)
+            
+            IEnumerator ExecuteSpikesLifecycle(Vector3 position)
             {
+                var time = 0f;
                 var spikes = Instantiate(spikesPrefab, position, Quaternion.identity, transform);
-                yield return null;
-
+                
+                while (time < GrowthTime)
+                {
+                    var coefficient = Mathf.Lerp(0, 1, time / GrowthTime);
+                    spikes.transform.localScale = _targetSpikesScale * coefficient;
+                    time += Time.deltaTime;
+                    yield return null;
+                }
+                
             }
         }
     }
