@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2365149872849786633}
   - component: {fileID: 2365149872849786638}
+  - component: {fileID: 4937554642928428447}
   m_Layer: 0
   m_Name: SPELL_Spikes
   m_TagString: Untagged
@@ -45,3 +46,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spikesPrefab: {fileID: 344048365241126650, guid: 6367c2027a4b00344900ea5ceecc384a,
     type: 3}
+--- !u!135 &4937554642928428447
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2365149872849786639}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}

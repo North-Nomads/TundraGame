@@ -1,4 +1,6 @@
 using System.Collections;
+using Mobs.MobEffects;
+using Mobs.MobsBehaviour;
 using UnityEngine;
 
 namespace Spells.SpellClasses
@@ -10,6 +12,7 @@ namespace Spells.SpellClasses
         private const float RadiusMultiplier = .9f;
         private const float Seconds = .07f;
         private const float GrowthTime = .5f;
+        private SphereCollider _sphereCollider;
         private Vector3 _targetSpikesScale; 
         
         public override BasicElement Element => BasicElement.Earth;
@@ -18,6 +21,7 @@ namespace Spells.SpellClasses
         {
             var castPosition = hitInfo.point;
             _targetSpikesScale = spikesPrefab.transform.localScale;
+            _sphereCollider = GetComponent<SphereCollider>();
             StartCoroutine(StartRadialSpikesSpawning(castPosition));
         }
 
@@ -27,6 +31,7 @@ namespace Spells.SpellClasses
             var spikesQuantity = 6;
 
             StartCoroutine(ExecuteSpikesLifecycle(castPosition));
+            _sphereCollider.center = castPosition;
             yield return new WaitForSeconds(Seconds);
             
             for (int j = 0; j < CirclesAmount; j++)
@@ -43,6 +48,8 @@ namespace Spells.SpellClasses
                     
                     StartCoroutine(ExecuteSpikesLifecycle(spikesPos));
                 }
+
+                _sphereCollider.radius += RadiusMultiplier;
                 yield return new WaitForSeconds(Seconds);
                 
                 radius += RadiusMultiplier;
@@ -73,6 +80,16 @@ namespace Spells.SpellClasses
                     yield return null;
                 }
             }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (!other.CompareTag("Mob"))
+                return;
+
+            var mob = other.GetComponent<MobBehaviour>();
+            Debug.Log(mob.name);
+            mob.AddSingleEffect(new SpikesStunEffect(1));
         }
     }
 }
