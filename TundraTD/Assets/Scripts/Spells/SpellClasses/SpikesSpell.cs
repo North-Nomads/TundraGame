@@ -6,16 +6,12 @@ namespace Spells.SpellClasses
 	public class SpikesSpell : MagicSpell
     {
         [SerializeField] private Transform spikesPrefab;
-        
         private const int CirclesAmount = 3;
         private const float RadiusMultiplier = .9f;
         private const float Seconds = .07f;
-        private const float GrowthTime = .03f;
-
+        private const float GrowthTime = .5f;
         private Vector3 _targetSpikesScale; 
-
         
-
         public override BasicElement Element => BasicElement.Earth;
 
         public override void ExecuteSpell(RaycastHit hitInfo)
@@ -55,9 +51,10 @@ namespace Spells.SpellClasses
             
             IEnumerator ExecuteSpikesLifecycle(Vector3 position)
             {
-                var time = 0f;
                 var spikes = Instantiate(spikesPrefab, position, Quaternion.identity, transform);
                 
+                // Grow spikes
+                var time = 0f;
                 while (time < GrowthTime)
                 {
                     var coefficient = Mathf.Lerp(0, 1, time / GrowthTime);
@@ -65,7 +62,16 @@ namespace Spells.SpellClasses
                     time += Time.deltaTime;
                     yield return null;
                 }
-                
+
+                // Shrink spikes
+                time = 0f;
+                while (time < GrowthTime)
+                {
+                    var coefficient = Mathf.Lerp(1, 0, time / GrowthTime);
+                    spikes.transform.localScale = _targetSpikesScale * coefficient;
+                    time += Time.deltaTime;
+                    yield return null;
+                }
             }
         }
     }
