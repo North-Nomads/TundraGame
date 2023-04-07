@@ -8,10 +8,13 @@ namespace Spells.SpellClasses
 	public class SpikesSpell : MagicSpell
     {
         [SerializeField] private Transform spikesPrefab;
+        [SerializeField] private ParticleSystem spawnEffect;
         private const int CirclesAmount = 3;
         private const float RadiusMultiplier = .9f;
         private const float Seconds = .07f;
         private const float GrowthTime = .5f;
+        private const float SpikesLifeTime = 1f;
+        private const float SpikesDamage = 35f;
         private SphereCollider _sphereCollider;
         private Vector3 _targetSpikesScale; 
         
@@ -29,7 +32,7 @@ namespace Spells.SpellClasses
         {
             var radius = RadiusMultiplier;
             var spikesQuantity = 6;
-
+            
             StartCoroutine(ExecuteSpikesLifecycle(castPosition));
             _sphereCollider.center = castPosition;
             yield return new WaitForSeconds(Seconds);
@@ -55,9 +58,12 @@ namespace Spells.SpellClasses
                 radius += RadiusMultiplier;
                 spikesQuantity *= 2;
             }
+
+            yield return new WaitForSeconds(GrowthTime * 2 + SpikesLifeTime);
             
             IEnumerator ExecuteSpikesLifecycle(Vector3 position)
             {
+                Instantiate(spawnEffect, position, Quaternion.identity, transform);
                 var spikes = Instantiate(spikesPrefab, position, Quaternion.identity, transform);
                 
                 // Grow spikes
@@ -70,6 +76,8 @@ namespace Spells.SpellClasses
                     yield return null;
                 }
 
+                yield return new WaitForSeconds(SpikesLifeTime);
+
                 // Shrink spikes
                 time = 0f;
                 while (time < GrowthTime)
@@ -79,8 +87,11 @@ namespace Spells.SpellClasses
                     time += Time.deltaTime;
                     yield return null;
                 }
+                Destroy(spikes.gameObject);
             }
         }
+
+        
 
         private void OnTriggerEnter(Collider other)
         {
@@ -88,7 +99,7 @@ namespace Spells.SpellClasses
                 return;
 
             var mob = other.GetComponent<MobBehaviour>();
-            Debug.Log(mob.name);
+            mob.HitThisMob(SpikesDamage, BasicElement.Earth, "SpikesSpell");
             mob.AddSingleEffect(new SpikesStunEffect(1));
         }
     }

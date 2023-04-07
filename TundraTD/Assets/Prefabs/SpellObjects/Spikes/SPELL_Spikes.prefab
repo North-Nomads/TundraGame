@@ -46,6 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spikesPrefab: {fileID: 344048365241126650, guid: 6367c2027a4b00344900ea5ceecc384a,
     type: 3}
+  spawnEffect: {fileID: 9157105887693468085, guid: d1c0c4b972666154a9fb38a711c89a85,
+    type: 3}
 --- !u!135 &4937554642928428447
 SphereCollider:
   m_ObjectHideFlags: 0
