@@ -1404,7 +1404,7 @@ MonoBehaviour:
   canvasesParent: {fileID: 1946200205}
   influencePointsHolder: {fileID: 2053122070}
   spellInitializers:
-  - {fileID: -6803395362427656954, guid: 4c9b0db6e89c5d5478a5d9554eef8b15, type: 3}
+  - {fileID: 2365149872849786638, guid: a3fa6d8a17e428d4bb7520f913ca497a, type: 3}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -3303,7 +3303,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 236bd59ab37bb5340a6ae438dbbf72c4,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 236bd59ab37bb5340a6ae438dbbf72c4,
         type: 3}
