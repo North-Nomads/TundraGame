@@ -27,6 +27,7 @@ namespace Spells
         IEnumerator StayAlive()
         {
             yield return new WaitForSeconds(lifetime);
+            Destroy(gameObject);
         }
 
         private void OnTriggerStay(Collider other)
@@ -38,7 +39,7 @@ namespace Spells
                 mob.ClearMobEffects();
                 mob.HitThisMob(stormCloudDamage, BasicElement.Lightning, "StormCloudDamage");
                 if (!mob.CurrentEffects.OfType<SpikesStunEffect>().Any())
-                mob.AddSingleEffect(new SpikesStunEffect(1));
+                //mob.AddSingleEffect(new SpikesStunEffect(1));
                 countDown = delayLightning;
             }
         }
