@@ -30,6 +30,7 @@ namespace Spells
         IEnumerator StayAlive()
         {
             yield return new WaitForSeconds(lifetime);
+            Destroy(gameObject);
         }
 
         private void OnTriggerStay(Collider other)
