@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Mob
   - FxTemporaire
+  - Tree
   layers:
   - Default
   - TransparentFX
