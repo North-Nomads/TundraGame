@@ -6,7 +6,6 @@ namespace Mobs.MobEffects
 {
     public class SpikesStunEffect : Effect
     {
-        private const float StunDamage = 50f;
         public override int MaxTicksAmount { get; }
 
         public override VisualEffectCode Code => VisualEffectCode.Stun;
@@ -24,7 +23,6 @@ namespace Mobs.MobEffects
             
             mob.MobModel.MobNavMeshAgent.angularSpeed = 0;
             mob.MobModel.MobNavMeshAgent.enabled = false;
-            mob.HitThisMob(StunDamage, BasicElement.Earth, "Earth.Stun");
             mob.MobModel.Animator.SetBool("IsStunned", true);
             return true;
         }

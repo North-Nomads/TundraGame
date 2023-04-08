@@ -1,6 +1,7 @@
 using Level;
 using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
+using System;
 using System.Collections;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -11,9 +12,9 @@ namespace Spells
     public class StormCloudSpell : MagicSpell
     {
         [SerializeField] private float lifetime;
-        [SerializeField] private float damage;
-        [SerializeField] private float burnDamage;
-        [SerializeField] private float burnTime;
+        [SerializeField] private float stormCloudDamage;
+        [SerializeField] private float delayLightning;
+        float countDown = 0;
 
         public override BasicElement Element => BasicElement.Lightning | BasicElement.Water;
 
@@ -30,13 +31,17 @@ namespace Spells
 
         private void OnTriggerStay(Collider other)
         {
-            // Check if the enemy is mob and it's walking on the pool
-            if (other.CompareTag("Mob") && Mathf.Abs(other.transform.position.y - transform.position.y) < 1.5f)
+            countDown -= Time.deltaTime;
+            if (countDown < 0)
             {
                 var mob = other.GetComponent<MobBehaviour>();
-                if (!mob.CurrentEffects.OfType<BurnEffect>().Any())
-                    mob.AddSingleEffect(new BurnEffect(burnDamage, burnTime.SecondsToTicks()));
+                mob.ClearMobEffects();
+                mob.HitThisMob(stormCloudDamage, BasicElement.Lightning, "StormCloudDamage");
+                if (!mob.CurrentEffects.OfType<SpikesStunEffect>().Any())
+                mob.AddSingleEffect(new SpikesStunEffect(1));
+                countDown = delayLightning;
             }
         }
+
     }
 }
