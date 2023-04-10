@@ -44,7 +44,7 @@
 //        private float HitDamageRadius { get; set; } = 5f;
 
 //        /// <summary>
-//        /// The damage of the hit epicenter.
+//        /// The maxDamage of the hit epicenter.
 //        /// </summary>
 //        private float HitDamageValue { get; set; } = 40f;
 
@@ -116,9 +116,9 @@
 //            {
 //                var target = AvailableTargetsPool[i];
 //                var mob = target.GetComponent<MobBehaviour>();
-//                float damage = HitDamageValue * Vector3.Distance(target.transform.position, transform.position) / HitDamageRadius;
+//                float maxDamage = HitDamageValue * Vector3.Distance(target.transform.position, transform.position) / HitDamageRadius;
 
-//                mob.HitThisMob(damage, BasicElement.Fire, nameof(LaunchFireball));
+//                mob.HitThisMob(maxDamage, BasicElement.Fire, nameof(LaunchFireball));
 //                mob.AddReceivedEffects(effects);
 //                if (FirePool.HasLandingImpulse)
 //                {
@@ -170,8 +170,8 @@
 //                {
 //                    var target = AvailableTargetsPool[j];
 //                    var mob = target.GetComponent<MobBehaviour>();
-//                    var damage = BurnDamage;
-//                    mob.HitThisMob(damage, BasicElement.Fire, nameof(RunLavaPool));
+//                    var maxDamage = BurnDamage;
+//                    mob.HitThisMob(maxDamage, BasicElement.Fire, nameof(RunLavaPool));
 //                }
 //                yield return new WaitForSecondsRealtime(1f);
 //            }
