@@ -14,8 +14,7 @@ namespace Spells
         private const float FlyDistance = 30;
         private const float HitDelay = 0.5f;
         private const int MobsLayerMask = 1 << 8;
-        private const int LavaLifetime = 5;
-        private const int TrapsAmount = 5;
+        
 
         private static readonly Collider[] AvailableTargetsPool = new Collider[1000];
 
