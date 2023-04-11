@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Mobs
 {
@@ -7,7 +8,7 @@ namespace Mobs
     /// </summary>
     public class Route : MonoBehaviour
     {
-        [Tooltip("An array of points, the last one must be the gates")][SerializeField] private WayPoint[] wayPoints;
-        public WayPoint[] WayPoints => wayPoints;
+        [Tooltip("An array of points, the last one must be the gates")][SerializeField] private List<WayPoint> wayPoints;
+        public List<WayPoint> WayPoints => wayPoints;
     }
 }
