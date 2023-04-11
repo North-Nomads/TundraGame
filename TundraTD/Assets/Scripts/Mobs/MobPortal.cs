@@ -1,4 +1,3 @@
-using City;
 using Mobs.MobsBehaviour;
 using System;
 using System.Collections.Generic;
@@ -8,6 +7,7 @@ using ModulesUI;
 using ModulesUI.MobPortal;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
 namespace Mobs
 {
@@ -16,9 +16,12 @@ namespace Mobs
     /// </summary>
     public class MobPortal : MonoBehaviour, IPointerClickHandler
     {
+        [FormerlySerializedAs("wayPointer")]
+        [Header("Navigation")] 
+        [SerializeField] private Route route;
+        [Header("Other")]
         [SerializeField] private MobPool mobPool;
         [SerializeField] private PortalInfoCanvas infoPanel;
-        [SerializeField] private CityGates gates;
         [SerializeField] private MobWave[] mobWaves;
 
         private MobWave _currentMobWave;
@@ -90,8 +93,8 @@ namespace Mobs
                 return;
 
             var mob = _waveMobs[_currentMobIndex];
-            mob.RespawnMobFromPool(mobPool.transform.position);
-            mob.ExecuteOnMobSpawn(gates.transform, this);
+            mob.RespawnMobFromPool(mobPool.transform.position, route);
+            mob.ExecuteOnMobSpawn(this);
             _currentMobIndex++;
         }
 
