@@ -4,21 +4,21 @@ using Spells;
 
 namespace Mobs.MobEffects
 {
-    public class SpikesStunEffect : Effect
+    public class StunEffect : Effect
     {
         private const float StunDamage = 50f;
         public override int MaxTicksAmount { get; }
 
         public override VisualEffectCode Code => VisualEffectCode.Stun;
 
-        public SpikesStunEffect(int time)
+        public StunEffect(int time)
         {
             MaxTicksAmount = time;
         }
         
         public override bool OnAttach(MobBehaviour mob)
         {
-            var stun = mob.CurrentEffects.OfType<SpikesStunEffect>().FirstOrDefault();
+            var stun = mob.CurrentEffects.OfType<StunEffect>().FirstOrDefault();
             if (!(stun is null))
                 mob.CurrentEffects.Remove(stun); 
             

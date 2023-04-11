@@ -100,7 +100,7 @@ namespace Spells.SpellClasses
 
             var mob = other.GetComponent<MobBehaviour>();
             mob.HitThisMob(SpikesDamage, BasicElement.Earth, "SpikesSpell");
-            mob.AddSingleEffect(new SpikesStunEffect(1));
+            mob.AddSingleEffect(new StunEffect(1));
         }
     }
 }
