@@ -9,7 +9,6 @@ namespace Mobs.MobEffects
     /// </summary>
     public class StunEffect : Effect
     {
-        private const float StunDamage = 50f;
         public override int MaxTicksAmount { get; }
 
         public override VisualEffectCode Code => VisualEffectCode.Stun;
@@ -23,11 +22,10 @@ namespace Mobs.MobEffects
         {
             var stun = mob.CurrentEffects.OfType<StunEffect>().FirstOrDefault();
             if (!(stun is null))
-                mob.CurrentEffects.Remove(stun); 
+                mob.CurrentEffects.Remove(stun);
+
             
-            mob.MobModel.MobNavMeshAgent.angularSpeed = 0;
-            mob.MobModel.MobNavMeshAgent.enabled = false;
-            mob.HitThisMob(StunDamage, BasicElement.Earth, "Earth.Stun");
+            mob.MobModel.CurrentMobSpeed = 0;
             mob.MobModel.Animator.SetBool("IsStunned", true);
             return true;
         }
@@ -36,10 +34,8 @@ namespace Mobs.MobEffects
         {
             if (!mob.MobModel.IsAlive)
                 return;
-            
-            mob.MobModel.MobNavMeshAgent.enabled = true;
-            mob.MobModel.MobNavMeshAgent.SetDestination(mob.DefaultDestinationPoint.position);
-            mob.MobModel.CurrentMobAngularSpeed = mob.MobModel.DefaultMobAngularSpeed;
+
+            mob.MobModel.CurrentMobSpeed = mob.MobModel.DefaultMobSpeed;
             mob.MobModel.Animator.SetBool("IsStunned", false);
         }
     }

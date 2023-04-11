@@ -18,9 +18,15 @@ namespace Mobs.MobsBehaviour
         [SerializeField] private GameObject[] effectPrefabs;
         [SerializeField] private MobModel mobModel;
         private float _tickTimer;
-        private Transform[] _waypointRoute;
+        private List<WayPoint> _waypointRoute;
         private int _currentWaypointIndex;
 
+        public List<WayPoint> WaypointRoute => _waypointRoute;
+
+        public int CurrentWaypointIndex => _currentWaypointIndex;
+
+        
+        
         public List<Effect> CurrentEffects { get; } = new List<Effect>();
         
         public MobModel MobModel => mobModel;
@@ -170,6 +176,7 @@ namespace Mobs.MobsBehaviour
             // Set route values
             _currentWaypointIndex = 0;
             route = routeToSet;
+            _waypointRoute = route.WayPoints;
         }
 
         public void HandleWaypointApproaching()
@@ -177,9 +184,9 @@ namespace Mobs.MobsBehaviour
             _currentWaypointIndex++;
         }
 
-        public void MoveTowardsNextPoint()
+        protected void MoveTowardsNextPoint()
         {
-            mobModel.Rigidbody.AddForce(transform.position - route.WayPoints[_currentWaypointIndex].transform.position);
+            mobModel.Rigidbody.AddForce(transform.position - _waypointRoute[_currentWaypointIndex].transform.position);
 
         }
     }
