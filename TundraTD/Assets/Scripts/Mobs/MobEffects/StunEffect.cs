@@ -4,6 +4,9 @@ using Spells;
 
 namespace Mobs.MobEffects
 {
+    /// <summary>
+    /// Prevents mob from doing anything by itself: movement or actions
+    /// </summary>
     public class StunEffect : Effect
     {
         private const float StunDamage = 50f;

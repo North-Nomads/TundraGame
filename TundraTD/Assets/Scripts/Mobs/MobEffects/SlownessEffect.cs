@@ -1,6 +1,9 @@
 ﻿using Mobs.MobsBehaviour;
 namespace Mobs.MobEffects
 {
+    /// <summary>
+    /// Makes mob speed slower
+    /// </summary>
     public class SlownessEffect : Effect
     {
         public float SpeedModifier  { get; }

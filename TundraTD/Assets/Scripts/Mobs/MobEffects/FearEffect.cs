@@ -2,6 +2,9 @@
 
 namespace Mobs.MobEffects
 {
+    /// <summary>
+    /// Forces mob to run towards his portal
+    /// </summary>
     public class FearEffect : Effect
     {
         public override int MaxTicksAmount { get; }

@@ -3,13 +3,14 @@ using Spells;
 
 namespace Mobs.MobEffects
 {
+    /// <summary>
+    /// Hit mob with constant damage over time
+    /// </summary>
     public class BurningEffect : Effect
     {
-        private float BurningDamage { get; }
-
         public bool CanBeExtinguished { get; set; }
-
         public override int MaxTicksAmount { get; }
+        private float BurningDamage { get; }
 
         public override VisualEffectCode Code => VisualEffectCode.MeteoriteBurning;
 

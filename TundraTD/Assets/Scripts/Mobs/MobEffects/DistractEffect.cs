@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Mobs.MobEffects
 {
+    /// <summary>
+    /// Forces mob to move towards different point
+    /// </summary>
     public class DistractEffect : Effect
     {
         public Transform Target;

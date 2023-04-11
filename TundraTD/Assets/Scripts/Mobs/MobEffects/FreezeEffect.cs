@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Mobs.MobEffects
 {
+    /// <summary>
+    /// Softly slows mob up to full stop  
+    /// </summary>
     public class FreezeEffect : Effect
     {
         public float SpeedModifier { get; set; }
