@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Mobs.MobsBehaviour
 {
@@ -13,28 +14,15 @@ namespace Mobs.MobsBehaviour
     [RequireComponent(typeof(MobModel))]
     public abstract class MobBehaviour : MonoBehaviour
     {
+        [FormerlySerializedAs("wayPointer")] [SerializeField] private Route route;
         [SerializeField] private GameObject[] effectPrefabs;
         [SerializeField] private MobModel mobModel;
         private float _tickTimer;
+        private Transform[] _waypointRoute;
+        private int _currentWaypointIndex;
+
         public List<Effect> CurrentEffects { get; } = new List<Effect>();
-
-        public Transform DefaultDestinationPoint { get; set; }
-
-        public Vector3 CurrentDestinationPoint
-        {
-            get
-            {
-                if (MobModel.MobNavMeshAgent.enabled)
-                    return MobModel.MobNavMeshAgent.destination;
-                return default;
-            }
-            set
-            {
-                if (MobModel.MobNavMeshAgent.enabled)
-                    MobModel.MobNavMeshAgent.SetDestination(value);
-            }
-        }
-
+        
         public MobModel MobModel => mobModel;
 
         public MobPortal MobPortal { get; protected set; }
@@ -58,7 +46,7 @@ namespace Mobs.MobsBehaviour
         public abstract BasicElement MobBasicElement { get; }
         public abstract BasicElement MobCounterElement { get; }
 
-        public abstract void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal);
+        public abstract void ExecuteOnMobSpawn(MobPortal mobPortal);
 
         protected abstract void HandleIncomeDamage(float damage, BasicElement damageElement);
 
@@ -164,7 +152,7 @@ namespace Mobs.MobsBehaviour
             }
         }
         
-        public void RespawnMobFromPool(Vector3 position)
+        public void RespawnMobFromPool(Vector3 position, Route routeToSet)
         {
             // Set mob position
             var mobTransform = transform;
@@ -178,6 +166,21 @@ namespace Mobs.MobsBehaviour
             
             // Set hp, speed & etc 
             mobModel.SetDefaultValues();
+            
+            // Set route values
+            _currentWaypointIndex = 0;
+            route = routeToSet;
+        }
+
+        public void HandleWaypointApproaching()
+        {
+            _currentWaypointIndex++;
+        }
+
+        public void MoveTowardsNextPoint()
+        {
+            mobModel.Rigidbody.AddForce(transform.position - route.WayPoints[_currentWaypointIndex].transform.position);
+
         }
     }
 }

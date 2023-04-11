@@ -26,19 +26,17 @@ namespace Mobs.MobsBehaviour.Boar
             MobModel.CurrentMobHealth -= damage * multiplier;
         }
 
-        public override void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal)
+        public override void ExecuteOnMobSpawn(MobPortal mobPortal)
         {
             MobPortal = mobPortal;
             MobModel.InstantiateMobModel();
             _chargeLeftTime = 3f;
-
-            DefaultDestinationPoint = gates;
-            MobModel.MobNavMeshAgent.enabled = true;
-            MobModel.MobNavMeshAgent.SetDestination(DefaultDestinationPoint.position);
         }
 
         private void FixedUpdate()
         {
+            MoveTowardsNextPoint();
+            
             if (_chargeLeftTime > 0)
                 _chargeLeftTime -= Time.fixedDeltaTime;
 

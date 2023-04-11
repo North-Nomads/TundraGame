@@ -31,14 +31,10 @@ namespace Mobs.MobsBehaviour.Eagle
                 
         }
 
-        public override void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal)
+        public override void ExecuteOnMobSpawn(MobPortal mobPortal)
         {
             MobPortal = mobPortal;
             MobModel.InstantiateMobModel();
-
-            DefaultDestinationPoint = gates;
-            MobModel.MobNavMeshAgent.enabled = true;
-            MobModel.MobNavMeshAgent.SetDestination(DefaultDestinationPoint.position);
         }
         private void Start()
         {
