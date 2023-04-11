@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4521982030198499688}
   - component: {fileID: 9218577674572230811}
+  - component: {fileID: 1577744124674321310}
   m_Layer: 0
   m_Name: Ball Lightning
   m_TagString: Untagged
@@ -44,7 +45,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d318d2f2ff3f22947aef0ac88327651e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ball: {fileID: 507906765474054630}
+  ball: {fileID: 0}
+--- !u!114 &1577744124674321310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4660999123875887637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8252737c411d9bd4781067f730cf3c55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToDetonate: 2.5
+  detonationRadius: 70
+  maxDamage: 100
+  minDamage: 10
 --- !u!1 &5649907398677597559
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,7 +167,6 @@ GameObject:
   - component: {fileID: 1657242503222871983}
   - component: {fileID: 727834929903262770}
   - component: {fileID: 6863356578608235526}
-  - component: {fileID: 507906765474054630}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -233,19 +249,3 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &507906765474054630
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6806735096609177935}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8252737c411d9bd4781067f730cf3c55, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeToDetonate: 2.5
-  detonationRadius: 70
-  maxDamage: 100
-  minDamage: 10

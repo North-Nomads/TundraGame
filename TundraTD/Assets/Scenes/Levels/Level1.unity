@@ -1407,7 +1407,7 @@ MonoBehaviour:
   - {fileID: -6803395362427656954, guid: 4c9b0db6e89c5d5478a5d9554eef8b15, type: 3}
   - {fileID: 8208963260508828548, guid: 16ec26eca3e1b334b8aa415444f00119, type: 3}
   - {fileID: 9218577674572230811, guid: b6bf0bd0e73be4143a0ea870f00e9399, type: 3}
-  - {fileID: 0}
+  - {fileID: 3135699678937307733, guid: c9d82eb52e2b4e745927ed2aa3eb9b60, type: 3}
   - {fileID: 0}
   mobPools: []
 --- !u!1001 &629340765

@@ -32,15 +32,12 @@ public class BallLightning : MonoBehaviour
             if(coll.gameObject.TryGetComponent(out MobBehaviour mob)) 
             mob.HitThisMob(Mathf.Lerp(minDamage, maxDamage, t/timeToDetonate), BasicElement.Lightning, "Ball lightning"); 
         });
-        Debug.Log("BOOM");
-        Detonated.Invoke(this, null);
-        //Destroy(gameObject);
+        Destroy(gameObject);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        //if(collision.gameObject.TryGetComponent(out MobBehaviour _))
-            Detonate();
+        Detonate();
     }
 
     public event EventHandler Detonated;

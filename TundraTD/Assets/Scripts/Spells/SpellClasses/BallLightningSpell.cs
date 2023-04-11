@@ -7,17 +7,9 @@ namespace Spells
     {
         public override BasicElement Element => BasicElement.Fire | BasicElement.Lightning;
 
-        [SerializeField] BallLightning ball;
-
         public override void ExecuteSpell(RaycastHit hitInfo)
         {
-            ball.Detonated += DetonationHandler;
-            ball.transform.position = hitInfo.point;
-        }
-
-        private void DetonationHandler(object sender, EventArgs e)
-        {
-            Destroy(gameObject);
+            gameObject.transform.position = hitInfo.point;
         }
     }
 }

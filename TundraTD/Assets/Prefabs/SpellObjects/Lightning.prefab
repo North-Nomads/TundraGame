@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightining: {fileID: 4572599805791671643}
   directDamage: 1000
-  amountOFBounces: 3
+  amountOFBounces: 30
 --- !u!120 &4572599805791671643
 LineRenderer:
   m_ObjectHideFlags: 0
