@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Level;
+using UnityEngine.Internal;
 using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
 using UnityEngine;
@@ -11,48 +13,34 @@ namespace Spells
     public class WindSpell : MagicSpell
     {
 
-        private const float radiusTornado = 16f;
-        private const float lifeTimeSpell = 6f;
-        private const float velocityMoveTornado = 1f;
-        private const float radiusMoveTornado = 30f;
+        private const float HitDelay = 0.5f;
         private const int MobsLayerMask = 1 << 8;
-        
+
 
         private static readonly Collider[] AvailableTargetsPool = new Collider[1000];
 
-        //[SerializeField] private MeshRenderer windMesh;
-        [SerializeField] private GameObject windPrefab;
-        [SerializeField] private AudioClip windSound;
+        [SerializeField] private MeshRenderer TornadoMesh;
+        [SerializeField] private GameObject TornadoPrefab;
+        [SerializeField] private AudioClip TornadoSound;
         
-
-
-        private Camera _mainCamera;
-        private float _currentHitTime;
-        private Vector3 _target;
-        private bool _isLanded;
-        private AudioSource _source;
-
         
-        [IncreasableProperty(BasicElement.Fire, -2f)]
-        [IncreasableProperty(BasicElement.Air, 2f)]
-        public float WindForce { get; set; } = 10f;
+        private float TornadoRadius { get; set; } = 16f;
 
-        [IncreasableProperty(BasicElement.Fire, -2f)]
-        [IncreasableProperty(BasicElement.Water, 5f)]
-        public float WindSpellWidth { get; set; } = 10f;
+        private float TornadoSpeed { get; set; } = 1f;
 
-        [IncreasableProperty(BasicElement.Lightning, 0.8f)]
-        public float LevitationDuration { get; set; } = 2f;
+        private float SpellDuration { get; set; } = 6f;
+                
+        private float TornadoArea { get; set; } = 30f;
 
-        [IncreasableProperty(BasicElement.Earth, 0.4f)]
-        public float StunDuration { get; set; } = 1f;
+        public float SlownessValue { get; set; } = 0.9f;
 
+        public int SlownessDuration { get; set; } = 6;
 
-        public override BasicElement Element => BasicElement.Air | BasicElement.Air;
+        public override BasicElement Element => BasicElement.Air;
 
         private IEnumerator WaitTime()
         {
-            yield return new WaitForSeconds(LevitationDuration);
+            yield return new WaitForSeconds(SpellDuration);
             //mainCollider.enabled = false;
             yield return new WaitForSeconds(1);
             Destroy(gameObject);
@@ -60,25 +48,26 @@ namespace Spells
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.CompareTag("Mob")) return;
-
-            var mob = other.gameObject.GetComponent<MobBehaviour>();
-            mob.AddSingleEffect(new LevitationEffect(LevitationDuration.SecondsToTicks()));
+            if (other.CompareTag("Mob"))
+            {
+                var mob = other.GetComponent<MobBehaviour>();
+                if (!mob.CurrentEffects.OfType<SlownessEffect>().Any())
+                    mob.AddSingleEffect(new SlownessEffect(SlownessValue, SlownessDuration));
+            }
         }
 
         public override void ExecuteSpell(RaycastHit hitInfo)
         {
-            _target = hitInfo.point;
-            windPrefab.transform.position = (transform.position = _targetPosition) + Vector3.up;
-            windPrefab.SetActive(true);
-            windPrefab.transform.localScale = new Vector3(WindSpellWidth / 10, WindHeight, WindSpellWidth / 10);
-            
-            //mainCollider.height = WindHeight;
-            windPrefab.transform.localPosition = Vector3.up * (WindHeight / 2);
-            windPrefab.transform.localScale = new Vector3(WindSpellWidth / 10, 1, WindSpellWidth / 10);
-            StartCoroutine(WaitTime());
+            transform.position = hitInfo.point;
+            StartCoroutine(StayAlive());
+
         }
 
-             
+        IEnumerator StayAlive()
+        {
+            yield return new WaitForSeconds(SpellDuration);
+            Destroy(gameObject);
+        }
+
     }
 }
