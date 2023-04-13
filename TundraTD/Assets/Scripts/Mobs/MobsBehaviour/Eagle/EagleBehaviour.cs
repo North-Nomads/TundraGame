@@ -1,4 +1,5 @@
-﻿using Mobs.MobEffects;
+﻿using System;
+using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
 using Spells;
 using System.Collections;
@@ -36,9 +37,10 @@ namespace Mobs.MobsBehaviour.Eagle
             MobPortal = mobPortal;
             MobModel.InstantiateMobModel();
         }
-        private void Start()
+
+        private void FixedUpdate()
         {
-            
+            MoveTowardsNextPoint();
         }
     }
 }

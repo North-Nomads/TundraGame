@@ -1,10 +1,8 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace Mobs
 {
-    [RequireComponent(typeof(NavMeshAgent))]
     public class MobModel : MonoBehaviour
     {
         [SerializeField]

@@ -20,7 +20,7 @@ namespace Mobs.MobsBehaviour
         private float _tickTimer;
         private List<WayPoint> _waypointRoute;
         private int _currentWaypointIndex;
-
+        private Vector3 direction;
         public List<WayPoint> WaypointRoute => _waypointRoute;
 
         public int CurrentWaypointIndex => _currentWaypointIndex;
@@ -174,6 +174,9 @@ namespace Mobs.MobsBehaviour
             mobModel.SetDefaultValues();
             
             // Set route values
+            if (_waypointRoute is null)
+                _waypointRoute = new List<WayPoint>();
+            
             _currentWaypointIndex = 0;
             route = routeToSet;
             _waypointRoute = route.WayPoints;
@@ -184,10 +187,22 @@ namespace Mobs.MobsBehaviour
             _currentWaypointIndex++;
         }
 
-        protected void MoveTowardsNextPoint()
+        protected virtual void MoveTowardsNextPoint()
         {
-            mobModel.Rigidbody.AddForce(transform.position - _waypointRoute[_currentWaypointIndex].transform.position);
+            print(_currentWaypointIndex);
+            var waypoint = new Vector3(_waypointRoute[_currentWaypointIndex].transform.position.x,
+                transform.position.y,
+                _waypointRoute[_currentWaypointIndex].transform.position.z);
+            direction = waypoint - transform.position;
+            mobModel.Rigidbody.velocity = direction  / direction.magnitude * mobModel.CurrentMobSpeed;
+        }
 
+        private void OnDrawGizmos()
+        {
+            var wp = new Vector3(_waypointRoute[_currentWaypointIndex].transform.position.x,
+                transform.position.y,
+                _waypointRoute[_currentWaypointIndex].transform.position.z);
+            Gizmos.DrawLine(wp, transform.position);
         }
     }
 }
