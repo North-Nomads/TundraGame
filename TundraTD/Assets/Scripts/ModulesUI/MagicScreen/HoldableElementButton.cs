@@ -19,7 +19,7 @@ namespace ModulesUI.MagicScreen
         {
             _elementAudioSource = GetComponent<AudioSource>();
             _elementAudioSource.volume = GameParameters.EffectsVolumeModifier;
-            _charge = new ElementCharge();
+            _charge = PlayerDeck.ElementCharges[element];
         }
 
         private void FixedUpdate()

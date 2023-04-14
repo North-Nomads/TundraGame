@@ -89,14 +89,5 @@ namespace Spells
             };
             mob.AddReceivedEffects(effects);
         }
-
-        private void DisableEmissionOnChildren()
-        {
-            foreach (var system in GetComponentsInChildren<ParticleSystem>())
-            {
-                var emission = system.emission;
-                emission.enabled = false;
-            }
-        }
     }
 }

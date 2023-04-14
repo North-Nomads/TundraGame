@@ -32,17 +32,17 @@ namespace ModulesUI.MagicScreen
         {
             int index = Array.IndexOf(buttonsHolder.deckButtons, this);
             if (index < PlayerDeck.DeckElements.Count)
+            {
+                PlayerDeck.ElementCharges[_element].ReturnCharge();
                 PlayerDeck.DeckElements.RemoveAt(index);
+            }
         }
 
         public void UpdateButtonElement(BasicElement element)
         {
             var sprite = PlayerDeck.ElementIcons[element];
-            
-            if (sprite is null)
-                iconHolder.sprite = _nullElementSprite;
-            else
-                iconHolder.sprite = sprite;
+
+            iconHolder.sprite = sprite != null ? sprite : _nullElementSprite;
 
             _element = element;
         }

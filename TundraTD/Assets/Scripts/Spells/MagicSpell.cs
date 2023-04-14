@@ -38,6 +38,16 @@ namespace Spells
         public static void SetSpellPrefabs(MagicSpell[] prefabs)
         {
             _prefabs = prefabs.Where(x => x != null).ToDictionary(x => x.Element, y => y);
+            AdditionalSpellEffects = new Dictionary<BasicElement, AdditionalSpellEffect>();
+        }
+
+        protected void DisableEmissionOnChildren()
+        {
+            foreach (var system in GetComponentsInChildren<ParticleSystem>())
+            {
+                var emission = system.emission;
+                emission.enabled = false;
+            }
         }
     }
 }

@@ -44,7 +44,18 @@ namespace Spells
                     var mob = mobs[i].GetComponent<MobBehaviour>();
                     mob.HitThisMob(damage, BasicElement.Fire, nameof(LavaSpell));
                 }
+                time += damageDelay;
             }
+            int amount = Physics.OverlapSphereNonAlloc(transform.position, interactionCollider.radius, mobs, MobsLayerMask);
+            for (int i = 0; i < amount; i++)
+            {
+                var mob = mobs[i].GetComponent<MobBehaviour>();
+                if (!mob.CurrentEffects.OfType<BurningEffect>().Any())
+                    mob.AddSingleEffect(new BurningEffect(burnDamage, burnTime.SecondsToTicks()));
+            }
+            interactionCollider.enabled = false;
+            DisableEmissionOnChildren();
+            yield return new WaitForSeconds(5);
             Destroy(gameObject);
         }
 
