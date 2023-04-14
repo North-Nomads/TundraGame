@@ -13,9 +13,9 @@ namespace Mobs.MobEffects
 
         public override VisualEffectCode Code => VisualEffectCode.Stun;
 
-        public StunEffect(int time)
+        public StunEffect(int ticks)
         {
-            MaxTicksAmount = time;
+            MaxTicksAmount = ticks;
         }
         
         public override bool OnAttach(MobBehaviour mob)
@@ -23,12 +23,13 @@ namespace Mobs.MobEffects
             var stun = mob.CurrentEffects.OfType<StunEffect>().FirstOrDefault();
             if (!(stun is null))
                 mob.CurrentEffects.Remove(stun);
-
             
             mob.MobModel.CurrentMobSpeed = 0;
             mob.MobModel.Animator.SetBool("IsStunned", true);
             return true;
         }
+        
+        
         
         public override void OnDetach(MobBehaviour mob)
         {

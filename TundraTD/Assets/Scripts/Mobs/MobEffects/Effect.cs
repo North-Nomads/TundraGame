@@ -1,6 +1,7 @@
 ﻿using Mobs.MobsBehaviour;
 using Spells;
 using System;
+using UnityEngine;
 
 namespace Mobs.MobEffects
 {
@@ -19,6 +20,7 @@ namespace Mobs.MobEffects
 
         public virtual void HandleTick(MobBehaviour mob)
         {
+            Debug.Log($"{CurrentTicksAmount}/{MaxTicksAmount}");
             CurrentTicksAmount++;
         }
 

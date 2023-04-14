@@ -182,7 +182,6 @@ namespace Mobs.MobsBehaviour
 
         protected virtual void MoveTowardsNextPoint()
         {
-            print(_currentWaypointIndex);
             var waypoint = new Vector3(_waypointRoute[_currentWaypointIndex].transform.position.x,
                 transform.position.y,
                 _waypointRoute[_currentWaypointIndex].transform.position.z);
