@@ -1,4 +1,5 @@
-﻿using Spells;
+﻿using System;
+using Spells;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,15 +29,16 @@ namespace Mobs.MobsBehaviour.Mole
 
         public override void ExecuteOnMobSpawn(MobPortal mobPortal)
         {
+            _meshRenderer = GetComponent<MeshRenderer>();
+            _meshRenderer.enabled = false;
             MobPortal = mobPortal;
             MobModel.InstantiateMobModel();
         }
 
-        private void Start()
+        private void FixedUpdate()
         {
-            _meshRenderer = GetComponent<MeshRenderer>();
-            _meshRenderer.enabled = false;
-
+            MoveTowardsNextPoint();
+            HandleTickTimer();
         }
     }
 }

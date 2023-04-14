@@ -21,6 +21,7 @@ namespace Mobs.MobsBehaviour.Boar
         private void FixedUpdate()
         {
             MoveTowardsNextPoint();
+            HandleTickTimer();
             
             if (_chargeLeftTime > 0)
                 _chargeLeftTime -= Time.fixedDeltaTime;
@@ -30,9 +31,6 @@ namespace Mobs.MobsBehaviour.Boar
                 TakeChargeMode();
                 _isCharged = true;
             }
-
-            if (CurrentEffects.Count > 0)
-                TickTimer -= Time.fixedDeltaTime;
         }
 
         private void TakeChargeMode()

@@ -736,7 +736,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1f59a9a8bb74cc0bff16c5363f9b066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  route: {fileID: 0}
   effectPrefabs:
   - {fileID: 2603142632087040750}
   - {fileID: 6515686786312285598}

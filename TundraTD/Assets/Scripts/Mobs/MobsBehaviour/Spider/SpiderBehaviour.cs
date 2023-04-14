@@ -17,8 +17,7 @@ namespace Mobs.MobsBehaviour.Spider
         private void FixedUpdate()
         {
             MoveTowardsNextPoint();
-            if (CurrentEffects.Count > 0)
-                TickTimer -= Time.fixedDeltaTime;
+            HandleTickTimer();
         }
     }
 }

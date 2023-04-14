@@ -31,6 +31,7 @@ namespace Mobs.MobsBehaviour.Eagle
         private void FixedUpdate()
         {
             MoveTowardsNextPoint();
+            HandleTickTimer();
         }
     }
 }

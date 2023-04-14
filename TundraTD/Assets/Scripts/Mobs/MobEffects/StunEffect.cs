@@ -28,9 +28,7 @@ namespace Mobs.MobEffects
             mob.MobModel.Animator.SetBool("IsStunned", true);
             return true;
         }
-        
-        
-        
+
         public override void OnDetach(MobBehaviour mob)
         {
             if (!mob.MobModel.IsAlive)

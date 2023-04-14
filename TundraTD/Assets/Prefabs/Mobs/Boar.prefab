@@ -1120,7 +1120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitMaterial: {fileID: 2100000, guid: 173f4c2e019091841ac54b766ef59b29, type: 2}
   mobSprite: {fileID: 21300000, guid: d8d738703ed70674a843199268819755, type: 3}
-  maxMobHealth: 95
+  maxMobHealth: 475
   defaultMobDamage: 4
   defaultMobSpeed: 1.25
   renderer: {fileID: 6667528729859900624}
@@ -1139,7 +1139,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12804b0b22af4ecabde6bdd226ee2531, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  route: {fileID: 0}
   effectPrefabs:
   - {fileID: 170430478418049027}
   - {fileID: 427083191472459712}

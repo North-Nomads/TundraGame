@@ -27,7 +27,7 @@ namespace Mobs.MobsBehaviour
 
         protected MobPortal MobPortal { get; set; }
 
-        protected float TickTimer
+        private float TickTimer
         {
             get => _tickTimer;
             set
@@ -48,6 +48,12 @@ namespace Mobs.MobsBehaviour
         protected virtual void HandleIncomeDamage(float damage, BasicElement damageElement)
         {
             MobModel.CurrentMobHealth -= damage;
+        }
+
+        protected void HandleTickTimer()
+        {
+            if (CurrentEffects.Count > 0)
+                TickTimer -= Time.fixedDeltaTime;
         }
 
         public void HitThisMob(float damage, BasicElement damageElement)
@@ -131,6 +137,7 @@ namespace Mobs.MobsBehaviour
 
         private void HandleAppliedEffects()
         {
+            Debug.Log(CurrentEffects.Count);
             for (int i = 0; i < CurrentEffects.Count;)
             {
                 var effect = CurrentEffects[i];
