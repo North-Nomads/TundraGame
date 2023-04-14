@@ -75,7 +75,7 @@ namespace Spells
             if (other.CompareTag("Mob"))
             {
                 var mob = other.gameObject.GetComponent<MobBehaviour>();
-                mob.RemoveFilteredEffects(x => x is BurnEffect effect && effect.CanBeExtinguished);
+                mob.RemoveFilteredEffects(x => x is BurningEffect effect && effect.CanBeExtinguished);
             }
         }
 
