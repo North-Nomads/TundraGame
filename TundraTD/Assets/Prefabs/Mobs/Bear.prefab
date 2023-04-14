@@ -97,7 +97,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
@@ -134,7 +134,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c46b017c71a4f73b2e104cda74b573a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  route: {fileID: 0}
   effectPrefabs:
   - {fileID: 7823784646287537540}
   - {fileID: 2805846369675015868}

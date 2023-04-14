@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Mobs.MobsBehaviour
 {
@@ -19,13 +18,10 @@ namespace Mobs.MobsBehaviour
         private float _tickTimer;
         private List<WayPoint> _waypointRoute;
         private int _currentWaypointIndex;
-
-
-        public List<Effect> CurrentEffects { get; } = new List<Effect>();
         
-        public MobModel MobModel => mobModel;
-
         protected MobPortal MobPortal { get; set; }
+        public List<Effect> CurrentEffects { get; } = new List<Effect>();
+        public MobModel MobModel => mobModel;
 
         private float TickTimer
         {
@@ -34,7 +30,6 @@ namespace Mobs.MobsBehaviour
             {
                 if (value <= 0)
                 {
-                    print("Tick");
                     HandleAppliedEffects();
                     _tickTimer = Effect.BasicTickTime;
                     return;
@@ -141,7 +136,6 @@ namespace Mobs.MobsBehaviour
 
         private void HandleAppliedEffects()
         {
-            Debug.Log(CurrentEffects.Count);
             for (int i = 0; i < CurrentEffects.Count;)
             {
                 var effect = CurrentEffects[i];
