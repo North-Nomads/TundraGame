@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Mobs.MobsBehaviour
 {
@@ -14,18 +13,14 @@ namespace Mobs.MobsBehaviour
     [RequireComponent(typeof(MobModel))]
     public abstract class MobBehaviour : MonoBehaviour
     {
-        [FormerlySerializedAs("wayPointer")] [SerializeField] private Route route;
         [SerializeField] private GameObject[] effectPrefabs;
         [SerializeField] private MobModel mobModel;
         private float _tickTimer;
         private List<WayPoint> _waypointRoute;
         private int _currentWaypointIndex;
-        private Vector3 direction;
         public List<WayPoint> WaypointRoute => _waypointRoute;
 
         public int CurrentWaypointIndex => _currentWaypointIndex;
-
-        
         
         public List<Effect> CurrentEffects { get; } = new List<Effect>();
         
@@ -178,8 +173,7 @@ namespace Mobs.MobsBehaviour
                 _waypointRoute = new List<WayPoint>();
             
             _currentWaypointIndex = 0;
-            route = routeToSet;
-            _waypointRoute = route.WayPoints;
+            _waypointRoute = routeToSet.WayPoints;
         }
 
         public void HandleWaypointApproaching()
@@ -193,7 +187,7 @@ namespace Mobs.MobsBehaviour
             var waypoint = new Vector3(_waypointRoute[_currentWaypointIndex].transform.position.x,
                 transform.position.y,
                 _waypointRoute[_currentWaypointIndex].transform.position.z);
-            direction = waypoint - transform.position;
+            var direction = waypoint - transform.position;
             mobModel.Rigidbody.velocity = direction  / direction.magnitude * mobModel.CurrentMobSpeed;
         }
 

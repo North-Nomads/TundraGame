@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Level;
 using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
 using UnityEngine;
@@ -38,7 +39,7 @@ namespace Spells.SpellClasses
             {
                 var mob = overlappedMob.GetComponent<MobBehaviour>();
                 mob.AddReceivedEffects(new List<Effect>
-                    { new InspirationEffect(), new SpikesStunEffect(1) });
+                    { new InspirationEffect(), new StunEffect(1f.SecondsToTicks()) });
                 mob.HitThisMob(100, BasicElement.None, "Grenade");
             }
 
