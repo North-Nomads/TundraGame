@@ -130,7 +130,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 330704883c6b4304ebecadabaad6231d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  route: {fileID: 0}
   effectPrefabs: []
   mobModel: {fileID: 18473636742207615}
 --- !u!54 &-4691575058523013016

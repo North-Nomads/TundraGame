@@ -1139,7 +1139,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12804b0b22af4ecabde6bdd226ee2531, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  route: {fileID: 0}
   effectPrefabs:
   - {fileID: 170430478418049027}
   - {fileID: 427083191472459712}
