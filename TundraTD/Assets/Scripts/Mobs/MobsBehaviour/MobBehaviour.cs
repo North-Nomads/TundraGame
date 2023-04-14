@@ -19,12 +19,8 @@ namespace Mobs.MobsBehaviour
         private float _tickTimer;
         private List<WayPoint> _waypointRoute;
         private int _currentWaypointIndex;
-        public List<WayPoint> WaypointRoute => _waypointRoute;
 
-        public int CurrentWaypointIndex => _currentWaypointIndex;
 
-        
-        
         public List<Effect> CurrentEffects { get; } = new List<Effect>();
         
         public MobModel MobModel => mobModel;
