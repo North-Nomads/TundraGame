@@ -13,7 +13,7 @@ namespace Mobs.MobEffects
 
         public int CurrentTicksAmount { get; protected set; }
 
-        public abstract int MaxTicksAmount { get; }
+        public abstract int MaxTicksAmount { protected set; get; }
 
         public abstract VisualEffectCode Code { get; }
 
@@ -27,7 +27,7 @@ namespace Mobs.MobEffects
         public virtual void OnDetach(MobBehaviour mob)
         { }
 
-        public void DoubleCurrentDuration() => CurrentTicksAmount /= 2;
+        public void DoubleCurrentDuration() => MaxTicksAmount *= 2;
         
         public void SetCurrentTicks(int value) => CurrentTicksAmount = value;
 

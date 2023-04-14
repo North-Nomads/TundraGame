@@ -7,7 +7,12 @@ namespace Mobs.MobEffects
     /// </summary>
     public class InspirationEffect : Effect
     {
-        public override int MaxTicksAmount => 1;
+        public override int MaxTicksAmount
+        {
+            get => 1;
+            protected set => MaxTicksAmount = value;
+        }
+
         public override VisualEffectCode Code => VisualEffectCode.Stun; // Set visual effect for inspiration later
 
         public override bool OnAttach(MobBehaviour mob)
