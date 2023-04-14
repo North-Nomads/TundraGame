@@ -7,11 +7,14 @@ namespace Mobs.MobsBehaviour.Squirrel
     [RequireComponent(typeof(MobModel))]
     public class SquirrelBehaviour : MobBehaviour
     {
-        private Vector3 _finalTreeCords;
         private Vector3 _treeCords;
-        private bool _isFirstTree = true;
-        private bool _goToGates = true;
-        private bool _isTreeNotTouched = true;
+        private Collider[] _allTrees;
+        private bool _isJumping = false;
+        private float _minorDistanceToGates = 10000;
+        private Vector3 _previousTreeCords;
+        private bool _isTreeNotTouched = false;
+        private int layerId = 13;
+        
         [SerializeField] private float mobShield;
 
 
@@ -38,68 +41,76 @@ namespace Mobs.MobsBehaviour.Squirrel
             DefaultDestinationPoint = gates;
             MobModel.MobNavMeshAgent.enabled = true;
             StartCoroutine(FindTree());
-            
         }
 
         private IEnumerator FindTree()
         {
-            float _minDistance = 10000;
-            Collider[] _allTrees = Physics.OverlapSphere(this.transform.position, 1000);
+            int layerMask = 1 << layerId;
+            float mindistance = 10000;
+            if (!_isJumping)
+            {
+                _allTrees = Physics.OverlapSphere(transform.position, 10, layerMask);
+                Color color2 = new Color(0,0,0);
+                GetComponent<MeshRenderer>().material.SetColor("_Color", color2);
+            }
+            else
+            {
+                _allTrees = Physics.OverlapSphere(transform.position, 3, layerMask);
+            }
             foreach(var _tree in _allTrees)
             {
-                if (_isFirstTree)
+                if (_previousTreeCords != _tree.transform.position)
                 {
-                    if (_tree.gameObject.CompareTag("Tree"))
+                    var heading = _tree.transform.position - transform.position;
+                    float dot = Vector3.Dot(heading, transform.forward);
+                    float treeDistance = Vector3.Distance(transform.position, _tree.gameObject.transform.position);
+                    float gatesdistance = Vector3.Distance(_tree.transform.position, DefaultDestinationPoint.position);
+                    if (treeDistance < mindistance && dot > -5 && _minorDistanceToGates > gatesdistance)
                     {
-                        float _distanceToTree = Vector3.Distance(this.transform.position, _tree.gameObject.transform.position);
-                        if (_distanceToTree < _minDistance)
-                        {
-                            _minDistance = _distanceToTree;
-                            _treeCords = _tree.gameObject.transform.position;
-                            _goToGates = false;
-                        }
-                    }
-                }
-                else
-                {
-                    if (_tree.gameObject.CompareTag("Tree") && _finalTreeCords != _tree.transform.position
-                        && this.transform.position.z < _tree.transform.position.z
-                        && Mathf.Abs(this.transform.position.x - _tree.transform.position.x) < 5)
-                    {
-                        float _distanceToTree = Vector3.Distance(this.transform.position, _tree.gameObject.transform.position);
-                        if (_distanceToTree < _minDistance)
-                        {
-                            _minDistance = _distanceToTree;
-                            _treeCords = _tree.gameObject.transform.position;
-                            _goToGates = false;
-                        }
+                        _minorDistanceToGates = gatesdistance;
+                        mindistance = treeDistance;
+                        _treeCords = _tree.gameObject.transform.position;
+                        _isTreeNotTouched = true;
                     }
                 }
             }
-            if (_goToGates)
-                MobModel.MobNavMeshAgent.SetDestination(DefaultDestinationPoint.position);
+            MobModel.MobNavMeshAgent.SetDestination(_treeCords);
+            while (_isTreeNotTouched){
+                if (Vector3.Distance(transform.position, _treeCords) < 1.05)
+                {
+                    _isTreeNotTouched = false;
+                    Color color = new Color(255,0,0);
+                    this.GetComponent<MeshRenderer>().material.SetColor("_Color", color);
+                }
+                yield return new WaitForSeconds(1);
+            }
+            _previousTreeCords = _treeCords;
+            Collider[] _nearTrees = Physics.OverlapSphere(transform.position, 3, layerMask);
+            foreach(var _tree in _nearTrees)
+            {
+                var heading = _tree.transform.position - transform.position;
+                float dot = Vector3.Dot(heading, transform.forward);
+                if (dot > -5 && _tree.transform.position != _previousTreeCords && _minorDistanceToGates > Vector3.Distance(_tree.transform.position, DefaultDestinationPoint.position))
+                {
+                    _isJumping = true;
+                    break;                    
+                }
+                else
+                {
+                    _isJumping = false;
+                }
+            }
+            if (!_isJumping)
+            {
+                Color color2 = new Color(0,0,0);
+                GetComponent<MeshRenderer>().material.SetColor("_Color", color2);
+                yield return new WaitForSeconds(2.5f);
+                StartCoroutine(FindTree());
+            }
             else
             {
-                _isFirstTree = false;
-                _finalTreeCords = _treeCords;
-                MobModel.MobNavMeshAgent.SetDestination(_finalTreeCords);
-                _isTreeNotTouched = true;
-                while (_isTreeNotTouched){
-                    if (Vector3.Distance(transform.position, _finalTreeCords) < 1.05)
-                    {
-                        _isTreeNotTouched = false;
-                        Color color = new Color(255,0,0);
-                        this.GetComponent<MeshRenderer>().material.SetColor("_Color", color);
-                        yield return new WaitForSeconds(2);
-                    }
-                    yield return new WaitForSeconds(1);
-                }
-                Color color2 = new Color(0,0,0);
-                this.GetComponent<MeshRenderer>().material.SetColor("_Color", color2);
-                yield return new WaitForSeconds(2.5f);
-                _goToGates = true;
-                StartCoroutine(FindTree());         
-            }     
+                StartCoroutine(FindTree());
+            }
         }
 
         private void FixedUpdate()
