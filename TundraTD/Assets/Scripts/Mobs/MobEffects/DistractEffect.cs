@@ -32,7 +32,7 @@ namespace Mobs.MobEffects
         public override void OnDetach(MobBehaviour mob)
         {
             // If mob hasn't yet reached the point (so his currentWp == target) - remove this target  
-            if (mob.WaypointRoute[mob.CurrentWaypointIndex].transform.position == _target.transform.position)
+            if (Vector3.Distance(mob.WaypointRoute[mob.CurrentWaypointIndex].transform.position, _target.transform.position) < .5f)
                 mob.WaypointRoute.RemoveAt(mob.CurrentWaypointIndex);
             
             // Anyways, the target will return to the default one because reaching the
