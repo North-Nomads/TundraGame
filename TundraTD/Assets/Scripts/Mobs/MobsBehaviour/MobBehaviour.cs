@@ -16,7 +16,7 @@ namespace Mobs.MobsBehaviour
         [SerializeField] private GameObject[] effectPrefabs;
         [SerializeField] private MobModel mobModel;
         private float _tickTimer;
-        private List<WayPoint> _waypointRoute;
+        private WayPoint[] _waypointRoute = new WayPoint[100];
         private int _currentWaypointIndex;
         
         protected MobPortal MobPortal { get; set; }
@@ -157,7 +157,7 @@ namespace Mobs.MobsBehaviour
             }
         }
         
-        public void RespawnMobFromPool(Vector3 position, Route routeToSet)
+        public void RespawnMobFromPool(Vector3 position, WayPoint[] routeToSet)
         {
             // Set mob position
             var mobTransform = transform;
@@ -171,13 +171,9 @@ namespace Mobs.MobsBehaviour
             
             // Set hp, speed & etc 
             mobModel.SetDefaultValues();
-            
-            // Set route values
-            if (_waypointRoute is null)
-                _waypointRoute = new List<WayPoint>();
-            
+
             _currentWaypointIndex = 0;
-            _waypointRoute = routeToSet.WayPoints;
+            _waypointRoute = routeToSet;
         }
 
         public void HandleWaypointApproaching()

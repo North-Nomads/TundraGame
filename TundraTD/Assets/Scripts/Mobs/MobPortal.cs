@@ -7,7 +7,6 @@ using ModulesUI;
 using ModulesUI.MobPortal;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 
 namespace Mobs
 {
@@ -16,9 +15,8 @@ namespace Mobs
     /// </summary>
     public class MobPortal : MonoBehaviour, IPointerClickHandler
     {
-        [FormerlySerializedAs("wayPointer")]
         [Header("Navigation")] 
-        [SerializeField] private Route route;
+        [SerializeField] private Transform routeParent;
         [Header("Other")]
         [SerializeField] private MobPool mobPool;
         [SerializeField] private PortalInfoCanvas infoPanel;
@@ -93,7 +91,7 @@ namespace Mobs
                 return;
 
             var mob = _waveMobs[_currentMobIndex];
-            mob.RespawnMobFromPool(mobPool.transform.position, route);
+            mob.RespawnMobFromPool(mobPool.transform.position, routeParent.GetComponentsInChildren<WayPoint>());
             mob.ExecuteOnMobSpawn(this);
             _currentMobIndex++;
         }

@@ -1516,7 +1516,7 @@ MonoBehaviour:
   influencePointsHolder: {fileID: 2053122070}
   spellInitializers:
   - {fileID: 2365149872849786638, guid: a3fa6d8a17e428d4bb7520f913ca497a, type: 3}
-  - {fileID: 6137339960980298773, guid: 572b4c0fe36a1be4983accce53b97f4a, type: 3}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -3168,6 +3168,11 @@ PrefabInstance:
       propertyPath: infoPanel
       value: 
       objectReference: {fileID: 1164979484}
+    - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
+        type: 3}
+      propertyPath: routeParent
+      value: 
+      objectReference: {fileID: 25535409}
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
       propertyPath: mobWaves.Array.size
