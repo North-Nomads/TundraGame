@@ -23,18 +23,15 @@ namespace Mobs.MobsBehaviour.Spider
             MobModel.CurrentMobHealth -= damage * multiplier;
         }
 
-        public override void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal)
+        public override void ExecuteOnMobSpawn(MobPortal mobPortal)
         {
             MobPortal = mobPortal;
             MobModel.InstantiateMobModel();
-
-            DefaultDestinationPoint = gates;
-            MobModel.MobNavMeshAgent.enabled = true;
-            MobModel.MobNavMeshAgent.SetDestination(DefaultDestinationPoint.position);
         }
 
         private void FixedUpdate()
         {
+            MoveTowardsNextPoint();
             if (CurrentEffects.Count > 0)
                 TickTimer -= Time.fixedDeltaTime;
         }

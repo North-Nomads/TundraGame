@@ -41,17 +41,15 @@ namespace Mobs.MobsBehaviour.Bear
                 MobModel.CurrentMobHealth -= modifiedDamage;
         }
 
-        public override void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal)
+        public override void ExecuteOnMobSpawn(MobPortal mobPortal)
         {
+            MobPortal = mobPortal;
             MobModel.InstantiateMobModel();
-
-            DefaultDestinationPoint = gates;
-            MobModel.MobNavMeshAgent.enabled = true;
-            MobModel.MobNavMeshAgent.SetDestination(DefaultDestinationPoint.position);
         }
 
         private void FixedUpdate()
         {
+            MoveTowardsNextPoint();
             if (CurrentEffects.Count > 0)
                 TickTimer -= Time.fixedDeltaTime;
         }

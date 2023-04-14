@@ -4,36 +4,39 @@ using UnityEngine;
 
 namespace Mobs.MobEffects
 {
+    /// <summary>
+    /// Forces mob to move towards different point
+    /// </summary>
     public class DistractEffect : Effect
     {
-        public Transform Target;
+        private readonly WayPoint _target;
 
         public override int MaxTicksAmount { get; }
 
         public override VisualEffectCode Code => VisualEffectCode.Distract;
 
-        public DistractEffect(Transform target, int time)
+        public DistractEffect(WayPoint target, int time)
         {
-            Target = target;
+            _target = target;
             MaxTicksAmount = time;
         }
 
         public override bool OnAttach(MobBehaviour mob)
         {
-            if (Target != null) mob.CurrentDestinationPoint = Target.position;
+            // Inserting waypoint to current index, mob has to automatically focus on a new target
+            // Once the waypoint is reached, mob current waypoint index will increase and the target will return back 
+            mob.WaypointRoute.Insert(mob.CurrentWaypointIndex, _target);
             return !mob.CurrentEffects.OfType<DistractEffect>().Any();
-        }
-
-        public override void HandleTick(MobBehaviour mob)
-        {
-            base.HandleTick(mob);
-            if (Target != null) mob.CurrentDestinationPoint = Target.position;
-            else mob.CurrentDestinationPoint = mob.DefaultDestinationPoint.position;
         }
 
         public override void OnDetach(MobBehaviour mob)
         {
-            mob.CurrentDestinationPoint = mob.DefaultDestinationPoint.position;
+            // If mob hasn't yet reached the point (so his currentWp == target) - remove this target  
+            if (mob.WaypointRoute[mob.CurrentWaypointIndex].transform.position == _target.transform.position)
+                mob.WaypointRoute.RemoveAt(mob.CurrentWaypointIndex);
+            
+            // Anyways, the target will return to the default one because reaching the
+            // waypoint automatically increase the index for the mob 
         }
     }
 }

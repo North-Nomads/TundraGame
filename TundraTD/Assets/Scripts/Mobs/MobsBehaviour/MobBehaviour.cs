@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Mobs.MobsBehaviour
 {
@@ -13,28 +14,21 @@ namespace Mobs.MobsBehaviour
     [RequireComponent(typeof(MobModel))]
     public abstract class MobBehaviour : MonoBehaviour
     {
+        [FormerlySerializedAs("wayPointer")] [SerializeField] private Route route;
         [SerializeField] private GameObject[] effectPrefabs;
         [SerializeField] private MobModel mobModel;
         private float _tickTimer;
+        private List<WayPoint> _waypointRoute;
+        private int _currentWaypointIndex;
+        private Vector3 direction;
+        public List<WayPoint> WaypointRoute => _waypointRoute;
+
+        public int CurrentWaypointIndex => _currentWaypointIndex;
+
+        
+        
         public List<Effect> CurrentEffects { get; } = new List<Effect>();
-
-        public Transform DefaultDestinationPoint { get; set; }
-
-        public Vector3 CurrentDestinationPoint
-        {
-            get
-            {
-                if (MobModel.MobNavMeshAgent.enabled)
-                    return MobModel.MobNavMeshAgent.destination;
-                return default;
-            }
-            set
-            {
-                if (MobModel.MobNavMeshAgent.enabled)
-                    MobModel.MobNavMeshAgent.SetDestination(value);
-            }
-        }
-
+        
         public MobModel MobModel => mobModel;
 
         public MobPortal MobPortal { get; protected set; }
@@ -58,7 +52,7 @@ namespace Mobs.MobsBehaviour
         public abstract BasicElement MobBasicElement { get; }
         public abstract BasicElement MobCounterElement { get; }
 
-        public abstract void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal);
+        public abstract void ExecuteOnMobSpawn(MobPortal mobPortal);
 
         protected abstract void HandleIncomeDamage(float damage, BasicElement damageElement);
 
@@ -164,7 +158,7 @@ namespace Mobs.MobsBehaviour
             }
         }
         
-        public void RespawnMobFromPool(Vector3 position)
+        public void RespawnMobFromPool(Vector3 position, Route routeToSet)
         {
             // Set mob position
             var mobTransform = transform;
@@ -178,6 +172,37 @@ namespace Mobs.MobsBehaviour
             
             // Set hp, speed & etc 
             mobModel.SetDefaultValues();
+            
+            // Set route values
+            if (_waypointRoute is null)
+                _waypointRoute = new List<WayPoint>();
+            
+            _currentWaypointIndex = 0;
+            route = routeToSet;
+            _waypointRoute = route.WayPoints;
+        }
+
+        public void HandleWaypointApproaching()
+        {
+            _currentWaypointIndex++;
+        }
+
+        protected virtual void MoveTowardsNextPoint()
+        {
+            print(_currentWaypointIndex);
+            var waypoint = new Vector3(_waypointRoute[_currentWaypointIndex].transform.position.x,
+                transform.position.y,
+                _waypointRoute[_currentWaypointIndex].transform.position.z);
+            direction = waypoint - transform.position;
+            mobModel.Rigidbody.velocity = direction  / direction.magnitude * mobModel.CurrentMobSpeed;
+        }
+
+        private void OnDrawGizmos()
+        {
+            var wp = new Vector3(_waypointRoute[_currentWaypointIndex].transform.position.x,
+                transform.position.y,
+                _waypointRoute[_currentWaypointIndex].transform.position.z);
+            Gizmos.DrawLine(wp, transform.position);
         }
     }
 }

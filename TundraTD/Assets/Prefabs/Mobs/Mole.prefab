@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5062424440734176190}
   - component: {fileID: 5062424440734176191}
   - component: {fileID: 5062424440734176176}
-  - component: {fileID: 9022292410985335615}
   - component: {fileID: 18473636742207615}
   - component: {fileID: 7685380235622344898}
   - component: {fileID: -4691575058523013016}
@@ -98,28 +97,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!195 &9022292410985335615
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5062424440734176177}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 1
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!114 &18473636742207615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,6 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 330704883c6b4304ebecadabaad6231d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  route: {fileID: 0}
   effectPrefabs: []
   mobModel: {fileID: 18473636742207615}
 --- !u!54 &-4691575058523013016
