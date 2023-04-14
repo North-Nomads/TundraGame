@@ -21,9 +21,8 @@ namespace Mobs.MobEffects
         public override bool OnAttach(MobBehaviour mob)
         {
             var stun = mob.CurrentEffects.OfType<StunEffect>().FirstOrDefault();
-            if (!(stun is null))
-                mob.CurrentEffects.Remove(stun);
-            
+            stun?.SetCurrentTicks(stun.MaxTicksAmount);
+
             mob.MobModel.CurrentMobSpeed = 0;
             mob.MobModel.Animator.SetBool("IsStunned", true);
             return true;

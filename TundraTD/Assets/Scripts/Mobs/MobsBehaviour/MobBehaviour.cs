@@ -56,7 +56,7 @@ namespace Mobs.MobsBehaviour
         {
             if (!MobModel.IsAlive) return;
 
-            damage = CurrentEffects.Aggregate(damage, (dmg, effect) => effect.OnHitReceived(this, dmg, damageElement));
+            damage = CurrentEffects.Aggregate(damage, (dmg, effect) => effect.OnHitReceived(dmg));
             HandleIncomeDamage(damage, damageElement);
             StartCoroutine(MobModel.ShowHitVFX());
             if (!MobModel.IsAlive)

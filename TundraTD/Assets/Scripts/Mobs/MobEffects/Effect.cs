@@ -1,7 +1,6 @@
 ﻿using Mobs.MobsBehaviour;
-using Spells;
 using System;
-using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Mobs.MobEffects
 {
@@ -29,6 +28,8 @@ namespace Mobs.MobEffects
         { }
 
         public void DoubleCurrentDuration() => CurrentTicksAmount /= 2;
+        
+        public void SetCurrentTicks(int value) => CurrentTicksAmount = value;
 
         protected void ClearThisEffectOnMob(MobBehaviour mob)
         {
@@ -37,7 +38,7 @@ namespace Mobs.MobEffects
             mob.CurrentEffects.Remove(this);
         }
 
-        public virtual float OnHitReceived(MobBehaviour mob, float damageAmount, BasicElement element) => damageAmount;
+        public virtual float OnHitReceived(float damageAmount) => damageAmount;
     }
 
     /// <summary>
