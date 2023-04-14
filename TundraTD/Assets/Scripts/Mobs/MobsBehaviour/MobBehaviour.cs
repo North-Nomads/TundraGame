@@ -88,8 +88,6 @@ namespace Mobs.MobsBehaviour
             // After adding effect to the list we can see the ticks 
             CurrentEffects.Add(effect);
             SetVFXPrefab(effect, true);
-
-
         }
 
         private void ClearMobEffects()

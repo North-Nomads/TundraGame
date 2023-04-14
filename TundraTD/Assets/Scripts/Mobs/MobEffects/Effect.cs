@@ -18,11 +18,7 @@ namespace Mobs.MobEffects
 
         public abstract VisualEffectCode Code { get; }
 
-        public virtual void HandleTick(MobBehaviour mob)
-        {
-            Debug.Log($"{CurrentTicksAmount}/{MaxTicksAmount}");
-            CurrentTicksAmount++;
-        }
+        public virtual void HandleTick(MobBehaviour mob) => CurrentTicksAmount++;
 
         public virtual bool OnAttach(MobBehaviour mob)
         {
