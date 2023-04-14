@@ -23,7 +23,7 @@ namespace Mobs.MobEffects
 
         public override void HandleTick(MobBehaviour mob)
         {
-            mob.HitThisMob(BurningDamage, BasicElement.Fire, "Fire.MeteoriteBurning");
+            mob.HitThisMob(BurningDamage, BasicElement.Fire);
             CurrentTicksAmount++;
         }
     }

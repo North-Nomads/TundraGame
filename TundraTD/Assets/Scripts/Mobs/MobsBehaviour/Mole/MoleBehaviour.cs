@@ -10,27 +10,19 @@ namespace Mobs.MobsBehaviour.Mole
     public class MoleBehaviour : MobBehaviour
     {
         private bool _isUnderground = true;
-        private MeshRenderer meshRenderer;
-        public override BasicElement MobBasicElement => BasicElement.Earth;
-        public override BasicElement MobCounterElement => BasicElement.Air;
+        private MeshRenderer _meshRenderer;
 
         protected override void HandleIncomeDamage(float damage, BasicElement damageElement)
         {
             if (damageElement == BasicElement.Fire) // если элемент заклинания земля, то выкидываем крота из земли
             {
                 _isUnderground = false;
-                meshRenderer.enabled = true;
+                _meshRenderer.enabled = true;
             }
 
             if (_isUnderground == false) // пока под землей урона нет
             {
-                var multiplier = 1f;
-                if (damageElement == MobBasicElement)
-                    multiplier = 0.8f;
-                else if (damageElement == MobCounterElement)
-                    multiplier = 1.2f;
-
-                MobModel.CurrentMobHealth -= damage * multiplier;
+                MobModel.CurrentMobHealth -= damage;
             }
         }
 
@@ -42,8 +34,8 @@ namespace Mobs.MobsBehaviour.Mole
 
         private void Start()
         {
-            meshRenderer = GetComponent<MeshRenderer>();
-            meshRenderer.enabled = false;
+            _meshRenderer = GetComponent<MeshRenderer>();
+            _meshRenderer.enabled = false;
 
         }
     }

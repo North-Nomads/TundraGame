@@ -99,7 +99,7 @@ namespace Spells.SpellClasses
                 return;
 
             var mob = other.GetComponent<MobBehaviour>();
-            mob.HitThisMob(SpikesDamage, BasicElement.Earth, "SpikesSpell");
+            mob.HitThisMob(SpikesDamage, BasicElement.Earth);
             mob.AddSingleEffect(new StunEffect(1));
         }
     }

@@ -25,7 +25,7 @@ namespace Mobs.MobsBehaviour
         
         public MobModel MobModel => mobModel;
 
-        public MobPortal MobPortal { get; protected set; }
+        protected MobPortal MobPortal { get; set; }
 
         protected float TickTimer
         {
@@ -43,14 +43,14 @@ namespace Mobs.MobsBehaviour
             }
         }
 
-        public abstract BasicElement MobBasicElement { get; }
-        public abstract BasicElement MobCounterElement { get; }
-
         public abstract void ExecuteOnMobSpawn(MobPortal mobPortal);
 
-        protected abstract void HandleIncomeDamage(float damage, BasicElement damageElement);
+        protected virtual void HandleIncomeDamage(float damage, BasicElement damageElement)
+        {
+            MobModel.CurrentMobHealth -= damage;
+        }
 
-        public void HitThisMob(float damage, BasicElement damageElement, string sourceName)
+        public void HitThisMob(float damage, BasicElement damageElement)
         {
             if (!MobModel.IsAlive) return;
 

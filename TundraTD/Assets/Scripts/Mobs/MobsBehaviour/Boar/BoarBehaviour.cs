@@ -1,5 +1,4 @@
-﻿using Spells;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Mobs.MobsBehaviour.Boar
 {
@@ -11,21 +10,7 @@ namespace Mobs.MobsBehaviour.Boar
     {
         private float _chargeLeftTime;
         private bool _isCharged;
-
-        public override BasicElement MobBasicElement => BasicElement.Earth;
-        public override BasicElement MobCounterElement => BasicElement.Air;
-
-        protected override void HandleIncomeDamage(float damage, BasicElement damageElement)
-        {
-            var multiplier = 1f;
-            if (damageElement == MobBasicElement)
-                multiplier = 0.8f;
-            else if (damageElement == MobCounterElement)
-                multiplier = 1.2f;
-
-            MobModel.CurrentMobHealth -= damage * multiplier;
-        }
-
+        
         public override void ExecuteOnMobSpawn(MobPortal mobPortal)
         {
             MobPortal = mobPortal;
