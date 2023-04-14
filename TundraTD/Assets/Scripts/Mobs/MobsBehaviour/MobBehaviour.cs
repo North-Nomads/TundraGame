@@ -193,13 +193,5 @@ namespace Mobs.MobsBehaviour
             var direction = waypoint - transform.position;
             mobModel.Rigidbody.velocity = direction  / direction.magnitude * mobModel.CurrentMobSpeed;
         }
-
-        private void OnDrawGizmos()
-        {
-            var wp = new Vector3(_waypointRoute[_currentWaypointIndex].transform.position.x,
-                transform.position.y,
-                _waypointRoute[_currentWaypointIndex].transform.position.z);
-            Gizmos.DrawLine(wp, transform.position);
-        }
     }
 }
