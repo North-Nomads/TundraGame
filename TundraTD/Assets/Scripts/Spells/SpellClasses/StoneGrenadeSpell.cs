@@ -13,6 +13,8 @@ namespace Spells.SpellClasses
         [SerializeField] private float liftTime;
         [SerializeField] private float lifeTime;
         [SerializeField] private ParticleSystem blowParticle;
+
+        private readonly Collider[] _grenadeExplosionResults = new Collider[100];
         
         private const int MobLayer = 1 << 8; 
         public override BasicElement Element => BasicElement.Earth | BasicElement.Air;
@@ -34,10 +36,10 @@ namespace Spells.SpellClasses
 
             var stonePosition = instantiatedStone.transform.position;
             Instantiate(blowParticle, stonePosition, Quaternion.identity); // Destroy after executing using particle system clear behaviour
-            var mobs = Physics.OverlapSphere(stonePosition, 5f, MobLayer);
-            foreach (var overlappedMob in mobs)
+            var size = Physics.OverlapSphereNonAlloc(stonePosition, 5f, _grenadeExplosionResults, MobLayer);
+            for (int i = 0; i < size; i++)
             {
-                var mob = overlappedMob.GetComponent<MobBehaviour>();
+                var mob = _grenadeExplosionResults[i].GetComponent<MobBehaviour>();
                 mob.AddReceivedEffects(new List<Effect>
                     { new InspirationEffect(), new StunEffect(1f.SecondsToTicks()) });
                 mob.HitThisMob(100, BasicElement.None, "Grenade");
