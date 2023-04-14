@@ -42,7 +42,7 @@ namespace Spells.SpellClasses
                 var mob = _grenadeExplosionResults[i].GetComponent<MobBehaviour>();
                 mob.AddReceivedEffects(new List<Effect>
                     { new InspirationEffect(), new StunEffect(1f.SecondsToTicks()) });
-                mob.HitThisMob(100, BasicElement.None, "Grenade");
+                mob.HitThisMob(100, BasicElement.None);
             }
 
             yield return new WaitForSeconds(lifeTime);
