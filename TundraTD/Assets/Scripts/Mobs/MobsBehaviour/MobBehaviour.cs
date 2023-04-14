@@ -34,6 +34,7 @@ namespace Mobs.MobsBehaviour
             {
                 if (value <= 0)
                 {
+                    print("Tick");
                     HandleAppliedEffects();
                     _tickTimer = Effect.BasicTickTime;
                     return;
@@ -81,9 +82,14 @@ namespace Mobs.MobsBehaviour
 
         public void AddSingleEffect(Effect effect)
         {
+            // Calling OnAttach anyways
+            if (!effect.OnAttach(this)) return;
+            
+            // After adding effect to the list we can see the ticks 
             CurrentEffects.Add(effect);
-            effect.OnAttach(this);
             SetVFXPrefab(effect, true);
+
+
         }
 
         private void ClearMobEffects()
