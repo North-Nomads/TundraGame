@@ -17,7 +17,7 @@ namespace Mobs.MobEffects
 
         public bool ContinueFreeze { get; set; }
         
-        public override int MaxTicksAmount { get; }
+        public override int MaxTicksAmount { get; protected set; }
         
         public override VisualEffectCode Code => VisualEffectCode.Freeze;
 

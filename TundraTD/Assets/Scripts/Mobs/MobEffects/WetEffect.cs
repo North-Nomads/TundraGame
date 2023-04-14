@@ -5,7 +5,7 @@
     /// </summary>
     public class WetEffect : Effect
     {
-        public override int MaxTicksAmount { get; }
+        public override int MaxTicksAmount { get; protected set; }
 
         public override VisualEffectCode Code => VisualEffectCode.Wet;
 

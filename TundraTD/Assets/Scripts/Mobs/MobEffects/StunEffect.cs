@@ -9,7 +9,7 @@ namespace Mobs.MobEffects
     /// </summary>
     public class StunEffect : Effect
     {
-        public override int MaxTicksAmount { get; }
+        public override int MaxTicksAmount { get; protected set; }
 
         public override VisualEffectCode Code => VisualEffectCode.Stun;
 

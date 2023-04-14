@@ -9,7 +9,7 @@ namespace Mobs.MobEffects
     public class BurningEffect : Effect
     {
         public bool CanBeExtinguished { get; set; }
-        public override int MaxTicksAmount { get; }
+        public override int MaxTicksAmount { get; protected set; }
         private float BurningDamage { get; }
 
         public override VisualEffectCode Code => VisualEffectCode.MeteoriteBurning;
