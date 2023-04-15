@@ -49,17 +49,16 @@ namespace Mobs.MobsBehaviour.Squirrel
             float mindistance = 10000;
             if (!_isJumping)
             {
-                _allTrees = Physics.OverlapSphere(transform.position, 5, layerMask);
+                _allTrees = Physics.OverlapSphere(transform.position, 10, layerMask);
                 Color color2 = new Color(0,0,0);
                 GetComponent<MeshRenderer>().material.SetColor("_Color", color2);
             }
             else
             {
-                _allTrees = Physics.OverlapSphere(transform.position, 1, layerMask);
+                _allTrees = Physics.OverlapSphere(transform.position, 3, layerMask);
             }
             foreach(var _tree in _allTrees)
             {
-                print(_tree);
                 if (_previousTreeCords != _tree.transform.position)
                 {
                     var heading = _tree.transform.position - transform.position;
@@ -68,15 +67,15 @@ namespace Mobs.MobsBehaviour.Squirrel
                     float gatesdistance = Vector3.Distance(_tree.transform.position, DefaultDestinationPoint.position);
                     if (treeDistance < mindistance && dot > -5 && _minorDistanceToGates > gatesdistance)
                     {
-                        _minorDistanceToGates = gatesdistance;
                         mindistance = treeDistance;
                         _treeCords = _tree.gameObject.transform.position;
                         _isTreeNotTouched = true;
+                        if (_isJumping)
+                            _minorDistanceToGates = gatesdistance;
                     }
                 }
             }
             if (!_isTreeNotTouched){
-                print(1);
                 MobModel.MobNavMeshAgent.SetDestination(DefaultDestinationPoint.position);
             }
             else
@@ -87,11 +86,12 @@ namespace Mobs.MobsBehaviour.Squirrel
                     _isTreeNotTouched = false;
                     Color color = new Color(255,0,0);
                     this.GetComponent<MeshRenderer>().material.SetColor("_Color", color);
+                    _minorDistanceToGates = Vector3.Distance(transform.position, DefaultDestinationPoint.position);
                 }
                 yield return new WaitForSeconds(1);
             }
             _previousTreeCords = _treeCords;
-            Collider[] _nearTrees = Physics.OverlapSphere(transform.position, 1, layerMask);
+            Collider[] _nearTrees = Physics.OverlapSphere(transform.position, 3, layerMask);
             foreach(var _tree in _nearTrees)
             {
                 var heading = _tree.transform.position - transform.position;
