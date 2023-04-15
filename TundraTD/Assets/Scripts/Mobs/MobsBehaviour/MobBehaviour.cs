@@ -16,7 +16,7 @@ namespace Mobs.MobsBehaviour
         [SerializeField] private GameObject[] effectPrefabs;
         [SerializeField] private MobModel mobModel;
         private float _tickTimer;
-        private WayPoint[] _waypointRoute = new WayPoint[100];
+        private WayPoint[] _waypointRoute;
         private int _currentWaypointIndex;
         
         protected MobPortal MobPortal { get; set; }
