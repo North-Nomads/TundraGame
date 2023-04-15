@@ -28,8 +28,8 @@ namespace Spells.SpellClasses
             var time = 0f;
             while (time < liftTime)
             {
-                var lerpedY = Mathf.Lerp(0, 1, time / liftTime);
-                instantiatedStone.transform.position += Vector3.up * lerpedY;
+                var interpolatedY = Mathf.Lerp(0, 1, time / liftTime);
+                instantiatedStone.transform.position += Vector3.up * interpolatedY;
                 time += Time.deltaTime;
                 yield return null;
             }
