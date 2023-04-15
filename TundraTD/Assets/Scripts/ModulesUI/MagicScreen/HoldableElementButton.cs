@@ -19,7 +19,7 @@ namespace ModulesUI.MagicScreen
         {
             _elementAudioSource = GetComponent<AudioSource>();
             _elementAudioSource.volume = GameParameters.EffectsVolumeModifier;
-            _charge = new ElementCharge();
+            _charge = PlayerDeck.ElementCharges[element];
         }
 
         private void FixedUpdate()
@@ -30,7 +30,7 @@ namespace ModulesUI.MagicScreen
 
         public void AddElementToDeck()
         {
-            if (PlayerDeck.DeckElements.Count == 3)
+            if (PlayerDeck.DeckElements.Count == 3 || _charge.CurrentCharges < 1)
                 return;
             _charge.CurrentCharges--;
             PlayerDeck.DeckElements.Add(element);

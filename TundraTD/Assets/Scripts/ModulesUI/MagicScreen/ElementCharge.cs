@@ -33,7 +33,19 @@ namespace ModulesUI.MagicScreen
                     _currentTime = 0;
                 }
             }
-            else _currentTime = 0;
+            else
+            {
+                _currentTime = 0;
+            }
+        }
+
+        public void ReturnCharge()
+        {
+            if (CurrentCharges < MaxCharges)
+            {
+                CurrentCharges++;
+                _currentTime = 0;
+            }
         }
     }
 }
