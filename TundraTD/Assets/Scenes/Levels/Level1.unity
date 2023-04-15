@@ -130,7 +130,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 25535409}
-  - component: {fileID: 25535410}
   m_Layer: 0
   m_Name: Waypoints
   m_TagString: Untagged
@@ -157,24 +156,6 @@ Transform:
   m_Father: {fileID: 995829850}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &25535410
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 25535408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82cfdf39596342108a60f1cb2661c30b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wayPoints:
-  - {fileID: 78830693}
-  - {fileID: 1929409281}
-  - {fileID: 954410203}
-  - {fileID: 529390419}
-  - {fileID: 462043803}
 --- !u!4 &42438654 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8363830078564196820, guid: fe1ded487ac183946a041cefa87a526e,
@@ -1255,7 +1236,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 462043801}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.553, y: -1.76, z: 10.25}
+  m_LocalPosition: {x: 2.553, y: -1.76, z: 11.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 25535409}
@@ -3162,7 +3143,7 @@ PrefabInstance:
         type: 3}
       propertyPath: route
       value: 
-      objectReference: {fileID: 25535410}
+      objectReference: {fileID: 0}
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
       propertyPath: infoPanel

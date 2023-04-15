@@ -1,6 +1,5 @@
 ﻿using Mobs.MobsBehaviour;
 using System;
-using UnityEngine.Rendering;
 
 namespace Mobs.MobEffects
 {
@@ -13,7 +12,7 @@ namespace Mobs.MobEffects
 
         public int CurrentTicksAmount { get; protected set; }
 
-        public abstract int MaxTicksAmount { protected set; get; }
+        public abstract int MaxTicksAmount { get; protected set;  }
 
         public abstract VisualEffectCode Code { get; }
 
@@ -28,8 +27,6 @@ namespace Mobs.MobEffects
         { }
 
         public void DoubleCurrentDuration() => MaxTicksAmount *= 2;
-        
-        public void SetCurrentTicks(int value) => CurrentTicksAmount = value;
 
         protected void ClearThisEffectOnMob(MobBehaviour mob)
         {
