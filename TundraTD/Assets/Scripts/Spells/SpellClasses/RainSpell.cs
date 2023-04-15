@@ -79,15 +79,8 @@ namespace Spells
             }
         }
 
-        private void ApplyEffects(MobBehaviour mob)
-        {
-            // Add here basic effects
-            var effects = new List<Effect>()
-            {
-                new SlownessEffect(1 - SlownessValue, EffectTime.SecondsToTicks()),
-                new VulnerabilityEffect(EffectTime.SecondsToTicks(), BasicElement.Lightning, 1 / LightningMultiplier)
-            };
-            mob.AddReceivedEffects(effects);
-        }
+        private void ApplyEffects(MobBehaviour mob) =>
+            mob.AddSingleEffect(new SlownessEffect(1 - SlownessValue, EffectTime.SecondsToTicks()));
+
     }
 }
