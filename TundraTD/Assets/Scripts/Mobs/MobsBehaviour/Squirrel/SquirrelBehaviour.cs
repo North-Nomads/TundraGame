@@ -49,16 +49,17 @@ namespace Mobs.MobsBehaviour.Squirrel
             float mindistance = 10000;
             if (!_isJumping)
             {
-                _allTrees = Physics.OverlapSphere(transform.position, 10, layerMask);
+                _allTrees = Physics.OverlapSphere(transform.position, 5, layerMask);
                 Color color2 = new Color(0,0,0);
                 GetComponent<MeshRenderer>().material.SetColor("_Color", color2);
             }
             else
             {
-                _allTrees = Physics.OverlapSphere(transform.position, 3, layerMask);
+                _allTrees = Physics.OverlapSphere(transform.position, 1, layerMask);
             }
             foreach(var _tree in _allTrees)
             {
+                print(_tree);
                 if (_previousTreeCords != _tree.transform.position)
                 {
                     var heading = _tree.transform.position - transform.position;
@@ -74,7 +75,12 @@ namespace Mobs.MobsBehaviour.Squirrel
                     }
                 }
             }
-            MobModel.MobNavMeshAgent.SetDestination(_treeCords);
+            if (!_isTreeNotTouched){
+                print(1);
+                MobModel.MobNavMeshAgent.SetDestination(DefaultDestinationPoint.position);
+            }
+            else
+                MobModel.MobNavMeshAgent.SetDestination(_treeCords);
             while (_isTreeNotTouched){
                 if (Vector3.Distance(transform.position, _treeCords) < 1.05)
                 {
@@ -85,7 +91,7 @@ namespace Mobs.MobsBehaviour.Squirrel
                 yield return new WaitForSeconds(1);
             }
             _previousTreeCords = _treeCords;
-            Collider[] _nearTrees = Physics.OverlapSphere(transform.position, 3, layerMask);
+            Collider[] _nearTrees = Physics.OverlapSphere(transform.position, 1, layerMask);
             foreach(var _tree in _nearTrees)
             {
                 var heading = _tree.transform.position - transform.position;
