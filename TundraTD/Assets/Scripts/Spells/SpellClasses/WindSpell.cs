@@ -31,35 +31,20 @@ namespace Spells
 
         public float SlownessDuration { get; set; } = 6f;
 
-        public override BasicElement Element => BasicElement.Air;
-
+        public override BasicElement Element => BasicElement.Air;    
        
-        private IEnumerator WaitTime()
-        {
-            yield return new WaitForSeconds(SpellDuration);
-            mainCollider.enabled = false;
-            yield return new WaitForSeconds(1);
-            Destroy(gameObject);
-        }
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Mob"))
             {
                 var mob = other.GetComponent<MobBehaviour>();
-                if (!mob.CurrentEffects.OfType<SlownessEffect>().Any())
-                    mob.AddSingleEffect(new SlownessEffect(SlownessValue, SlownessDuration.SecondsToTicks()));
-            }
-        }
+                if (!mob.CurrentEffects.OfType<WetEffect>().Any())                    
+                    mob.RemoveFilteredEffects(x => x is WetEffect effect);
 
-        private void OnTriggerStay(Collider other)
-        {
-            if (other.CompareTag("Mob"))
-            {
-                var mob = other.gameObject.GetComponent<MobBehaviour>();
-                mob.RemoveFilteredEffects(x => x is WetEffect effect);
+                mob.AddSingleEffect(new SlownessEffect(SlownessValue, SlownessDuration.SecondsToTicks()));
             }
-        }
+        }        
 
         public override void ExecuteSpell(RaycastHit hitInfo)
         {
@@ -72,9 +57,12 @@ namespace Spells
 
         IEnumerator StayAlive()
         {
+            //Overlapsphere - накладываю замедление
             yield return new WaitForSeconds(SpellDuration);
+            //Overlapsphere - снять замедление
             Destroy(gameObject);
         }
         
+        // OnTriggerExit - Снимаю замедление
     }
 }
