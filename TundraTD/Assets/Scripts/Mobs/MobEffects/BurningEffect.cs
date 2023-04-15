@@ -3,13 +3,16 @@ using Spells;
 
 namespace Mobs.MobEffects
 {
+    /// <summary>
+    /// Hit mob with constant damage over time
+    /// </summary>
     public class BurningEffect : Effect
     {
         private float BurningDamage { get; }
 
         public bool CanBeExtinguished { get; set; }
 
-        public override int MaxTicksAmount { get; }
+        public override int MaxTicksAmount { get; protected set; }
 
         public override VisualEffectCode Code => VisualEffectCode.MeteoriteBurning;
 
@@ -22,7 +25,7 @@ namespace Mobs.MobEffects
 
         public override void HandleTick(MobBehaviour mob)
         {
-            mob.HitThisMob(BurningDamage, BasicElement.Fire, "Fire.Burning");
+            mob.HitThisMob(BurningDamage, BasicElement.Fire);
             CurrentTicksAmount++;
         }
     }

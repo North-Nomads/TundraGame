@@ -1,4 +1,5 @@
 using System.Collections;
+using Level;
 using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
 using UnityEngine;
@@ -99,8 +100,8 @@ namespace Spells.SpellClasses
                 return;
 
             var mob = other.GetComponent<MobBehaviour>();
-            mob.HitThisMob(SpikesDamage, BasicElement.Earth, "SpikesSpell");
-            mob.AddSingleEffect(new SpikesStunEffect(1));
+            mob.HitThisMob(SpikesDamage, BasicElement.Earth);
+            mob.AddSingleEffect(new StunEffect(1f.SecondsToTicks()));
         }
     }
 }

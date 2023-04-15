@@ -42,7 +42,7 @@ namespace Spells
                 for (int i = 0; i < mobsAmount; i++)
                 {
                     var mob = mobs[i].GetComponent<MobBehaviour>();
-                    mob.HitThisMob(damage, BasicElement.Fire, nameof(LavaSpell));
+                    mob.HitThisMob(damage, BasicElement.Fire);
                 }
                 time += damageDelay;
             }
