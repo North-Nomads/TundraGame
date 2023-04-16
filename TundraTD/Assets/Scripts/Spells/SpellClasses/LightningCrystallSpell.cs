@@ -6,7 +6,7 @@ using UnityEngine;
 public class LightningCrystallSpell : MagicSpell
 {
     private List<Rigidbody> _mobs = new List<Rigidbody>();
-    private float t = 0;
+    private float time = 0;
 
     [SerializeField] float pullForce;
     [SerializeField] float timeToLive;
@@ -28,27 +28,30 @@ public class LightningCrystallSpell : MagicSpell
 
     private void FixedUpdate()
     {
-        _mobs.Where(mob => !mob.gameObject.activeSelf).ToList().ForEach(mob => _mobs.Remove(mob));
+        _mobs.ForEach(mob => { if (!mob.gameObject.activeSelf) _mobs.Remove(mob); });
 
         _mobs.ForEach(mob => mob.AddForce(new Vector3
             (mob.transform.position.x - transform.position.x, mob.transform.position.y - transform.position.y, mob.transform.position.z - transform.position.z).normalized * pullForce * -1, ForceMode.Force));
+        
 
     }
 
     private void Start()
     {
-        Physics.OverlapSphere(transform.position, GetComponent<SphereCollider>().radius).ToList().ForEach(coll =>
+        Collider[] colliders = new Collider[200];
+        Physics.OverlapSphereNonAlloc(transform.position, GetComponent<SphereCollider>().radius, colliders);
+        foreach(Collider coll in colliders)
         {
             if (coll.gameObject.TryGetComponent(out Rigidbody mob))
                 _mobs.Add(mob);
-        });
+        }
     }
 
     private void Update()
     {
-        t += Time.deltaTime;
+        time += Time.deltaTime;
 
-        if (t > timeToLive)
+        if (time > timeToLive)
             Destroy(gameObject);
     }
     public override void ExecuteSpell(RaycastHit hitInfo)
