@@ -6,7 +6,6 @@ using System.Collections;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEngine.Internal;
 namespace Spells
 {
     public class StormCloudSpell : MagicSpell
@@ -33,13 +32,12 @@ namespace Spells
         private void OnTriggerStay(Collider other)
         {
             countDown -= Time.deltaTime;
-            if (countDown < 0)
+            if (countDown < 0 && other.CompareTag("Mob"))
             {
                 var mob = other.GetComponent<MobBehaviour>();
                 mob.ClearMobEffects();
                 mob.HitThisMob(stormCloudDamage, BasicElement.Lightning, "StormCloudDamage");
-                if (!mob.CurrentEffects.OfType<SpikesStunEffect>().Any())
-                //mob.AddSingleEffect(new SpikesStunEffect(1));
+                mob.AddSingleEffect(new SpikesStunEffect(1));
                 countDown = delayLightning;
             }
         }
