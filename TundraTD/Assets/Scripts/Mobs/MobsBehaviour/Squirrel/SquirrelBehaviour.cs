@@ -13,7 +13,7 @@ namespace Mobs.MobsBehaviour.Squirrel
         private float _minorDistanceToGates = 10000;
         private Vector3 _previousTreeCords;
         private bool _isTreeNotTouched = false;
-        private int layerId = 13;
+        private int squirrelTarget = 13;
         
         [SerializeField] private float mobShield;
 
@@ -40,22 +40,62 @@ namespace Mobs.MobsBehaviour.Squirrel
 
             DefaultDestinationPoint = gates;
             MobModel.MobNavMeshAgent.enabled = true;
-            StartCoroutine(FindTree());
+            StartCoroutine(ScanForTrees());
         }
 
-        private IEnumerator FindTree()
+        Vector3 GetClosestTree(Collider[] trees)
         {
-            int layerMask = 1 << layerId;
-            float mindistance = 10000;
+            Vector3 tMin = Vector3.zero;
+            float minDist = Mathf.Infinity;
+            Vector3 currentPos = transform.position;
+            foreach (Collider t in trees)
+            {
+                float dist = Vector3.Distance(t.transform.position, currentPos);
+                if (dist < minDist)
+                {
+                    tMin = t.transform.position;
+                    minDist = dist;
+                }
+            }
+            return tMin;
+        }
+
+        private IEnumerator PerformTreeJumping()
+        {
+            if (_isJumping)
+            {
+                _isTreeNotTouched = false;
+                Vector3 closestTree = GetClosestTree(_allTrees);
+                while (!_isTreeNotTouched)
+                {
+                    if (Vector3.Distance(transform.position, closestTree) < 1.05)
+                    {
+                        _isTreeNotTouched = true;
+                    }
+                    yield return new WaitForSeconds(1f);
+                }
+                MobModel.MobNavMeshAgent.SetDestination(closestTree);
+                StartCoroutine(PerformTreeJumping());
+            }
+            else
+            {
+                yield return new WaitForSeconds(1f);
+            }
+        }
+
+        /*private IEnumerator FindTree()
+        {
+            int squirrelTargetMask = 1 << squirrelTarget;
+            float mindistance = Mathf.Infinity;
             if (!_isJumping)
             {
-                _allTrees = Physics.OverlapSphere(transform.position, 10, layerMask);
+                _allTrees = Physics.OverlapSphere(transform.position, 10, squirrelTargetMask);
                 Color color2 = new Color(0,0,0);
                 GetComponent<MeshRenderer>().material.SetColor("_Color", color2);
             }
             else
             {
-                _allTrees = Physics.OverlapSphere(transform.position, 3, layerMask);
+                _allTrees = Physics.OverlapSphere(transform.position, 3, squirrelTargetMask);
             }
             foreach(var _tree in _allTrees)
             {
@@ -91,7 +131,7 @@ namespace Mobs.MobsBehaviour.Squirrel
                 yield return new WaitForSeconds(1);
             }
             _previousTreeCords = _treeCords;
-            Collider[] _nearTrees = Physics.OverlapSphere(transform.position, 3, layerMask);
+            Collider[] _nearTrees = Physics.OverlapSphere(transform.position, 3, squirrelTargetMask);
             foreach(var _tree in _nearTrees)
             {
                 var heading = _tree.transform.position - transform.position;
@@ -116,6 +156,27 @@ namespace Mobs.MobsBehaviour.Squirrel
             else
             {
                 StartCoroutine(FindTree());
+            }
+        }*/
+
+        private IEnumerator ScanForTrees()
+        {
+            while (!_isJumping)
+            {
+                var size = Physics.OverlapSphereNonAlloc(transform.position, 100, _allTrees, 1 << squirrelTarget);
+                Color color2 = new Color(0,0,0);
+                GetComponent<MeshRenderer>().material.SetColor("_Color", color2);
+                if (size > 0)
+                {
+                    Color color = new Color(255,0,0);
+                    this.GetComponent<MeshRenderer>().material.SetColor("_Color", color);
+                    _isJumping = true;
+                    StartCoroutine(PerformTreeJumping());
+                }
+                else
+                {
+                    yield return new WaitForSeconds(1f);
+                }
             }
         }
 
