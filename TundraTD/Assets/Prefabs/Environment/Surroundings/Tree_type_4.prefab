@@ -870,7 +870,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8120053604985177599}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Tree_type_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}

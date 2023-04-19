@@ -152,7 +152,7 @@ MonoBehaviour:
   mobSprite: {fileID: 21300076, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
   maxMobHealth: 70
   defaultMobDamage: 10
-  defaultMobSpeed: 16.23
+  defaultMobSpeed: 3
   renderer: {fileID: 3889406993178295795}
   defaultMaterial: {fileID: 2100000, guid: 41193ebfd3ac03846a19a7cf0a1d82a8, type: 2}
   rigidbody: {fileID: 3363468306067426943}
