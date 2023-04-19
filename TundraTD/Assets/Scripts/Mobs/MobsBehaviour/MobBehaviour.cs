@@ -181,13 +181,13 @@ namespace Mobs.MobsBehaviour
             CurrentWaypointIndex++;
         }
 
-        protected virtual void MoveTowardsNextPoint(Vector3 waypoint = default(Vector3))
+        protected void MoveTowardsNextPoint(Vector3 waypoint = default)
         {
             if (waypoint == Vector3.zero) 
                 waypoint = new Vector3(WaypointRoute[CurrentWaypointIndex].transform.position.x, transform.position.y,
                     WaypointRoute[CurrentWaypointIndex].transform.position.z);
             var direction = waypoint - transform.position;
-            mobModel.Rigidbody.velocity = direction  / direction.magnitude * mobModel.CurrentMobSpeed;
+            mobModel.Rigidbody.velocity = direction / direction.magnitude * mobModel.CurrentMobSpeed;
         }
     }
 }

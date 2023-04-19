@@ -6,19 +6,25 @@ namespace Mobs.MobsBehaviour.Squirrel
     public class SquirrelBehaviour : MobBehaviour
     {
         private const int TreeLayerIndex = 13;
+        private const float ScanRadius = 8f;
         private const float ScanMaxCooldownTime = 3f;
         
         private Vector3 _treePosition;
         private Vector3 _destinationPoint;
         private float _scanCooldownTime;
         private Collider[] _overlappedTrees;
-        private bool _isOnTheGround;
+        private bool _isInTreeMode;
+
+
+        private bool IsTreeCloseEnough => Vector3.Distance(transform.position, _treePosition) < 1f;
+
 
         public override void ExecuteOnMobSpawn(MobPortal mobPortal)
         {
             MobPortal = mobPortal;
             MobModel.InstantiateMobModel();
             _overlappedTrees = new Collider[64];
+            _treePosition = Vector3.positiveInfinity;
         }
 
         /// <summary>
@@ -32,6 +38,10 @@ namespace Mobs.MobsBehaviour.Squirrel
             for (int i = 0; i < size; i++)
             {
                 var tree = _overlappedTrees[i];
+                // If this tree is not the tree we have pointed at last time
+                if (tree.transform.position == _treePosition)
+                    continue;
+                
                 float distance = Vector3.Distance(tree.transform.position, transform.position);
                 if (distance < minDistance)
                 {
@@ -42,46 +52,34 @@ namespace Mobs.MobsBehaviour.Squirrel
 
             return result;
         }
-
-        private void MoveTowardsPoint()
-        {
-            var direction = _destinationPoint - transform.position;
-            MobModel.Rigidbody.velocity = direction / direction.magnitude * MobModel.CurrentMobSpeed;   
-            Debug.Log(MobModel.Rigidbody.velocity.magnitude);
-        }
-
+        
         private void FixedUpdate()
         {
             HandleTickTimer();
-            /*if (_isOnTheGround)
-                _destinationPoint = WaypointRoute[CurrentWaypointIndex].transform.position;*/
-            
-            var size = Physics.OverlapSphereNonAlloc(transform.position, 100, _overlappedTrees, 1 << TreeLayerIndex);
-            var scanResult = GetClosestTree(size);
-            _isOnTheGround = size == 0 && !scanResult.HasValue;
-            if (_isOnTheGround)
+            ScanTreesAround();
+
+            if (_isInTreeMode)
             {
-                MoveTowardsNextPoint();
+                MoveTowardsNextPoint(_treePosition);
             }
             else
             {
-                MoveTowardsNextPoint(scanResult.Value);
+                MoveTowardsNextPoint();
             }
+        }
 
-            /*
-            _scanCooldownTime -= Time.deltaTime;
-            if (_scanCooldownTime > 0f)
-                return;
-            _scanCooldownTime = ScanMaxCooldownTime;
-            
-            print("Scanning...");
-            var size = Physics.OverlapSphereNonAlloc(transform.position, 100, _overlappedTrees, 1 << TreeLayerIndex);
+        private void ScanTreesAround()
+        {
+            var size = Physics.OverlapSphereNonAlloc(transform.position, ScanRadius, _overlappedTrees, 1 << TreeLayerIndex);
             var scanResult = GetClosestTree(size);
-            // if there are no trees -> stay on the ground and follow the waypoints 
-             
-            print($"Result: {_isOnTheGround} | {size}, {scanResult}" );
-            if (!_isOnTheGround)
-                _destinationPoint = scanResult.Value;*/
+            print(scanResult);
+
+            _isInTreeMode = scanResult.HasValue;
+            
+            if (!scanResult.HasValue)
+                return;
+            
+            _treePosition = scanResult.Value;
         }
     }
 }
