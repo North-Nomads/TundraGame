@@ -1,5 +1,4 @@
 using System.Collections;
-using Spells;
 using UnityEngine;
 
 namespace Mobs.MobsBehaviour.Squirrel
@@ -7,65 +6,52 @@ namespace Mobs.MobsBehaviour.Squirrel
     [RequireComponent(typeof(MobModel))]
     public class SquirrelBehaviour : MobBehaviour
     {
+        private const int TreeLayerIndex = 13;
+
         private Vector3 _treeCords;
         private Collider[] _allTrees;
-        private bool _isJumping = false;
-        private float _minorDistanceToGates = 10000;
+        private bool _isTreeJumping;
         private Vector3 _previousTreeCords;
-        private bool _isTreeNotTouched = false;
-        private int squirrelTarget = 13;
-        
-        [SerializeField] private float mobShield;
+        private bool _isTreeNotTouched;
 
-
-        public override BasicElement MobBasicElement => BasicElement.Earth;
-        public override BasicElement MobCounterElement => BasicElement.Air;
-
-
-        protected override void HandleIncomeDamage(float damage, BasicElement damageElement)
-        {
-            var multiplier = 1f;
-            if (damageElement == MobBasicElement)
-                multiplier = 0.8f;
-            else if (damageElement == MobCounterElement)
-                multiplier = 1.2f;
-
-            MobModel.CurrentMobHealth -= damage * multiplier;
-        }
-
-        public override void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal)
+        public override void ExecuteOnMobSpawn(MobPortal mobPortal)
         {
             MobPortal = mobPortal;
             MobModel.InstantiateMobModel();
-
-            DefaultDestinationPoint = gates;
-            MobModel.MobNavMeshAgent.enabled = true;
+            
             StartCoroutine(ScanForTrees());
         }
 
-        Vector3 GetClosestTree(Collider[] trees)
+        /// <summary>
+        /// Overlaps around the mobs and gets the closest and the best fit option to move towards
+        /// </summary>
+        /// <param name="trees"></param>
+        /// <returns>A vector3 point to move towards to</returns>
+        private Vector3 GetClosestTree()
         {
             Vector3 tMin = Vector3.zero;
-            float minDist = Mathf.Infinity;
             Vector3 currentPos = transform.position;
-            foreach (Collider t in trees)
+            float minDist = Mathf.Infinity;
+            foreach (Collider t in _allTrees)
             {
                 float dist = Vector3.Distance(t.transform.position, currentPos);
-                if (dist < minDist)
-                {
-                    tMin = t.transform.position;
-                    minDist = dist;
-                }
+                
+                if (!(dist < minDist)) continue;
+                tMin = t.transform.position;
+                minDist = dist;
             }
             return tMin;
         }
 
+        /// <summary>
+        /// Jumping between trees
+        /// </summary>
         private IEnumerator PerformTreeJumping()
         {
-            if (_isJumping)
+            if (_isTreeJumping)
             {
                 _isTreeNotTouched = false;
-                Vector3 closestTree = GetClosestTree(_allTrees);
+                Vector3 closestTree = GetClosestTree();
                 while (!_isTreeNotTouched)
                 {
                     if (Vector3.Distance(transform.position, closestTree) < 1.05)
@@ -74,7 +60,7 @@ namespace Mobs.MobsBehaviour.Squirrel
                     }
                     yield return new WaitForSeconds(1f);
                 }
-                MobModel.MobNavMeshAgent.SetDestination(closestTree);
+                //MobModel.MobNavMeshAgent.SetDestination(closestTree);
                 StartCoroutine(PerformTreeJumping());
             }
             else
@@ -83,6 +69,41 @@ namespace Mobs.MobsBehaviour.Squirrel
             }
         }
 
+        /// <summary>
+        /// Scans nearby area to get the nearest tree if it exists with the cooldown of 1 second
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator ScanForTrees()
+        {
+            while (!_isTreeJumping)
+            {
+                var size = Physics.OverlapSphereNonAlloc(transform.position, 100, _allTrees, 1 << TreeLayerIndex);
+                if (size > 0)
+                {
+                    // For debug purpose only, paint squirrel red to show it's busy
+                    var color = new Color(255,0,0);
+                    GetComponent<MeshRenderer>().material.SetColor("_Color", color);
+                    
+                    _isTreeJumping = true;
+                    StartCoroutine(PerformTreeJumping());
+                }
+                else
+                {
+                    var color2 = new Color(0,0,0);
+                    GetComponent<MeshRenderer>().material.SetColor("_Color", color2);
+                    yield return new WaitForSeconds(1f);
+                }
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            if (!_isTreeJumping)
+                MoveTowardsNextPoint();
+            
+            HandleTickTimer();
+        }
+        
         /*private IEnumerator FindTree()
         {
             int squirrelTargetMask = 1 << squirrelTarget;
@@ -158,32 +179,5 @@ namespace Mobs.MobsBehaviour.Squirrel
                 StartCoroutine(FindTree());
             }
         }*/
-
-        private IEnumerator ScanForTrees()
-        {
-            while (!_isJumping)
-            {
-                var size = Physics.OverlapSphereNonAlloc(transform.position, 100, _allTrees, 1 << squirrelTarget);
-                Color color2 = new Color(0,0,0);
-                GetComponent<MeshRenderer>().material.SetColor("_Color", color2);
-                if (size > 0)
-                {
-                    Color color = new Color(255,0,0);
-                    this.GetComponent<MeshRenderer>().material.SetColor("_Color", color);
-                    _isJumping = true;
-                    StartCoroutine(PerformTreeJumping());
-                }
-                else
-                {
-                    yield return new WaitForSeconds(1f);
-                }
-            }
-        }
-
-        private void FixedUpdate()
-        {
-            if (CurrentEffects.Count > 0)
-                TickTimer -= Time.fixedDeltaTime;
-        }
     }
 }
