@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
+  m_IndirectSpecularColor: {r: 0.43667555, g: 0.48427182, b: 0.5645241, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1408,9 +1408,9 @@ MonoBehaviour:
   - {fileID: 6680923661109867143, guid: 322fe369764485745997b9ae6cbd40a5, type: 3}
   - {fileID: -4578980917677416286, guid: 63c23b93473c487498b3a119909f2730, type: 3}
   - {fileID: 2365149872849786638, guid: a3fa6d8a17e428d4bb7520f913ca497a, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 9218577674572230811, guid: b6bf0bd0e73be4143a0ea870f00e9399, type: 3}
+  - {fileID: 3135699678937307733, guid: c9d82eb52e2b4e745927ed2aa3eb9b60, type: 3}
+  - {fileID: 8208963260508828548, guid: 16ec26eca3e1b334b8aa415444f00119, type: 3}
   - {fileID: 0}
   mobPools: []
 --- !u!1001 &629340765
