@@ -7,7 +7,7 @@ namespace Spells
 {
     public class BallLightningSpell : MagicSpell
     {
-        private float t = 0;
+        private float time = 0;
 
         [SerializeField] private float timeToDetonate;
         [SerializeField] private float detonationRadius;
@@ -23,8 +23,8 @@ namespace Spells
 
         private void Update()
         {
-            t += Time.deltaTime;
-            if (t >= timeToDetonate)
+            time += Time.deltaTime;
+            if (time >= timeToDetonate)
                 Detonate();
         }
         private void Detonate()
@@ -32,7 +32,7 @@ namespace Spells
             Physics.OverlapSphere(transform.position, detonationRadius).ToList().ForEach(coll =>
             {
                 if (coll.gameObject.TryGetComponent(out MobBehaviour mob))
-                    mob.HitThisMob(Mathf.Lerp(minDamage, maxDamage, t / timeToDetonate), BasicElement.Lightning, "Ball lightning");
+                    mob.HitThisMob(Mathf.Lerp(minDamage, maxDamage, time / timeToDetonate), BasicElement.Lightning, "Ball lightning");
             });
             Destroy(gameObject);
         }
