@@ -56,7 +56,10 @@ namespace Mobs.MobsBehaviour.Squirrel
         private void FixedUpdate()
         {
             HandleTickTimer();
-            ScanTreesAround();
+
+            _scanCooldownTime -= Time.deltaTime;
+            if (_scanCooldownTime <= 0f)
+                ScanTreesAround();
 
             if (_isInTreeMode)
             {
@@ -70,16 +73,16 @@ namespace Mobs.MobsBehaviour.Squirrel
 
         private void ScanTreesAround()
         {
+            _scanCooldownTime = ScanMaxCooldownTime;
+            
             var size = Physics.OverlapSphereNonAlloc(transform.position, ScanRadius, _overlappedTrees, 1 << TreeLayerIndex);
             var scanResult = GetClosestTree(size);
-            print(scanResult);
-
-            _isInTreeMode = scanResult.HasValue;
             
+            _isInTreeMode = scanResult.HasValue;
             if (!scanResult.HasValue)
                 return;
-            
             _treePosition = scanResult.Value;
+            
         }
     }
 }
