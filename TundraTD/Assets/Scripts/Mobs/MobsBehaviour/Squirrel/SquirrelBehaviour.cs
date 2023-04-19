@@ -56,9 +56,10 @@ namespace Mobs.MobsBehaviour.Squirrel
         private void FixedUpdate()
         {
             HandleTickTimer();
+            
 
             _scanCooldownTime -= Time.deltaTime;
-            if (_scanCooldownTime <= 0f)
+            if (_scanCooldownTime <= 0f || IsTreeCloseEnough)
                 ScanTreesAround();
 
             if (_isInTreeMode)
