@@ -1,11 +1,8 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.Serialization;
 
 namespace Mobs
 {
-    [RequireComponent(typeof(NavMeshAgent))]
     public class MobModel : MonoBehaviour
     {
         [SerializeField]
@@ -38,14 +35,11 @@ namespace Mobs
         private Animator _animator;
         private float _currentMobHealth;
         private float _currentMobSpeed;
-        private float _currentMobAngularSpeed;
-        private NavMeshAgent _mobNavMeshAgent;
 
         public Rigidbody Rigidbody => rigidbody;
         public Animator Animator => _animator;
         public float DefaultMobAngularSpeed => defaultMobAngularSpeed;        
         public Sprite MobSprite => mobSprite;
-        public NavMeshAgent MobNavMeshAgent => _mobNavMeshAgent;
         public bool IsAlive => CurrentMobHealth > 0;
 
         public float DefaultMobSpeed => defaultMobSpeed;
@@ -63,24 +57,11 @@ namespace Mobs
         }
 
         public float CurrentMobDamage { get; set; }
-
-        public float CurrentMobAngularSpeed
-        {
-            get => _currentMobAngularSpeed;
-            set
-            {
-                _currentMobAngularSpeed = value;
-                _mobNavMeshAgent.angularSpeed = _currentMobAngularSpeed;
-            }
-        }
+        
         public float CurrentMobSpeed
         {
             get => _currentMobSpeed;
-            set
-            {
-                _currentMobSpeed = value;
-                _mobNavMeshAgent.speed = _currentMobSpeed;
-            }
+            set => _currentMobSpeed = value;
         }
 
         public void InstantiateMobModel()
@@ -90,15 +71,12 @@ namespace Mobs
 
         public void SetDefaultValues()
         {
-            if (_mobNavMeshAgent is null)
-                _mobNavMeshAgent = GetComponent<NavMeshAgent>();
             if (_animator is null)
                 _animator = GetComponent<Animator>();
             
             rigidbody.velocity = Vector3.zero;
             
             _currentMobSpeed = DefaultMobSpeed;
-            _currentMobAngularSpeed = CurrentMobAngularSpeed;
             _currentMobHealth = maxMobHealth;
             CurrentMobDamage = defaultMobDamage;
         }

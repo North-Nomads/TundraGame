@@ -1,5 +1,4 @@
-﻿using Spells;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Mobs.MobsBehaviour.Boar
 {
@@ -11,34 +10,19 @@ namespace Mobs.MobsBehaviour.Boar
     {
         private float _chargeLeftTime;
         private bool _isCharged;
-
-        public override BasicElement MobBasicElement => BasicElement.Earth;
-        public override BasicElement MobCounterElement => BasicElement.Air;
-
-        protected override void HandleIncomeDamage(float damage, BasicElement damageElement)
-        {
-            var multiplier = 1f;
-            if (damageElement == MobBasicElement)
-                multiplier = 0.8f;
-            else if (damageElement == MobCounterElement)
-                multiplier = 1.2f;
-
-            MobModel.CurrentMobHealth -= damage * multiplier;
-        }
-
-        public override void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal)
+        
+        public override void ExecuteOnMobSpawn(MobPortal mobPortal)
         {
             MobPortal = mobPortal;
             MobModel.InstantiateMobModel();
             _chargeLeftTime = 3f;
-
-            DefaultDestinationPoint = gates;
-            MobModel.MobNavMeshAgent.enabled = true;
-            MobModel.MobNavMeshAgent.SetDestination(DefaultDestinationPoint.position);
         }
 
         private void FixedUpdate()
         {
+            MoveTowardsNextPoint();
+            HandleTickTimer();
+            
             if (_chargeLeftTime > 0)
                 _chargeLeftTime -= Time.fixedDeltaTime;
 
@@ -47,9 +31,6 @@ namespace Mobs.MobsBehaviour.Boar
                 TakeChargeMode();
                 _isCharged = true;
             }
-
-            if (CurrentEffects.Count > 0)
-                TickTimer -= Time.fixedDeltaTime;
         }
 
         private void TakeChargeMode()

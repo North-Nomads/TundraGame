@@ -1,6 +1,7 @@
 using City.Building;
 using Level;
 using Mobs.MobsBehaviour;
+using ModulesUI.MagicScreen;
 using ModulesUI.PlayerHUD;
 using Spells;
 using UnityEngine;
@@ -53,17 +54,8 @@ namespace City
             {
                 var rayEnd = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (!Physics.Raycast(rayEnd, out var hitInfo, float.PositiveInfinity, PlaceableLayer)) return;
-                
-                if (Input.GetKeyDown(KeyCode.Alpha1))
-                    Grimoire.TurnElementsIntoSpell(hitInfo, BasicElement.Fire);
-                if (Input.GetKeyDown(KeyCode.Alpha2))
-                    Grimoire.TurnElementsIntoSpell(hitInfo, BasicElement.Air);
-                if (Input.GetKeyDown(KeyCode.Alpha3))
-                    Grimoire.TurnElementsIntoSpell(hitInfo, BasicElement.Water);
-                if (Input.GetKeyDown(KeyCode.Alpha4))
-                    Grimoire.TurnElementsIntoSpell(hitInfo, BasicElement.Lightning);
-                if (Input.GetKeyDown(KeyCode.Alpha5))
-                    Grimoire.TurnElementsIntoSpell(hitInfo, BasicElement.Earth);
+                // TODO
+                SpellCaster.PerformDebugCast();
             }
         }
 
@@ -75,7 +67,7 @@ namespace City
             var mob = other.GetComponent<MobBehaviour>();
             var mobAttack = mob.MobModel.CurrentMobDamage;
             CurrentCityGatesHealthPoints -= mobAttack;
-            mob.HitThisMob(float.PositiveInfinity, BasicElement.None, "City.Gates");
+            mob.HitThisMob(float.PositiveInfinity, BasicElement.None);
             //_animator.SetTrigger("DamageTrigger");
         }
 

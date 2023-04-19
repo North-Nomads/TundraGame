@@ -1,4 +1,3 @@
-using City;
 using Mobs.MobsBehaviour;
 using System;
 using System.Collections.Generic;
@@ -16,9 +15,11 @@ namespace Mobs
     /// </summary>
     public class MobPortal : MonoBehaviour, IPointerClickHandler
     {
+        [Header("Navigation")] 
+        [SerializeField] private Transform routeParent;
+        [Header("Other")]
         [SerializeField] private MobPool mobPool;
         [SerializeField] private PortalInfoCanvas infoPanel;
-        [SerializeField] private CityGates gates;
         [SerializeField] private MobWave[] mobWaves;
 
         private MobWave _currentMobWave;
@@ -90,8 +91,8 @@ namespace Mobs
                 return;
 
             var mob = _waveMobs[_currentMobIndex];
-            mob.RespawnMobFromPool(mobPool.transform.position);
-            mob.ExecuteOnMobSpawn(gates.transform, this);
+            mob.RespawnMobFromPool(mobPool.transform.position, routeParent.GetComponentsInChildren<WayPoint>());
+            mob.ExecuteOnMobSpawn(this);
             _currentMobIndex++;
         }
 
