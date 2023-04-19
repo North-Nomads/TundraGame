@@ -16,9 +16,9 @@ namespace Mobs.MobsBehaviour
         [SerializeField] private GameObject[] effectPrefabs;
         [SerializeField] private MobModel mobModel;
         private float _tickTimer;
-        private WayPoint[] _waypointRoute;
-        private int _currentWaypointIndex;
         
+        protected WayPoint[] WaypointRoute;
+        protected int CurrentWaypointIndex;
         protected MobPortal MobPortal { get; set; }
         public List<Effect> CurrentEffects { get; } = new List<Effect>();
         public MobModel MobModel => mobModel;
@@ -172,20 +172,20 @@ namespace Mobs.MobsBehaviour
             // Set hp, speed & etc 
             mobModel.SetDefaultValues();
 
-            _currentWaypointIndex = 0;
-            _waypointRoute = routeToSet;
+            CurrentWaypointIndex = 0;
+            WaypointRoute = routeToSet;
         }
 
         public void HandleWaypointApproaching()
         {
-            _currentWaypointIndex++;
+            CurrentWaypointIndex++;
         }
 
-        protected virtual void MoveTowardsNextPoint()
+        protected virtual void MoveTowardsNextPoint(Vector3 waypoint = default(Vector3))
         {
-            var waypoint = new Vector3(_waypointRoute[_currentWaypointIndex].transform.position.x,
-                transform.position.y,
-                _waypointRoute[_currentWaypointIndex].transform.position.z);
+            if (waypoint == Vector3.zero) 
+                waypoint = new Vector3(WaypointRoute[CurrentWaypointIndex].transform.position.x, transform.position.y,
+                    WaypointRoute[CurrentWaypointIndex].transform.position.z);
             var direction = waypoint - transform.position;
             mobModel.Rigidbody.velocity = direction  / direction.magnitude * mobModel.CurrentMobSpeed;
         }
