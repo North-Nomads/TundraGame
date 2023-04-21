@@ -181,6 +181,40 @@ namespace Mobs.MobsBehaviour
             CurrentWaypointIndex++;
         }
 
+        /// <summary>
+        /// Sets the current index according to the mob and gates position
+        /// </summary>
+        protected void UpdateCurrentWaypoint()
+        {
+            var minDistance = float.PositiveInfinity;
+            var bestWaypoint = WaypointRoute[0];
+
+            var finishPoint = WaypointRoute.Last().transform.position; // gates
+            
+            // Last waypoint is always the finish waypoint (gates). Exclude it from the for loop
+            for (int i = 0; i < WaypointRoute.Length - 1; i++)
+            {
+                var waypoint = WaypointRoute[i];
+                var waypointPosition  = waypoint.transform.position;
+                var waypointDirection = waypointPosition - finishPoint;  
+                var mobDirection = transform.position - finishPoint;
+
+                // Check if the point is not behind the mob (direction-vector: mobToCurrentPointDirection - waypointDirection)
+                if (Vector3.Dot(waypointDirection, mobDirection) > 0f)
+                {
+                    // Check if this point is the closest to the squirrel
+                    var distance = Vector3.Distance(transform.position, waypointPosition);
+                    if (distance < minDistance)
+                    {
+                        minDistance = distance;
+                        bestWaypoint = waypoint;
+                    }
+                }
+            }
+
+            CurrentWaypointIndex = Array.IndexOf(WaypointRoute, bestWaypoint);
+        }
+
         protected void MoveTowardsNextPoint(Vector3 waypoint = default)
         {
             if (waypoint == Vector3.zero) 
