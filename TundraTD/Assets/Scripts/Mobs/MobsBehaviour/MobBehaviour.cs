@@ -179,7 +179,6 @@ namespace Mobs.MobsBehaviour
 
         public void HandleWaypointApproachingOrPassing()
         {
-            Debug.Log("Updated");
             _currentWaypointIndex++;
         }
 
@@ -203,7 +202,7 @@ namespace Mobs.MobsBehaviour
                 waypoint = new Vector3(WaypointRoute[_currentWaypointIndex].transform.position.x, transform.position.y,
                     WaypointRoute[_currentWaypointIndex].transform.position.z);
             var direction = waypoint - transform.position;
-            mobModel.Rigidbody.velocity = direction / direction.magnitude * mobModel.CurrentMobSpeed;
+            mobModel.Rigidbody.velocity = direction.normalized * mobModel.CurrentMobSpeed;
         }
 
         private void OnDrawGizmos()
