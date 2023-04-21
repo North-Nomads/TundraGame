@@ -15,15 +15,19 @@ namespace Mobs.MobsBehaviour
     {
         [SerializeField] private GameObject[] effectPrefabs;
         [SerializeField] private MobModel mobModel;
-        private float _tickTimer;
-
-        protected WayPoint[] WaypointRoute { get; set; }
-
+        [SerializeField] private WayPoint[] waypointRoute;
         private int _currentWaypointIndex;
+        private float _tickTimer;
+        
+        protected WayPoint[] WaypointRoute
+        {
+            get => waypointRoute;
+            private set => waypointRoute = value;
+        }
+        protected int CurrentWaypointIndex { get; }
         protected MobPortal MobPortal { get; set; }
         public List<Effect> CurrentEffects { get; } = new List<Effect>();
         public MobModel MobModel => mobModel;
-
         private float TickTimer
         {
             get => _tickTimer;
@@ -185,7 +189,7 @@ namespace Mobs.MobsBehaviour
         /// <summary>
         /// Sets the current index according to the mob and gates position
         /// </summary>
-        protected void UpdateCurrentWaypoint()
+        private void UpdateCurrentWaypoint()
         {
             var finishPoint = WaypointRoute.Last().transform.position; // gates
 
@@ -198,6 +202,7 @@ namespace Mobs.MobsBehaviour
 
         protected void MoveTowardsNextPoint(Vector3 waypoint = default)
         {
+            UpdateCurrentWaypoint();
             if (waypoint == Vector3.zero) 
                 waypoint = new Vector3(WaypointRoute[_currentWaypointIndex].transform.position.x, transform.position.y,
                     WaypointRoute[_currentWaypointIndex].transform.position.z);
