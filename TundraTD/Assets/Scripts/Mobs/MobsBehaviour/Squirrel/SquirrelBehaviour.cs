@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using UnityEngine;
 
@@ -99,13 +98,6 @@ namespace Mobs.MobsBehaviour.Squirrel
             if (!scanResult.HasValue)
                 return;
             _targetTreePosition = scanResult.Value;
-        }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.DrawLine(transform.position, WaypointRoute.Last().transform.position);
-            Gizmos.DrawSphere(_targetTreePosition, 1f);
-            Gizmos.DrawSphere(transform.position, ScanRadius);
         }
     }
 }
