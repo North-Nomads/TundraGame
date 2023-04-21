@@ -44,10 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 197c84303556fea40abdd382c74af799, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spikesPrefab: {fileID: 344048365241126650, guid: 6367c2027a4b00344900ea5ceecc384a,
-    type: 3}
-  spawnEffect: {fileID: 9157105887693468085, guid: d1c0c4b972666154a9fb38a711c89a85,
-    type: 3}
+  spawnEffects:
+  - {fileID: 6608460805510022082, guid: 32ae10f5c64fb024a8e8807722138592, type: 3}
+  - {fileID: 3157172406795628667, guid: 4b90ef5be55cf594292e39f8fb2e6024, type: 3}
 --- !u!135 &4937554642928428447
 SphereCollider:
   m_ObjectHideFlags: 0

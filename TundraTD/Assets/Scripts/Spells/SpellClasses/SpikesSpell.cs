@@ -3,28 +3,25 @@ using Level;
 using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
 using UnityEngine;
+using UnityEngine.VFX;
 
 namespace Spells.SpellClasses
 {
 	public class SpikesSpell : MagicSpell
     {
-        [SerializeField] private Transform spikesPrefab;
-        [SerializeField] private ParticleSystem spawnEffect;
+        [SerializeField] private VisualEffect[] spawnEffects;
         private const int CirclesAmount = 3;
-        private const float RadiusMultiplier = .9f;
+        private const float RadiusMultiplier = 1.5f;
         private const float Seconds = .07f;
-        private const float GrowthTime = .5f;
         private const float SpikesLifeTime = 1f;
         private const float SpikesDamage = 35f;
         private SphereCollider _sphereCollider;
-        private Vector3 _targetSpikesScale; 
         
         public override BasicElement Element => BasicElement.Earth;
 
         public override void ExecuteSpell(RaycastHit hitInfo)
         {
             var castPosition = hitInfo.point;
-            _targetSpikesScale = spikesPrefab.transform.localScale;
             _sphereCollider = GetComponent<SphereCollider>();
             StartCoroutine(StartRadialSpikesSpawning(castPosition));
         }
@@ -34,7 +31,11 @@ namespace Spells.SpellClasses
             var radius = RadiusMultiplier;
             var spikesQuantity = 6;
             
-            StartCoroutine(ExecuteSpikesLifecycle(castPosition));
+            foreach (var spawnEffect in spawnEffects)
+            {
+                Instantiate(spawnEffect, castPosition, Quaternion.identity, transform);
+            }
+            
             _sphereCollider.center = castPosition;
             yield return new WaitForSeconds(Seconds);
             
@@ -49,8 +50,11 @@ namespace Spells.SpellClasses
                     var z = radius * Mathf.Sin(phi);
                     spikesPos.x += x;
                     spikesPos.z += z;
-                    
-                    StartCoroutine(ExecuteSpikesLifecycle(spikesPos));
+
+                    foreach (var spawnEffect in spawnEffects)
+                    {
+                        Instantiate(spawnEffect, spikesPos, Quaternion.identity, transform);
+                    }
                 }
 
                 _sphereCollider.radius += RadiusMultiplier;
@@ -59,37 +63,9 @@ namespace Spells.SpellClasses
                 radius += RadiusMultiplier;
                 spikesQuantity *= 2;
             }
-
-            yield return new WaitForSeconds(GrowthTime * 2 + SpikesLifeTime);
             
-            IEnumerator ExecuteSpikesLifecycle(Vector3 position)
-            {
-                Instantiate(spawnEffect, position, Quaternion.identity, transform);
-                var spikes = Instantiate(spikesPrefab, position, Quaternion.identity, transform);
-                
-                // Grow spikes
-                var time = 0f;
-                while (time < GrowthTime)
-                {
-                    var coefficient = Mathf.Lerp(0, 1, time / GrowthTime);
-                    spikes.transform.localScale = _targetSpikesScale * coefficient;
-                    time += Time.deltaTime;
-                    yield return null;
-                }
-
-                yield return new WaitForSeconds(SpikesLifeTime);
-
-                // Shrink spikes
-                time = 0f;
-                while (time < GrowthTime)
-                {
-                    var coefficient = Mathf.Lerp(1, 0, time / GrowthTime);
-                    spikes.transform.localScale = _targetSpikesScale * coefficient;
-                    time += Time.deltaTime;
-                    yield return null;
-                }
-                Destroy(spikes.gameObject);
-            }
+            yield return new WaitForSeconds(3.3f); // 3.3f - max time pebbles (that live longer than the spike) can live (random.uniform) 
+            Destroy(gameObject);
         }
 
         
