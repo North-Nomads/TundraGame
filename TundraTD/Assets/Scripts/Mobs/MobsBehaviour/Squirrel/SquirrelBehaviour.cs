@@ -44,8 +44,8 @@ namespace Mobs.MobsBehaviour.Squirrel
                     continue;
                 
                 // Exclude trees not facing the current waypoint direction
-                var lastWaypoint = WaypointRoute.Last().transform.position;
-                var targetTreeDirection = _targetTreePosition - lastWaypoint;
+                var currentTarget = WaypointRoute[CurrentWaypointIndex].transform.position;
+                var targetTreeDirection = _targetTreePosition - currentTarget;
                 var treeProjection = Vector3.Project(_targetTreePosition - treePosition, targetTreeDirection);
 
                 var dot = Vector3.Dot(treeProjection, targetTreeDirection);
@@ -66,12 +66,10 @@ namespace Mobs.MobsBehaviour.Squirrel
         private void FixedUpdate()
         {
             HandleTickTimer();
-            
 
             _scanCooldownTime -= Time.deltaTime;
             if (_scanCooldownTime <= 0f || IsTreeCloseEnough)
             {
-                UpdateCurrentWaypoint();
                 ScanTreesAround();
             }
                 
@@ -94,7 +92,6 @@ namespace Mobs.MobsBehaviour.Squirrel
             var scanResult = GetClosestTree(size);
             
             _isInTreeMode = scanResult.HasValue;
-            UpdateCurrentWaypoint();
             if (!scanResult.HasValue)
                 return;
             _targetTreePosition = scanResult.Value;
