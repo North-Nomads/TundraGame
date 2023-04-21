@@ -13,7 +13,7 @@ namespace Mobs
             if (other.CompareTag("Mob"))
             {
                 var mob = other.GetComponent<MobBehaviour>();
-                mob.HandleWaypointApproaching();
+                mob.HandleWaypointApproachingOrPassing();
             }
         }
     }

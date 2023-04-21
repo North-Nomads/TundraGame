@@ -16,9 +16,10 @@ namespace Mobs.MobsBehaviour
         [SerializeField] private GameObject[] effectPrefabs;
         [SerializeField] private MobModel mobModel;
         private float _tickTimer;
-        
-        protected WayPoint[] WaypointRoute;
-        protected int CurrentWaypointIndex;
+
+        protected WayPoint[] WaypointRoute { get; set; }
+
+        private int _currentWaypointIndex;
         protected MobPortal MobPortal { get; set; }
         public List<Effect> CurrentEffects { get; } = new List<Effect>();
         public MobModel MobModel => mobModel;
@@ -172,13 +173,14 @@ namespace Mobs.MobsBehaviour
             // Set hp, speed & etc 
             mobModel.SetDefaultValues();
 
-            CurrentWaypointIndex = 0;
+            _currentWaypointIndex = 0;
             WaypointRoute = routeToSet;
         }
 
-        public void HandleWaypointApproaching()
+        public void HandleWaypointApproachingOrPassing()
         {
-            CurrentWaypointIndex++;
+            Debug.Log("Updated");
+            _currentWaypointIndex++;
         }
 
         /// <summary>
@@ -186,42 +188,27 @@ namespace Mobs.MobsBehaviour
         /// </summary>
         protected void UpdateCurrentWaypoint()
         {
-            var minDistance = float.PositiveInfinity;
-            var bestWaypoint = WaypointRoute[0];
-
             var finishPoint = WaypointRoute.Last().transform.position; // gates
+
+            var finishDirection = transform.position - finishPoint;
+            var currentWaypointProjection = Vector3.Project(transform.position - WaypointRoute[_currentWaypointIndex].transform.position, finishDirection);
             
-            // Last waypoint is always the finish waypoint (gates). Exclude it from the for loop
-            for (int i = 0; i < WaypointRoute.Length - 1; i++)
-            {
-                var waypoint = WaypointRoute[i];
-                var waypointPosition  = waypoint.transform.position;
-                var waypointDirection = waypointPosition - finishPoint;  
-                var mobDirection = transform.position - finishPoint;
-
-                // Check if the point is not behind the mob (direction-vector: mobToCurrentPointDirection - waypointDirection)
-                if (Vector3.Dot(waypointDirection, mobDirection) > 0f)
-                {
-                    // Check if this point is the closest to the squirrel
-                    var distance = Vector3.Distance(transform.position, waypointPosition);
-                    if (distance < minDistance)
-                    {
-                        minDistance = distance;
-                        bestWaypoint = waypoint;
-                    }
-                }
-            }
-
-            CurrentWaypointIndex = Array.IndexOf(WaypointRoute, bestWaypoint);
+            if (Vector3.Dot(currentWaypointProjection, finishDirection) <= 0)
+                HandleWaypointApproachingOrPassing();
         }
 
         protected void MoveTowardsNextPoint(Vector3 waypoint = default)
         {
             if (waypoint == Vector3.zero) 
-                waypoint = new Vector3(WaypointRoute[CurrentWaypointIndex].transform.position.x, transform.position.y,
-                    WaypointRoute[CurrentWaypointIndex].transform.position.z);
+                waypoint = new Vector3(WaypointRoute[_currentWaypointIndex].transform.position.x, transform.position.y,
+                    WaypointRoute[_currentWaypointIndex].transform.position.z);
             var direction = waypoint - transform.position;
             mobModel.Rigidbody.velocity = direction / direction.magnitude * mobModel.CurrentMobSpeed;
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawSphere(WaypointRoute[_currentWaypointIndex].transform.position, 1f);
         }
     }
 }
