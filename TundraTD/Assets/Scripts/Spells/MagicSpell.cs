@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Spells;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
@@ -13,10 +14,24 @@ namespace Spells
 
         public static Dictionary<BasicElement, AdditionalSpellEffect> AdditionalSpellEffects { get; set; }
 
+        public static event EventHandler<SpellCastInfo> SpellCast = delegate { };
+
         public AdditionalSpellEffect SpellEffect { get; private set; }
 
         public abstract BasicElement Element { get; }
         
+        public virtual void Cast(RaycastHit hitInfo)
+        {
+            var info = new SpellCastInfo(hitInfo);
+            SpellCast(this, info);
+            if (info.Cancel)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            ExecuteSpell(hitInfo);
+        }
+
         public abstract void ExecuteSpell(RaycastHit hitInfo);
 
         public static MagicSpell InstantiateSpellPrefab(BasicElement basis, BasicElement addition = BasicElement.None)
@@ -47,6 +62,16 @@ namespace Spells
             {
                 var emission = system.emission;
                 emission.enabled = false;
+            }
+        }
+
+        public class SpellCastInfo : CancelEventArgs
+        {
+            public RaycastHit HitInfo { get; }
+
+            public SpellCastInfo(RaycastHit hit)
+            {
+                HitInfo = hit;
             }
         }
     }
