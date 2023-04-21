@@ -359,7 +359,7 @@ GameObject:
   - component: {fileID: 78830692}
   - component: {fileID: 78830693}
   - component: {fileID: 78830694}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: wp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1221,7 +1221,7 @@ GameObject:
   - component: {fileID: 462043802}
   - component: {fileID: 462043803}
   - component: {fileID: 462043804}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: wp (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1380,7 +1380,7 @@ GameObject:
   - component: {fileID: 529390418}
   - component: {fileID: 529390419}
   - component: {fileID: 529390420}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: wp (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1395,7 +1395,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 529390417}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.512, y: -1.76, z: -0.48}
+  m_LocalPosition: {x: 1.45, y: -1.76, z: 2.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 25535409}
@@ -3049,7 +3049,7 @@ GameObject:
   - component: {fileID: 954410202}
   - component: {fileID: 954410203}
   - component: {fileID: 954410204}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: wp (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3165,7 +3165,7 @@ PrefabInstance:
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
       propertyPath: mobWaves.Array.data[0].mobProperties.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
@@ -3245,7 +3245,7 @@ PrefabInstance:
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
       propertyPath: mobWaves.Array.data[0].mobProperties.Array.data[0].mobQuantity
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
@@ -5608,7 +5608,7 @@ PrefabInstance:
     - target: {fileID: 35159706481258574, guid: 2591df6fea5e4dc4abdafb4fb8176cbd,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.786
+      value: -1.658
       objectReference: {fileID: 0}
     - target: {fileID: 35159706481258574, guid: 2591df6fea5e4dc4abdafb4fb8176cbd,
         type: 3}
@@ -5800,7 +5800,7 @@ GameObject:
   - component: {fileID: 1929409280}
   - component: {fileID: 1929409281}
   - component: {fileID: 1929409282}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: wp (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
