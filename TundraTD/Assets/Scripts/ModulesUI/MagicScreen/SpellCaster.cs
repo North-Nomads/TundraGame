@@ -32,7 +32,7 @@ namespace ModulesUI.MagicScreen
             var spell = MagicSpell.InstantiateSpellPrefab(core, addition);
             if (spell != null)
             {
-                spell.ExecuteSpell(hitInfo);
+                spell.Cast(hitInfo);
             }
         }
 

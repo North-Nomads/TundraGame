@@ -1,13 +1,11 @@
-﻿using Mobs.MobsBehaviour;
-using Mobs.MobsBehaviour.Eagle;
-using System.Linq;
-using UnityEngine;
-
-namespace Mobs.MobEffects
+﻿namespace Mobs.MobEffects
 {
+    /// <summary>
+    /// Mobs with this effect has twice more damage from lightning source
+    /// </summary>
     public class WetEffect : Effect
     {
-        public override int MaxTicksAmount { get; }
+        public override int MaxTicksAmount { get; protected set; }
 
         public override VisualEffectCode Code => VisualEffectCode.Wet;
 

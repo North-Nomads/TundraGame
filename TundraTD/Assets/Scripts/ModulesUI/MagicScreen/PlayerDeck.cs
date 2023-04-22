@@ -14,13 +14,19 @@ namespace ModulesUI.MagicScreen
     {
         public static ObservableCollection<BasicElement> DeckElements { get; } = new ObservableCollection<BasicElement>();
         
+        public static Dictionary<BasicElement, ElementCharge> ElementCharges { get; }
+
         public static Dictionary<BasicElement, Sprite> ElementIcons { get; }
 
         static PlayerDeck()
         {
             ElementIcons = new Dictionary<BasicElement, Sprite>();
+            ElementCharges = new Dictionary<BasicElement, ElementCharge>();
             foreach (var element in (BasicElement[])Enum.GetValues(typeof(BasicElement)))
+            {
                 ElementIcons.Add(element, Resources.Load<Sprite>($"Elements/{element}"));
+                ElementCharges.Add(element, new ElementCharge());
+            }
         }
     }
     
