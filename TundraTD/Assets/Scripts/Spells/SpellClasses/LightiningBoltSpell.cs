@@ -73,7 +73,7 @@ namespace Spells.SpellClasses
                 else
                     lightining.SetPosition(1, nextMob.transform.position);
 
-                mobToStrike.HitThisMob(directDamage, BasicElement.Lightning, "LightningStrike");
+                mobToStrike.HitThisMob(directDamage, BasicElement.Lightning);
                 yield return new WaitForSeconds(.1f);
                 
             }
