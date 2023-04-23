@@ -1,5 +1,4 @@
 ﻿using Mobs.MobsBehaviour;
-using Spells;
 using System;
 
 namespace Mobs.MobEffects
@@ -13,14 +12,11 @@ namespace Mobs.MobEffects
 
         public int CurrentTicksAmount { get; protected set; }
 
-        public abstract int MaxTicksAmount { get; }
+        public abstract int MaxTicksAmount { get; protected set;  }
 
         public abstract VisualEffectCode Code { get; }
 
-        public virtual void HandleTick(MobBehaviour mob)
-        {
-            CurrentTicksAmount++;
-        }
+        public virtual void HandleTick(MobBehaviour mob) => CurrentTicksAmount++;
 
         public virtual bool OnAttach(MobBehaviour mob)
         {
@@ -30,6 +26,8 @@ namespace Mobs.MobEffects
         public virtual void OnDetach(MobBehaviour mob)
         { }
 
+        public void DoubleCurrentDuration() => MaxTicksAmount *= 2;
+
         protected void ClearThisEffectOnMob(MobBehaviour mob)
         {
             CurrentTicksAmount = MaxTicksAmount - 1;
@@ -37,7 +35,7 @@ namespace Mobs.MobEffects
             mob.CurrentEffects.Remove(this);
         }
 
-        public virtual float OnHitReceived(MobBehaviour mob, float damageAmount, BasicElement element) => damageAmount;
+        public virtual float OnHitReceived(float damageAmount) => damageAmount;
     }
 
     /// <summary>
@@ -90,5 +88,10 @@ namespace Mobs.MobEffects
         /// Represents the distract effect.
         /// </summary>
         Distract = 1 << 7,
+
+        /// <summary>
+        /// Represents the wet effect.
+        /// </summary>
+        Wet = 1 << 8,
     }
 }
