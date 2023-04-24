@@ -99,7 +99,7 @@ namespace Spells
             int hits = Physics.OverlapSphereNonAlloc(transform.position, HitDamageRadius, AvailableTargetsPool, MobsLayerMask);
             var effects = new List<Effect>
             {
-                new MeteoriteBurningEffect(BurnDamage, BurnDuration.SecondsToTicks())
+                new BurningEffect(BurnDamage, BurnDuration.SecondsToTicks())
             };
 
 
@@ -109,7 +109,7 @@ namespace Spells
                 var mob = target.GetComponent<MobBehaviour>();
                 float damage = HitDamageValue * Vector3.Distance(target.transform.position, transform.position) / HitDamageRadius;
 
-                mob.HitThisMob(damage, BasicElement.Fire, nameof(LaunchFireball));
+                mob.HitThisMob(damage, BasicElement.Fire);
                 mob.AddReceivedEffects(effects);
 
             }
