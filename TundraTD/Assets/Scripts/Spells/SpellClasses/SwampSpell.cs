@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Linq;
 using Level;
@@ -7,10 +8,10 @@ using UnityEngine;
 
 namespace Spells.SpellClasses
 {
+    [RequireComponent(typeof(MeshCollider))]
 	public class SwampSpell : MagicSpell
 	{
         [SerializeField] private float lifetime;
-        [SerializeField] private float slowdownTime;
         private const float SwampRadius = 10;
         private const float MaxSlownessModifier = 0.8f;
         private const float MinSlownessModifier = 0.2f;
@@ -23,10 +24,22 @@ namespace Spells.SpellClasses
             StartCoroutine(StayAlive());
         }
 
-        IEnumerator StayAlive()
+        private IEnumerator StayAlive()
         {
             yield return new WaitForSeconds(lifetime);
             Destroy(gameObject);
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Mob"))
+                other.GetComponent<MobBehaviour>().AddSingleEffect(new WetEffect(lifetime.SecondsToTicks()));
+        }
+        
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag("Mob"))
+                other.GetComponent<MobBehaviour>().RemoveFilteredEffects(x => x is WetEffect);
         }
 
         private void OnTriggerStay(Collider other)
@@ -39,7 +52,7 @@ namespace Spells.SpellClasses
                 var mob = other.GetComponent<MobBehaviour>();
                 mob.ClearMobEffects();
                 if (!mob.CurrentEffects.OfType<SlownessEffect>().Any())
-                    mob.AddSingleEffect(new SlownessEffect(slowdownMob, slowdownTime.SecondsToTicks()));
+                    mob.AddSingleEffect(new SlownessEffect(slowdownMob, 1));
             }
         }
 
