@@ -14,12 +14,11 @@ namespace Spells.SpellClasses
         private const float HitDelay = 0.5f;
         private int _mobsAmount;
         private readonly MobBehaviour[] _mobsInSpell = new MobBehaviour[100];
-        
 
-        private float TornadoRadius { get; set; } = 6f;
-        private float SpellDuration { get; set; } = 6f;
-        private float SlownessValue { get; set; } = 0.4f;
-        
+        private float TornadoRadius => 6f;
+        private float SpellDuration => 6f;
+        private float SlownessValue => 0.4f;
+
 
         public override BasicElement Element => BasicElement.Air;
 
