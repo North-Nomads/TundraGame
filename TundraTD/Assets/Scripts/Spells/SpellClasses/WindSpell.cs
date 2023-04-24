@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Level;
 using Mobs.MobEffects;
@@ -31,7 +32,11 @@ namespace Spells.SpellClasses
                 _mobsInSpell[_mobsAmount] = mob;
                 _mobsAmount++;
                 mob.RemoveFilteredEffects(x => x is WetEffect);
-                mob.AddSingleEffect(new SlownessEffect(SlownessValue, SpellDuration.SecondsToTicks()));
+                mob.AddReceivedEffects(new List<Effect>
+                {
+                    new SlownessEffect(SlownessValue, SpellDuration.SecondsToTicks()),
+                    new InspirationEffect()
+                });
             }
         }        
 
@@ -50,8 +55,7 @@ namespace Spells.SpellClasses
             for (int i = 0; i < _mobsAmount; i++)
             {
                 var mob = _mobsInSpell[i].GetComponent<MobBehaviour>();
-                if (!mob.CurrentEffects.OfType<SlownessEffect>().Any())
-                    mob.RemoveFilteredEffects(x => x is SlownessEffect);
+                mob.RemoveFilteredEffects(x => x is SlownessEffect);
             }
             Destroy(gameObject);
         }
@@ -64,8 +68,7 @@ namespace Spells.SpellClasses
                 _mobsInSpell[_mobsAmount] = null;
                 _mobsAmount--;
                 var mob = other.GetComponent<MobBehaviour>();
-                if (!mob.CurrentEffects.OfType<SlownessEffect>().Any())
-                    mob.RemoveFilteredEffects(x => x is SlownessEffect effect);
+                mob.RemoveFilteredEffects(x => x is SlownessEffect);
             }
         }
     }
