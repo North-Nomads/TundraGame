@@ -4,7 +4,7 @@ namespace Mobs.MobEffects
 {
 	public class WeaknessEffect : Effect
 	{
-        public override int MaxTicksAmount { get; }
+        public override int MaxTicksAmount { get; protected set; }
 
         public override VisualEffectCode Code => VisualEffectCode.Weakness;
 

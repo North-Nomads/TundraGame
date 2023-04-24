@@ -16,30 +16,14 @@ namespace Mobs.MobsBehaviour
         [SerializeField] private GameObject[] effectPrefabs;
         [SerializeField] private MobModel mobModel;
         private float _tickTimer;
+        private WayPoint[] _waypointRoute;
+        private int _currentWaypointIndex;
+        
+        protected MobPortal MobPortal { get; set; }
         public List<Effect> CurrentEffects { get; } = new List<Effect>();
-
-        public Transform DefaultDestinationPoint { get; set; }
-
-        public Vector3 CurrentDestinationPoint
-        {
-            get
-            {
-                if (MobModel.MobNavMeshAgent.enabled)
-                    return MobModel.MobNavMeshAgent.destination;
-                return default;
-            }
-            set
-            {
-                if (MobModel.MobNavMeshAgent.enabled)
-                    MobModel.MobNavMeshAgent.SetDestination(value);
-            }
-        }
-
         public MobModel MobModel => mobModel;
 
-        public MobPortal MobPortal { get; protected set; }
-
-        protected float TickTimer
+        private float TickTimer
         {
             get => _tickTimer;
             set
@@ -55,18 +39,24 @@ namespace Mobs.MobsBehaviour
             }
         }
 
-        public abstract BasicElement MobBasicElement { get; }
-        public abstract BasicElement MobCounterElement { get; }
+        public abstract void ExecuteOnMobSpawn(MobPortal mobPortal);
 
-        public abstract void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal);
+        protected virtual void HandleIncomeDamage(float damage, BasicElement damageElement)
+        {
+            MobModel.CurrentMobHealth -= damage;
+        }
 
-        protected abstract void HandleIncomeDamage(float damage, BasicElement damageElement);
+        protected void HandleTickTimer()
+        {
+            if (CurrentEffects.Count > 0)
+                TickTimer -= Time.fixedDeltaTime;
+        }
 
-        public void HitThisMob(float damage, BasicElement damageElement, string sourceName)
+        public void HitThisMob(float damage, BasicElement damageElement)
         {
             if (!MobModel.IsAlive) return;
 
-            damage = CurrentEffects.Aggregate(damage, (dmg, effect) => effect.OnHitReceived(this, dmg, damageElement));
+            damage = CurrentEffects.Aggregate(damage, (dmg, effect) => effect.OnHitReceived(dmg));
             HandleIncomeDamage(damage, damageElement);
             StartCoroutine(MobModel.ShowHitVFX());
             if (!MobModel.IsAlive)
@@ -87,8 +77,11 @@ namespace Mobs.MobsBehaviour
 
         public void AddSingleEffect(Effect effect)
         {
+            // Calling OnAttach anyways
+            if (!effect.OnAttach(this)) return;
+            
+            // After adding effect to the list we can see the ticks 
             CurrentEffects.Add(effect);
-            effect.OnAttach(this);
             SetVFXPrefab(effect, true);
         }
 
@@ -164,7 +157,7 @@ namespace Mobs.MobsBehaviour
             }
         }
         
-        public void RespawnMobFromPool(Vector3 position)
+        public void RespawnMobFromPool(Vector3 position, WayPoint[] routeToSet)
         {
             // Set mob position
             var mobTransform = transform;
@@ -178,6 +171,23 @@ namespace Mobs.MobsBehaviour
             
             // Set hp, speed & etc 
             mobModel.SetDefaultValues();
+
+            _currentWaypointIndex = 0;
+            _waypointRoute = routeToSet;
+        }
+
+        public void HandleWaypointApproaching()
+        {
+            _currentWaypointIndex++;
+        }
+
+        protected virtual void MoveTowardsNextPoint()
+        {
+            var waypoint = new Vector3(_waypointRoute[_currentWaypointIndex].transform.position.x,
+                transform.position.y,
+                _waypointRoute[_currentWaypointIndex].transform.position.z);
+            var direction = waypoint - transform.position;
+            mobModel.Rigidbody.velocity = direction  / direction.magnitude * mobModel.CurrentMobSpeed;
         }
     }
 }
