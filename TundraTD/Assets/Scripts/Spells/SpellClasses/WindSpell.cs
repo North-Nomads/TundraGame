@@ -27,7 +27,6 @@ namespace Spells.SpellClasses
         {
             if (other.CompareTag("Mob"))
             {
-                print(1);
                 var mob = other.GetComponent<MobBehaviour>();
                 _mobsInSpell[_mobsAmount] = mob;
                 _mobsAmount++;
