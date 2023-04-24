@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:TundraTD/Assets/Prefabs/SpellObjects/SwampSpell.meta
 guid: 3f0256a188a892a49beeb5f9d54b9554
+========
+guid: 401a2e808b3c7db4c9a26ded5d3b9be8
+>>>>>>>> origin/main:TundraTD/Assets/Fantasy Wooden GUI  Free.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

@@ -67,7 +67,7 @@ namespace City
             var mob = other.GetComponent<MobBehaviour>();
             var mobAttack = mob.MobModel.CurrentMobDamage;
             CurrentCityGatesHealthPoints -= mobAttack;
-            mob.HitThisMob(float.PositiveInfinity, BasicElement.None, "City.Gates");
+            mob.HitThisMob(float.PositiveInfinity, BasicElement.None);
             //_animator.SetTrigger("DamageTrigger");
         }
 
