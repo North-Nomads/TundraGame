@@ -1,14 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using Level;
-using UnityEngine.Internal;
 using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
-namespace Spells
+namespace Spells.SpellClasses
 {
     public class WindSpell : MagicSpell
     {

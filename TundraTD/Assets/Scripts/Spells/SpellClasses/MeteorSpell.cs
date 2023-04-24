@@ -4,9 +4,8 @@ using Level;
 using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
-namespace Spells
+namespace Spells.SpellClasses
 {
 	public class MeteorSpell : MagicSpell
 	{
