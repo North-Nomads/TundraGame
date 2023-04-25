@@ -92,7 +92,7 @@ namespace Level
                         list.AddRange(_mobsOnLevel.GetRange(_eagleStartIndexMarker, property.MobQuantity));
                         break;
                     default:
-                        throw new KeyNotFoundException("Didn't find mob type in MobPool checklist");
+                        throw new KeyNotFoundException("Didn'time find mob type in MobPool checklist");
                 }
             }
 

@@ -1080,7 +1080,7 @@ GameObject:
   - component: {fileID: 8671833239330951028}
   - component: {fileID: 5726087438916987631}
   - component: {fileID: 3692616354502211321}
-  - component: {fileID: -483073021984926390}
+  - component: {fileID: 3170416722928580982}
   m_Layer: 8
   m_Name: Eagle
   m_TagString: Mob
@@ -1155,7 +1155,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &-483073021984926390
+--- !u!114 &3170416722928580982
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1164,7 +1164,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8401996937829963773}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11bca71ea158f6c41880a3e88fce4635, type: 3}
+  m_Script: {fileID: 11500000, guid: 7074d2feefe67c84b8c57dea3c03e919, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   effectPrefabs: []
