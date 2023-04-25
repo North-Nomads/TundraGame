@@ -36,8 +36,8 @@ namespace Spells
             {
                 var mob = other.GetComponent<MobBehaviour>();
                 mob.ClearMobEffects();
-                mob.HitThisMob(stormCloudDamage, BasicElement.Lightning, "StormCloudDamage");
-                mob.AddSingleEffect(new SpikesStunEffect(1));
+                mob.HitThisMob(stormCloudDamage, BasicElement.Lightning);
+                mob.AddSingleEffect(new StunEffect(1));
                 countDown = delayLightning;
             }
         }

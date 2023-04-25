@@ -118,12 +118,5 @@ namespace Spells.SpellClasses
             yield return new WaitForSecondsRealtime(explosionDelay);
             Destroy(gameObject);
         }
-
-#pragma warning disable CS0618
-        private void DisableEmissionOnChildren()
-        {
-            foreach (var system in meteoriteMesh.GetComponentsInChildren<ParticleSystem>())
-                system.enableEmission = false;
-        }
     }
 }
