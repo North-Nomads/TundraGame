@@ -7,6 +7,7 @@ using Mobs.MobsBehaviour.Boar;
 using Mobs.MobsBehaviour.Mole;
 using Mobs.MobsBehaviour.Eagle;
 using Mobs.MobsBehaviour.Spider;
+using Mobs.MobsBehaviour.Squirrel;
 using UnityEngine;
 
 namespace Level
@@ -20,6 +21,7 @@ namespace Level
         private static int _spiderStartIndexMarker;
         private static int _moleStartIndexMarker;
         private static int _eagleStartIndexMarker;
+        private static int _squirrelStartIndexMarker;
         
         private void Start()
         {
@@ -48,6 +50,7 @@ namespace Level
             _spiderStartIndexMarker = _mobsOnLevel.FindIndex(x => x is SpiderBehaviour);
             _moleStartIndexMarker = _mobsOnLevel.FindIndex(x => x is MoleBehaviour);
             _eagleStartIndexMarker = _mobsOnLevel.FindIndex(x => x is EagleBehaviour);
+            _squirrelStartIndexMarker = _mobsOnLevel.FindIndex(x => x is SquirrelBehaviour);
 
             int OrderOnType(MobBehaviour item)
             {
@@ -59,8 +62,12 @@ namespace Level
                         return 1;
                     case SpiderBehaviour _:
                         return 2;
-                    case EagleBehaviour _:
+                    case MoleBehaviour _:
                         return 3;
+                    case EagleBehaviour _:
+                        return 4;
+                    case SquirrelBehaviour _:
+                        return 6;
                     default:
                         return -1;
                 }
@@ -90,6 +97,9 @@ namespace Level
                         break;
                     case EagleBehaviour _:
                         list.AddRange(_mobsOnLevel.GetRange(_eagleStartIndexMarker, property.MobQuantity));
+                        break;
+                    case SquirrelBehaviour _:
+                        list.AddRange(_mobsOnLevel.GetRange(_squirrelStartIndexMarker, property.MobQuantity));
                         break;
                     default:
                         throw new KeyNotFoundException("Didn'time find mob type in MobPool checklist");

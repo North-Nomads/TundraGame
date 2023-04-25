@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Mob
   - FxTemporaire
+  - Tree
   layers:
   - Default
   - TransparentFX
@@ -20,9 +21,9 @@ TagManager:
   - Walkable
   - AvailableForSpell
   - Clickable
-  - 
-  - 
-  - 
+  - Tree
+  - Gates
+  - Waypoint
   - 
   - 
   - 

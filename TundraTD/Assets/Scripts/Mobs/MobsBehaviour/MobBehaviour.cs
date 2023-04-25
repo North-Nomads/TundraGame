@@ -15,14 +15,19 @@ namespace Mobs.MobsBehaviour
     {
         [SerializeField] private GameObject[] effectPrefabs;
         [SerializeField] private MobModel mobModel;
-        private float _tickTimer;
-        private WayPoint[] _waypointRoute;
+        [SerializeField] private WayPoint[] waypointRoute;
         private int _currentWaypointIndex;
+        private float _tickTimer;
         
+        protected WayPoint[] WaypointRoute
+        {
+            get => waypointRoute;
+            private set => waypointRoute = value;
+        }
+        protected int CurrentWaypointIndex => _currentWaypointIndex;
         protected MobPortal MobPortal { get; set; }
         public List<Effect> CurrentEffects { get; } = new List<Effect>();
         public MobModel MobModel => mobModel;
-
         private float TickTimer
         {
             get => _tickTimer;
@@ -173,21 +178,41 @@ namespace Mobs.MobsBehaviour
             mobModel.SetDefaultValues();
 
             _currentWaypointIndex = 0;
-            _waypointRoute = routeToSet;
+            WaypointRoute = routeToSet;
         }
 
-        public void HandleWaypointApproaching()
+        public void HandleWaypointApproachingOrPassing()
         {
             _currentWaypointIndex++;
         }
 
-        protected virtual void MoveTowardsNextPoint()
+        /// <summary>
+        /// Sets the current index according to the mob and gates position
+        /// </summary>
+        private void UpdateCurrentWaypoint()
         {
-            var waypoint = new Vector3(_waypointRoute[_currentWaypointIndex].transform.position.x,
-                transform.position.y,
-                _waypointRoute[_currentWaypointIndex].transform.position.z);
+            var finishPoint = WaypointRoute.Last().transform.position; // gates
+
+            var finishDirection = transform.position - finishPoint;
+            var currentWaypointProjection = Vector3.Project(transform.position - WaypointRoute[_currentWaypointIndex].transform.position, finishDirection);
+            
+            if (Vector3.Dot(currentWaypointProjection, finishDirection) <= 0)
+                HandleWaypointApproachingOrPassing();
+        }
+
+        protected void MoveTowardsNextPoint(Vector3 waypoint = default)
+        {
+            UpdateCurrentWaypoint();
+            if (waypoint == Vector3.zero) 
+                waypoint = new Vector3(WaypointRoute[_currentWaypointIndex].transform.position.x, transform.position.y,
+                    WaypointRoute[_currentWaypointIndex].transform.position.z);
             var direction = waypoint - transform.position;
-            mobModel.Rigidbody.velocity = direction  / direction.magnitude * mobModel.CurrentMobSpeed;
+            mobModel.Rigidbody.velocity = direction.normalized * mobModel.CurrentMobSpeed;
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawSphere(WaypointRoute[_currentWaypointIndex].transform.position, 1f);
         }
     }
 }
