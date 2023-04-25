@@ -61,7 +61,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifetime: 5
   damage: 10
-  burnDamage: 10
+  damageDelay: 1
+  burnDamage: 1
   burnTime: 2
 --- !u!1001 &7973210549469048357
 PrefabInstance:
@@ -158,7 +159,7 @@ PrefabInstance:
     - target: {fileID: 3280519133430969737, guid: a71be3e7990efb040a07565c43cbb198,
         type: 3}
       propertyPath: m_Intensity
-      value: 2.9305463
+      value: 2.9323163
       objectReference: {fileID: 0}
     - target: {fileID: 7893921968227561089, guid: a71be3e7990efb040a07565c43cbb198,
         type: 3}

@@ -23,37 +23,24 @@ namespace Mobs.MobsBehaviour.Bear
             }
         }
 
-        public override BasicElement MobBasicElement => BasicElement.Earth;
-        public override BasicElement MobCounterElement => BasicElement.Air;
-
         protected override void HandleIncomeDamage(float damage, BasicElement damageElement)
         {
-            var multiplier = 1f;
-            if (damageElement == MobBasicElement)
-                multiplier = 0.8f;
-            else if (damageElement == MobCounterElement)
-                multiplier = 1.2f;
-            var modifiedDamage = damage * multiplier;
-
             if (MobShield > 0 && !float.IsPositiveInfinity(damage))
-                MobShield -= modifiedDamage;
+                MobShield -= damage;
             else
-                MobModel.CurrentMobHealth -= modifiedDamage;
+                MobModel.CurrentMobHealth -= damage;
         }
 
-        public override void ExecuteOnMobSpawn(Transform gates, MobPortal mobPortal)
+        public override void ExecuteOnMobSpawn(MobPortal mobPortal)
         {
+            MobPortal = mobPortal;
             MobModel.InstantiateMobModel();
-
-            DefaultDestinationPoint = gates;
-            MobModel.MobNavMeshAgent.enabled = true;
-            MobModel.MobNavMeshAgent.SetDestination(DefaultDestinationPoint.position);
         }
 
         private void FixedUpdate()
         {
-            if (CurrentEffects.Count > 0)
-                TickTimer -= Time.fixedDeltaTime;
+            MoveTowardsNextPoint();
+            HandleTickTimer();
         }
     }
 }

@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6658239127193341215}
-  - component: {fileID: 49012668070130073}
   - component: {fileID: -385376720774300639}
+  - component: {fileID: 5864479182512117100}
   m_Layer: 0
   m_Name: Swamp
   m_TagString: Untagged
@@ -33,20 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &49012668070130073
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7541533161860059158}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 10
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &-385376720774300639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,8 +46,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifetime: 5
-  burnDamage: 10
-  slowdownTime: 2
+--- !u!64 &5864479182512117100
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7541533161860059158}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: f06e9d026de48bd479ff57bb86a8450e, type: 2}
 --- !u!1001 &7973210549469048357
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -157,7 +155,7 @@ PrefabInstance:
     - target: {fileID: 3280519133430969737, guid: a71be3e7990efb040a07565c43cbb198,
         type: 3}
       propertyPath: m_Intensity
-      value: 2.9305463
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7893921968227561089, guid: a71be3e7990efb040a07565c43cbb198,
         type: 3}
