@@ -24,7 +24,7 @@ namespace Mobs.MobsBehaviour
             get => waypointRoute;
             private set => waypointRoute = value;
         }
-        protected int CurrentWaypointIndex { get; }
+        protected int CurrentWaypointIndex => _currentWaypointIndex;
         protected MobPortal MobPortal { get; set; }
         public List<Effect> CurrentEffects { get; } = new List<Effect>();
         public MobModel MobModel => mobModel;

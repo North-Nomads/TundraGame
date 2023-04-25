@@ -35,7 +35,9 @@ namespace Mobs.MobsBehaviour.Squirrel
         private Vector3? GetClosestTree(int size)
         {
             Vector3? result = null;
-            float minDistance = Mathf.Infinity;
+            var minDistance = float.PositiveInfinity;
+            var waypoint = WaypointRoute[CurrentWaypointIndex].transform.position;
+            float distanceToTarget = Vector3.Distance(transform.position, waypoint);
             for (int i = 0; i < size; i++)
             {
                 var treePosition = _overlappedTrees[i].transform.position;
@@ -43,20 +45,17 @@ namespace Mobs.MobsBehaviour.Squirrel
                 if (treePosition == _targetTreePosition)
                     continue;
                 
-                // Exclude trees not facing the current waypoint direction
-                var currentTarget = WaypointRoute[CurrentWaypointIndex].transform.position;
-                var targetTreeDirection = _targetTreePosition - currentTarget;
-                var treeProjection = Vector3.Project(_targetTreePosition - treePosition, targetTreeDirection);
-
-                var dot = Vector3.Dot(treeProjection, targetTreeDirection);
-                if (dot <= 0)
+                // Exclude trees further to point than current tree
+                var treeDistanceToTarget = Vector3.Distance(treePosition, waypoint);
+                if (treeDistanceToTarget > distanceToTarget)
                     continue;
 
-                float distance = Vector3.Distance(treePosition, transform.position);
-                if (distance < minDistance)
+                // Check if this tree is closer than the saved one
+                var treeDistanceToSquirrel = Vector3.Distance(transform.position, treePosition);
+                if (treeDistanceToSquirrel < minDistance)
                 {
+                    minDistance = treeDistanceToSquirrel;
                     result = treePosition;
-                    minDistance = distance;
                 }
             }
 
@@ -70,6 +69,7 @@ namespace Mobs.MobsBehaviour.Squirrel
             _scanCooldownTime -= Time.deltaTime;
             if (_scanCooldownTime <= 0f || IsTreeCloseEnough)
             {
+                
                 ScanTreesAround();
             }
                 
