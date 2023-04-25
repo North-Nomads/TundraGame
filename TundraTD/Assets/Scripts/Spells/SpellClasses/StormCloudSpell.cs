@@ -1,14 +1,7 @@
-using UnityEngine;
-
-namespace Spells
+namespace Spells.SpellClasses
 {
-    public class StormCloudSpell : MagicSpell
+    class StormCloudSpell
     {
-        public override BasicElement Element => BasicElement.Lightning | BasicElement.Water;
-
-        public override void ExecuteSpell(RaycastHit hitInfo)
-        {
-            throw new System.NotImplementedException();
-        }
+        
     }
 }
