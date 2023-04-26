@@ -20,16 +20,17 @@ namespace Spells
 
         public abstract BasicElement Element { get; }
         
-        public virtual void Cast(RaycastHit hitInfo)
+        public virtual bool Cast(RaycastHit hitInfo)
         {
             var info = new SpellCastInfo(hitInfo);
             SpellCast(this, info);
             if (info.Cancel)
             {
                 Destroy(gameObject);
-                return;
+                return false;
             }
             ExecuteSpell(hitInfo);
+            return true;
         }
 
         public abstract void ExecuteSpell(RaycastHit hitInfo);

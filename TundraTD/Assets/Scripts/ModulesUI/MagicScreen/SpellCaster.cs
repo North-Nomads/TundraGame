@@ -28,11 +28,10 @@ namespace ModulesUI.MagicScreen
         {
             BasicElement core = PlayerDeck.DeckElements.FirstOrDefault() | PlayerDeck.DeckElements.ElementAtOrDefault(1);
             BasicElement addition = PlayerDeck.DeckElements.ElementAtOrDefault(2);
-            PlayerDeck.DeckElements.Clear();
             var spell = MagicSpell.InstantiateSpellPrefab(core, addition);
-            if (spell != null)
+            if (spell?.Cast(hitInfo) == true)
             {
-                spell.Cast(hitInfo);
+                PlayerDeck.DeckElements.Clear();
             }
         }
 
