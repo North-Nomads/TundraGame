@@ -4,27 +4,22 @@ using Level;
 using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
-namespace Spells
+namespace Spells.SpellClasses
 {
 	public class MeteorSpell : MagicSpell
 	{
+        [SerializeField] private MeshRenderer meteoriteMesh;
+        [SerializeField] private GameObject explosionPrefab;
+        [SerializeField] private float explosionDelay = 2;
+        [SerializeField] private AudioClip flightSound;
+        [SerializeField] private AudioClip explosionSound;
        
         private const float FlyDistance = 30;
         private const float HitDelay = 0.5f;
         private const int MobsLayerMask = 1 << 8;
         
-
-        private static readonly Collider[] AvailableTargetsPool = new Collider[1000];
-
-        [SerializeField] private MeshRenderer meteoriteMesh;
-        [SerializeField] private GameObject explosionPrefab;
-        [SerializeField] private float explosionDelay;
-        [SerializeField] private AudioClip flightSound;
-        [SerializeField] private AudioClip explosionSound;
-
-        
+        private readonly Collider[] _availableTargetsPool = new Collider[1000];
         private Camera _mainCamera;
         private float _currentHitTime;
         private Vector3 _target;
@@ -34,22 +29,22 @@ namespace Spells
         /// <summary>
         /// The radius of the hit area
         /// </summary>
-        private float HitDamageRadius { get; set; } = 5f;
+        private float HitDamageRadius => 5f;
 
         /// <summary>
         /// The damage of the hit epicenter.
         /// </summary>
-        private float HitDamageValue { get; set; } = 40f;
+        private float HitDamageValue => 40f;
 
         /// <summary>
         /// Duration of the burn effect.
         /// </summary>
-        private float BurnDuration { get; set; } = 3f;
+        private float BurnDuration => 3f;
 
         /// <summary>
         /// Damage of the burn effect.
         /// </summary>
-        private float BurnDamage { get; set; } = 7f;
+        private float BurnDamage => 7f;
 
         /// <summary>
         /// Value of the slowness effect.
@@ -96,27 +91,21 @@ namespace Spells
             _source.PlayOneShot(explosionSound);
 
             // Register hit effects on mobs
-            int hits = Physics.OverlapSphereNonAlloc(transform.position, HitDamageRadius, AvailableTargetsPool, MobsLayerMask);
-            var effects = new List<Effect>
-            {
-                new BurningEffect(BurnDamage, BurnDuration.SecondsToTicks())
-            };
-
-
+            int hits = Physics.OverlapSphereNonAlloc(transform.position, HitDamageRadius, _availableTargetsPool, MobsLayerMask);
+            var effect = new BurningEffect(BurnDamage, BurnDuration.SecondsToTicks());
             for (int i = 0; i < hits; i++)
             {
-                var target = AvailableTargetsPool[i];
+                var target = _availableTargetsPool[i];
                 var mob = target.GetComponent<MobBehaviour>();
                 float damage = HitDamageValue * Vector3.Distance(target.transform.position, transform.position) / HitDamageRadius;
 
                 mob.HitThisMob(damage, BasicElement.Fire);
-                mob.AddReceivedEffects(effects);
-
+                mob.AddSingleEffect(effect);
             }
 
             // Aftershock animations & stuff
+            print("Aftershock");
             StartCoroutine(RunExplosionAnimation());
-
             meteoriteMesh.enabled = false;
         }
 
@@ -128,13 +117,6 @@ namespace Spells
             obj.transform.localScale = new Vector3(5, 5, 5);
             yield return new WaitForSecondsRealtime(explosionDelay);
             Destroy(gameObject);
-        }
-
-#pragma warning disable CS0618
-        private void DisableEmissionOnChildren()
-        {
-            foreach (var system in meteoriteMesh.GetComponentsInChildren<ParticleSystem>())
-                system.enableEmission = false;
         }
     }
 }
