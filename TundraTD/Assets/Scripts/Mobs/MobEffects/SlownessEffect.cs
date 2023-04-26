@@ -10,10 +10,10 @@ namespace Mobs.MobEffects
         public override int MaxTicksAmount { get; protected set; }
         public override VisualEffectCode Code => VisualEffectCode.Slowness;
 
-        public SlownessEffect(float modifier, int time)
+        public SlownessEffect(float modifier, int maxTicksAmount)
         {
             SpeedModifier = modifier;
-            MaxTicksAmount = time;
+            MaxTicksAmount = maxTicksAmount;
         }
 
         public override bool OnAttach(MobBehaviour mob)

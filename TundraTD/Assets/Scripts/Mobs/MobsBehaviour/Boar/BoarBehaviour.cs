@@ -3,7 +3,7 @@
 namespace Mobs.MobsBehaviour.Boar
 {
     /// <summary>
-    /// Handles boar mob movement and taking and dealing damage behaviour
+    /// Handles boar mob movement and taking and dealing maxDamage behaviour
     /// </summary>
     [RequireComponent(typeof(MobModel))]
     public class BoarBehaviour : MobBehaviour
