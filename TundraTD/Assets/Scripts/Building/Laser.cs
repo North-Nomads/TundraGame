@@ -18,7 +18,6 @@ namespace Building
 
         protected override void HandleSpellCast(object sender, MagicSpell.SpellCastInfo e)
         {
-            base.HandleSpellCast(sender, e);
             var spell = (MagicSpell)sender;
             if (spell.Element == BasicElement.Lightning && (e.HitInfo.point - transform.position).sqrMagnitude < InteractionSize * InteractionSize)
                 _cooldownTime = maxCooldownTime;
