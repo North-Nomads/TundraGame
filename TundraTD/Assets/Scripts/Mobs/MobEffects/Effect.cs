@@ -8,8 +8,6 @@ namespace Mobs.MobEffects
     /// </summary>
     public abstract class Effect
     {
-        public const float BasicTickTime = .1f;
-
         public int CurrentTicksAmount { get; protected set; }
 
         public abstract int MaxTicksAmount { get; protected set;  }
@@ -25,8 +23,6 @@ namespace Mobs.MobEffects
 
         public virtual void OnDetach(MobBehaviour mob)
         { }
-
-        public void DoubleCurrentDuration() => MaxTicksAmount *= 2;
 
         protected void ClearThisEffectOnMob(MobBehaviour mob)
         {
