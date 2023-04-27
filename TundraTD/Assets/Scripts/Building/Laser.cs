@@ -1,4 +1,5 @@
 ﻿using Spells;
+using Spells.SpellClasses;
 using UnityEngine;
 
 
@@ -24,7 +25,7 @@ namespace Building
 
             if (spell.Element == (BasicElement.Fire | BasicElement.Earth) && _cooldownTime <= 0)
             {
-                Destroy(spell.gameObject);
+                (spell as MeteorSpell)?.Explode();
                 _cooldownTime = maxCooldownTime;
             }
         }

@@ -23,8 +23,8 @@ namespace Spells.SpellClasses
         private Camera _mainCamera;
         private float _currentHitTime;
         private Vector3 _target;
-        private bool _isLanded;
         private AudioSource _source;
+        private Coroutine _fallTask;
 
         /// <summary>
         /// The radius of the hit area
@@ -72,7 +72,7 @@ namespace Spells.SpellClasses
             var reflect = Vector3.Reflect(Quaternion.Euler(0, -90, 0) * Camera.main.transform.forward, hitInfo.normal).normalized;
             transform.position = _target + reflect * FlyDistance;
             transform.forward = (_target - transform.position).normalized;
-            StartCoroutine(LaunchFireball());
+            _fallTask = StartCoroutine(LaunchFireball());
         }
 
 
@@ -103,7 +103,12 @@ namespace Spells.SpellClasses
                 mob.AddSingleEffect(effect);
             }
 
-            // Aftershock animations & stuff
+            Explode();
+        }
+
+        internal void Explode()
+        {
+            StopCoroutine(_fallTask);
             print("Aftershock");
             StartCoroutine(RunExplosionAnimation());
             meteoriteMesh.enabled = false;
