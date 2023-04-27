@@ -60,8 +60,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifetime: 6
-  stormCloudDamage: 50
-  delayLightning: 3
+  zapDamage: 10
+  zapCooldownTime: 0.3
 --- !u!1001 &7973210549469048357
 PrefabInstance:
   m_ObjectHideFlags: 0
