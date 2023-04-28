@@ -3,17 +3,16 @@ using Level;
 using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
 using UnityEngine;
-using UnityEngine.VFX;
 
 namespace Spells.SpellClasses
 {
 	public class SpikesSpell : MagicSpell
     {
-        [SerializeField] private VisualEffect[] spawnEffects;
+        [SerializeField] private GameObject spikeVisualEffect;
+        [SerializeField] private GameObject pebblesVisualEffect;
         private const int CirclesAmount = 3;
         private const float RadiusMultiplier = 1.5f;
         private const float Seconds = .07f;
-        private const float SpikesLifeTime = 1f;
         private const float SpikesDamage = 35f;
         private SphereCollider _sphereCollider;
         
@@ -31,11 +30,9 @@ namespace Spells.SpellClasses
             var radius = RadiusMultiplier;
             var spikesQuantity = 6;
             
-            foreach (var spawnEffect in spawnEffects)
-            {
-                Instantiate(spawnEffect, castPosition, Quaternion.identity, transform);
-            }
-            
+            Instantiate(spikeVisualEffect, castPosition, Quaternion.identity, transform);
+            Instantiate(pebblesVisualEffect, castPosition, Quaternion.Euler(90, 0, 0), transform);
+             
             _sphereCollider.center = castPosition;
             yield return new WaitForSeconds(Seconds);
             
@@ -51,10 +48,8 @@ namespace Spells.SpellClasses
                     spikesPos.x += x;
                     spikesPos.z += z;
 
-                    foreach (var spawnEffect in spawnEffects)
-                    {
-                        Instantiate(spawnEffect, spikesPos, Quaternion.identity, transform);
-                    }
+                    Instantiate(spikeVisualEffect, spikesPos, Quaternion.identity, transform);
+                    Instantiate(pebblesVisualEffect, spikesPos, Quaternion.Euler(90, 0, 0), transform);
                 }
 
                 _sphereCollider.radius += RadiusMultiplier;

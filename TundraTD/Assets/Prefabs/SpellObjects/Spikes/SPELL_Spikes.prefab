@@ -44,9 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 197c84303556fea40abdd382c74af799, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnEffects:
-  - {fileID: 6608460805510022082, guid: 32ae10f5c64fb024a8e8807722138592, type: 3}
-  - {fileID: 3157172406795628667, guid: 4b90ef5be55cf594292e39f8fb2e6024, type: 3}
+  spikeVisualEffect: {fileID: 3157172406795628669, guid: 4b90ef5be55cf594292e39f8fb2e6024,
+    type: 3}
+  pebblesVisualEffect: {fileID: 6608460805510022080, guid: 32ae10f5c64fb024a8e8807722138592,
+    type: 3}
 --- !u!135 &4937554642928428447
 SphereCollider:
   m_ObjectHideFlags: 0
