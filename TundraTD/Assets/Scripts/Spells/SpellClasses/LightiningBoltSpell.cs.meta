@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:TundraTD/Assets/Scripts/Spells/SpellClasses/LightiningBoltSpell.cs.meta
+guid: d1aa7ba906cc8d248be4c556fa229262
+========
+guid: 11bca71ea158f6c41880a3e88fce4635
+>>>>>>>> main:TundraTD/Assets/Scripts/Mobs/MobsBehaviour/Eagle/EagleBehaviour.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

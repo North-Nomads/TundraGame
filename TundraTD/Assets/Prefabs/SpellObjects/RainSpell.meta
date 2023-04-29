@@ -1,7 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:TundraTD/Assets/Prefabs/SpellObjects/SwampSpell/Swamp.prefab.meta
+guid: 7920392cc59659542b1534aed7a965b3
+PrefabImporter:
+========
 guid: 6576a4b7f50eb55409ac79e47fafa6b9
 folderAsset: yes
 DefaultImporter:
+>>>>>>>> origin/main:TundraTD/Assets/Prefabs/SpellObjects/RainSpell.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
