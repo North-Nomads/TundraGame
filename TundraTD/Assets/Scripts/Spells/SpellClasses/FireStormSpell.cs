@@ -9,6 +9,7 @@ namespace Spells.SpellClasses
     {
         [SerializeField] private float pullForce;
         [SerializeField] private float lifetime;
+        private Vector3 tornadoCenter;
 
         private List<MobBehaviour> _affectedMobs;
         public override BasicElement Element => BasicElement.Fire | BasicElement.Air;
@@ -17,8 +18,9 @@ namespace Spells.SpellClasses
         {
             _affectedMobs = new List<MobBehaviour>();
             transform.position = hitInfo.point;
+            tornadoCenter = hitInfo.point;
             GetComponent<CapsuleCollider>();
-            StartCoroutine(StayAlive(transform.position));
+            StartCoroutine(StayAlive());
         }
 
         private void OnTriggerEnter(Collider other)
@@ -26,7 +28,11 @@ namespace Spells.SpellClasses
             if (other.CompareTag("Mob"))
             {
                 var mob = other.GetComponent<MobBehaviour>();
-                mob.IsFollowingPath = false;
+                
+                mob.IsFocusingTarget = true;
+                var destination = tornadoCenter + Vector3.up * 4;
+                mob.TargetToFocus = destination;
+                
                 _affectedMobs.Add(mob);
             }
         }
@@ -36,35 +42,23 @@ namespace Spells.SpellClasses
             if (other.CompareTag("Mob"))
             {
                 var mob = other.GetComponent<MobBehaviour>();
-                mob.IsFollowingPath = true;
+                mob.IsFocusingTarget = false;
                 _affectedMobs.Remove(mob);
             }
         }
 
-        private IEnumerator StayAlive(Vector3 hit)
+        private IEnumerator StayAlive()
         {
-            // get all affected by spell and disable movement for these mobs (OnTrigger...)
+            yield return new WaitForSeconds(lifetime);
 
-            // pull mobs towards center in while loop and apply damage
-            float time = 0;
-            while (time < lifetime)
-            {
-                foreach (var mob in _affectedMobs)
-                {
-                    var destination = hit + Vector3.up * 4;
-                    //Debug.DrawLine(mob.transform.position, destination);
-                    var direction = destination - mob.transform.position;
-                    mob.GetComponent<MobBehaviour>().MobModel.Rigidbody.AddForce(direction.normalized * pullForce);
-                }
-                yield return new WaitForSeconds(0.1f);
-                time += 0.1f;
-            }
-
+            // Handle landing
             foreach (var mob in _affectedMobs)
             {
-                mob.MobModel.Rigidbody.AddForce(Vector3.down * 10);
+                mob.IsMobMoving = false;
+                mob.MobModel.Rigidbody.AddForce(Vector3.down * 1000);
                 yield return new WaitForSeconds(.3f);
-                mob.IsFollowingPath = true;
+                mob.IsMobMoving = true;
+                mob.IsFocusingTarget = false;
             }
             
             Destroy(gameObject);
