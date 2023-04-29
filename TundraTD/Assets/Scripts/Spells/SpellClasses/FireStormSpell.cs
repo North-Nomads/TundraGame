@@ -23,13 +23,11 @@ namespace Spells
         {
             transform.position = hitInfo.point;
             interactionCollider = GetComponent<CapsuleCollider>();
-            StartCoroutine(MakeSpell());
+            StartCoroutine(MakeSpell(transform.position));
         }
-        private IEnumerator MakeSpell()
+        private IEnumerator MakeSpell(Vector3 hit)
         {
             float time = 0;
-            bool s = false;
-            Ray ray = Camera.main.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
             while (time < lifetime)
             {
                
@@ -40,18 +38,11 @@ namespace Spells
                     mob.HitThisMob(damage, BasicElement.Fire);
                 }*/
                 
-                RaycastHit _hit;
-                if (Physics.Raycast(ray, out _hit, Mathf.Infinity))
+                Collider[] fa = Physics.OverlapSphere(hit, interactionCollider.radius, MobsLayerMask);
+                foreach (var col in fa)
                 {
-                    s = true;
-                }
-                if (s)
-                {
-                    Collider[] fa = Physics.OverlapSphere(_hit.point, interactionCollider.radius, MobsLayerMask);
-                    foreach (var col in fa)
-                    {
-                        col.GetComponent<MobBehaviour>().MobModel.Rigidbody.AddForce((_hit.point - col.transform.position) * 1000);
-                    }
+                    Vector3 f = (hit + Vector3.up * 4 - col.transform.position);
+                    col.GetComponent<MobBehaviour>().MobModel.Rigidbody.AddForce(f.normalized);
                 }
                 yield return new WaitForSeconds(0.1f);
                 time += damageDelay;
@@ -65,7 +56,6 @@ namespace Spells
             }
             interactionCollider.enabled = false;
             DisableEmissionOnChildren();
-            s = false;
             yield return new WaitForSeconds(5);
             Destroy(gameObject);
         }

@@ -187,7 +187,8 @@ namespace Mobs.MobsBehaviour
                 transform.position.y,
                 _waypointRoute[_currentWaypointIndex].transform.position.z);
             var direction = waypoint - transform.position;
-            mobModel.Rigidbody.velocity = direction  / direction.magnitude * mobModel.CurrentMobSpeed;
+            mobModel.Rigidbody.velocity = new Vector3(direction.normalized.x, mobModel.Rigidbody.velocity.y, direction.normalized.z) * mobModel.CurrentMobSpeed;
+
         }
     }
 }
