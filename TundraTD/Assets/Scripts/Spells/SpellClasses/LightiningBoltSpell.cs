@@ -9,15 +9,22 @@ namespace Spells.SpellClasses
     public class LightiningBoltSpell : MagicSpell
     {
         private List<MobBehaviour> _mobsInRadius = new List<MobBehaviour>();
+        private bool _isOverriden = false;
+
         [SerializeField] private LineRenderer lightining;
         [SerializeField] private float directDamage;
         [SerializeField] private int amountOFBounces;
+        [SerializeField] private float reachRadius;
+        
 
         public override BasicElement Element => BasicElement.Lightning;
 
         public override void ExecuteSpell(RaycastHit hit)
         {
-            Collider[] collidersInRadius = Physics.OverlapSphere(hit.point, 10, ~0, QueryTriggerInteraction.Ignore);
+            if (_isOverriden)
+                return;
+
+            Collider[] collidersInRadius = Physics.OverlapSphere(hit.point, reachRadius, ~0, QueryTriggerInteraction.Ignore);
 
             foreach (Collider collider in collidersInRadius)
             {
@@ -45,7 +52,7 @@ namespace Spells.SpellClasses
         /// </param>
         public void OverrideStrike(Vector3 hitCoordinates, Vector3 redirectCoordinates)
         {
-            StopAllCoroutines();
+            _isOverriden = true;
             StartCoroutine(RenderOverride(hitCoordinates, redirectCoordinates));
         }
 
@@ -90,6 +97,7 @@ namespace Spells.SpellClasses
 
         private IEnumerator RenderOverride(Vector3 startCords, Vector3 endCords)
         {
+
             lightining.SetPosition(0, startCords);
             lightining.SetPosition(1, endCords);
             yield return new WaitForSeconds(.1f);

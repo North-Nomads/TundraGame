@@ -137,4 +137,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6106d85e141cc2419973c9588959f3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectRadius: 30
+  effectRadius: 20
