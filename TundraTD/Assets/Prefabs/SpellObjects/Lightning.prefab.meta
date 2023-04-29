@@ -1,12 +1,6 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:TundraTD/Assets/Prefabs/EnemyTowers.meta
-guid: 4194614745f616a43a1b1a978dc6c14f
-folderAsset: yes
-DefaultImporter:
-========
 guid: 16ec26eca3e1b334b8aa415444f00119
 PrefabImporter:
->>>>>>>> origin/main:TundraTD/Assets/Prefabs/SpellObjects/Lightning.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
