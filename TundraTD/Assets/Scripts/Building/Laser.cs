@@ -1,6 +1,7 @@
 ﻿using Spells;
 using Spells.SpellClasses;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 namespace Building
@@ -10,17 +11,15 @@ namespace Building
     /// </summary>
     public class Laser : EnemyTower
     {
-        [SerializeField] private MeshRenderer laserMesh;
-        [SerializeField] private GameObject explosionPrefab;
         [SerializeField] private float maxCooldownTime;
-        [SerializeField] private float InteractionSize;
+        [SerializeField] private float interactionSize;
         
         private float _cooldownTime;
 
         protected override void HandleSpellCast(object sender, MagicSpell.SpellCastInfo e)
         {
             var spell = (MagicSpell)sender;
-            if (spell.Element == BasicElement.Lightning && (e.HitInfo.point - transform.position).sqrMagnitude < InteractionSize * InteractionSize)
+            if (spell.Element == BasicElement.Lightning && (e.HitInfo.point - transform.position).sqrMagnitude < interactionSize * interactionSize)
                 _cooldownTime = maxCooldownTime;
 
             if (spell.Element == (BasicElement.Fire | BasicElement.Earth) && _cooldownTime <= 0)
