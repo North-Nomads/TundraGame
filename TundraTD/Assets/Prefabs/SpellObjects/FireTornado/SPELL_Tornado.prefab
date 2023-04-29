@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8284208036804729362}
   - component: {fileID: -1719343305989426532}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: SPELL_Tornado
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40,7 +40,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4510611317679215107}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 10
   m_Height: 1
@@ -58,6 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c800f7a3b59e5924f9f7037872b646fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pullForce: 100
   lifetime: 5
   damage: 10
   damageDelay: 1

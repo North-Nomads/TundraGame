@@ -1,62 +1,72 @@
-using Level;
-using Mobs.MobsBehaviour;
-using Mobs.MobEffects;
 using System.Collections;
-using System.Linq;
+using System.Collections.Generic;
+using Mobs.MobsBehaviour;
 using UnityEngine;
-namespace Spells
+
+namespace Spells.SpellClasses
 {
     public class FireStormSpell : MagicSpell
     {
-        private const int MobsLayerMask = 1 << 8;
-
+        [SerializeField] private float pullForce;
         [SerializeField] private float lifetime;
-        [SerializeField] private float damage;
-        [SerializeField] private float damageDelay;
-        [SerializeField] private float burnDamage;
-        [SerializeField] private float burnTime;
-        private Collider[] mobs = new Collider[100];
-        private CapsuleCollider interactionCollider;
+
+        private List<MobBehaviour> _affectedMobs;
         public override BasicElement Element => BasicElement.Fire | BasicElement.Air;
 
         public override void ExecuteSpell(RaycastHit hitInfo)
         {
+            _affectedMobs = new List<MobBehaviour>();
             transform.position = hitInfo.point;
-            interactionCollider = GetComponent<CapsuleCollider>();
-            StartCoroutine(MakeSpell(transform.position));
+            GetComponent<CapsuleCollider>();
+            StartCoroutine(StayAlive(transform.position));
         }
-        private IEnumerator MakeSpell(Vector3 hit)
+
+        private void OnTriggerEnter(Collider other)
         {
+            if (other.CompareTag("Mob"))
+            {
+                var mob = other.GetComponent<MobBehaviour>();
+                mob.IsFollowingPath = false;
+                _affectedMobs.Add(mob);
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag("Mob"))
+            {
+                var mob = other.GetComponent<MobBehaviour>();
+                mob.IsFollowingPath = true;
+                _affectedMobs.Remove(mob);
+            }
+        }
+
+        private IEnumerator StayAlive(Vector3 hit)
+        {
+            // get all affected by spell and disable movement for these mobs (OnTrigger...)
+
+            // pull mobs towards center in while loop and apply damage
             float time = 0;
             while (time < lifetime)
             {
-               
-                /*int mobsAmount = Physics.OverlapSphereNonAlloc(transform.position, interactionCollider.radius, mobs, MobsLayerMask);
-                for (int i = 0; i < mobsAmount; i++)
+                foreach (var mob in _affectedMobs)
                 {
-                    var mob = mobs[i].GetComponent<MobBehaviour>();
-                    mob.HitThisMob(damage, BasicElement.Fire);
-                }*/
-                
-                Collider[] fa = Physics.OverlapSphere(hit, interactionCollider.radius, MobsLayerMask);
-                foreach (var col in fa)
-                {
-                    Vector3 f = (hit + Vector3.up * 4 - col.transform.position);
-                    col.GetComponent<MobBehaviour>().MobModel.Rigidbody.AddForce(f.normalized);
+                    var destination = hit + Vector3.up * 4;
+                    //Debug.DrawLine(mob.transform.position, destination);
+                    var direction = destination - mob.transform.position;
+                    mob.GetComponent<MobBehaviour>().MobModel.Rigidbody.AddForce(direction.normalized * pullForce);
                 }
                 yield return new WaitForSeconds(0.1f);
-                time += damageDelay;
+                time += 0.1f;
             }
-            int amount = Physics.OverlapSphereNonAlloc(transform.position, interactionCollider.radius, mobs, MobsLayerMask);
-            for (int i = 0; i < amount; i++)
+
+            foreach (var mob in _affectedMobs)
             {
-                var mob = mobs[i].GetComponent<MobBehaviour>();
-                if (!mob.CurrentEffects.OfType<BurningEffect>().Any())
-                    mob.AddSingleEffect(new BurningEffect(burnDamage, burnTime.SecondsToTicks()));
+                mob.MobModel.Rigidbody.AddForce(Vector3.down * 10);
+                yield return new WaitForSeconds(.3f);
+                mob.IsFollowingPath = true;
             }
-            interactionCollider.enabled = false;
-            DisableEmissionOnChildren();
-            yield return new WaitForSeconds(5);
+            
             Destroy(gameObject);
         }
     }

@@ -1498,8 +1498,8 @@ MonoBehaviour:
   spellInitializers:
   - {fileID: 6680923661109867143, guid: 322fe369764485745997b9ae6cbd40a5, type: 3}
   - {fileID: 9218577674572230811, guid: b6bf0bd0e73be4143a0ea870f00e9399, type: 3}
+  - {fileID: -1719343305989426532, guid: 97ad3535d65a39f4793f5fcf2b1f02c5, type: 3}
   - {fileID: -6803395362427656954, guid: 7cb73ecbefc3b244f8c4768d56eb883d, type: 3}
-  - {fileID: 0}
   - {fileID: 8208963260508828548, guid: 16ec26eca3e1b334b8aa415444f00119, type: 3}
   - {fileID: 3135699678937307733, guid: 5967a976813c383428cba1353eff3066, type: 3}
   - {fileID: -6089108544262094553, guid: 923c7591b81169748bbbc3dee9a9341a, type: 3}

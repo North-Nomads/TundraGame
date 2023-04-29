@@ -2,8 +2,10 @@ using Mobs.MobEffects;
 using Spells;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Mobs.MobsBehaviour
 {
@@ -16,6 +18,9 @@ namespace Mobs.MobsBehaviour
         [SerializeField] private GameObject[] effectPrefabs;
         [SerializeField] private MobModel mobModel;
         [SerializeField] private WayPoint[] waypointRoute;
+        
+        public bool IsFollowingPath { get; set; }
+        
         private int _currentWaypointIndex;
         private float _tickTimer;
         
@@ -167,7 +172,8 @@ namespace Mobs.MobsBehaviour
             // Set mob position
             var mobTransform = transform;
             mobTransform.position = position;
-            
+
+            IsFollowingPath = true;
             ClearMobEffects();
             
             // Set visual effects
@@ -202,10 +208,14 @@ namespace Mobs.MobsBehaviour
 
         protected void MoveTowardsNextPoint(Vector3 waypoint = default)
         {
+            if (!IsFollowingPath)
+                return;
+            
             UpdateCurrentWaypoint();
             if (waypoint == Vector3.zero) 
                 waypoint = new Vector3(WaypointRoute[_currentWaypointIndex].transform.position.x, transform.position.y,
                     WaypointRoute[_currentWaypointIndex].transform.position.z);
+            
             var direction = waypoint - transform.position;
             mobModel.Rigidbody.velocity = direction.normalized * mobModel.CurrentMobSpeed;
         }
