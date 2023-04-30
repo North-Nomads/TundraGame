@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8125409066485015135}
   m_Layer: 2
   m_Name: Rain
-  m_TagString: Untagged
+  m_TagString: Spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50,7 +50,6 @@ MonoBehaviour:
   rainParticles: {fileID: 6390320073984304700}
   rainSplashes: {fileID: 6014619529911177498}
   mainCollider: {fileID: 8125409066485015135}
-  barrierCollider: {fileID: 4814830415071690484}
 --- !u!136 &8125409066485015135
 CapsuleCollider:
   m_ObjectHideFlags: 0
