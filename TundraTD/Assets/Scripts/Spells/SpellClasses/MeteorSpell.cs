@@ -109,7 +109,6 @@ namespace Spells.SpellClasses
         internal void Explode()
         {
             StopCoroutine(_fallTask);
-            print("Aftershock");
             StartCoroutine(RunExplosionAnimation());
             meteoriteMesh.enabled = false;
         }
