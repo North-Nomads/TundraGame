@@ -19,7 +19,7 @@ namespace Building
         protected override void HandleSpellCast(object sender, MagicSpell.SpellCastInfo e)
         {
             var spell = (MagicSpell)sender;
-            
+
             // TODO: Extract this function in Lightning
             /*if (spell.Element == BasicElement.Lightning && (e.HitInfo.point - transform.position).sqrMagnitude < interactionSize * interactionSize)             
                 _cooldownTime = maxCooldownTime;*/
@@ -39,8 +39,14 @@ namespace Building
         private void DestroyMeteorite()
         {
             _meteors[0].Explode();
-            _cooldownTime = maxCooldownTime;
             _meteors.Clear();
+            ResetCharge();
+        }
+
+        public void ResetCharge()
+        {
+            _cooldownTime = maxCooldownTime;
+
         }
 
         private void FixedUpdate()
