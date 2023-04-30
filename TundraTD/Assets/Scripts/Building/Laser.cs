@@ -12,7 +12,6 @@ namespace Building
     public class Laser : EnemyTower
     {
         [SerializeField] private float maxCooldownTime;
-        [SerializeField] private float interactionSize;
 
         private List<MeteorSpell> _meteors;
         private float _cooldownTime;
@@ -39,35 +38,22 @@ namespace Building
 
         private void DestroyMeteorite()
         {
-            for (int i = 0; i < _meteors.Count; )
-            {
-                var meteor = _meteors[i];
-                Debug.Log($"{i}/{_meteors.Count}");
-
-                if (!(meteor is null))
-                {
-                    meteor.Explode();
-                    _meteors.RemoveAt(i);
-                    _cooldownTime = maxCooldownTime;
-                    return;
-                }
-                _meteors.RemoveAt(i);
-                return;
-            }
+            _meteors[0].Explode();
+            _cooldownTime = maxCooldownTime;
+            _meteors.Clear();
         }
 
         private void FixedUpdate()
         {
+            _cooldownTime -= Time.deltaTime;
             if (_cooldownTime > 0)
-            {
-                _cooldownTime -= Time.deltaTime;
                 return;
+
+            if (_meteors.Count > 0)
+            {
+                Debug.Log("Exploding the UFO...");
+                DestroyMeteorite();
             }
-            
-            Debug.Log("Exploding the UFO...");
-            DestroyMeteorite();
         }
-        
-        
     }
 }
