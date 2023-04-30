@@ -8,13 +8,11 @@ namespace Mobs.MobEffects
     /// </summary>
     public abstract class Effect
     {
-        public int CurrentTicksAmount { get; protected set; }
-
-        public abstract int MaxTicksAmount { get; protected set;  }
-
         public abstract VisualEffectCode Code { get; }
 
-        public virtual void HandleTick(MobBehaviour mob) => CurrentTicksAmount++;
+        public abstract bool ShouldBeDetached { get; }
+
+        public virtual void HandleTick(MobBehaviour mob) { }
 
         public virtual bool OnAttach(MobBehaviour mob)
         {
@@ -26,7 +24,6 @@ namespace Mobs.MobEffects
 
         protected void ClearThisEffectOnMob(MobBehaviour mob)
         {
-            CurrentTicksAmount = MaxTicksAmount - 1;
             OnDetach(mob);
             mob.CurrentEffects.Remove(this);
         }

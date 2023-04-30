@@ -36,7 +36,7 @@ namespace Mobs.MobsBehaviour
                 if (value <= 0)
                 {
                     HandleAppliedEffects();
-                    _tickTimer = Effect.BasicTickTime;
+                    _tickTimer = TimeBoundEffect.BasicTickTime;
                     return;
                 }
 
@@ -149,7 +149,7 @@ namespace Mobs.MobsBehaviour
                 if (!mobModel.IsAlive)
                     return;
 
-                if (effect.CurrentTicksAmount == effect.MaxTicksAmount)
+                if (effect.ShouldBeDetached)
                 {
                     effect.OnDetach(this);
                     SetVFXPrefab(effect, false);

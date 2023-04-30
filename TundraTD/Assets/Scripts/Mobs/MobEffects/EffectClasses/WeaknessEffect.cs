@@ -2,17 +2,14 @@ using Mobs.MobsBehaviour;
 
 namespace Mobs.MobEffects
 {
-	public class WeaknessEffect : Effect
+	public class WeaknessEffect : TimeBoundEffect
 	{
-        public override int MaxTicksAmount { get; protected set; }
-
         public override VisualEffectCode Code => VisualEffectCode.Weakness;
 
         public float DamageCoefficient { get; }
 
-        public WeaknessEffect(int maxTicksAmount, float damageCoefficient)
+        public WeaknessEffect(int maxTicksAmount, float damageCoefficient) : base(maxTicksAmount)
         {
-            MaxTicksAmount = maxTicksAmount;
             DamageCoefficient = damageCoefficient;
         }
 

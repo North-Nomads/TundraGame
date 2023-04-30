@@ -7,15 +7,12 @@ namespace Mobs.MobEffects
     /// <summary>
     /// Prevents mob from doing anything by itself: movement or actions
     /// </summary>
-    public class StunEffect : Effect
+    public class StunEffect : TimeBoundEffect
     {
-        public override int MaxTicksAmount { get; protected set; }
-
         public override VisualEffectCode Code => VisualEffectCode.Stun;
 
-        public StunEffect(int ticks)
+        public StunEffect(int ticks) : base(ticks)
         {
-            MaxTicksAmount = ticks;
         }
         
         public override bool OnAttach(MobBehaviour mob)
@@ -23,7 +20,7 @@ namespace Mobs.MobEffects
             var stun = mob.CurrentEffects.OfType<StunEffect>().FirstOrDefault();
             if (stun != null)
             {
-                stun.CurrentTicksAmount = 0;
+                stun.CurrentTicks = 0;
                 return false; // Don't attach new stun effect, just refresh the duration
             }
                 

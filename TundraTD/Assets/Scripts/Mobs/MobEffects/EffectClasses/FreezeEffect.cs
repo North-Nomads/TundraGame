@@ -7,7 +7,7 @@ namespace Mobs.MobEffects
     /// <summary>
     /// Softly slows mob up to full stop  
     /// </summary>
-    public class FreezeEffect : Effect
+    public class FreezeEffect : TimeBoundEffect
     {
         public float SpeedModifier { get; set; }
         
@@ -17,15 +17,12 @@ namespace Mobs.MobEffects
 
         public bool ContinueFreeze { get; set; }
         
-        public override int MaxTicksAmount { get; protected set; }
-        
         public override VisualEffectCode Code => VisualEffectCode.Freeze;
 
-        public FreezeEffect(float minModifier, float timeModifier, int time)
+        public FreezeEffect(float minModifier, float timeModifier, int time) : base(time)
         {
             MinSpeedModifier = minModifier;
             TimeModifier = timeModifier;
-            MaxTicksAmount = time;
         }
 
         public override bool OnAttach(MobBehaviour mob)

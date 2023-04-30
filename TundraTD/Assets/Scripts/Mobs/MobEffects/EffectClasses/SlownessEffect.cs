@@ -4,16 +4,14 @@ namespace Mobs.MobEffects
     /// <summary>
     /// Makes mob speed slower
     /// </summary>
-    public class SlownessEffect : Effect
+    public class SlownessEffect : TimeBoundEffect
     {
         public float SpeedModifier  { get; }
-        public override int MaxTicksAmount { get; protected set; }
         public override VisualEffectCode Code => VisualEffectCode.Slowness;
 
-        public SlownessEffect(float modifier, int maxTicksAmount)
+        public SlownessEffect(float modifier, int maxTicksAmount) : base(maxTicksAmount)
         {
             SpeedModifier = modifier;
-            MaxTicksAmount = maxTicksAmount;
         }
 
         public override bool OnAttach(MobBehaviour mob)
