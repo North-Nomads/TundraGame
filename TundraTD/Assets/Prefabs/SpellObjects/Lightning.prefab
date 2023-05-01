@@ -41,13 +41,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5216048790866018033}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1aa7ba906cc8d248be4c556fa229262, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e09c47d9f04b5b42b3bc770e3969516, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   lightining: {fileID: 4572599805791671643}
-  directDamage: 1000
-  amountOFBounces: 3
-  reachRadius: 10
+  directDamage: 50
+  amountOFBounces: 5
 --- !u!120 &4572599805791671643
 LineRenderer:
   m_ObjectHideFlags: 0

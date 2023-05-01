@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43667555, g: 0.48427182, b: 0.5645241, a: 1}
+  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1593,8 +1593,8 @@ MonoBehaviour:
   - {fileID: 6680923661109867143, guid: 322fe369764485745997b9ae6cbd40a5, type: 3}
   - {fileID: 9218577674572230811, guid: b6bf0bd0e73be4143a0ea870f00e9399, type: 3}
   - {fileID: -6803395362427656954, guid: 7cb73ecbefc3b244f8c4768d56eb883d, type: 3}
-  - {fileID: 0}
   - {fileID: 8208963260508828548, guid: 16ec26eca3e1b334b8aa415444f00119, type: 3}
+  - {fileID: 0}
   - {fileID: 3135699678937307733, guid: 5967a976813c383428cba1353eff3066, type: 3}
   - {fileID: -6089108544262094553, guid: 923c7591b81169748bbbc3dee9a9341a, type: 3}
   - {fileID: 7417428842517566633, guid: 44e1c1daa42495f41bf4c4432dffc946, type: 3}
@@ -5733,7 +5733,7 @@ Transform:
   - {fileID: 1028091172}
   - {fileID: 995829850}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1854091794
 PrefabInstance:
@@ -6261,7 +6261,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2006371899
 PrefabInstance:
@@ -6893,6 +6893,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -9154672485191707354, guid: 77d1c2ce831c46241bfd3594dc2fac2f,
+        type: 3}
+      propertyPath: effectRadius
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7871870473645761485, guid: 77d1c2ce831c46241bfd3594dc2fac2f,
         type: 3}
       propertyPath: m_Name
