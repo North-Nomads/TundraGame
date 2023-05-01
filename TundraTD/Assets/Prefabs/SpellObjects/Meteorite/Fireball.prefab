@@ -46,9 +46,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meteoriteMesh: {fileID: 7574884355611013539}
-  explosionPrefab: {fileID: 2766622413630217234, guid: 58bcf7ef6b3ba3944b34da405c88eb66,
+  smokePrefab: {fileID: 2481708101868198960, guid: b31e476e78d41f449a7488bbe2464ac3,
+    type: 3}
+  sparklesPrefab: {fileID: 2766622413630217234, guid: 58bcf7ef6b3ba3944b34da405c88eb66,
     type: 3}
   explosionDelay: 2
+  shakeDuration: 0.3
   flightSound: {fileID: 0}
   explosionSound: {fileID: 0}
 --- !u!82 &1966632456261989343

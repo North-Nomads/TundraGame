@@ -9,11 +9,14 @@ namespace Spells.SpellClasses
 	public class MeteorSpell : MagicSpell
 	{
         [SerializeField] private MeshRenderer meteoriteMesh;
-        [SerializeField] private GameObject explosionPrefab;
+        [SerializeField] private ParticleSystem smokePrefab;
+        [SerializeField] private GameObject sparklesPrefab;
         [SerializeField] private float explosionDelay = 2;
+        [SerializeField] private float shakeDuration;
         [SerializeField] private AudioClip flightSound;
         [SerializeField] private AudioClip explosionSound;
-       
+
+        private Camera _camera;
         private const float FlyDistance = 30;
         private const float HitDelay = 0.5f;
         private const int MobsLayerMask = 1 << 8;
@@ -45,16 +48,6 @@ namespace Spells.SpellClasses
         /// </summary>
         private float BurnDamage => 7f;
 
-        /// <summary>
-        /// Value of the slowness effect.
-        /// </summary>
-        public float SlownessValue { get; set; } = 0.3f;
-
-        /// <summary>
-        /// Duration of the slowness effect.
-        /// </summary>
-        public float SlownessDuration { get; set; }
-
         public override BasicElement Element => BasicElement.Fire | BasicElement.Earth;
 
         public override void ExecuteSpell(RaycastHit hitInfo)
@@ -68,13 +61,13 @@ namespace Spells.SpellClasses
             _source.clip = flightSound;
             _source.Play();
 
-            var reflect = Vector3.Reflect(Quaternion.Euler(0, -90, 0) * Camera.main.transform.forward, hitInfo.normal).normalized;
+            _camera = Camera.main;
+            var reflect = Vector3.Reflect(Quaternion.Euler(0, -90, 0) * _camera.transform.forward, hitInfo.normal).normalized;
             transform.position = _target + reflect * FlyDistance;
             transform.forward = (_target - transform.position).normalized;
             StartCoroutine(LaunchFireball());
         }
-
-
+        
         private IEnumerator LaunchFireball()
         {
             // Performs flight towards target.
@@ -110,12 +103,28 @@ namespace Spells.SpellClasses
 
         private IEnumerator RunExplosionAnimation(Vector3 hitPosition)
         {
-            var obj = Instantiate(explosionPrefab, hitPosition, Quaternion.identity);
+            var sparkles = Instantiate(sparklesPrefab, hitPosition, Quaternion.identity);
+            var smoke = Instantiate(smokePrefab, hitPosition, Quaternion.Euler(90, 0, 0));
             DisableEmissionOnChildren();
-            obj.transform.position = _target;
-            obj.transform.localScale = new Vector3(5, 5, 5);
+            sparkles.transform.localScale = new Vector3(5, 5, 5);
+            StartCoroutine(CameraShake());
             yield return new WaitForSecondsRealtime(explosionDelay);
+            Destroy(sparkles);
+            Destroy(smoke);
             Destroy(gameObject);
+        }
+
+        private IEnumerator CameraShake()
+        {
+            var position = _camera.transform.position;
+            var amplitude = 0.3f;
+            var timer = 0f;
+            while (timer < shakeDuration)
+            {
+                timer += Time.deltaTime;
+                _camera.transform.localPosition = position + Random.insideUnitSphere * amplitude;    
+                yield return new WaitForEndOfFrame();
+            }
         }
     }
 }
