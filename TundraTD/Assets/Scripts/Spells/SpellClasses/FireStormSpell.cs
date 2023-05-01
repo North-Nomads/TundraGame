@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Spells
+namespace Spells.SpellClasses
 {
     public class FirestormSpell : MagicSpell
     {

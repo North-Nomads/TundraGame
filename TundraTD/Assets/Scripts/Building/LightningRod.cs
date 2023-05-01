@@ -1,16 +1,18 @@
-﻿using Building;
-using Spells;
+﻿using Spells;
 using Spells.SpellClasses;
 using UnityEngine;
 
-public class LightningRod : EnemyTower
+namespace Building
 {
-    [SerializeField] private float effectRadius;
-    protected override void HandleSpellCast(object sender, MagicSpell.SpellCastInfo e)
+    public class LightningRod : EnemyTower
     {
-        if((e.HitInfo.point - transform.position).magnitude < effectRadius && (sender is LightningBoltSpell))
+        [SerializeField] private float effectRadius;
+        protected override void HandleSpellCast(object sender, MagicSpell.SpellCastInfo e)
         {
-            (sender as LightningBoltSpell).OverrideStrike(e.HitInfo.point, transform.position);
+            if((e.HitInfo.point - transform.position).magnitude < effectRadius && (sender is LightningBoltSpell))
+            {
+                (sender as LightningBoltSpell).OverrideStrike(e.HitInfo.point, transform.position);
+            }
         }
     }
 }
