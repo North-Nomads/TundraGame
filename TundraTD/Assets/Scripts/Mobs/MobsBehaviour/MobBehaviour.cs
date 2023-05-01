@@ -19,9 +19,8 @@ namespace Mobs.MobsBehaviour
         [SerializeField] private MobModel mobModel;
         [SerializeField] private WayPoint[] waypointRoute;
         
-        public bool IsMobMoving { get; set; }
-        public bool IsFocusingTarget { get; set; }
-        public Vector3 TargetToFocus { get; set; }
+        public bool IsMoving { get; set; }
+        public Vector3? TargetToFocus { get; set; }
         
         private int _currentWaypointIndex;
         private float _tickTimer;
@@ -175,8 +174,7 @@ namespace Mobs.MobsBehaviour
             var mobTransform = transform;
             mobTransform.position = position;
 
-            IsMobMoving = true;
-            IsFocusingTarget = true;
+            IsMoving = true;
             ClearMobEffects();
             
             // Set visual effects
@@ -211,11 +209,11 @@ namespace Mobs.MobsBehaviour
 
         protected void MoveTowardsNextPoint(Vector3 waypoint = default)
         {
-            if (!IsMobMoving)
+            if (!IsMoving)
                 return;
             
-            if (IsFocusingTarget)
-                waypoint = TargetToFocus;
+            if (TargetToFocus.HasValue)
+                waypoint = TargetToFocus.Value;
             
             UpdateCurrentWaypoint();
             if (waypoint == Vector3.zero) 
@@ -230,6 +228,11 @@ namespace Mobs.MobsBehaviour
         private void OnDrawGizmos()
         {
             Gizmos.DrawSphere(WaypointRoute[_currentWaypointIndex].transform.position, 1f);
+        }
+
+        public void SetFocusingTarget(Vector3? destination)
+        {
+            TargetToFocus = destination;
         }
     }
 }

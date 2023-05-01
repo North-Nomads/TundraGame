@@ -31,9 +31,8 @@ namespace Spells.SpellClasses
             {
                 var mob = other.GetComponent<MobBehaviour>();
                 
-                mob.IsFocusingTarget = true;
                 var destination = _tornadoCenter + Vector3.up * 4;
-                mob.TargetToFocus = destination;
+                mob.SetFocusingTarget(destination);
                 
                 mob.AddSingleEffect(new BurningEffect(.5f, 6f.SecondsToTicks(), false));
                 _affectedMobs.Add(mob);
@@ -45,7 +44,7 @@ namespace Spells.SpellClasses
             if (other.CompareTag("Mob"))
             {
                 var mob = other.GetComponent<MobBehaviour>();
-                mob.IsFocusingTarget = false;
+                mob.SetFocusingTarget(null);
                 _affectedMobs.Remove(mob);
             }
         }
@@ -57,11 +56,11 @@ namespace Spells.SpellClasses
             // Handle landing
             foreach (var mob in _affectedMobs)
             {
-                mob.IsMobMoving = false;
+                mob.IsMoving = false;
                 mob.MobModel.Rigidbody.AddForce(Vector3.down * 1000);
                 yield return new WaitForSeconds(.3f);
-                mob.IsMobMoving = true;
-                mob.IsFocusingTarget = false;
+                mob.IsMoving = true;
+                mob.SetFocusingTarget(null);
             }
             
             Destroy(gameObject);
