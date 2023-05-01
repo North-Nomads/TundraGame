@@ -14,6 +14,7 @@ namespace Spells.SpellClasses
         private const float RadiusMultiplier = 1.5f;
         private const float Seconds = .07f;
         private const float SpikesDamage = 35f;
+        private bool _isInstantiated;
         private SphereCollider _sphereCollider;
         
         public override BasicElement Element => BasicElement.Earth;
@@ -58,21 +59,29 @@ namespace Spells.SpellClasses
                 radius += RadiusMultiplier;
                 spikesQuantity *= 2;
             }
-            
+
+            Debug.Log("Instantited");
+            _isInstantiated = true;
             yield return new WaitForSeconds(3.3f); // 3.3f - max time pebbles (that live longer than the spike) can live (random.uniform) 
             Destroy(gameObject);
         }
-
         
-
         private void OnTriggerEnter(Collider other)
         {
             if (!other.CompareTag("Mob"))
                 return;
 
             var mob = other.GetComponent<MobBehaviour>();
-            mob.HitThisMob(SpikesDamage, BasicElement.Earth);
-            mob.AddSingleEffect(new StunEffect(1f.SecondsToTicks()));
+            Debug.Log($"{_isInstantiated}: {mob}");
+            if (_isInstantiated)
+            {
+                mob.AddSingleEffect(new SlownessEffect(0.4f, 3f.SecondsToTicks()));
+            }
+            else
+            {
+                mob.AddSingleEffect(new StunEffect(1f.SecondsToTicks()));    
+                mob.HitThisMob(SpikesDamage, BasicElement.Earth);
+            }
         }
     }
 }
