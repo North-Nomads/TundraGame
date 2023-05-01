@@ -8,15 +8,19 @@ namespace Spells.SpellClasses
     
     public class LightningBoltSpell : MagicSpell
     {
-        private readonly List<MobBehaviour> _mobsInRadius = new List<MobBehaviour>();
-        [SerializeField] private LineRenderer lightning;
+        private List<MobBehaviour> _mobsInRadius = new List<MobBehaviour>();
+        private bool _isOverriden = false;
+
+        [SerializeField] private LineRenderer lightining;
         [SerializeField] private float directDamage;
-        [SerializeField] private int amountOfBounces;
+        [SerializeField] private int amountOFBounces;
 
         public override BasicElement Element => BasicElement.Lightning;
 
         public override void ExecuteSpell(RaycastHit hit)
         {
+            if (_isOverriden)
+                return;
             Collider[] collidersInRadius = Physics.OverlapSphere(hit.point, 10, ~0, QueryTriggerInteraction.Ignore);
 
             foreach (Collider collider in collidersInRadius)
@@ -45,41 +49,41 @@ namespace Spells.SpellClasses
         /// </param>
         public void OverrideStrike(Vector3 hitCoordinates, Vector3 redirectCoordinates)
         {
-            StopAllCoroutines();
+            _isOverriden = true;
             StartCoroutine(RenderOverride(hitCoordinates, redirectCoordinates));
         }
 
-        private MobBehaviour GetClosestMob(Vector3 currentMobPosition)
+        private MobBehaviour GetClosestMob(Vector3 CurrentMobPosition)
         {
             if (!_mobsInRadius.Any())
                 return null;
             MobBehaviour closestMob = _mobsInRadius[0];
             foreach(MobBehaviour mob in _mobsInRadius)
             {
-                if((currentMobPosition - mob.transform.position).magnitude < (currentMobPosition - closestMob.transform.position).magnitude)
+                if((CurrentMobPosition - mob.transform.position).magnitude < (CurrentMobPosition - closestMob.transform.position).magnitude)
                     closestMob = mob;
             }
-            Debug.DrawLine(currentMobPosition, closestMob.transform.position);
+            Debug.DrawLine(CurrentMobPosition, closestMob.transform.position);
             return closestMob;
         }
 
         private IEnumerator HitMobs(Vector3 hitPosition)
         {
             MobBehaviour mobToStrike = GetClosestMob(hitPosition);
-            lightning.SetPosition(0, hitPosition);
-            lightning.SetPosition(1, mobToStrike.transform.position);
-            for(int bounce = amountOfBounces; bounce > 0; --bounce) 
+            lightining.SetPosition(0, hitPosition);
+            lightining.SetPosition(1, mobToStrike.transform.position);
+            for(int bounce = amountOFBounces; bounce > 0; --bounce) 
             {
                 yield return new WaitForSeconds(.1f);
                 if(GetClosestMob(mobToStrike.transform.position) != null)
                 {
                     mobToStrike = GetClosestMob(mobToStrike.transform.position);
                     _mobsInRadius.Remove(mobToStrike);
-                    lightning.SetPosition(0, mobToStrike.transform.position);
+                    lightining.SetPosition(0, mobToStrike.transform.position);
                     if (GetClosestMob(mobToStrike.transform.position) != null)
-                        lightning.SetPosition(1, GetClosestMob(hitPosition).transform.position);
+                        lightining.SetPosition(1, GetClosestMob(hitPosition).transform.position);
                     else
-                        lightning.enabled = false;
+                        lightining.enabled = false;
 
                 }
                 mobToStrike.HitThisMob(directDamage, BasicElement.Lightning);
@@ -90,8 +94,9 @@ namespace Spells.SpellClasses
 
         private IEnumerator RenderOverride(Vector3 startCords, Vector3 endCords)
         {
-            lightning.SetPosition(0, startCords);
-            lightning.SetPosition(1, endCords);
+
+            lightining.SetPosition(0, startCords);
+            lightining.SetPosition(1, endCords);
             yield return new WaitForSeconds(.1f);
             Destroy(gameObject);
             yield return null;
