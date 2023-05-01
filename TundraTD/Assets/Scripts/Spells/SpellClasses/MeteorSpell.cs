@@ -104,13 +104,13 @@ namespace Spells.SpellClasses
 
             // Aftershock animations & stuff
             print("Aftershock");
-            StartCoroutine(RunExplosionAnimation());
+            StartCoroutine(RunExplosionAnimation(transform.position));
             meteoriteMesh.enabled = false;
         }
 
-        private IEnumerator RunExplosionAnimation()
+        private IEnumerator RunExplosionAnimation(Vector3 hitPosition)
         {
-            var obj = Instantiate(explosionPrefab);
+            var obj = Instantiate(explosionPrefab, hitPosition, Quaternion.identity);
             DisableEmissionOnChildren();
             obj.transform.position = _target;
             obj.transform.localScale = new Vector3(5, 5, 5);
