@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using Level;
 using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
@@ -111,7 +110,7 @@ namespace Spells.SpellClasses
 
         private IEnumerator RunExplosionAnimation()
         {
-            var obj = Instantiate(explosionPrefab, transform);
+            var obj = Instantiate(explosionPrefab);
             DisableEmissionOnChildren();
             obj.transform.position = _target;
             obj.transform.localScale = new Vector3(5, 5, 5);
