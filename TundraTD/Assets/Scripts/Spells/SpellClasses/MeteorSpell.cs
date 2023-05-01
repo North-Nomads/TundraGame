@@ -104,7 +104,7 @@ namespace Spells.SpellClasses
         private IEnumerator RunExplosionAnimation(Vector3 hitPosition)
         {
             var sparkles = Instantiate(sparklesPrefab, hitPosition, Quaternion.identity);
-            var smoke = Instantiate(smokePrefab, hitPosition, Quaternion.Euler(90, 0, 0));
+            var smoke = Instantiate(smokePrefab, hitPosition + Vector3.up * 0.2f, Quaternion.Euler(90, 0, 0));
             DisableEmissionOnChildren();
             sparkles.transform.localScale = new Vector3(5, 5, 5);
             StartCoroutine(CameraShake());
