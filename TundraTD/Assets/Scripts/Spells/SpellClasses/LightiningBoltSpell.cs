@@ -1,10 +1,7 @@
-﻿using Mobs.MobEffects;
-using Mobs.MobsBehaviour;
+﻿using Mobs.MobsBehaviour;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 namespace Spells.SpellClasses
 {
@@ -20,12 +17,7 @@ namespace Spells.SpellClasses
 
         public override void ExecuteSpell(RaycastHit hit)
         {
-            Collider[] collidersInRadius =  new Collider[200];
-            Physics.OverlapSphereNonAlloc(hit.point, 10, collidersInRadius, ~0, QueryTriggerInteraction.Ignore);
-
-            lightining.enabled = true;
-            lightining.SetPosition(0, new Vector3(hit.point.x, hit.point.y, hit.point.z));
-            lightining.SetPosition(1, Camera.main.transform.position);
+            Collider[] collidersInRadius = Physics.OverlapSphere(hit.point, 10, ~0, QueryTriggerInteraction.Ignore);
 
             foreach (Collider collider in collidersInRadius)
             {
@@ -35,11 +27,26 @@ namespace Spells.SpellClasses
 
             if(_mobsInRadius.Count == 0)
             {
-                Debug.Log("Miss");
+                Destroy(gameObject);
                 return;
             }
 
             StartCoroutine(HitMobs(hit.point));
+        }
+
+        /// <summary>
+        /// Used to redirect strike in another position
+        /// </summary>
+        /// <param name="hitCoordinates" >
+        /// Coordinates of initial impact
+        /// </param>
+        /// <param name="redirectCoordinates">
+        /// Strike destination cooridnates
+        /// </param>
+        public void OverrideStrike(Vector3 hitCoordinates, Vector3 redirectCoordinates)
+        {
+            StopAllCoroutines();
+            StartCoroutine(RenderOverride(hitCoordinates, redirectCoordinates));
         }
 
         private MobBehaviour GetClosestMob(Vector3 CurrentMobPosition)
@@ -58,26 +65,34 @@ namespace Spells.SpellClasses
 
         private IEnumerator HitMobs(Vector3 hitPosition)
         {
-            MobBehaviour mobToStrike, nextMob = GetClosestMob(hitPosition);
-            for(int strikesLeft = amountOFBounces; strikesLeft >= 0 && _mobsInRadius.Count > 0; strikesLeft--)
+            MobBehaviour mobToStrike = GetClosestMob(hitPosition);
+            lightining.SetPosition(0, hitPosition);
+            lightining.SetPosition(1, mobToStrike.transform.position);
+            for(int bounce = amountOFBounces; bounce > 0; --bounce) 
             {
-                mobToStrike = nextMob;
-                lightining.SetPosition(0, nextMob.transform.position);
-                _mobsInRadius.Remove(mobToStrike);
-                nextMob = GetClosestMob(mobToStrike.transform.position);
-                if(nextMob == null)
-                {
-                    lightining.SetPosition(0, new Vector3(0, -100, 0));
-                    lightining.SetPosition(1, new Vector3(0, -100, 0));
-                }
-                else
-                    lightining.SetPosition(1, nextMob.transform.position);
-
-                mobToStrike.HitThisMob(directDamage, BasicElement.Lightning);
                 yield return new WaitForSeconds(.1f);
-                
+                if(GetClosestMob(mobToStrike.transform.position) != null)
+                {
+                    mobToStrike = GetClosestMob(mobToStrike.transform.position);
+                    _mobsInRadius.Remove(mobToStrike);
+                    lightining.SetPosition(0, mobToStrike.transform.position);
+                    if (GetClosestMob(mobToStrike.transform.position) != null)
+                        lightining.SetPosition(1, GetClosestMob(hitPosition).transform.position);
+                    else
+                        lightining.enabled = false;
+
+                }
+                mobToStrike.HitThisMob(directDamage, BasicElement.Lightning);
             }
-            
+            Destroy(gameObject);
+            yield return null;
+        }
+
+        private IEnumerator RenderOverride(Vector3 startCords, Vector3 endCords)
+        {
+            lightining.SetPosition(0, startCords);
+            lightining.SetPosition(1, endCords);
+            yield return new WaitForSeconds(.1f);
             Destroy(gameObject);
             yield return null;
         }
