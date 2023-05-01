@@ -12,6 +12,7 @@ namespace Building
     public class Laser : EnemyTower
     {
         [SerializeField] private float maxCooldownTime;
+        [SerializeField] private float lightningScanRadius;
 
         private List<MeteorSpell> _meteors;
         private float _cooldownTime;
@@ -21,8 +22,13 @@ namespace Building
             var spell = (MagicSpell)sender;
 
             // TODO: Extract this function in Lightning
-            /*if (spell.Element == BasicElement.Lightning && (e.HitInfo.point - transform.position).sqrMagnitude < interactionSize * interactionSize)             
-                _cooldownTime = maxCooldownTime;*/
+            if (spell.Element == BasicElement.Lightning &&
+                (e.HitInfo.point - transform.position).sqrMagnitude < lightningScanRadius * lightningScanRadius)
+            {
+                (spell as LightningBoltSpell).OverrideStrike(e.HitInfo.point, transform.position); 
+                ResetCharge();
+            }          
+                
 
             if (spell.Element == (BasicElement.Fire | BasicElement.Earth))
             {
