@@ -6,12 +6,12 @@ using UnityEngine;
 namespace Spells.SpellClasses
 {
     
-    public class LightiningBoltSpell : MagicSpell
+    public class LightningBoltSpell : MagicSpell
     {
-        private List<MobBehaviour> _mobsInRadius = new List<MobBehaviour>();
-        [SerializeField] private LineRenderer lightining;
+        private readonly List<MobBehaviour> _mobsInRadius = new List<MobBehaviour>();
+        [SerializeField] private LineRenderer lightning;
         [SerializeField] private float directDamage;
-        [SerializeField] private int amountOFBounces;
+        [SerializeField] private int amountOfBounces;
 
         public override BasicElement Element => BasicElement.Lightning;
 
@@ -49,37 +49,37 @@ namespace Spells.SpellClasses
             StartCoroutine(RenderOverride(hitCoordinates, redirectCoordinates));
         }
 
-        private MobBehaviour GetClosestMob(Vector3 CurrentMobPosition)
+        private MobBehaviour GetClosestMob(Vector3 currentMobPosition)
         {
             if (!_mobsInRadius.Any())
                 return null;
             MobBehaviour closestMob = _mobsInRadius[0];
             foreach(MobBehaviour mob in _mobsInRadius)
             {
-                if((CurrentMobPosition - mob.transform.position).magnitude < (CurrentMobPosition - closestMob.transform.position).magnitude)
+                if((currentMobPosition - mob.transform.position).magnitude < (currentMobPosition - closestMob.transform.position).magnitude)
                     closestMob = mob;
             }
-            Debug.DrawLine(CurrentMobPosition, closestMob.transform.position);
+            Debug.DrawLine(currentMobPosition, closestMob.transform.position);
             return closestMob;
         }
 
         private IEnumerator HitMobs(Vector3 hitPosition)
         {
             MobBehaviour mobToStrike = GetClosestMob(hitPosition);
-            lightining.SetPosition(0, hitPosition);
-            lightining.SetPosition(1, mobToStrike.transform.position);
-            for(int bounce = amountOFBounces; bounce > 0; --bounce) 
+            lightning.SetPosition(0, hitPosition);
+            lightning.SetPosition(1, mobToStrike.transform.position);
+            for(int bounce = amountOfBounces; bounce > 0; --bounce) 
             {
                 yield return new WaitForSeconds(.1f);
                 if(GetClosestMob(mobToStrike.transform.position) != null)
                 {
                     mobToStrike = GetClosestMob(mobToStrike.transform.position);
                     _mobsInRadius.Remove(mobToStrike);
-                    lightining.SetPosition(0, mobToStrike.transform.position);
+                    lightning.SetPosition(0, mobToStrike.transform.position);
                     if (GetClosestMob(mobToStrike.transform.position) != null)
-                        lightining.SetPosition(1, GetClosestMob(hitPosition).transform.position);
+                        lightning.SetPosition(1, GetClosestMob(hitPosition).transform.position);
                     else
-                        lightining.enabled = false;
+                        lightning.enabled = false;
 
                 }
                 mobToStrike.HitThisMob(directDamage, BasicElement.Lightning);
@@ -90,8 +90,8 @@ namespace Spells.SpellClasses
 
         private IEnumerator RenderOverride(Vector3 startCords, Vector3 endCords)
         {
-            lightining.SetPosition(0, startCords);
-            lightining.SetPosition(1, endCords);
+            lightning.SetPosition(0, startCords);
+            lightning.SetPosition(1, endCords);
             yield return new WaitForSeconds(.1f);
             Destroy(gameObject);
             yield return null;
