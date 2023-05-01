@@ -44,9 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1aa7ba906cc8d248be4c556fa229262, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightining: {fileID: 4572599805791671643}
-  directDamage: 1000
-  amountOFBounces: 3
+  lightning: {fileID: 4572599805791671643}
+  directDamage: 50
+  amountOfBounces: 3
 --- !u!120 &4572599805791671643
 LineRenderer:
   m_ObjectHideFlags: 0
