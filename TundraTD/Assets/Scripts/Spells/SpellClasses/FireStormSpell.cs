@@ -33,8 +33,12 @@ namespace Spells.SpellClasses
                 
                 var destination = _tornadoCenter + Vector3.up * 4;
                 mob.SetFocusingTarget(destination);
-                
-                mob.AddSingleEffect(new BurningEffect(.5f, 6f.SecondsToTicks(), false));
+                mob.AddReceivedEffects(new List<Effect>
+                {
+                    new BurningEffect(.5f, 6f.SecondsToTicks(), false),
+                    new InspirationEffect(),
+                    new SpeedEffect(6f.SecondsToTicks(), 4)
+                });
                 _affectedMobs.Add(mob);
             }
         }
