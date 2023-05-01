@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using Mobs.MobsBehaviour;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Spells.SpellClasses
 {
     public class LightningCrystalSpell : MagicSpell
     {
-        private readonly List<Rigidbody> _mobs = new List<Rigidbody>();
+        private readonly List<MobBehaviour> _mobs = new List<MobBehaviour>();
         private float _time;
 
         [SerializeField] private float pullForce;
@@ -14,23 +15,23 @@ namespace Spells.SpellClasses
 
         private void OnTriggerEnter(Collider e)
         {
-            if (!e.gameObject.TryGetComponent(out Rigidbody enteredMob))
+            if (!e.gameObject.TryGetComponent(out MobBehaviour enteredMob))
                 return;
             _mobs.Add(enteredMob);
         }
 
         private void OnTriggerExit(Collider e)
         {
-            if (!e.gameObject.TryGetComponent(out Rigidbody enteredMob))
+            if (!e.gameObject.TryGetComponent(out MobBehaviour enteredMob))
                 return;
             _mobs.Remove(enteredMob);
         }
 
         private void FixedUpdate()
         {
-            _mobs.ForEach(mob => { if (!mob.gameObject.activeSelf) _mobs.Remove(mob); });
+            _mobs.ForEach(mob => { if (!mob.MobModel.IsAlive) _mobs.Remove(mob); });
 
-            _mobs.ForEach(mob => mob.AddForce((mob.transform.position - transform.position).normalized * (pullForce * -1),
+            _mobs.ForEach(mob => mob.MobModel.Rigidbody.AddForce((mob.transform.position - transform.position).normalized * (pullForce * -1),
                 ForceMode.Force));
         }
 
@@ -38,7 +39,7 @@ namespace Spells.SpellClasses
         {
             var colliders = Physics.OverlapSphere(transform.position, GetComponent<SphereCollider>().radius);
             foreach (var overlappedCollider in colliders)
-                if (overlappedCollider.gameObject.TryGetComponent(out Rigidbody mob))
+                if (overlappedCollider.gameObject.TryGetComponent(out MobBehaviour mob))
                     _mobs.Add(mob);
         }
 
