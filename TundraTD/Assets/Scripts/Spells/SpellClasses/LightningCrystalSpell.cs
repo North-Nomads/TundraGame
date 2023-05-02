@@ -29,7 +29,11 @@ namespace Spells.SpellClasses
 
         private void FixedUpdate()
         {
-            _mobs.ForEach(mob => { if (!mob.MobModel.IsAlive) _mobs.Remove(mob); });
+            for(int i = 0; i < _mobs.Count; i++)
+            {
+                if (!_mobs[i].MobModel.IsAlive)
+                    _mobs.Remove(_mobs[i]);
+            }
 
             _mobs.ForEach(mob => mob.MobModel.Rigidbody.AddForce((mob.transform.position - transform.position).normalized * (pullForce * -1),
                 ForceMode.Force));
