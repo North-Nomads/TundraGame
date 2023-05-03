@@ -27,7 +27,7 @@ namespace Spells.SpellClasses
         {
             mainCollider.radius = Radius;
             mainCollider.height = RainHeight;
-            vfx.transform.position = hitInfo.point + Vector3.up;
+            transform.position = hitInfo.point;
             StartCoroutine(WaitTime());
         }
 
