@@ -1,20 +1,17 @@
+using System.Collections;
 using Level;
 using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace Spells
+namespace Spells.SpellClasses
 {
     public class RainSpell : MagicSpell
     {
         private const float RainHeight = 30f;
 
-        [SerializeField] private GameObject rainParticles;
-        [SerializeField] private GameObject rainSplashes;
+        [SerializeField] private Transform vfx;
         [SerializeField] private CapsuleCollider mainCollider;
-        private Vector3 _targetPosition;
 
         private float Radius { get; set; } = 10f;
 
@@ -24,22 +21,13 @@ namespace Spells
 
         private float SlownessValue { get; set; } = 0.1f;
 
-        private float LightningMultiplier { get; set; } = 1.1f;
-
         public override BasicElement Element => BasicElement.Water;
 
         public override void ExecuteSpell(RaycastHit hitInfo)
         {
-            _targetPosition = hitInfo.point;
-            rainSplashes.transform.position = (transform.position = _targetPosition) + Vector3.up;
-            rainParticles.SetActive(true);
-            rainSplashes.SetActive(true);
-            var shape = rainParticles.GetComponent<ParticleSystem>().shape;
-            shape.radius = Radius / 10;
             mainCollider.radius = Radius;
             mainCollider.height = RainHeight;
-            rainParticles.transform.localPosition = Vector3.up * (RainHeight / 2);
-            rainSplashes.transform.localScale = new Vector3(Radius / 10, 1, Radius / 10);
+            vfx.transform.position = hitInfo.point + Vector3.up;
             StartCoroutine(WaitTime());
         }
 
