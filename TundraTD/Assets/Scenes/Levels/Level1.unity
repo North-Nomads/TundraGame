@@ -1604,7 +1604,7 @@ MonoBehaviour:
   spellInitializers:
   - {fileID: 6680923661109867143, guid: 322fe369764485745997b9ae6cbd40a5, type: 3}
   - {fileID: 9218577674572230811, guid: b6bf0bd0e73be4143a0ea870f00e9399, type: 3}
-  - {fileID: -1719343305989426532, guid: 97ad3535d65a39f4793f5fcf2b1f02c5, type: 3}
+  - {fileID: 0}
   - {fileID: -6803395362427656954, guid: 7cb73ecbefc3b244f8c4768d56eb883d, type: 3}
   - {fileID: 8208963260508828548, guid: 16ec26eca3e1b334b8aa415444f00119, type: 3}
   - {fileID: 3135699678937307733, guid: 5967a976813c383428cba1353eff3066, type: 3}
@@ -5380,6 +5380,7 @@ GameObject:
   - component: {fileID: 1696383891}
   - component: {fileID: 1696383890}
   - component: {fileID: 1696383894}
+  - component: {fileID: 1696383895}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5487,6 +5488,37 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4096
   m_MaxRayIntersections: 0
+--- !u!114 &1696383895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1696383889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1001 &1723114534
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5950,7 +5982,7 @@ Transform:
   - {fileID: 1028091172}
   - {fileID: 995829850}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1854091794
 PrefabInstance:

@@ -12,19 +12,23 @@ namespace Spells.SpellClasses
         [SerializeField] private float detonationRadius;
         [SerializeField] private float maxDamage;
         [SerializeField] private float minDamage;
+        [SerializeField] private SphereCollider sphereCollider;
         public override BasicElement Element => BasicElement.Fire | BasicElement.Lightning;
 
         public override void ExecuteSpell(RaycastHit hitInfo)
         {
-            gameObject.transform.position = hitInfo.point;
+            gameObject.transform.position = hitInfo.point + Vector3.up;
         }
 
 
         private void Update()
         {
             _time += Time.deltaTime;
+            sphereCollider.radius = Mathf.Lerp(0.01f, detonationRadius, _time);   
+            
             if (_time >= timeToDetonate)
                 Detonate();
+
         }
         private void Detonate()
         {
@@ -36,7 +40,7 @@ namespace Spells.SpellClasses
             Destroy(gameObject);
         }
 
-        private void OnCollisionEnter(Collision collision)
+        private void OnTriggerEnter(Collider other)
         {
             Detonate();
         }
