@@ -2,8 +2,10 @@ using Mobs.MobEffects;
 using Spells;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Mobs.MobsBehaviour
 {
@@ -16,6 +18,10 @@ namespace Mobs.MobsBehaviour
         [SerializeField] private GameObject[] effectPrefabs;
         [SerializeField] private MobModel mobModel;
         [SerializeField] private WayPoint[] waypointRoute;
+        
+        public bool IsMoving { get; set; }
+        public Vector3? TargetToFocus { get; set; }
+        
         private int _currentWaypointIndex;
         private float _tickTimer;
         
@@ -167,7 +173,8 @@ namespace Mobs.MobsBehaviour
             // Set mob position
             var mobTransform = transform;
             mobTransform.position = position;
-            
+
+            IsMoving = true;
             ClearMobEffects();
             
             // Set visual effects
@@ -202,17 +209,30 @@ namespace Mobs.MobsBehaviour
 
         protected void MoveTowardsNextPoint(Vector3 waypoint = default)
         {
+            if (!IsMoving)
+                return;
+            
+            if (TargetToFocus.HasValue)
+                waypoint = TargetToFocus.Value;
+            
             UpdateCurrentWaypoint();
             if (waypoint == Vector3.zero) 
                 waypoint = new Vector3(WaypointRoute[_currentWaypointIndex].transform.position.x, transform.position.y,
                     WaypointRoute[_currentWaypointIndex].transform.position.z);
+            
             var direction = waypoint - transform.position;
             mobModel.Rigidbody.velocity = direction.normalized * mobModel.CurrentMobSpeed;
         }
 
+
         private void OnDrawGizmos()
         {
             Gizmos.DrawSphere(WaypointRoute[_currentWaypointIndex].transform.position, 1f);
+        }
+
+        public void SetFocusingTarget(Vector3? destination)
+        {
+            TargetToFocus = destination;
         }
     }
 }
