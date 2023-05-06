@@ -9,7 +9,6 @@ namespace Spells.SpellClasses
 {
     public class FireStormSpell : MagicSpell
     {
-        [SerializeField] private float pullForce;
         [SerializeField] private float lifetime;
         private Vector3 _tornadoCenter;
 
@@ -21,7 +20,6 @@ namespace Spells.SpellClasses
             _affectedMobs = new List<MobBehaviour>();
             transform.position = hitInfo.point;
             _tornadoCenter = hitInfo.point;
-            GetComponent<CapsuleCollider>();
             StartCoroutine(StayAlive());
         }
 
