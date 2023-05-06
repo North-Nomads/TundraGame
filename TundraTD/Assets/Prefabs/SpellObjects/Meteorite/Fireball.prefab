@@ -48,6 +48,7 @@ MonoBehaviour:
   meteoriteMesh: {fileID: 7574884355611013539}
   smokePrefab: {fileID: 9157105887693468085, guid: d1c0c4b972666154a9fb38a711c89a85,
     type: 3}
+  hitImpact: {fileID: 2800000, guid: ac6f7397c9388ea4985272a1795d8c6d, type: 3}
   sparklesPrefab: {fileID: 2766622413630217234, guid: 58bcf7ef6b3ba3944b34da405c88eb66,
     type: 3}
   explosionDelay: 2
