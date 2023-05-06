@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Security.Cryptography;
 using Level;
 using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
@@ -27,6 +28,7 @@ namespace Spells.SpellClasses
         private Vector3 _target;
         private bool _isLanded;
         private AudioSource _source;
+        private Coroutine _fallTask;
 
         /// <summary>
         /// The radius of the hit area
@@ -65,9 +67,9 @@ namespace Spells.SpellClasses
             var reflect = Vector3.Reflect(Quaternion.Euler(0, -90, 0) * _camera.transform.forward, hitInfo.normal).normalized;
             transform.position = _target + reflect * FlyDistance;
             transform.forward = (_target - transform.position).normalized;
-            StartCoroutine(LaunchFireball());
+            _fallTask = StartCoroutine(LaunchFireball());
         }
-        
+
         private IEnumerator LaunchFireball()
         {
             // Performs flight towards target.
@@ -97,12 +99,20 @@ namespace Spells.SpellClasses
 
             // Aftershock animations & stuff
             print("Aftershock");
-            StartCoroutine(RunExplosionAnimation(transform.position));
+            StartCoroutine(RunExplosionAnimation());
+            meteoriteMesh.enabled = false;
+        }
+        
+        internal void Explode()
+        {
+            StopCoroutine(_fallTask);
+            StartCoroutine(RunExplosionAnimation());
             meteoriteMesh.enabled = false;
         }
 
-        private IEnumerator RunExplosionAnimation(Vector3 hitPosition)
+        private IEnumerator RunExplosionAnimation()
         {
+            var hitPosition = transform.position;
             var sparkles = Instantiate(sparklesPrefab, hitPosition, Quaternion.identity);
             var smoke = Instantiate(smokePrefab, hitPosition + Vector3.up * 0.2f, Quaternion.Euler(90, 0, 0));
             DisableEmissionOnChildren();

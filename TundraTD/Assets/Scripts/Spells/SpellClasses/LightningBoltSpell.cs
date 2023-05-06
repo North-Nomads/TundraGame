@@ -3,15 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+
 namespace Spells.SpellClasses
 {
     
     public class LightningBoltSpell : MagicSpell
     {
-        private List<MobBehaviour> _mobsInRadius = new List<MobBehaviour>();
-        private bool _isOverriden = false;
+        private readonly List<MobBehaviour> _mobsInRadius = new List<MobBehaviour>();
+        private bool _isOverriden;
 
-        [SerializeField] private LineRenderer lightining;
+        [SerializeField] private LineRenderer lightning;
         [SerializeField] private float directDamage;
         [SerializeField] private int amountOFBounces;
 
@@ -67,11 +68,12 @@ namespace Spells.SpellClasses
             return closestMob;
         }
 
+        // 
         private IEnumerator HitMobs(Vector3 hitPosition)
         {
             MobBehaviour mobToStrike = GetClosestMob(hitPosition);
-            lightining.SetPosition(0, hitPosition);
-            lightining.SetPosition(1, mobToStrike.transform.position);
+            lightning.SetPosition(0, hitPosition);
+            lightning.SetPosition(1, mobToStrike.transform.position);
             for(int bounce = amountOFBounces; bounce > 0; --bounce) 
             {
                 yield return new WaitForSeconds(.1f);
@@ -79,11 +81,11 @@ namespace Spells.SpellClasses
                 {
                     mobToStrike = GetClosestMob(mobToStrike.transform.position);
                     _mobsInRadius.Remove(mobToStrike);
-                    lightining.SetPosition(0, mobToStrike.transform.position);
+                    lightning.SetPosition(0, mobToStrike.transform.position);
                     if (GetClosestMob(mobToStrike.transform.position) != null)
-                        lightining.SetPosition(1, GetClosestMob(hitPosition).transform.position);
+                        lightning.SetPosition(1, GetClosestMob(hitPosition).transform.position);
                     else
-                        lightining.enabled = false;
+                        lightning.enabled = false;
 
                 }
                 mobToStrike.HitThisMob(directDamage, BasicElement.Lightning);
@@ -95,8 +97,8 @@ namespace Spells.SpellClasses
         private IEnumerator RenderOverride(Vector3 startCords, Vector3 endCords)
         {
 
-            lightining.SetPosition(0, startCords);
-            lightining.SetPosition(1, endCords);
+            lightning.SetPosition(0, startCords);
+            lightning.SetPosition(1, endCords);
             yield return new WaitForSeconds(.1f);
             Destroy(gameObject);
             yield return null;
