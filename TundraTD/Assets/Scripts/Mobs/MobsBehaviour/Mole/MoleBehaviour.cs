@@ -15,16 +15,15 @@ namespace Mobs.MobsBehaviour.Mole
 
         protected override void HandleIncomeDamage(float damage, BasicElement damageElement)
         {
-            if (damageElement == BasicElement.Fire) // если элемент заклинания земля, то выкидываем крота из земли
+            if (damageElement == BasicElement.Earth)
             {
                 _isUnderground = false;
                 _meshRenderer.enabled = true;
             }
 
-            if (_isUnderground == false) // пока под землей урона нет
-            {
-                MobModel.CurrentMobHealth -= damage;
-            }
+            if (_isUnderground)
+                return;
+            MobModel.CurrentMobHealth -= damage;
         }
 
         public override void ExecuteOnMobSpawn(MobPortal mobPortal)

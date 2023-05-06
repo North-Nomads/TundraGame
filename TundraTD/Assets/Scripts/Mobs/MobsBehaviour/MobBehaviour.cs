@@ -227,6 +227,7 @@ namespace Mobs.MobsBehaviour
 
         private void OnDrawGizmos()
         {
+            if (WaypointRoute == null || WaypointRoute.Length == 0) return;
             Gizmos.DrawSphere(WaypointRoute[_currentWaypointIndex].transform.position, 1f);
         }
 
