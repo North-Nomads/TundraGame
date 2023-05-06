@@ -3,11 +3,12 @@ using UnityEngine;
 
 namespace Building
 {
-	public class EnemyTower : MonoBehaviour
-	{
+	public abstract class EnemyTower : MonoBehaviour
+    {
         private void Start()
         {
             MagicSpell.SpellCast += HandleSpellCast;
+            ExecuteOnStart();
         }
 
         private void OnDestroy()
@@ -19,5 +20,7 @@ namespace Building
         {
 
         }
+
+        protected virtual void ExecuteOnStart() { }
     }
 }

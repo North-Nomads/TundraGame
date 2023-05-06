@@ -7,6 +7,7 @@ TagManager:
   - Mob
   - FxTemporaire
   - Tree
+  - Spell
   layers:
   - Default
   - TransparentFX
@@ -24,7 +25,7 @@ TagManager:
   - Tree
   - Gates
   - Waypoint
-  - 
+  - Spell
   - 
   - 
   - 
