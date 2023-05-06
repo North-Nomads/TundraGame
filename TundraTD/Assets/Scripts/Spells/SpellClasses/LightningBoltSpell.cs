@@ -1,20 +1,19 @@
-﻿using Mobs.MobEffects;
-using Mobs.MobsBehaviour;
+﻿using Mobs.MobsBehaviour;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.Serialization;
+
 namespace Spells.SpellClasses
 {
     
-    public class LightiningBoltSpell : MagicSpell
+    public class LightningBoltSpell : MagicSpell
     {
-        private List<MobBehaviour> _mobsInRadius = new List<MobBehaviour>();
-        [SerializeField] private LineRenderer lightining;
+        private readonly List<MobBehaviour> _mobsInRadius = new List<MobBehaviour>();
+        [SerializeField] private LineRenderer lightning;
         [SerializeField] private float directDamage;
-        [SerializeField] private int amountOFBounces;
+        [SerializeField] private int amountOfBounces;
 
         public override BasicElement Element => BasicElement.Lightning;
 
@@ -23,9 +22,9 @@ namespace Spells.SpellClasses
             Collider[] collidersInRadius =  new Collider[200];
             Physics.OverlapSphereNonAlloc(hit.point, 10, collidersInRadius, ~0, QueryTriggerInteraction.Ignore);
 
-            lightining.enabled = true;
-            lightining.SetPosition(0, new Vector3(hit.point.x, hit.point.y, hit.point.z));
-            lightining.SetPosition(1, Camera.main.transform.position);
+            lightning.enabled = true;
+            lightning.SetPosition(0, new Vector3(hit.point.x, hit.point.y, hit.point.z));
+            lightning.SetPosition(1, Camera.main.transform.position);
 
             foreach (Collider collider in collidersInRadius)
             {
@@ -59,19 +58,19 @@ namespace Spells.SpellClasses
         private IEnumerator HitMobs(Vector3 hitPosition)
         {
             MobBehaviour mobToStrike, nextMob = GetClosestMob(hitPosition);
-            for(int strikesLeft = amountOFBounces; strikesLeft >= 0 && _mobsInRadius.Count > 0; strikesLeft--)
+            for(int strikesLeft = amountOfBounces; strikesLeft >= 0 && _mobsInRadius.Count > 0; strikesLeft--)
             {
                 mobToStrike = nextMob;
-                lightining.SetPosition(0, nextMob.transform.position);
+                lightning.SetPosition(0, nextMob.transform.position);
                 _mobsInRadius.Remove(mobToStrike);
                 nextMob = GetClosestMob(mobToStrike.transform.position);
                 if(nextMob == null)
                 {
-                    lightining.SetPosition(0, new Vector3(0, -100, 0));
-                    lightining.SetPosition(1, new Vector3(0, -100, 0));
+                    lightning.SetPosition(0, new Vector3(0, -100, 0));
+                    lightning.SetPosition(1, new Vector3(0, -100, 0));
                 }
                 else
-                    lightining.SetPosition(1, nextMob.transform.position);
+                    lightning.SetPosition(1, nextMob.transform.position);
 
                 mobToStrike.HitThisMob(directDamage, BasicElement.Lightning);
                 yield return new WaitForSeconds(.1f);
