@@ -1,7 +1,8 @@
 ﻿using System.Collections;
+using System.Linq;
+using Mobs.MobEffects;
 using Spells;
 using UnityEngine;
-
 
 namespace Mobs.MobsBehaviour.Mole
 {
@@ -17,16 +18,26 @@ namespace Mobs.MobsBehaviour.Mole
         {
             if (damageElement == BasicElement.Earth)
             {
-                _isUnderground = false;
-                MobModel.Renderer.enabled = true;
+                // Stop all coroutines (digging in or out)
+                StopAllCoroutines();
+                _isBusyWithAnimation = false;
             }
-
-            if (_isUnderground)
-                return;
             
-            MobModel.CurrentMobHealth -= damage;
+            if (_isUnderground)
+            {
+                if (damageElement == BasicElement.Earth)
+                {
+                    MobModel.Renderer.enabled = true;
+                    StartCoroutine(DigOut());
+                    MobModel.CurrentMobHealth -= damage;
+                }
+            }
+            else
+            {
+                MobModel.CurrentMobHealth -= damage;
+            }
         }
-
+        
         public override void ExecuteOnMobSpawn(MobPortal mobPortal)
         {
             MobPortal = mobPortal;
@@ -42,11 +53,28 @@ namespace Mobs.MobsBehaviour.Mole
                 return; 
             
             MoveTowardsNextPoint();
-            _diggingTimer -= Time.deltaTime;
-            if (_diggingTimer > 0 & !_isUnderground)
-                return;
-
-            StartCoroutine(DigUnderground());
+            // _isBusy required because excavation animation takes it's time
+            if (!_isUnderground & !_isBusyWithAnimation) 
+            {
+                _diggingTimer -= Time.deltaTime;
+                if (_diggingTimer > 0)
+                    return;
+                
+                // Prevent digging in-stun
+                if (!CurrentEffects.Any(x => x is StunEffect))
+                    StartCoroutine(DigUnderground());
+            }
+        }
+        
+        private IEnumerator DigOut()
+        {
+            _isBusyWithAnimation = true;
+            MobModel.Renderer.enabled = true;
+            _isUnderground = false;
+            Debug.Log("On the gound");
+            MobModel.Animator.SetTrigger("IsDiggingOut");
+            yield return new WaitForSeconds(2.5f);
+            _isBusyWithAnimation = false;
         }
 
         private IEnumerator DigUnderground()
