@@ -283,6 +283,7 @@ MonoBehaviour:
   effectPrefabs: []
   mobModel: {fileID: 4846598038259615487}
   waypointRoute: []
+  maxDiggingTime: 5
 --- !u!95 &6863712671095438598
 Animator:
   serializedVersion: 3
