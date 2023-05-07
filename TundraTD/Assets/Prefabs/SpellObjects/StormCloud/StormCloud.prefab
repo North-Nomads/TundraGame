@@ -62,6 +62,8 @@ MonoBehaviour:
   lifetime: 6
   zapDamage: 10
   zapCooldownTime: 0.3
+  zapPrefab: {fileID: 6411986496913883940, guid: 16ec26eca3e1b334b8aa415444f00119,
+    type: 3}
 --- !u!1001 &556326910047196714
 PrefabInstance:
   m_ObjectHideFlags: 0

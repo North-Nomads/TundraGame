@@ -11,6 +11,7 @@ namespace Spells.SpellClasses
         [SerializeField] private float lifetime;
         [SerializeField] private float zapDamage;
         [SerializeField] private float zapCooldownTime;
+        [SerializeField] private LightningBoltSpell zapPrefab;
         private List<MobBehaviour> _cachedMobs;
         private float _zapTimer;
 
@@ -41,7 +42,7 @@ namespace Spells.SpellClasses
             // Get the first alive mob or null. Attack alive mob 
             var mob = GetFirstAliveMob();
             if (!(mob is null))
-                ApplyZapOnMob();
+                StartCoroutine(ApplyZapOnMob());
             
 
             MobBehaviour GetFirstAliveMob()
@@ -66,8 +67,15 @@ namespace Spells.SpellClasses
             }
             
             // Apply all effects on this mob
-            void ApplyZapOnMob()
+            IEnumerator ApplyZapOnMob()
             {
+                var zap = Instantiate(zapPrefab);
+                zap.Lightning.SetPosition(0, transform.position);
+                zap.Lightning.SetPosition(1, mob.transform.position);
+
+                yield return new WaitForSeconds(.1f);
+                Destroy(zap.gameObject);
+                
                 mob.ClearMobEffects();
                 mob.HitThisMob(zapDamage, BasicElement.Lightning);
                 mob.AddSingleEffect(new StunEffect(3));
