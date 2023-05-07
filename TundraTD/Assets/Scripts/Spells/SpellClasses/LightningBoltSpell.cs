@@ -17,6 +17,7 @@ namespace Spells.SpellClasses
         [SerializeField] private int amountOfBounces;
 
         public LineRenderer Lightning => lightning;
+        public float DirectDamage => directDamage;
         public int AmountOfBounces => amountOfBounces;
 
         public override BasicElement Element => BasicElement.Lightning;
@@ -72,20 +73,13 @@ namespace Spells.SpellClasses
         }
 
         // 
-        private IEnumerator HitMobs(Vector3 hitPosition, Vector3? cloudPosition = null)
+        private IEnumerator HitMobs(Vector3 hitPosition)
         {
             MobBehaviour mobToStrike = GetClosestMob(hitPosition);
-
-            if (cloudPosition.HasValue)
-            {
-                lightning.SetPosition(0, cloudPosition.Value);
-                lightning.SetPosition(1, hitPosition);
-            }
-            else
-            {
-                lightning.SetPosition(0, hitPosition);
-                lightning.SetPosition(1, mobToStrike.transform.position);    
-            }
+            
+            lightning.SetPosition(0, hitPosition);
+            lightning.SetPosition(1, mobToStrike.transform.position);    
+            
             for(int bounce = amountOfBounces; bounce > 0; --bounce) 
             {
                 yield return new WaitForSeconds(.1f);
