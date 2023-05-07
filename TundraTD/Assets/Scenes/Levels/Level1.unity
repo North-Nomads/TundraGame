@@ -1497,15 +1497,15 @@ MonoBehaviour:
   influencePointsHolder: {fileID: 2053122070}
   spellInitializers:
   - {fileID: 6680923661109867143, guid: 322fe369764485745997b9ae6cbd40a5, type: 3}
-  - {fileID: 9218577674572230811, guid: b6bf0bd0e73be4143a0ea870f00e9399, type: 3}
+  - {fileID: 0}
   - {fileID: -1719343305989426532, guid: 97ad3535d65a39f4793f5fcf2b1f02c5, type: 3}
   - {fileID: -6803395362427656954, guid: 7cb73ecbefc3b244f8c4768d56eb883d, type: 3}
-  - {fileID: 8208963260508828548, guid: 16ec26eca3e1b334b8aa415444f00119, type: 3}
+  - {fileID: 0}
   - {fileID: 3135699678937307733, guid: 5967a976813c383428cba1353eff3066, type: 3}
   - {fileID: -6089108544262094553, guid: 923c7591b81169748bbbc3dee9a9341a, type: 3}
   - {fileID: 7417428842517566633, guid: 44e1c1daa42495f41bf4c4432dffc946, type: 3}
   - {fileID: 6137339960980298773, guid: 572b4c0fe36a1be4983accce53b97f4a, type: 3}
-  - {fileID: -4578980917677416286, guid: 63c23b93473c487498b3a119909f2730, type: 3}
+  - {fileID: 0}
   - {fileID: -385376720774300639, guid: 75d692c527ca42f49a165de940ceca3f, type: 3}
   - {fileID: 2365149872849786638, guid: a3fa6d8a17e428d4bb7520f913ca497a, type: 3}
   mobPools: []
@@ -3238,7 +3238,7 @@ PrefabInstance:
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
       propertyPath: mobWaves.Array.data[0].mobProperties.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
@@ -3259,7 +3259,7 @@ PrefabInstance:
         type: 3}
       propertyPath: mobWaves.Array.data[0].mobProperties.Array.data[0].mob
       value: 
-      objectReference: {fileID: 4081599098900397475, guid: 41498cfd0a0fccf4491dee7833b319fc,
+      objectReference: {fileID: 679887491081338523, guid: 99dbde16365bf32408073960fa7631c0,
         type: 3}
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
@@ -3318,12 +3318,12 @@ PrefabInstance:
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
       propertyPath: mobWaves.Array.data[0].mobProperties.Array.data[0].mobQuantity
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
       propertyPath: mobWaves.Array.data[0].mobProperties.Array.data[1].mobQuantity
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}

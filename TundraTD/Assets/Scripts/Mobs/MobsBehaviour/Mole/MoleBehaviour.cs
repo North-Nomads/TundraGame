@@ -11,14 +11,12 @@ namespace Mobs.MobsBehaviour.Mole
     public class MoleBehaviour : MobBehaviour
     {
         private bool _isUnderground = true;
-        private MeshRenderer _meshRenderer;
 
         protected override void HandleIncomeDamage(float damage, BasicElement damageElement)
         {
             if (damageElement == BasicElement.Earth)
             {
                 _isUnderground = false;
-                _meshRenderer.enabled = true;
             }
 
             if (_isUnderground)
@@ -28,8 +26,6 @@ namespace Mobs.MobsBehaviour.Mole
 
         public override void ExecuteOnMobSpawn(MobPortal mobPortal)
         {
-            _meshRenderer = GetComponent<MeshRenderer>();
-            _meshRenderer.enabled = false;
             MobPortal = mobPortal;
             MobModel.InstantiateMobModel();
         }
