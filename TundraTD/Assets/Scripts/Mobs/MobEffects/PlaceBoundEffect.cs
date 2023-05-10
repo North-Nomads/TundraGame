@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Mobs.MobEffects
 {
-	public abstract class PlaceBoundSpell : Effect
+	public abstract class PlaceBoundEffect : Effect
 	{
 		public Vector3 TargetPosition { get; set; }
 
@@ -13,7 +13,7 @@ namespace Mobs.MobEffects
 
         public override bool ShouldBeDetached => (TargetMob.transform.position - TargetPosition).sqrMagnitude > Distance * Distance;
 
-        protected PlaceBoundSpell(Vector3 target, float distance)
+        protected PlaceBoundEffect(Vector3 target, float distance)
         {
             TargetPosition = target;
             Distance = distance;
