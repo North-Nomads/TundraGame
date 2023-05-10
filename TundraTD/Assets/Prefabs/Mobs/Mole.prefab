@@ -283,7 +283,9 @@ MonoBehaviour:
   effectPrefabs: []
   mobModel: {fileID: 4846598038259615487}
   waypointRoute: []
+  scannerPosition: {fileID: 0}
   maxDiggingTime: 5
+  frontScanTimer: 2
 --- !u!95 &6863712671095438598
 Animator:
   serializedVersion: 3

@@ -7,6 +7,8 @@ TagManager:
   - Mob
   - FxTemporaire
   - Tree
+  - SoftGround
+  - HardGround
   layers:
   - Default
   - TransparentFX

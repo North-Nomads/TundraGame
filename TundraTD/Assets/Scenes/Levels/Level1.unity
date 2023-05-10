@@ -2188,6 +2188,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e89a44637a674c54aaf4d1f38a8eeaf6,
+        type: 3}
+      propertyPath: m_TagString
+      value: HardGround
+      objectReference: {fileID: 0}
     - target: {fileID: 930868341954135347, guid: e89a44637a674c54aaf4d1f38a8eeaf6,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -3655,6 +3660,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: -4035112879468907153, guid: 236bd59ab37bb5340a6ae438dbbf72c4,
+        type: 3}
+      propertyPath: m_TagString
+      value: SoftGround
       objectReference: {fileID: 0}
     - target: {fileID: -3960494546267602047, guid: 236bd59ab37bb5340a6ae438dbbf72c4,
         type: 3}
