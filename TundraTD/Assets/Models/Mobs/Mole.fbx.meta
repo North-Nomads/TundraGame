@@ -15,6 +15,12 @@ ModelImporter:
   - first:
       74: -6112803813002546056
     second: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430|Running"
+  - first:
+      74: 2492453443394923591
+    second: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430|Deafening_Fall"
+  - first:
+      74: -7587943397892820741
+    second: "\u0410\u0440\u043C\u0430\u0442\u0443\u0440\u0430|Deafening_Fall.001"
   externalObjects: {}
   materials:
     materialImportMode: 1
