@@ -28,7 +28,7 @@ namespace Mobs.MobsBehaviour.Mole
                 if (damageElement == BasicElement.Earth)
                 {
                     MobModel.Renderer.enabled = true;
-                    StartCoroutine(DigOut());
+                    StartCoroutine(PullMobOut());
                     MobModel.CurrentMobHealth -= damage;
                 }
             }
@@ -37,7 +37,18 @@ namespace Mobs.MobsBehaviour.Mole
                 MobModel.CurrentMobHealth -= damage;
             }
         }
-        
+
+        private IEnumerator PullMobOut()
+        {
+            _isBusyWithAnimation = true;
+            MobModel.Renderer.enabled = true;
+            _isUnderground = false;
+            Debug.Log("On the gound");
+            MobModel.Animator.SetBool("IsStunned", true);
+            yield return new WaitForSeconds(2.5f);
+            _isBusyWithAnimation = false;
+        }
+
         public override void ExecuteOnMobSpawn(MobPortal mobPortal)
         {
             MobPortal = mobPortal;
