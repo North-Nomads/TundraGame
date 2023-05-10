@@ -20,6 +20,7 @@ namespace Mobs.MobsBehaviour.Mole
             {
                 // Stop all coroutines (digging in or out)
                 StopAllCoroutines();
+                _diggingTimer = maxDiggingTime * .5f;
                 _isBusyWithAnimation = false;
             }
             
@@ -36,17 +37,6 @@ namespace Mobs.MobsBehaviour.Mole
             {
                 MobModel.CurrentMobHealth -= damage;
             }
-        }
-
-        private IEnumerator PullMobOut()
-        {
-            _isBusyWithAnimation = true;
-            MobModel.Renderer.enabled = true;
-            _isUnderground = false;
-            Debug.Log("On the gound");
-            MobModel.Animator.SetBool("IsStunned", true);
-            yield return new WaitForSeconds(2.5f);
-            _isBusyWithAnimation = false;
         }
 
         public override void ExecuteOnMobSpawn(MobPortal mobPortal)
@@ -77,6 +67,18 @@ namespace Mobs.MobsBehaviour.Mole
             }
         }
         
+        private IEnumerator PullMobOut()
+        {
+            _isBusyWithAnimation = true;
+            MobModel.Renderer.enabled = true;
+            _isUnderground = false;
+            MobModel.Animator.SetBool("IsStunned", true);
+            yield return new WaitForSeconds(1f);
+            MobModel.Animator.SetBool("IsStunned", false);
+            _diggingTimer = maxDiggingTime * 1.5f;
+            _isBusyWithAnimation = false;
+        }
+        
         private IEnumerator DigOut()
         {
             _isBusyWithAnimation = true;
@@ -97,7 +99,6 @@ namespace Mobs.MobsBehaviour.Mole
             
             _isUnderground = true;
             MobModel.Renderer.enabled = false;
-            _diggingTimer = maxDiggingTime; 
             Debug.Log("Underground");
         }
     }
