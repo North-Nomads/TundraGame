@@ -10,6 +10,7 @@ namespace Mobs.MobsBehaviour.Bear
     public class BearBehaviour : MobBehaviour
     {
         [SerializeField] private float mobShield;
+        [SerializeField] private Transform armorStand;
 
         private float MobShield
         {
@@ -26,9 +27,23 @@ namespace Mobs.MobsBehaviour.Bear
         protected override void HandleIncomeDamage(float damage, BasicElement damageElement)
         {
             if (MobShield > 0 && !float.IsPositiveInfinity(damage))
+            {
                 MobShield -= damage;
+                if (MobShield <= 0)
+                {
+                    ExecuteShieldCrackVfx();
+                }
+            }
             else
+            {
                 MobModel.CurrentMobHealth -= damage;
+            }
+                
+        }
+
+        private void ExecuteShieldCrackVfx()
+        {
+            armorStand.gameObject.SetActive(false);
         }
 
         public override void ExecuteOnMobSpawn(MobPortal mobPortal)
