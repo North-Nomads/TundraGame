@@ -144,6 +144,7 @@ MonoBehaviour:
   - {fileID: 6907859124788518673}
   - {fileID: 6907859124788518673}
   mobModel: {fileID: 4000996451007599640}
+  waypointRoute: []
   mobShield: 100
 --- !u!95 &-1961220110354390244
 Animator:
