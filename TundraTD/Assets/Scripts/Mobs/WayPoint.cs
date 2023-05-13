@@ -8,6 +8,10 @@ namespace Mobs
     /// </summary>
     public class WayPoint : MonoBehaviour
     {
+        [SerializeField] private bool isSoftGround;
+
+        public bool IsSoftGround => isSoftGround;
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Mob"))

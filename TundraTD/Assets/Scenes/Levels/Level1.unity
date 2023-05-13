@@ -392,6 +392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe1d58bdd17444db91b21b3e36f9823, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSoftGround: 1
 --- !u!65 &78830694
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1254,6 +1255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe1d58bdd17444db91b21b3e36f9823, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSoftGround: 1
 --- !u!65 &462043804
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1413,6 +1415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe1d58bdd17444db91b21b3e36f9823, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSoftGround: 1
 --- !u!65 &529390420
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3160,6 +3163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe1d58bdd17444db91b21b3e36f9823, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSoftGround: 0
 --- !u!65 &954410204
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5911,6 +5915,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe1d58bdd17444db91b21b3e36f9823, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSoftGround: 0
 --- !u!65 &1929409282
 BoxCollider:
   m_ObjectHideFlags: 0
