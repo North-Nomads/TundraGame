@@ -60,7 +60,6 @@ namespace Spells.SpellClasses
                 spikesQuantity *= 2;
             }
 
-            Debug.Log("Instantited");
             _isInstantiated = true;
             yield return new WaitForSeconds(3.3f); // 3.3f - max time pebbles (that live longer than the spike) can live (random.uniform) 
             Destroy(gameObject);

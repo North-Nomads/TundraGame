@@ -17,9 +17,9 @@ MonoBehaviour:
     position:
       serializedVersion: 2
       x: 225
-      y: -195
+      y: -192
       width: 1166
-      height: 1605
+      height: 1622
     contents:
     - model: {fileID: 8926484042661614555}
       id: 0
@@ -42,15 +42,18 @@ MonoBehaviour:
     - model: {fileID: 8926484042661614622}
       id: 0
       isStickyNote: 0
+    - model: {fileID: 8926484042661614632}
+      id: 0
+      isStickyNote: 0
   stickyNoteInfos: []
   systemInfos: []
   categories: []
   uiBounds:
     serializedVersion: 2
     x: 225
-    y: -193
+    y: -192
     width: 1166
-    height: 1603
+    height: 1622
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -72,11 +75,25 @@ MonoBehaviour:
   - {fileID: 8926484042661614622}
   - {fileID: 8926484042661614626}
   - {fileID: 8926484042661614628}
+  - {fileID: 8926484042661614632}
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
   m_UIInfos: {fileID: 114340500867371532}
-  m_ParameterInfo: []
+  m_ParameterInfo:
+  - name: Lifetime
+    path: Lifetime
+    tooltip: 
+    sheetType: m_Float
+    realType: Single
+    defaultValue:
+      m_Type:
+        m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089
+      m_SerializableObject: 1.5
+    min: -Infinity
+    max: Infinity
+    descendantCount: 0
   m_GraphVersion: 4
   m_saved: 1
   m_SubgraphDependencies: []
@@ -97,17 +114,18 @@ VisualEffectResource:
       VFX_PASSDEPTH_SELECTION (2)\n#define VFX_PASSDEPTH_SHADOW (3)\n#define VFX_USE_LIFETIME_CURRENT
       1\n#define VFX_USE_VELOCITY_CURRENT 1\n#define VFX_USE_AGE_CURRENT 1\n#define
       VFX_USE_POSITION_CURRENT 1\n#define VFX_USE_ALIVE_CURRENT 1\n#define VFX_LOCAL_SPACE
-      1\n#include \"Packages/com.unity.visualeffectgraph/Shaders/RenderPipeline/Universal/VFXDefines.hlsl\"\n\n\n\nstruct
-      Attributes\n{\n    float lifetime;\n    float3 velocity;\n    float age;\n   
-      float3 position;\n    bool alive;\n};\n\nstruct SourceAttributes\n{\n};\n\n\n\n\n#define
-      USE_DEAD_LIST (VFX_USE_ALIVE_CURRENT && !HAS_STRIPS)\n\nRWByteAddressBuffer
-      attributeBuffer;\nByteAddressBuffer sourceAttributeBuffer;\n\nCBUFFER_START(initParams)\n#if
-      !VFX_USE_SPAWNER_FROM_GPU\n    uint nbSpawned;\t\t\t\t\t// Numbers of particle
-      spawned\n    uint spawnIndex;\t\t\t\t// Index of the first particle spawned\n   
-      uint dispatchWidth;\n#else\n    uint offsetInAdditionalOutput;\n\tuint nbMax;\n#endif\n\tuint
-      systemSeed;\nCBUFFER_END\n\n#if USE_DEAD_LIST\nRWStructuredBuffer<uint> deadListIn;\nByteAddressBuffer
-      deadListCount; // This is bad to use a SRV to fetch deadList count but Unity
-      API currently prevent from copying to CB\n#endif\n\n#if VFX_USE_SPAWNER_FROM_GPU\nStructuredBuffer<uint>
+      1\n#include \"Packages/com.unity.visualeffectgraph/Shaders/RenderPipeline/Universal/VFXDefines.hlsl\"\n\n\nCBUFFER_START(parameters)\n   
+      float Lifetime_a;\n    uint3 PADDING_0;\nCBUFFER_END\n\nstruct Attributes\n{\n   
+      float lifetime;\n    float3 velocity;\n    float age;\n    float3 position;\n   
+      bool alive;\n};\n\nstruct SourceAttributes\n{\n};\n\n\n\n\n#define USE_DEAD_LIST
+      (VFX_USE_ALIVE_CURRENT && !HAS_STRIPS)\n\nRWByteAddressBuffer attributeBuffer;\nByteAddressBuffer
+      sourceAttributeBuffer;\n\nCBUFFER_START(initParams)\n#if !VFX_USE_SPAWNER_FROM_GPU\n   
+      uint nbSpawned;\t\t\t\t\t// Numbers of particle spawned\n    uint spawnIndex;\t\t\t\t//
+      Index of the first particle spawned\n    uint dispatchWidth;\n#else\n    uint
+      offsetInAdditionalOutput;\n\tuint nbMax;\n#endif\n\tuint systemSeed;\nCBUFFER_END\n\n#if
+      USE_DEAD_LIST\nRWStructuredBuffer<uint> deadListIn;\nByteAddressBuffer deadListCount;
+      // This is bad to use a SRV to fetch deadList count but Unity API currently
+      prevent from copying to CB\n#endif\n\n#if VFX_USE_SPAWNER_FROM_GPU\nStructuredBuffer<uint>
       eventList;\nByteAddressBuffer inputAdditional;\n#endif\n\n#if HAS_STRIPS\nRWStructuredBuffer<uint>
       stripDataBuffer;\n#endif\n\n#include \"Packages/com.unity.visualeffectgraph/Shaders/Common/VFXCommonCompute.hlsl\"\n#include
       \"Packages/com.unity.visualeffectgraph/Shaders/VFXCommon.hlsl\"\n\n\n\nvoid
@@ -151,17 +169,17 @@ VisualEffectResource:
       if (!GetParticleIndex(particleIndex, stripIndex))\n            return;\n\n       
       const StripData stripData = GetStripDataFromStripIndex(stripIndex, PARTICLE_PER_STRIP_COUNT);\n\t\tInitStripAttributes(particleIndex,
       attributes, stripData);\n\t\t// TODO Change seed to be sure we're deterministic
-      on random with strip\n#endif\n        \n        {\n            SetAttribute_F0142CB9(
-      /*inout */attributes.lifetime, (float)3);\n        }\n        \n\n\t\t\n#if
-      VFX_USE_ALIVE_CURRENT\n        if (attributes.alive)\n#endif       \n       
-      {\n#if USE_DEAD_LIST\n\t        uint deadIndex = deadListIn.DecrementCounter();\n           
-      uint index = deadListIn[deadIndex];\n#else\n            uint index = particleIndex;\n#endif\n           
-      attributeBuffer.Store((index * 0x1 + 0x0) << 2,asuint(attributes.lifetime));\n           
-      attributeBuffer.Store3((index * 0x4 + 0x20) << 2,asuint(attributes.velocity));\n           
-      attributeBuffer.Store((index * 0x4 + 0x23) << 2,asuint(attributes.age));\n           
-      attributeBuffer.Store3((index * 0x4 + 0xA0) << 2,asuint(attributes.position));\n           
-      attributeBuffer.Store((index * 0x4 + 0xA3) << 2,uint(attributes.alive));\n           
-      \n\n        }\n    }\n}\n"
+      on random with strip\n#endif\n        \n        SetAttribute_F0142CB9( /*inout
+      */attributes.lifetime, Lifetime_a);\n        \n\n\t\t\n#if VFX_USE_ALIVE_CURRENT\n       
+      if (attributes.alive)\n#endif       \n        {\n#if USE_DEAD_LIST\n\t       
+      uint deadIndex = deadListIn.DecrementCounter();\n            uint index = deadListIn[deadIndex];\n#else\n           
+      uint index = particleIndex;\n#endif\n            attributeBuffer.Store((index
+      * 0x1 + 0x0) << 2,asuint(attributes.lifetime));\n            attributeBuffer.Store3((index
+      * 0x4 + 0x20) << 2,asuint(attributes.velocity));\n            attributeBuffer.Store((index
+      * 0x4 + 0x23) << 2,asuint(attributes.age));\n            attributeBuffer.Store3((index
+      * 0x4 + 0xA0) << 2,asuint(attributes.position));\n            attributeBuffer.Store((index
+      * 0x4 + 0xA3) << 2,uint(attributes.alive));\n            \n\n        }\n   
+      }\n}\n"
   - compute: 1
     name: '[System 1]Update Particle'
     source: "#pragma kernel CSMain\n#define NB_THREADS_PER_GROUP 64\n#define HAS_ATTRIBUTES
@@ -740,7 +758,7 @@ VisualEffectResource:
         - m_ExpressionIndex: 3
           m_Value: 0
         - m_ExpressionIndex: 10
-          m_Value: 3
+          m_Value: 1.5
         - m_ExpressionIndex: 13
           m_Value: 1
       m_Vector2f:
@@ -867,7 +885,9 @@ VisualEffectResource:
           m_Value: {fileID: 4300000, guid: 3da87bdf02677e84cb6b23c25571bb7c, type: 3}
       m_Bool:
         m_Array: []
-    m_ExposedExpressions: []
+    m_ExposedExpressions:
+    - nameId: Lifetime
+      index: 10
     m_Buffers:
     - type: 1
       size: 288
@@ -1021,7 +1041,9 @@ VisualEffectResource:
       - nameId: sourceAttributeBuffer
         index: 1
       temporaryBuffers: []
-      values: []
+      values:
+      - nameId: Lifetime_a
+        index: 10
       params:
       - nameId: bounds_center
         index: 6
@@ -1678,7 +1700,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 3
+      m_SerializableObject: 1.5
     m_Space: 2147483647
   m_Property:
     name: Lifetime
@@ -1694,7 +1716,8 @@ MonoBehaviour:
       m_Regex: 
       m_RegexMaxLength: 0
   m_Direction: 0
-  m_LinkedSlots: []
+  m_LinkedSlots:
+  - {fileID: 8926484042661614633}
 --- !u!114 &8926484042661614599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2804,3 +2827,80 @@ MonoBehaviour:
   m_Direction: 1
   m_LinkedSlots:
   - {fileID: 8926484042661614620}
+--- !u!114 &8926484042661614632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 330e0fca1717dde4aaa144f48232aa64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Parent: {fileID: 114350483966674976}
+  m_Children: []
+  m_UIPosition: {x: 0, y: 0}
+  m_UICollapsed: 0
+  m_UISuperCollapsed: 0
+  m_InputSlots: []
+  m_OutputSlots:
+  - {fileID: 8926484042661614633}
+  m_ExposedName: Lifetime
+  m_Exposed: 1
+  m_Order: 0
+  m_Category: 
+  m_Min:
+    m_Type:
+      m_SerializableType: 
+    m_SerializableObject: 
+  m_Max:
+    m_Type:
+      m_SerializableType: 
+    m_SerializableObject: 
+  m_IsOutput: 0
+  m_Tooltip: 
+  m_Nodes:
+  - m_Id: 0
+    linkedSlots:
+    - outputSlot: {fileID: 8926484042661614633}
+      inputSlot: {fileID: 8926484042661614598}
+    position: {x: 754, y: 399}
+    expandedSlots: []
+    expanded: 0
+--- !u!114 &8926484042661614633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f780aa281814f9842a7c076d436932e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Parent: {fileID: 0}
+  m_Children: []
+  m_UIPosition: {x: 0, y: 0}
+  m_UICollapsed: 1
+  m_UISuperCollapsed: 0
+  m_MasterSlot: {fileID: 8926484042661614633}
+  m_MasterData:
+    m_Owner: {fileID: 8926484042661614632}
+    m_Value:
+      m_Type:
+        m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089
+      m_SerializableObject: 1.5
+    m_Space: 2147483647
+  m_Property:
+    name: o
+    m_serializedType:
+      m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+    attributes: []
+  m_Direction: 1
+  m_LinkedSlots:
+  - {fileID: 8926484042661614598}
