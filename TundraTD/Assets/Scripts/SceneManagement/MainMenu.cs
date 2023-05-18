@@ -12,11 +12,11 @@ namespace SceneManagement
     public class MainMenu : MonoBehaviour
     {
         private const int FirstSceneID = 2;
-        private AudioSource source;
+        private AudioSource _source;
 
         private void Start()
         {
-            source = GetComponent<AudioSource>();
+            _source = GetComponent<AudioSource>();
             GameParameters.MusicVolumeChanged += SetVolume;
         }
 
@@ -27,7 +27,7 @@ namespace SceneManagement
 
         private void SetVolume(object sender, EventArgs e)
         {
-            source.volume = GameParameters.MusicVolumeModifier;
+            _source.volume = GameParameters.MusicVolumeModifier;
         }
 
         public void MoveToPolygonScene()
