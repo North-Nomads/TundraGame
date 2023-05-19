@@ -36,7 +36,7 @@ namespace Mobs.MobsBehaviour.Squirrel
         {
             Vector3? result = null;
             var minDistance = float.PositiveInfinity;
-            var waypoint = WaypointRoute[CurrentWaypointIndex].transform.position;
+            var waypoint = MobPath[CurrentWaypointIndex].transform.position;
             float distanceToTarget = Vector3.Distance(transform.position, waypoint);
             for (int i = 0; i < size; i++)
             {

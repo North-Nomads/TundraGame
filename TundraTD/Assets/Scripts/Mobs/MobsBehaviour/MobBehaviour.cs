@@ -17,18 +17,18 @@ namespace Mobs.MobsBehaviour
     {
         [SerializeField] private GameObject[] effectPrefabs;
         [SerializeField] private MobModel mobModel;
-        [SerializeField] private WayPoint[] waypointRoute;
+        [SerializeField] private Transform[] mobPath;
         
         public bool IsMoving { get; set; }
-        public Vector3? TargetToFocus { get; set; }
+        private Vector3? TargetToFocus { get; set; }
         
         private int _currentWaypointIndex;
         private float _tickTimer;
         
-        protected WayPoint[] WaypointRoute
+        protected Transform[] MobPath
         {
-            get => waypointRoute;
-            private set => waypointRoute = value;
+            get => mobPath;
+            private set => mobPath = value;
         }
         protected int CurrentWaypointIndex => _currentWaypointIndex;
         protected MobPortal MobPortal { get; set; }
@@ -168,7 +168,7 @@ namespace Mobs.MobsBehaviour
             }
         }
         
-        public void RespawnMobFromPool(Vector3 position, WayPoint[] routeToSet)
+        public void RespawnMobFromPool(Vector3 position, Transform[] mobPath)
         {
             // Set mob position
             var mobTransform = transform;
@@ -185,10 +185,10 @@ namespace Mobs.MobsBehaviour
             mobModel.SetDefaultValues();
 
             _currentWaypointIndex = 0;
-            WaypointRoute = routeToSet;
+            MobPath = mobPath;
         }
 
-        public void HandleWaypointApproachingOrPassing()
+        private void HandleWaypointApproachingOrPassing()
         {
             _currentWaypointIndex++;
         }
@@ -198,12 +198,20 @@ namespace Mobs.MobsBehaviour
         /// </summary>
         private void UpdateCurrentWaypoint()
         {
-            var finishPoint = WaypointRoute.Last().transform.position; // gates
+            var finishPoint = MobPath.Last().transform.position; // gates
 
             var finishDirection = transform.position - finishPoint;
-            var currentWaypointProjection = Vector3.Project(transform.position - WaypointRoute[_currentWaypointIndex].transform.position, finishDirection);
+            var currentPoint = MobPath[_currentWaypointIndex].transform.position;
             
-            if (Vector3.Dot(currentWaypointProjection, finishDirection) <= 0)
+            // Current point direction projection on finish direction 
+            var currentWaypointProjection = Vector3.Project(transform.position - currentPoint, finishDirection);
+            
+            // If the Dot is < 0 -> point is behind our mob and we don't have to return back 
+            bool hasMobPassedPointBy = Vector3.Dot(currentWaypointProjection, finishDirection) <= 0;
+            // Check whether we are close enough to the point
+            bool isMobCloseEnough = Vector3.Distance(transform.position, currentPoint) <= .5f; 
+            
+            if (isMobCloseEnough || hasMobPassedPointBy) 
                 HandleWaypointApproachingOrPassing();
         }
 
@@ -217,8 +225,8 @@ namespace Mobs.MobsBehaviour
             
             UpdateCurrentWaypoint();
             if (waypoint == Vector3.zero) 
-                waypoint = new Vector3(WaypointRoute[_currentWaypointIndex].transform.position.x, transform.position.y,
-                    WaypointRoute[_currentWaypointIndex].transform.position.z);
+                waypoint = new Vector3(MobPath[_currentWaypointIndex].transform.position.x, transform.position.y,
+                    MobPath[_currentWaypointIndex].transform.position.z);
             
             var direction = waypoint - transform.position;
             mobModel.Rigidbody.velocity = direction.normalized * mobModel.CurrentMobSpeed;
@@ -227,7 +235,7 @@ namespace Mobs.MobsBehaviour
 
         private void OnDrawGizmos()
         {
-            Gizmos.DrawSphere(WaypointRoute[_currentWaypointIndex].transform.position, 1f);
+            Gizmos.DrawSphere(MobPath[_currentWaypointIndex].transform.position, 1f);
         }
 
         public void SetFocusingTarget(Vector3? destination)

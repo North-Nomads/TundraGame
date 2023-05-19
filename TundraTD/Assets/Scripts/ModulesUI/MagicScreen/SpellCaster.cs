@@ -53,7 +53,7 @@ namespace ModulesUI.MagicScreen
             var rayEnd = _camera.ScreenPointToRay(playerTouch.position);
             if (!Physics.Raycast(rayEnd, out var hitInfo, float.PositiveInfinity, PlaceableLayer))
                 return;
-                
+            
             CastSpellOnPosition(hitInfo);
         }
 
@@ -62,7 +62,7 @@ namespace ModulesUI.MagicScreen
             var rayEnd = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (!Physics.Raycast(rayEnd, out var hitInfo, float.PositiveInfinity, PlaceableLayer))
                 return;
-
+            
             CastSpellOnPosition(hitInfo);
         }
     }
