@@ -110,7 +110,7 @@ namespace Level
             }
 
             var insertionOffset = _inertiaDirection * Time.deltaTime;
-            _mainCamera.transform.position += insertionOffset;
+            ClampCameraMovement(_mainCamera.transform.position + insertionOffset);
             _inertiaDirection -= insertionOffset;
         }
 
@@ -146,8 +146,7 @@ namespace Level
 
             if (Input.GetMouseButton(0))
             {
-                var newPos = _mainCamera.transform.position + direction;
-                ClampCameraMovement(newPos);
+                ClampCameraMovement(_mainCamera.transform.position + direction);
             }
 
             if (Input.GetMouseButtonUp(0))
