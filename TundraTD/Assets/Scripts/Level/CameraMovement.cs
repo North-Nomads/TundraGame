@@ -10,6 +10,7 @@ namespace Level
     /// </summary>
     public class CameraMovement : MonoBehaviour
     {
+        [Tooltip("Up Right Down Left")][SerializeField] private Transform[] border;
         [SerializeField] private float minimalInertiaThreshold = .125f;
         [SerializeField] private float maximalCameraMoveThreshold;
         [SerializeField] private float inertiaMultiplier;
@@ -19,14 +20,28 @@ namespace Level
 
         // for debug
         [SerializeField] private bool usingWASD;
-
-
+        
         private Vector3 _inertiaDirection;
         private Vector3 _touchStart;
         private Camera _mainCamera;
+        
+        // Camera borders
+        private float _upBorderPosition;
+        private float _rightBorderPosition;
+        private float _bottomBorderPosition;
+        private float _leftBorderPosition;
+        
 
         private void Start()
         {
+            if (border.Length != 4)
+                throw new FormatException("Border list in camera must contain 4 objects for coordinates of borders");
+
+            _upBorderPosition = border[0].position.x;
+            _rightBorderPosition = border[1].position.z;
+            _bottomBorderPosition = border[2].position.x;
+            _leftBorderPosition = border[3].position.z;
+
             _mainCamera = GetComponent<Camera>();
             if (!_mainCamera.orthographic)
                 throw new NotSupportedException("Camera must be in orthographic mode");
@@ -60,17 +75,30 @@ namespace Level
             }
         }
 
+        private void ClampCameraMovement(Vector3 newPosition)
+        {
+            var position = transform.position;
+
+            position.x = Mathf.Clamp(newPosition.x, _bottomBorderPosition, _upBorderPosition);
+            position.z = Mathf.Clamp(newPosition.z, _leftBorderPosition, _rightBorderPosition);
+            
+            _mainCamera.transform.position = position;
+        }
+
         private void MoveCameraOnWASD()
         {
             var cameraTransform = _mainCamera.transform;
+            var newPos = _mainCamera.transform.position;
             if (Input.GetKey(KeyCode.A))
-                cameraTransform.position += Time.deltaTime * wasdCameraMoveSpeed * -cameraTransform.right;
+                newPos += Time.deltaTime * wasdCameraMoveSpeed * -cameraTransform.right;
             if (Input.GetKey(KeyCode.D))
-                cameraTransform.position += Time.deltaTime * wasdCameraMoveSpeed * cameraTransform.right;
+                newPos += Time.deltaTime * wasdCameraMoveSpeed * cameraTransform.right;
             if (Input.GetKey(KeyCode.W))
-                cameraTransform.position += Time.deltaTime * wasdCameraMoveSpeed * cameraTransform.up;
+                newPos += Time.deltaTime * wasdCameraMoveSpeed * cameraTransform.up;
             if (Input.GetKey(KeyCode.S))
-                cameraTransform.position += Time.deltaTime * wasdCameraMoveSpeed * -cameraTransform.up;
+                newPos += Time.deltaTime * wasdCameraMoveSpeed * -cameraTransform.up;
+
+            ClampCameraMovement(newPos);
         }
 
         private void HandleCameraInertialMovement()
@@ -118,7 +146,8 @@ namespace Level
 
             if (Input.GetMouseButton(0))
             {
-                _mainCamera.transform.position += direction;
+                var newPos = _mainCamera.transform.position + direction;
+                ClampCameraMovement(newPos);
             }
 
             if (Input.GetMouseButtonUp(0))
