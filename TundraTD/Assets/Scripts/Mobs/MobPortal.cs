@@ -91,7 +91,7 @@ namespace Mobs
                 return;
 
             var mob = _waveMobs[_currentMobIndex];
-            mob.RespawnMobFromPool(mobPool.transform.position, routeParent.GetComponentsInChildren<WayPoint>());
+            mob.RespawnMobFromPool(mobPool.transform.position, routeParent.GetComponentsInChildren<Transform>());
             mob.ExecuteOnMobSpawn(this);
             _currentMobIndex++;
         }
