@@ -37,7 +37,6 @@ namespace Spells.SpellClasses
                 if (!mob.MobModel.IsAlive)
                     return;
                 
-                Debug.Log("Landing");
                 mob.ClearMobEffects();
                 mob.IsMoving = false;
                 mob.MobModel.Rigidbody.AddForce(Vector3.down * 10000);
@@ -84,15 +83,11 @@ namespace Spells.SpellClasses
             }
             
             // Handle landing
-            print("Destroying");
             print(_affectedMobs.Count);
             HandleStormDestroying();
             Destroy(gameObject);
         }
 
-        private void OnDrawGizmos()
-        {
-            Gizmos.DrawCube(transform.position + Vector3.up * 2, _boxCollider.size / 2);
-        }
+        
     }
 }
