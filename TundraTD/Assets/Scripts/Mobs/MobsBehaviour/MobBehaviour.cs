@@ -235,7 +235,9 @@ namespace Mobs.MobsBehaviour
 
         private void OnDrawGizmos()
         {
-            Gizmos.DrawSphere(MobPath[_currentWaypointIndex].transform.position, 1f);
+            #if (!UNITY_EDITOR)
+                Gizmos.DrawSphere(MobPath[_currentWaypointIndex].transform.position, 1f);
+            #endif
         }
 
         public void SetFocusingTarget(Vector3? destination)
