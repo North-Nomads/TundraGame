@@ -77,9 +77,9 @@ namespace Mobs.MobsBehaviour.Mole
         {
             if (CurrentWaypointIndex != 0)
             {
-                var currentWaypoint = WaypointRoute[CurrentWaypointIndex - 1];
+                var currentWaypoint = MobPath[CurrentWaypointIndex - 1];
                 Debug.Log(currentWaypoint.name);
-                return currentWaypoint.IsSoftGround;    
+                return currentWaypoint.CompareTag("SoftGround");    
             }
 
             return false;

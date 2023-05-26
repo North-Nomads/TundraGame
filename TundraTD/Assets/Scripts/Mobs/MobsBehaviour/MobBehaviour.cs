@@ -17,19 +17,15 @@ namespace Mobs.MobsBehaviour
     {
         [SerializeField] private GameObject[] effectPrefabs;
         [SerializeField] private MobModel mobModel;
-        [SerializeField] private Transform[] mobPath;
-        
+
         public bool IsMoving { get; set; }
         private Vector3? TargetToFocus { get; set; }
         
         private int _currentWaypointIndex;
         private float _tickTimer;
         
-        protected Transform[] MobPath
-        {
-            get => mobPath;
-            private set => mobPath = value;
-        }
+        protected List<Transform> MobPath { get; private set; }
+
         protected int CurrentWaypointIndex => _currentWaypointIndex;
         protected MobPortal MobPortal { get; set; }
         public List<Effect> CurrentEffects { get; } = new List<Effect>();
@@ -168,7 +164,7 @@ namespace Mobs.MobsBehaviour
             }
         }
         
-        public void RespawnMobFromPool(Vector3 position, Transform[] mobPath)
+        public void RespawnMobFromPool(Vector3 position, List<Transform> mobPath)
         {
             // Set mob position
             var mobTransform = transform;
@@ -209,8 +205,9 @@ namespace Mobs.MobsBehaviour
             // If the Dot is < 0 -> point is behind our mob and we don't have to return back 
             bool hasMobPassedPointBy = Vector3.Dot(currentWaypointProjection, finishDirection) <= 0;
             // Check whether we are close enough to the point
-            bool isMobCloseEnough = Vector3.Distance(transform.position, currentPoint) <= .5f; 
-            
+            var distance = Vector3.Distance(transform.position, currentPoint);
+            bool isMobCloseEnough = distance <= .5f; 
+            print($"{distance}: {_currentWaypointIndex}");
             if (isMobCloseEnough || hasMobPassedPointBy) 
                 HandleWaypointApproachingOrPassing();
         }

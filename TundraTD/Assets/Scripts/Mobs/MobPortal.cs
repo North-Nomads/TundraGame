@@ -24,6 +24,7 @@ namespace Mobs
 
         private MobWave _currentMobWave;
         private List<MobBehaviour> _waveMobs;
+        private List<Transform> _route;
         private int _currentMobWaveIndex;
         private int _currentMobIndex;
 
@@ -37,6 +38,7 @@ namespace Mobs
 
         private void Start()
         {
+            _route = routeParent.GetComponentsInChildren<Transform>().Skip(1).ToList(); // 0 element is parent of Transform[]
             _currentMobWaveIndex = 0;
             _currentMobWave = mobWaves[_currentMobWaveIndex];
 
@@ -91,7 +93,7 @@ namespace Mobs
                 return;
 
             var mob = _waveMobs[_currentMobIndex];
-            mob.RespawnMobFromPool(mobPool.transform.position, routeParent.GetComponentsInChildren<Transform>());
+            mob.RespawnMobFromPool(mobPool.transform.position, _route);
             mob.ExecuteOnMobSpawn(this);
             _currentMobIndex++;
         }

@@ -723,7 +723,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectPrefabs: []
   mobModel: {fileID: 3495415602175080548}
-  waypointRoute: []
   mobShield: 100
   armorStand: {fileID: 5689175756098562362}
 --- !u!54 &3495415602175080554
