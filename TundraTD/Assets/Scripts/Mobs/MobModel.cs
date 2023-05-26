@@ -36,6 +36,7 @@ namespace Mobs
         private float _currentMobHealth;
         private float _currentMobSpeed;
 
+        public Renderer Renderer => renderer;
         public Rigidbody Rigidbody => rigidbody;
         public Animator Animator => _animator;
         public float DefaultMobAngularSpeed => defaultMobAngularSpeed;        
