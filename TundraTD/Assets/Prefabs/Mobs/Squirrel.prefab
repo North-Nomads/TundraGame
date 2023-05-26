@@ -156,7 +156,7 @@ MonoBehaviour:
   renderer: {fileID: 3889406993178295795}
   defaultMaterial: {fileID: 2100000, guid: 41193ebfd3ac03846a19a7cf0a1d82a8, type: 2}
   rigidbody: {fileID: 3363468306067426943}
-  defaultMobAngularSpeed: 0
+  defaultMobAngularSpeed: 1000
 --- !u!95 &7580449576725983881
 Animator:
   serializedVersion: 3
@@ -208,6 +208,7 @@ MonoBehaviour:
   - {fileID: 1245180231133471137}
   - {fileID: 3941407261421076744}
   mobModel: {fileID: 7907287396664231218}
+  waypointRoute: []
 --- !u!1001 &2741820028990454211
 PrefabInstance:
   m_ObjectHideFlags: 0
