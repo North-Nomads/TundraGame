@@ -46,7 +46,6 @@ namespace Mobs.MobsBehaviour.Mole
 
         private void FixedUpdate()
         {
-            Debug.Log(CurrentWaypointIndex);
             HandleTickTimer();
             
             if (_isBusyWithAnimation)
@@ -78,7 +77,6 @@ namespace Mobs.MobsBehaviour.Mole
             if (CurrentWaypointIndex != 0)
             {
                 var currentWaypoint = MobPath[CurrentWaypointIndex - 1];
-                Debug.Log(currentWaypoint.name);
                 return currentWaypoint.CompareTag("SoftGround");    
             }
 
