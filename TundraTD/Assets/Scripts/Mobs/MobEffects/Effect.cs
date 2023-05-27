@@ -52,7 +52,7 @@ namespace Mobs.MobEffects
         /// <summary>
         /// Represents the meteorite burning effect.
         /// </summary>
-        MeteoriteBurning = 1 << 0,
+        Burning = 1 << 0,
 
         /// <summary>
         /// Represents the stun effect.
@@ -65,33 +65,8 @@ namespace Mobs.MobEffects
         Slowness = 1 << 2,
 
         /// <summary>
-        /// Represents the vulnerability effect.
-        /// </summary>
-        Vulnerability = 1 << 3,
-
-        /// <summary>
-        /// Represents the slowness effect of any spell
-        /// </summary>
-        Fear = 1 << 4,
-
-        /// <summary>
-        /// Represents the weakness effect.
-        /// </summary>
-        Weakness = 1 << 5,
-
-        /// <summary>
-        /// Represents the freeze effect.
-        /// </summary>
-        Freeze = 1 << 6,
-
-        /// <summary>
-        /// Represents the distract effect.
-        /// </summary>
-        Distract = 1 << 7,
-
-        /// <summary>
         /// Represents the wet effect.
         /// </summary>
-        Wet = 1 << 8,
+        Wet = 1 << 3
     }
 }
