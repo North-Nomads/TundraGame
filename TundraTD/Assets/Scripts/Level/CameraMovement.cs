@@ -60,11 +60,12 @@ namespace Level
             }
             else
             {
-                if (Input.touchCount == 1)
-                {
-                    MoveCameraUsingPinch();
-                }
-                else if (Input.touchCount == 2)
+                MoveCameraUsingPinch();
+                //if (Input.touchCount == 1)
+                //{
+
+                //}
+                if (Input.touchCount == 2)
                 {
                     var touchOne = Input.GetTouch(0);
                     var touchTwo = Input.GetTouch(1);
@@ -137,19 +138,19 @@ namespace Level
             if (Input.GetMouseButtonDown(0))
             {
                 _inertiaDirection = Vector3.zero;
-                _touchStart = worldPoint;
+                _touchStart = worldPoint;   
             }
 
             var direction = _touchStart - worldPoint;
-            if (direction.magnitude > maximalCameraMoveThreshold)
-                return;
+            //if (direction.magnitude > maximalCameraMoveThreshold)
+            //    return;
+
+            //if (Input.GetMouseButton(0))
+            //{
+            //    ClampCameraMovement(_mainCamera.transform.position + direction);
+            //}
 
             if (Input.GetMouseButton(0))
-            {
-                ClampCameraMovement(_mainCamera.transform.position + direction);
-            }
-
-            if (Input.GetMouseButtonUp(0))
             {
                 _inertiaDirection = direction * inertiaMultiplier;
             }
