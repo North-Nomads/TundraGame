@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Level;
 using Spells;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -16,11 +17,13 @@ namespace ModulesUI.MagicScreen
         private Camera _camera;
         private const int PlaceableLayer = 1 << 11 | 1 << 10;
         private Touch _lastTouch;
+        private CameraMovement _cameraMovement;
         
         public void Start()
         {
             gameObject.SetActive(false);
             _camera = Camera.main;
+            _cameraMovement = _camera.GetComponent<CameraMovement>();
             UIToggle.AllCanvases.Add(this);
         }
 
@@ -37,8 +40,8 @@ namespace ModulesUI.MagicScreen
 
         public void Update()
         {
-            // Clicking over UI surface
-            if (EventSystem.current.IsPointerOverGameObject())
+            // Clicking over UI surface or moving camera.
+            if (EventSystem.current.IsPointerOverGameObject() || _cameraMovement.CameraMoving)
             {
                 _lastTouch.phase = TouchPhase.Ended;
                 return;
