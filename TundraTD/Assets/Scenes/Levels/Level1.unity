@@ -7911,12 +7911,13 @@ MonoBehaviour:
   - {fileID: 2032066053}
   - {fileID: 1441049714}
   minimalInertiaThreshold: 3
+  minimalCameraMoveThreshold: 0.2
   maximalCameraMoveThreshold: 5
   inertiaMultiplier: 3
   minimalCameraSize: 7
   maximumCameraSize: 10
   wasdCameraMoveSpeed: 10
-  usingWASD: 1
+  usingWASD: 0
 --- !u!81 &1696383891
 AudioListener:
   m_ObjectHideFlags: 0
