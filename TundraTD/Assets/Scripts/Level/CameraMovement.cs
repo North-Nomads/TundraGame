@@ -64,10 +64,6 @@ namespace Level
             else
             {
                 MoveCameraUsingPinch();
-                //if (Input.touchCount == 1)
-                //{
-
-                //}
                 if (Input.touchCount == 2)
                 {
                     var touchOne = Input.GetTouch(0);
@@ -149,13 +145,6 @@ namespace Level
                 CameraMoving = false;
             }
             var direction = _touchStart - worldPoint;
-            //if (direction.magnitude > maximalCameraMoveThreshold)
-            //    return;
-
-            //if (Input.GetMouseButton(0))
-            //{
-            //    ClampCameraMovement(_mainCamera.transform.position + direction);
-            //}
 
             if (Input.GetMouseButton(0))
             {
