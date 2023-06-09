@@ -11,7 +11,8 @@ namespace SceneManagement
     /// </summary>
     public class MainMenu : MonoBehaviour
     {
-        private const int FirstSceneID = 2;
+        private const int TutorialSceneID = 2;
+        private const int FirstSceneID = 3;
         private AudioSource _source;
 
         private void Start()
@@ -37,7 +38,7 @@ namespace SceneManagement
 
         public void OpenTutorialScene()
         {
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(TutorialSceneID);
         }
         
         public void SwitchEffectsSound(GameObject sender)
