@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -359,7 +359,7 @@ GameObject:
   - component: {fileID: 78830692}
   m_Layer: 0
   m_Name: wp
-  m_TagString: Untagged
+  m_TagString: SoftGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2933,7 +2933,7 @@ GameObject:
   - component: {fileID: 462043802}
   m_Layer: 0
   m_Name: wp (4)
-  m_TagString: Untagged
+  m_TagString: SoftGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3275,7 +3275,7 @@ GameObject:
   - component: {fileID: 529390418}
   m_Layer: 0
   m_Name: wp (3)
-  m_TagString: Untagged
+  m_TagString: SoftGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -5062,7 +5062,7 @@ GameObject:
   - component: {fileID: 954410202}
   m_Layer: 0
   m_Name: wp (2)
-  m_TagString: Untagged
+  m_TagString: HardGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -5286,7 +5286,7 @@ PrefabInstance:
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
       propertyPath: mobWaves.Array.data[0].mobProperties.Array.size
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
@@ -5314,6 +5314,18 @@ PrefabInstance:
       propertyPath: mobWaves.Array.data[0].mobProperties.Array.data[1].mob
       value: 
       objectReference: {fileID: 8671833239330950923, guid: 431421a7745e5ed4d94bbeabaa240f5c,
+        type: 3}
+    - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
+        type: 3}
+      propertyPath: mobWaves.Array.data[0].mobProperties.Array.data[2].mob
+      value: 
+      objectReference: {fileID: 679887491081338523, guid: 99dbde16365bf32408073960fa7631c0,
+        type: 3}
+    - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
+        type: 3}
+      propertyPath: mobWaves.Array.data[0].mobProperties.Array.data[3].mob
+      value: 
+      objectReference: {fileID: 4081599098900397475, guid: 41498cfd0a0fccf4491dee7833b319fc,
         type: 3}
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
@@ -5371,7 +5383,17 @@ PrefabInstance:
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
       propertyPath: mobWaves.Array.data[0].mobProperties.Array.data[1].mobQuantity
-      value: 3
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
+        type: 3}
+      propertyPath: mobWaves.Array.data[0].mobProperties.Array.data[2].mobQuantity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
+        type: 3}
+      propertyPath: mobWaves.Array.data[0].mobProperties.Array.data[3].mobQuantity
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
@@ -7889,12 +7911,13 @@ MonoBehaviour:
   - {fileID: 2032066053}
   - {fileID: 1441049714}
   minimalInertiaThreshold: 3
+  minimalCameraMoveThreshold: 0.2
   maximalCameraMoveThreshold: 5
   inertiaMultiplier: 3
   minimalCameraSize: 7
   maximumCameraSize: 10
   wasdCameraMoveSpeed: 10
-  usingWASD: 1
+  usingWASD: 0
 --- !u!81 &1696383891
 AudioListener:
   m_ObjectHideFlags: 0
@@ -9138,7 +9161,7 @@ GameObject:
   - component: {fileID: 1929409280}
   m_Layer: 0
   m_Name: wp (1)
-  m_TagString: Untagged
+  m_TagString: HardGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295

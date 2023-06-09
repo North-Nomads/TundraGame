@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Level;
 using Spells;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -14,13 +15,15 @@ namespace ModulesUI.MagicScreen
         public override CanvasGroup BlockList => CanvasGroup.None;
         
         private Camera _camera;
-        private Vector3 _pointOnTap;
         private const int PlaceableLayer = 1 << 11 | 1 << 10;
+        private Touch _lastTouch;
+        private CameraMovement _cameraMovement;
         
         public void Start()
         {
             gameObject.SetActive(false);
             _camera = Camera.main;
+            _cameraMovement = _camera.GetComponent<CameraMovement>();
             UIToggle.AllCanvases.Add(this);
         }
 
@@ -37,20 +40,32 @@ namespace ModulesUI.MagicScreen
 
         public void Update()
         {
-            if (Input.touchCount == 0)
+            // Clicking over UI surface or moving camera.
+            if (EventSystem.current.IsPointerOverGameObject() || _cameraMovement.CameraMoving)
+            {
+                _lastTouch.phase = TouchPhase.Ended;
                 return;
-            
-            var playerTouch = Input.GetTouch(0);
+            }
 
-            // Clicking over UI surface
-            if (Input.touches.Any(touch => EventSystem.current.IsPointerOverGameObject(touch.fingerId)))
+            if (Input.touchCount > 0)
+            {
+                _lastTouch = Input.GetTouch(0);
                 return;
+            }
+            else if (Input.GetMouseButton(0))
+            {
+                _lastTouch = new Touch()
+                {
+                    position = Input.mousePosition
+                };
+                return;
+            }
 
             // Prevent executing spell right after finger lifting after clicking the element 
-            if (playerTouch.phase == TouchPhase.Ended)
+            if (_lastTouch.phase == TouchPhase.Ended)
                 return;
                 
-            var rayEnd = _camera.ScreenPointToRay(playerTouch.position);
+            var rayEnd = _camera.ScreenPointToRay(_lastTouch.position);
             if (!Physics.Raycast(rayEnd, out var hitInfo, float.PositiveInfinity, PlaceableLayer))
                 return;
             

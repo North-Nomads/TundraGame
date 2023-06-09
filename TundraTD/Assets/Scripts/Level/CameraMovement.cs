@@ -12,6 +12,7 @@ namespace Level
     {
         [Tooltip("Up Right Down Left")][SerializeField] private Transform[] border;
         [SerializeField] private float minimalInertiaThreshold = .125f;
+        [SerializeField] private float minimalCameraMoveThreshold;
         [SerializeField] private float maximalCameraMoveThreshold;
         [SerializeField] private float inertiaMultiplier;
         [SerializeField] private float minimalCameraSize = 1;
@@ -30,7 +31,9 @@ namespace Level
         private float _rightBorderPosition;
         private float _bottomBorderPosition;
         private float _leftBorderPosition;
-        
+        private float _cameraMovingTime;
+
+        public bool CameraMoving { get; private set; }
 
         private void Start()
         {
@@ -60,11 +63,8 @@ namespace Level
             }
             else
             {
-                if (Input.touchCount == 1)
-                {
-                    MoveCameraUsingPinch();
-                }
-                else if (Input.touchCount == 2)
+                MoveCameraUsingPinch();
+                if (Input.touchCount == 2)
                 {
                     var touchOne = Input.GetTouch(0);
                     var touchTwo = Input.GetTouch(1);
@@ -137,21 +137,26 @@ namespace Level
             if (Input.GetMouseButtonDown(0))
             {
                 _inertiaDirection = Vector3.zero;
-                _touchStart = worldPoint;
+                _touchStart = worldPoint;   
             }
-
+            if (Input.GetMouseButtonUp(0))
+            {
+                _cameraMovingTime = 0;
+                CameraMoving = false;
+            }
             var direction = _touchStart - worldPoint;
-            if (direction.magnitude > maximalCameraMoveThreshold)
-                return;
 
             if (Input.GetMouseButton(0))
             {
-                ClampCameraMovement(_mainCamera.transform.position + direction);
-            }
-
-            if (Input.GetMouseButtonUp(0))
-            {
-                _inertiaDirection = direction * inertiaMultiplier;
+                if (_cameraMovingTime < minimalCameraMoveThreshold)
+                {
+                    _cameraMovingTime += Time.deltaTime;
+                }
+                else
+                {
+                    CameraMoving = true;
+                    _inertiaDirection = direction * inertiaMultiplier;
+                }
             }
         }
     }
