@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Spells;
 using UnityEngine;
+using UnityEngine.VFX;
 
 namespace Mobs.MobsBehaviour.Mole
 {
@@ -8,6 +9,7 @@ namespace Mobs.MobsBehaviour.Mole
     public class MoleBehaviour : MobBehaviour
     {
         [SerializeField] private float maxDiggingTime;
+        [SerializeField] private VisualEffect diggingParticle;
         private float _diggingTimer; 
         private bool _isUnderground;
         private bool _isBusyWithAnimation;
@@ -39,6 +41,7 @@ namespace Mobs.MobsBehaviour.Mole
 
         public override void ExecuteOnMobSpawn(MobPortal mobPortal)
         {
+            diggingParticle.enabled = false;
             MobPortal = mobPortal;
             MobModel.InstantiateMobModel();
             _diggingTimer = maxDiggingTime;
@@ -87,6 +90,7 @@ namespace Mobs.MobsBehaviour.Mole
 
         private IEnumerator PullMobOut()
         {
+            diggingParticle.enabled = false;
             _isBusyWithAnimation = true;
             MobModel.Renderer.enabled = true;
             _isUnderground = false;
@@ -103,6 +107,7 @@ namespace Mobs.MobsBehaviour.Mole
             MobModel.Renderer.enabled = true;
             _isUnderground = false;
             MobModel.Animator.SetTrigger("IsDiggingOut");
+            diggingParticle.enabled = false;
             yield return new WaitForSeconds(2.5f);
             _diggingTimer = maxDiggingTime;
             _isBusyWithAnimation = false;
@@ -113,6 +118,7 @@ namespace Mobs.MobsBehaviour.Mole
             MobModel.Animator.SetTrigger("IsDiggingIn");
             _isBusyWithAnimation = true;
             yield return new WaitForSeconds(2.5f);
+            diggingParticle.enabled = true;
             _isBusyWithAnimation = false;
             
             _isUnderground = true;
