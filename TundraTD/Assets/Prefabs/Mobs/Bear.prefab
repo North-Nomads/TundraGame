@@ -764,6 +764,8 @@ MonoBehaviour:
   mobModel: {fileID: 3495415602175080548}
   mobShield: 100
   armorStand: {fileID: 5689175756098562362}
+  armorDestroyVFX: {fileID: 2182789252553541779, guid: c4abcac355512c046a3e04f8a95bbe4b,
+    type: 3}
 --- !u!54 &3495415602175080554
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -885,7 +887,7 @@ GameObject:
   - component: {fileID: 7686189787076733326}
   - component: {fileID: 2366553930096127508}
   m_Layer: 0
-  m_Name: ' Bear'
+  m_Name: Bear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
