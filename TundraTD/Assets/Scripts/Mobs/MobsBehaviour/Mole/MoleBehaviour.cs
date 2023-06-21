@@ -14,6 +14,12 @@ namespace Mobs.MobsBehaviour.Mole
         private bool _isUnderground;
         private bool _isBusyWithAnimation;
 
+        private void SetRendererVisibility(bool value)
+        {
+            foreach (var renderer in MobModel.Renderer)
+                renderer.enabled = value;
+        }
+        
         protected override void HandleIncomeDamage(float damage, BasicElement damageElement)
         {
             if (damageElement == BasicElement.Earth)
@@ -28,7 +34,7 @@ namespace Mobs.MobsBehaviour.Mole
             {
                 if (damageElement == BasicElement.Earth)
                 {
-                    MobModel.Renderer.enabled = true;
+                    SetRendererVisibility(true);
                     StartCoroutine(PullMobOut());
                     MobModel.CurrentMobHealth -= damage;
                 }
@@ -92,7 +98,7 @@ namespace Mobs.MobsBehaviour.Mole
         {
             diggingParticle.enabled = false;
             _isBusyWithAnimation = true;
-            MobModel.Renderer.enabled = true;
+            SetRendererVisibility(true);
             _isUnderground = false;
             MobModel.Animator.SetBool("IsStunned", true);
             yield return new WaitForSeconds(1f);
@@ -104,7 +110,7 @@ namespace Mobs.MobsBehaviour.Mole
         private IEnumerator DigOut()
         {
             _isBusyWithAnimation = true;
-            MobModel.Renderer.enabled = true;
+            SetRendererVisibility(true);
             _isUnderground = false;
             MobModel.Animator.SetTrigger("IsDiggingOut");
             diggingParticle.enabled = false;
@@ -122,7 +128,7 @@ namespace Mobs.MobsBehaviour.Mole
             _isBusyWithAnimation = false;
             
             _isUnderground = true;
-            MobModel.Renderer.enabled = false; 
+            SetRendererVisibility(false);
         }
     }
 }
