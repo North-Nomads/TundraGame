@@ -1,7 +1,5 @@
 ﻿using System.Collections;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Mobs
 {
