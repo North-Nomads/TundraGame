@@ -175,10 +175,10 @@ namespace Mobs.MobsBehaviour
             
             // Set visual effects
             gameObject.SetActive(true);
-            MobModel.SetDefaultMaterial();
             
             // Set hp, speed & etc 
             mobModel.SetDefaultValues();
+            MobModel.SetDefaultMaterial();
 
             _currentWaypointIndex = 0;
             MobPath = mobPath;

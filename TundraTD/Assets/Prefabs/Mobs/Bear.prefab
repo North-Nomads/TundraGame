@@ -740,7 +740,7 @@ MonoBehaviour:
   maxMobHealth: 70
   defaultMobDamage: 10
   defaultMobSpeed: 0.78
-  renderer:
+  renderers:
   - {fileID: 2366553930096127508}
   - {fileID: 1340456891638159888}
   - {fileID: 158765173712723927}
@@ -750,7 +750,6 @@ MonoBehaviour:
   - {fileID: 3824245303773477991}
   - {fileID: 1000814163743207233}
   - {fileID: 5048758107444079860}
-  defaultMaterial: {fileID: 2100000, guid: 41193ebfd3ac03846a19a7cf0a1d82a8, type: 2}
   rigidbody: {fileID: 3495415602175080554}
 --- !u!114 &3495415602175080555
 MonoBehaviour:

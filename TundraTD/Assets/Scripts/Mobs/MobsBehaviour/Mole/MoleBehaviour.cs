@@ -16,7 +16,7 @@ namespace Mobs.MobsBehaviour.Mole
 
         private void SetRendererVisibility(bool value)
         {
-            foreach (var renderer in MobModel.Renderer)
+            foreach (var renderer in MobModel.Renderers)
                 renderer.enabled = value;
         }
         
@@ -55,7 +55,6 @@ namespace Mobs.MobsBehaviour.Mole
 
         private void FixedUpdate()
         {
-            Debug.Log(CurrentWaypointIndex);
             HandleTickTimer();
             
             if (_isBusyWithAnimation)
@@ -87,7 +86,6 @@ namespace Mobs.MobsBehaviour.Mole
             if (CurrentWaypointIndex != 0)
             {
                 var currentWaypoint = MobPath[CurrentWaypointIndex - 1];
-                Debug.Log(currentWaypoint.name);
                 return currentWaypoint.CompareTag("SoftGround");    
             }
 

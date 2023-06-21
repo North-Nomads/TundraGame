@@ -1,5 +1,7 @@
 ﻿using System.Collections;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Mobs
 {
@@ -21,19 +23,17 @@ namespace Mobs
         private float defaultMobSpeed;
 
         [SerializeField]
-        private new Renderer[] renderer;
-
-        [SerializeField] 
-        private Material defaultMaterial;
+        private Renderer[] renderers;
         
         [SerializeField] 
         private new Rigidbody rigidbody;
 
+        private Material[] _defaultMaterials;
         private Animator _animator;
         private float _currentMobHealth;
         private float _currentMobSpeed;
 
-        public Renderer[] Renderer => renderer;
+        public Renderer[] Renderers => renderers;
         public Rigidbody Rigidbody => rigidbody;
         public Animator Animator => _animator;
         public Sprite MobSprite => mobSprite;
@@ -76,11 +76,15 @@ namespace Mobs
             _currentMobSpeed = DefaultMobSpeed;
             _currentMobHealth = maxMobHealth;
             CurrentMobDamage = defaultMobDamage;
+
+            _defaultMaterials = new Material[Renderers.Length];
+            for (int i = 0; i < Renderers.Length; i++)
+                _defaultMaterials[i] = Renderers[i].material;
         }
         
         public IEnumerator ShowHitVFX()
         {
-            foreach (var each in Renderer)
+            foreach (var each in Renderers)
                 each.material = hitMaterial;
             
             yield return new WaitForSeconds(.1f);
@@ -89,8 +93,8 @@ namespace Mobs
 
         public void SetDefaultMaterial()
         {
-            foreach (var each in Renderer)
-                each.material = defaultMaterial;
+            for (int i = 0; i < _defaultMaterials.Length; i++)
+                Renderers[i].material = _defaultMaterials[i];
         }
     }
 }

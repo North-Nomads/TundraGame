@@ -30,7 +30,6 @@ namespace Mobs.MobsBehaviour.Bear
         {
             if (MobShield > 0 && !float.IsPositiveInfinity(damage))
             {
-                print($"{MobModel.CurrentMobHealth}, {damage}");
                 MobShield -= damage;
                 if (MobShield <= 0)
                 {
