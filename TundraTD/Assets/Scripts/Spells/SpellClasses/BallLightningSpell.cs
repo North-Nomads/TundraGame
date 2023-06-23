@@ -35,7 +35,10 @@ namespace Spells.SpellClasses
             Physics.OverlapSphere(transform.position, detonationRadius).ToList().ForEach(coll =>
             {
                 if (coll.gameObject.TryGetComponent(out MobBehaviour mob))
+                {
                     mob.HitThisMob(Mathf.Lerp(minDamage, maxDamage, _time / timeToDetonate), BasicElement.Lightning);
+                    ApplyAdditionalEffects(mob);
+                }
             });
             Destroy(gameObject);
         }

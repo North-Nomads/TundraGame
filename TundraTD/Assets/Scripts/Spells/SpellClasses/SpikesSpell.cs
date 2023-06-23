@@ -72,6 +72,7 @@ namespace Spells.SpellClasses
 
             var mob = other.GetComponent<MobBehaviour>();
             Debug.Log($"{_isInstantiated}: {mob}");
+            ApplyAdditionalEffects(mob);
             if (_isInstantiated)
             {
                 mob.AddSingleEffect(new SlownessEffect(0.4f, 3f.SecondsToTicks()));

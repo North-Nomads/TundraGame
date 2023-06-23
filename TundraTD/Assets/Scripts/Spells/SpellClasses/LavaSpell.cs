@@ -51,7 +51,10 @@ namespace Spells
             {
                 var mob = mobs[i].GetComponent<MobBehaviour>();
                 if (!mob.CurrentEffects.OfType<BurningEffect>().Any())
+                {
                     mob.AddSingleEffect(new BurningEffect(burnDamage, burnTime.SecondsToTicks()));
+                    ApplyAdditionalEffects(mob);
+                }
             }
             interactionCollider.enabled = false;
             DisableEmissionOnChildren();

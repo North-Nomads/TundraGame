@@ -3488,6 +3488,12 @@ MonoBehaviour:
   - {fileID: -385376720774300639, guid: 75d692c527ca42f49a165de940ceca3f, type: 3}
   - {fileID: 2365149872849786638, guid: a3fa6d8a17e428d4bb7520f913ca497a, type: 3}
   mobPools: []
+  additionalSpellEffects:
+  - {fileID: 11400000, guid: 766db21af9de6df4ba10f984562b7eab, type: 2}
+  - {fileID: 11400000, guid: 1f2b5ca24142d6d4a93d9ed65a91ea6f, type: 2}
+  - {fileID: 11400000, guid: 5f88b9aa4138a7c4086aae5c659c498d, type: 2}
+  - {fileID: 11400000, guid: 3e84354cc8249b847a361b84d3d0eb69, type: 2}
+  - {fileID: 11400000, guid: cb679c6272f3e34479cba2408f85f00a, type: 2}
 --- !u!1001 &629340765
 PrefabInstance:
   m_ObjectHideFlags: 0

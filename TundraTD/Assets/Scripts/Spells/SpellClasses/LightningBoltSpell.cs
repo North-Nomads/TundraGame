@@ -94,6 +94,7 @@ namespace Spells.SpellClasses
                         lightning.enabled = false;
 
                 }
+                ApplyAdditionalEffects(mobToStrike);
                 mobToStrike.HitThisMob(directDamage, BasicElement.Lightning);
             }
             Destroy(gameObject);
