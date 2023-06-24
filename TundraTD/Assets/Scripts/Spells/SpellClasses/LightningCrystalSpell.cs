@@ -35,8 +35,12 @@ namespace Spells.SpellClasses
                     _mobs.Remove(_mobs[i]);
             }
 
-            _mobs.ForEach(mob => mob.MobModel.Rigidbody.AddForce((mob.transform.position - transform.position).normalized * (pullForce * -1),
-                ForceMode.Force));
+            _mobs.ForEach(mob =>
+            {
+                mob.MobModel.Rigidbody.AddForce((mob.transform.position - transform.position).normalized * (pullForce * -1),
+                                ForceMode.Force);
+                ApplyAdditionalEffects(mob);
+            });
         }
 
         private void Start()

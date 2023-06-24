@@ -57,7 +57,10 @@ namespace Spells.SpellClasses
             _cooldownTime = MaxCooldownTime;
             foreach (var mob in _mobsInSpell)
                 if (!(mob is null))
+                {
                     mob.HitThisMob(HitDamage, BasicElement.Air);
+                    ApplyAdditionalEffects(mob);
+                }
         }
 
         private IEnumerator StayAlive()

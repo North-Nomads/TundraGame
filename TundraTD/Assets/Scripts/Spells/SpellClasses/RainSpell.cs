@@ -67,8 +67,10 @@ namespace Spells.SpellClasses
             }
         }
 
-        private void ApplyEffects(MobBehaviour mob) =>
+        private void ApplyEffects(MobBehaviour mob)
+        {
             mob.AddSingleEffect(new SlownessEffect(1 - SlownessValue, EffectTime.SecondsToTicks()));
-
+            ApplyAdditionalEffects(mob);
+        }
     }
 }

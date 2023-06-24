@@ -28,8 +28,9 @@ namespace Level
         [SerializeField] private CityGatesUI influencePointsHolder;
         [SerializeField] private MagicSpell[] spellInitializers;
         [SerializeField] private MobPool[] mobPools;
-        
-        
+        [SerializeField] private AdditionalSpellEffect[] additionalSpellEffects;
+
+
         private void Start()
         {
 
@@ -61,7 +62,7 @@ namespace Level
             Architect.CanvasesHierarchyParent = canvasesParent;
             Architect.WaveCompletionMinInfluencePointsAward = minWaveAward;
             Architect.WaveCompletionMaxInfluencePointsAward = maxWaveAward;
-            MagicSpell.SetSpellPrefabs(spellInitializers);
+            MagicSpell.SetSpellPrefabs(spellInitializers, additionalSpellEffects);
             //// TODO: print here the path to load additional effects.
             //MagicSpell.AdditionalSpellEffects = Resources.LoadAll<AdditionalSpellEffect>("path/to/load").ToDictionary(x => x.Element, y => y);
 

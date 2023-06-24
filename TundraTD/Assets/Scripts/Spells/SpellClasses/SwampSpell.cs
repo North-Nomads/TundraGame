@@ -52,6 +52,7 @@ namespace Spells.SpellClasses
 
                 var mob = other.GetComponent<MobBehaviour>();
                 mob.ClearMobEffects();
+                ApplyAdditionalEffects(mob);
                 if (!mob.CurrentEffects.OfType<SlownessEffect>().Any())
                     mob.AddSingleEffect(new SlownessEffect(slowdownMob, 1));
             }

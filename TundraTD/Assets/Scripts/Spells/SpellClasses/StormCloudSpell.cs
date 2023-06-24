@@ -79,6 +79,7 @@ namespace Spells.SpellClasses
                 mob.ClearMobEffects();
                 mob.HitThisMob(zapDamage, BasicElement.Lightning);
                 mob.AddSingleEffect(new StunEffect(3));
+                ApplyAdditionalEffects(mob);
                 _zapTimer = zapCooldownTime;
             }
         }
