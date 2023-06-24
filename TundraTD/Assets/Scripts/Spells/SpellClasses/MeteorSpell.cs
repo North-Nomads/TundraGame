@@ -98,7 +98,6 @@ namespace Spells.SpellClasses
             }
 
             // Aftershock animations & stuff
-            print("Aftershock");
             StartCoroutine(RunExplosionAnimation());
             meteoriteMesh.enabled = false;
         }
