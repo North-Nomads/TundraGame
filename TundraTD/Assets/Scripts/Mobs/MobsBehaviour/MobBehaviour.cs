@@ -175,10 +175,10 @@ namespace Mobs.MobsBehaviour
             
             // Set visual effects
             gameObject.SetActive(true);
-            MobModel.SetDefaultMaterial();
             
             // Set hp, speed & etc 
             mobModel.SetDefaultValues();
+            MobModel.SetDefaultMaterial();
 
             _currentWaypointIndex = 0;
             MobPath = mobPath;
@@ -207,7 +207,6 @@ namespace Mobs.MobsBehaviour
             // Check whether we are close enough to the point
             var distance = Vector3.Distance(transform.position, currentPoint);
             bool isMobCloseEnough = distance <= .5f; 
-            print($"{distance}: {_currentWaypointIndex}");
             if (isMobCloseEnough || hasMobPassedPointBy) 
                 HandleWaypointApproachingOrPassing();
         }

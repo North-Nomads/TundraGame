@@ -71,7 +71,6 @@ namespace Spells.SpellClasses
                 return;
 
             var mob = other.GetComponent<MobBehaviour>();
-            Debug.Log($"{_isInstantiated}: {mob}");
             ApplyAdditionalEffects(mob);
             if (_isInstantiated)
             {
