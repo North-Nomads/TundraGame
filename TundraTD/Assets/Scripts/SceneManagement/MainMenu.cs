@@ -12,6 +12,9 @@ namespace SceneManagement
     public class MainMenu : MonoBehaviour
     {
         private const int FirstSceneID = 3;
+        [SerializeField] private Image audioButton;
+        [SerializeField] private Sprite audioButtonOn;
+        [SerializeField] private Sprite audioButtonOff;
         private AudioSource _source;
 
         private void Start()
@@ -35,37 +38,19 @@ namespace SceneManagement
             SceneManager.LoadScene(FirstSceneID);
         }
 
-        public void OpenTutorialScene()
-        {
-            SceneManager.LoadScene(2);
-        }
-        
-        public void SwitchEffectsSound(GameObject sender)
+        public void SwitchSounds()
         {
             if (GameParameters.EffectsVolumeModifier == 1)
             {
                 GameParameters.EffectsVolumeModifier = 0;
-                sender.GetComponentInChildren<Text>().text = "SFX\nOFF";
+                GameParameters.MusicVolumeModifier = 0;
+                audioButton.sprite = audioButtonOff;
             }
             else
             {
                 GameParameters.EffectsVolumeModifier = 1;
-                sender.GetComponentInChildren<Text>().text = "SFX\nON";
-            }
-
-        }
-
-        public void SwitchMusicSound(GameObject sender)
-        {
-            if (GameParameters.MusicVolumeModifier == 1)
-            {
-                GameParameters.MusicVolumeModifier = 0;
-                sender.GetComponentInChildren<Text>().text = "Music\nOFF";
-            }
-            else
-            {
                 GameParameters.MusicVolumeModifier = 1;
-                sender.GetComponentInChildren<Text>().text = "Music\nON";
+                audioButton.sprite = audioButtonOn;
             }
         }
     }
