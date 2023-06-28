@@ -1,4 +1,3 @@
-using City.Building;
 using Level;
 using Mobs.MobsBehaviour;
 using ModulesUI.MagicScreen;
@@ -19,7 +18,7 @@ namespace City
         private float _currentCityGatesHealthPoints;
         private float _cityGatesHealthPercent;
         private Animator _animator;
-        
+
         // Const is used by raycast in update which is debug purpose only 
         private const int PlaceableLayer = 1 << 11 | 1 << 10;
 
@@ -68,12 +67,7 @@ namespace City
             var mobAttack = mob.MobModel.CurrentMobDamage;
             CurrentCityGatesHealthPoints -= mobAttack;
             mob.HitThisMob(float.PositiveInfinity, BasicElement.None);
-            //_animator.SetTrigger("DamageTrigger");
-        }
-
-        public void HandleWaveEnding()
-        {
-            Architect.RewardPlayerOnWaveEnd(_cityGatesHealthPercent);
+            _animator.SetTrigger("DamageTrigger");
         }
     }
 }

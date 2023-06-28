@@ -19,7 +19,6 @@ namespace ModulesUI.PlayerHUD
         
         [SerializeField] private Image topHealthBar;
         [SerializeField] private Image takenDamageSprite;
-        [SerializeField] private Text influencePointsHolder;
         private float _targetPercent;
 
         private void Start()
@@ -33,11 +32,6 @@ namespace ModulesUI.PlayerHUD
             takenDamageSprite.fillAmount = 0;
             _targetPercent = topHealthBar.fillAmount;
             StartCoroutine(PlayHealthBarAnimation());
-        }
-
-        public void UpdateInfluencePointsText(string text)
-        {
-            influencePointsHolder.text = text;
         }
 
         public void UpdateHealthBar(float percent)

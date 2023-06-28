@@ -83,12 +83,8 @@ namespace Spells.SpellClasses
                 yield return new WaitForSeconds(.5f);
             }
             
-            // Handle landing
-            print(_affectedMobs.Count);
             HandleStormDestroying();
             Destroy(gameObject);
         }
-
-        
     }
 }
