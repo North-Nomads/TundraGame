@@ -11,7 +11,7 @@ namespace SceneManagement
     /// </summary>
     public class MainMenu : MonoBehaviour
     {
-        private const int FirstSceneID = 3;
+        private const int FirstSceneID = 1;
         [SerializeField] private Image audioButton;
         [SerializeField] private Sprite audioButtonOn;
         [SerializeField] private Sprite audioButtonOff;
@@ -21,6 +21,12 @@ namespace SceneManagement
         {
             _source = GetComponent<AudioSource>();
             GameParameters.MusicVolumeChanged += SetVolume;
+            
+            if (GameParameters.MusicVolumeModifier != 0)
+                audioButton.sprite = audioButtonOn;
+            else
+                audioButton.sprite = audioButtonOff;
+            
         }
 
         private void OnDestroy()
