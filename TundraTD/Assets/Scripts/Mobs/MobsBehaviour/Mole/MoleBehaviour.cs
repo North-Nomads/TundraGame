@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Spells;
 using UnityEngine;
+using UnityEngine.VFX;
 
 namespace Mobs.MobsBehaviour.Mole
 {
@@ -8,10 +9,17 @@ namespace Mobs.MobsBehaviour.Mole
     public class MoleBehaviour : MobBehaviour
     {
         [SerializeField] private float maxDiggingTime;
+        [SerializeField] private VisualEffect diggingParticle;
         private float _diggingTimer; 
         private bool _isUnderground;
         private bool _isBusyWithAnimation;
 
+        private void SetRendererVisibility(bool value)
+        {
+            foreach (var renderer in MobModel.Renderers)
+                renderer.enabled = value;
+        }
+        
         protected override void HandleIncomeDamage(float damage, BasicElement damageElement)
         {
             if (damageElement == BasicElement.Earth)
@@ -26,7 +34,7 @@ namespace Mobs.MobsBehaviour.Mole
             {
                 if (damageElement == BasicElement.Earth)
                 {
-                    MobModel.Renderer.enabled = true;
+                    SetRendererVisibility(true);
                     StartCoroutine(PullMobOut());
                     MobModel.CurrentMobHealth -= damage;
                 }
@@ -39,6 +47,7 @@ namespace Mobs.MobsBehaviour.Mole
 
         public override void ExecuteOnMobSpawn(MobPortal mobPortal)
         {
+            diggingParticle.enabled = false;
             MobPortal = mobPortal;
             MobModel.InstantiateMobModel();
             _diggingTimer = maxDiggingTime;
@@ -46,7 +55,6 @@ namespace Mobs.MobsBehaviour.Mole
 
         private void FixedUpdate()
         {
-            Debug.Log(CurrentWaypointIndex);
             HandleTickTimer();
             
             if (_isBusyWithAnimation)
@@ -78,7 +86,6 @@ namespace Mobs.MobsBehaviour.Mole
             if (CurrentWaypointIndex != 0)
             {
                 var currentWaypoint = MobPath[CurrentWaypointIndex - 1];
-                Debug.Log(currentWaypoint.name);
                 return currentWaypoint.CompareTag("SoftGround");    
             }
 
@@ -87,8 +94,9 @@ namespace Mobs.MobsBehaviour.Mole
 
         private IEnumerator PullMobOut()
         {
+            diggingParticle.enabled = false;
             _isBusyWithAnimation = true;
-            MobModel.Renderer.enabled = true;
+            SetRendererVisibility(true);
             _isUnderground = false;
             MobModel.Animator.SetBool("IsStunned", true);
             yield return new WaitForSeconds(1f);
@@ -100,9 +108,10 @@ namespace Mobs.MobsBehaviour.Mole
         private IEnumerator DigOut()
         {
             _isBusyWithAnimation = true;
-            MobModel.Renderer.enabled = true;
+            SetRendererVisibility(true);
             _isUnderground = false;
             MobModel.Animator.SetTrigger("IsDiggingOut");
+            diggingParticle.enabled = false;
             yield return new WaitForSeconds(2.5f);
             _diggingTimer = maxDiggingTime;
             _isBusyWithAnimation = false;
@@ -113,10 +122,11 @@ namespace Mobs.MobsBehaviour.Mole
             MobModel.Animator.SetTrigger("IsDiggingIn");
             _isBusyWithAnimation = true;
             yield return new WaitForSeconds(2.5f);
+            diggingParticle.enabled = true;
             _isBusyWithAnimation = false;
             
             _isUnderground = true;
-            MobModel.Renderer.enabled = false; 
+            SetRendererVisibility(false);
         }
     }
 }
