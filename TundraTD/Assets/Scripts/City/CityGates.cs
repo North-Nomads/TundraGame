@@ -17,7 +17,6 @@ namespace City
         [SerializeField] private LevelJudge levelJudge;
         private float _currentCityGatesHealthPoints;
         private float _cityGatesHealthPercent;
-        private Animator _animator;
 
         // Const is used by raycast in update which is debug purpose only 
         private const int PlaceableLayer = 1 << 11 | 1 << 10;
@@ -43,7 +42,6 @@ namespace City
         private void Start()
         {
             _currentCityGatesHealthPoints = maxCityGatesHealthPoints;
-            _animator = GetComponent<Animator>();
         }
 
         private void Update()
@@ -67,7 +65,6 @@ namespace City
             var mobAttack = mob.MobModel.CurrentMobDamage;
             CurrentCityGatesHealthPoints -= mobAttack;
             mob.HitThisMob(float.PositiveInfinity, BasicElement.None);
-            _animator.SetTrigger("DamageTrigger");
         }
     }
 }
