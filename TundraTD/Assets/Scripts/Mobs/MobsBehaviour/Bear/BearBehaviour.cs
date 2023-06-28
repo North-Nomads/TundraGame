@@ -32,10 +32,7 @@ namespace Mobs.MobsBehaviour.Bear
             {
                 MobShield -= damage;
                 if (MobShield <= 0)
-                {
-                    print($"{MobModel.CurrentMobHealth}, {mobShield}");
                     ExecuteShieldCrackVfx();
-                }
             }
             else
             {
