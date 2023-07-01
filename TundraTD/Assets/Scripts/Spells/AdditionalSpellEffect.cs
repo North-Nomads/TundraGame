@@ -45,7 +45,7 @@ namespace Assets.Scripts.Spells
 
                 case BasicElement.Lightning:
                     //return new PolarizationEffect();
-                    return null;
+                    return new StunEffect(time.SecondsToTicks());
 
                 default:
                     throw new ArgumentException("Wrong effect type.");
