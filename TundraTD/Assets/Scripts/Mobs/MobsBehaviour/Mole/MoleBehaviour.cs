@@ -1,27 +1,45 @@
-﻿using System;
+﻿using System.Collections;
 using Spells;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.VFX;
 
 namespace Mobs.MobsBehaviour.Mole
 {
     [RequireComponent(typeof(MobModel))]
     public class MoleBehaviour : MobBehaviour
     {
-        private bool _isUnderground = true;
-        private MeshRenderer _meshRenderer;
+        [SerializeField] private float maxDiggingTime;
+        [SerializeField] private VisualEffect diggingParticle;
+        private float _diggingTimer; 
+        private bool _isUnderground;
+        private bool _isBusyWithAnimation;
 
+        private void SetRendererVisibility(bool value)
+        {
+            foreach (var renderer in MobModel.Renderers)
+                renderer.enabled = value;
+        }
+        
         protected override void HandleIncomeDamage(float damage, BasicElement damageElement)
         {
-            if (damageElement == BasicElement.Fire) // если элемент заклинания земля, то выкидываем крота из земли
+            if (damageElement == BasicElement.Earth)
             {
-                _isUnderground = false;
-                _meshRenderer.enabled = true;
+                // Stop all coroutines (digging in or out)
+                StopAllCoroutines();
+                _diggingTimer = maxDiggingTime * .5f;
+                _isBusyWithAnimation = false;
             }
-
-            if (_isUnderground == false) // пока под землей урона нет
+            
+            if (_isUnderground)
+            {
+                if (damageElement == BasicElement.Earth)
+                {
+                    SetRendererVisibility(true);
+                    StartCoroutine(PullMobOut());
+                    MobModel.CurrentMobHealth -= damage;
+                }
+            }
+            else
             {
                 MobModel.CurrentMobHealth -= damage;
             }
@@ -29,16 +47,86 @@ namespace Mobs.MobsBehaviour.Mole
 
         public override void ExecuteOnMobSpawn(MobPortal mobPortal)
         {
-            _meshRenderer = GetComponent<MeshRenderer>();
-            _meshRenderer.enabled = false;
+            diggingParticle.enabled = false;
             MobPortal = mobPortal;
             MobModel.InstantiateMobModel();
+            _diggingTimer = maxDiggingTime;
         }
 
         private void FixedUpdate()
         {
-            MoveTowardsNextPoint();
             HandleTickTimer();
+            
+            if (_isBusyWithAnimation)
+                return; 
+            
+            MoveTowardsNextPoint(); 
+            _diggingTimer -= Time.deltaTime;
+            if (_diggingTimer > 0)
+            {
+                _diggingTimer -= Time.deltaTime;
+                return;
+            }
+
+            
+            if (IsGroundSoft())
+            {
+                if (!_isUnderground)
+                    StartCoroutine(DigUnderground());   
+            }
+            else
+            {
+                if (_isUnderground)
+                    StartCoroutine(DigOut());
+            }
+        }
+
+        private bool IsGroundSoft()
+        {
+            if (CurrentWaypointIndex != 0)
+            {
+                var currentWaypoint = MobPath[CurrentWaypointIndex - 1];
+                return currentWaypoint.CompareTag("SoftGround");    
+            }
+
+            return false;
+        }
+
+        private IEnumerator PullMobOut()
+        {
+            diggingParticle.enabled = false;
+            _isBusyWithAnimation = true;
+            SetRendererVisibility(true);
+            _isUnderground = false;
+            MobModel.Animator.SetBool("IsStunned", true);
+            yield return new WaitForSeconds(1f);
+            MobModel.Animator.SetBool("IsStunned", false);
+            _diggingTimer = maxDiggingTime * 1.5f;
+            _isBusyWithAnimation = false;
+        }
+        
+        private IEnumerator DigOut()
+        {
+            _isBusyWithAnimation = true;
+            SetRendererVisibility(true);
+            _isUnderground = false;
+            MobModel.Animator.SetTrigger("IsDiggingOut");
+            diggingParticle.enabled = false;
+            yield return new WaitForSeconds(2.5f);
+            _diggingTimer = maxDiggingTime;
+            _isBusyWithAnimation = false;
+        }
+
+        private IEnumerator DigUnderground()
+        {
+            MobModel.Animator.SetTrigger("IsDiggingIn");
+            _isBusyWithAnimation = true;
+            yield return new WaitForSeconds(2.5f);
+            diggingParticle.enabled = true;
+            _isBusyWithAnimation = false;
+            
+            _isUnderground = true;
+            SetRendererVisibility(false);
         }
     }
 }

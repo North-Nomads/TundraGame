@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Linq;
 using Level;
@@ -10,7 +9,8 @@ namespace Spells.SpellClasses
 {
     [RequireComponent(typeof(MeshCollider))]
 	public class SwampSpell : MagicSpell
-	{
+    {
+        [SerializeField] private Transform swampVFX;
         [SerializeField] private float lifetime;
         private const float SwampRadius = 10;
         private const float MaxSlownessModifier = 0.8f;
@@ -21,6 +21,7 @@ namespace Spells.SpellClasses
         public override void ExecuteSpell(RaycastHit hitInfo)
         {
             transform.position = hitInfo.point;
+            //swampVFX.transform.position = hitInfo.point + Vector3.up;
             StartCoroutine(StayAlive());
         }
 
@@ -51,6 +52,7 @@ namespace Spells.SpellClasses
 
                 var mob = other.GetComponent<MobBehaviour>();
                 mob.ClearMobEffects();
+                ApplyAdditionalEffects(mob);
                 if (!mob.CurrentEffects.OfType<SlownessEffect>().Any())
                     mob.AddSingleEffect(new SlownessEffect(slowdownMob, 1));
             }

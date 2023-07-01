@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.VFX;
 
 namespace Mobs.MobsBehaviour.Boar
 {
@@ -8,6 +9,10 @@ namespace Mobs.MobsBehaviour.Boar
     [RequireComponent(typeof(MobModel))]
     public class BoarBehaviour : MobBehaviour
     {
+
+        [SerializeField] private Transform gasSpawnPosition;
+        [SerializeField] private VisualEffect gasVFX;
+        
         private float _chargeLeftTime;
         private bool _isCharged;
         
@@ -35,6 +40,7 @@ namespace Mobs.MobsBehaviour.Boar
 
         private void TakeChargeMode()
         {
+            Instantiate(gasVFX, gasSpawnPosition);
             MobModel.CurrentMobSpeed *= 1.5f;
             MobModel.CurrentMobDamage *= 2f;
         }

@@ -8,23 +8,20 @@ namespace Spells.SpellClasses
 {
 	public class SpikesSpell : MagicSpell
     {
-        [SerializeField] private Transform spikesPrefab;
-        [SerializeField] private ParticleSystem spawnEffect;
+        [SerializeField] private GameObject spikeVisualEffect;
+        [SerializeField] private GameObject pebblesVisualEffect;
         private const int CirclesAmount = 3;
-        private const float RadiusMultiplier = .9f;
+        private const float RadiusMultiplier = 1.5f;
         private const float Seconds = .07f;
-        private const float GrowthTime = .5f;
-        private const float SpikesLifeTime = 1f;
         private const float SpikesDamage = 35f;
+        private bool _isInstantiated;
         private SphereCollider _sphereCollider;
-        private Vector3 _targetSpikesScale; 
         
         public override BasicElement Element => BasicElement.Earth;
 
         public override void ExecuteSpell(RaycastHit hitInfo)
         {
             var castPosition = hitInfo.point;
-            _targetSpikesScale = spikesPrefab.transform.localScale;
             _sphereCollider = GetComponent<SphereCollider>();
             StartCoroutine(StartRadialSpikesSpawning(castPosition));
         }
@@ -34,7 +31,9 @@ namespace Spells.SpellClasses
             var radius = RadiusMultiplier;
             var spikesQuantity = 6;
             
-            StartCoroutine(ExecuteSpikesLifecycle(castPosition));
+            Instantiate(spikeVisualEffect, castPosition, Quaternion.identity, transform);
+            Instantiate(pebblesVisualEffect, castPosition, Quaternion.Euler(90, 0, 0), transform);
+             
             _sphereCollider.center = castPosition;
             yield return new WaitForSeconds(Seconds);
             
@@ -49,8 +48,9 @@ namespace Spells.SpellClasses
                     var z = radius * Mathf.Sin(phi);
                     spikesPos.x += x;
                     spikesPos.z += z;
-                    
-                    StartCoroutine(ExecuteSpikesLifecycle(spikesPos));
+
+                    Instantiate(spikeVisualEffect, spikesPos, Quaternion.identity, transform);
+                    Instantiate(pebblesVisualEffect, spikesPos, Quaternion.Euler(90, 0, 0), transform);
                 }
 
                 _sphereCollider.radius += RadiusMultiplier;
@@ -60,48 +60,27 @@ namespace Spells.SpellClasses
                 spikesQuantity *= 2;
             }
 
-            yield return new WaitForSeconds(GrowthTime * 2 + SpikesLifeTime);
-            
-            IEnumerator ExecuteSpikesLifecycle(Vector3 position)
-            {
-                Instantiate(spawnEffect, position, Quaternion.identity, transform);
-                var spikes = Instantiate(spikesPrefab, position, Quaternion.identity, transform);
-                
-                // Grow spikes
-                var time = 0f;
-                while (time < GrowthTime)
-                {
-                    var coefficient = Mathf.Lerp(0, 1, time / GrowthTime);
-                    spikes.transform.localScale = _targetSpikesScale * coefficient;
-                    time += Time.deltaTime;
-                    yield return null;
-                }
-
-                yield return new WaitForSeconds(SpikesLifeTime);
-
-                // Shrink spikes
-                time = 0f;
-                while (time < GrowthTime)
-                {
-                    var coefficient = Mathf.Lerp(1, 0, time / GrowthTime);
-                    spikes.transform.localScale = _targetSpikesScale * coefficient;
-                    time += Time.deltaTime;
-                    yield return null;
-                }
-                Destroy(spikes.gameObject);
-            }
+            _isInstantiated = true;
+            yield return new WaitForSeconds(3.3f); // 3.3f - max time pebbles (that live longer than the spike) can live (random.uniform) 
+            Destroy(gameObject);
         }
-
         
-
         private void OnTriggerEnter(Collider other)
         {
             if (!other.CompareTag("Mob"))
                 return;
 
             var mob = other.GetComponent<MobBehaviour>();
-            mob.HitThisMob(SpikesDamage, BasicElement.Earth);
-            mob.AddSingleEffect(new StunEffect(1f.SecondsToTicks()));
+            ApplyAdditionalEffects(mob);
+            if (_isInstantiated)
+            {
+                mob.AddSingleEffect(new SlownessEffect(0.4f, 3f.SecondsToTicks()));
+            }
+            else
+            {
+                mob.AddSingleEffect(new StunEffect(1f.SecondsToTicks()));    
+                mob.HitThisMob(SpikesDamage, BasicElement.Earth);
+            }
         }
     }
 }

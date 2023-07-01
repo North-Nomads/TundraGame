@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Level;
 using Mobs.MobEffects;
 using Mobs.MobsBehaviour;
@@ -12,7 +11,9 @@ namespace Spells.SpellClasses
     {
         [SerializeField] private SphereCollider mainCollider;
         
-        private const float HitDelay = 0.5f;
+        private const float MaxCooldownTime = 0.5f;
+        private const float HitDamage = 3f;
+        private float _cooldownTime;
         private int _mobsAmount;
         private readonly MobBehaviour[] _mobsInSpell = new MobBehaviour[100];
 
@@ -47,7 +48,22 @@ namespace Spells.SpellClasses
             StartCoroutine(StayAlive());
         }
 
-        IEnumerator StayAlive()
+        private void Update()
+        {
+            _cooldownTime -= Time.deltaTime;
+            if (_cooldownTime >= 0)
+                return;
+
+            _cooldownTime = MaxCooldownTime;
+            foreach (var mob in _mobsInSpell)
+                if (!(mob is null))
+                {
+                    mob.HitThisMob(HitDamage, BasicElement.Air);
+                    ApplyAdditionalEffects(mob);
+                }
+        }
+
+        private IEnumerator StayAlive()
         {
             yield return new WaitForSeconds(SpellDuration);
             // Remove slowness effects on spell ends

@@ -21,24 +21,19 @@ namespace Mobs
         private float defaultMobSpeed;
 
         [SerializeField]
-        private new Renderer renderer;
-
-        [SerializeField] 
-        private Material defaultMaterial;
+        private Renderer[] renderers;
         
         [SerializeField] 
         private new Rigidbody rigidbody;
 
-        [SerializeField]
-        private float defaultMobAngularSpeed;
-
+        private Material[] _defaultMaterials;
         private Animator _animator;
         private float _currentMobHealth;
         private float _currentMobSpeed;
 
+        public Renderer[] Renderers => renderers;
         public Rigidbody Rigidbody => rigidbody;
         public Animator Animator => _animator;
-        public float DefaultMobAngularSpeed => defaultMobAngularSpeed;        
         public Sprite MobSprite => mobSprite;
         public bool IsAlive => CurrentMobHealth > 0;
 
@@ -79,18 +74,25 @@ namespace Mobs
             _currentMobSpeed = DefaultMobSpeed;
             _currentMobHealth = maxMobHealth;
             CurrentMobDamage = defaultMobDamage;
+
+            _defaultMaterials = new Material[Renderers.Length];
+            for (int i = 0; i < Renderers.Length; i++)
+                _defaultMaterials[i] = Renderers[i].material;
         }
         
         public IEnumerator ShowHitVFX()
         {
-            renderer.material = hitMaterial;
+            foreach (var each in Renderers)
+                each.material = hitMaterial;
+            
             yield return new WaitForSeconds(.1f);
             SetDefaultMaterial();
         }
 
         public void SetDefaultMaterial()
         {
-            renderer.material = defaultMaterial;
+            for (int i = 0; i < _defaultMaterials.Length; i++)
+                Renderers[i].material = _defaultMaterials[i];
         }
     }
 }

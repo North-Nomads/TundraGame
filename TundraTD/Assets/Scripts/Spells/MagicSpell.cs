@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Spells;
+using Mobs.MobsBehaviour;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,7 +17,7 @@ namespace Spells
 
         public static event EventHandler<SpellCastInfo> SpellCast = delegate { };
 
-        public AdditionalSpellEffect SpellEffect { get; private set; }
+        public AdditionalSpellEffect AdditionalEffect { get; private set; }
 
         public abstract BasicElement Element { get; }
         
@@ -42,7 +43,7 @@ namespace Spells
             var spell = Instantiate(_prefabs[basis]);
             if (addition != BasicElement.None && AdditionalSpellEffects.ContainsKey(addition))
             {
-                spell.SpellEffect = AdditionalSpellEffects[addition];
+                spell.AdditionalEffect = AdditionalSpellEffects[addition];
             }
             return spell;
         }
@@ -51,10 +52,10 @@ namespace Spells
         /// Sets spell prefabs into the internal dictionary based on their basic elements.
         /// </summary>
         /// <param name="prefabs">Prefabs array that can be set up in the Editor.</param>
-        public static void SetSpellPrefabs(MagicSpell[] prefabs)
+        public static void SetSpellPrefabs(MagicSpell[] prefabs, AdditionalSpellEffect[] spellEffects)
         {
             _prefabs = prefabs.Where(x => x != null).ToDictionary(x => x.Element, y => y);
-            AdditionalSpellEffects = new Dictionary<BasicElement, AdditionalSpellEffect>();
+            AdditionalSpellEffects = spellEffects.Where(x => x != null).ToDictionary(x => x.Element, y => y);
         }
 
         protected void DisableEmissionOnChildren()
@@ -63,6 +64,15 @@ namespace Spells
             {
                 var emission = system.emission;
                 emission.enabled = false;
+            }
+        }
+
+        protected void ApplyAdditionalEffects(params MobBehaviour[] mobs)
+        {
+            if (AdditionalEffect == null) return;
+            foreach (var mob in mobs)
+            {
+                mob?.AddSingleEffect(AdditionalEffect.EffectToApply);
             }
         }
 
