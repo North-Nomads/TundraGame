@@ -13,6 +13,7 @@ namespace Mobs.MobsBehaviour.Bear
         [SerializeField] private float mobShield;
         [SerializeField] private Transform armorStand;
         [SerializeField] private GameObject armorDestroyVFX;
+        [SerializeField] private GameObject shieldVFX;
 
         private float MobShield
         {
@@ -45,6 +46,7 @@ namespace Mobs.MobsBehaviour.Bear
         {
             armorStand.gameObject.SetActive(false);
             Instantiate(armorDestroyVFX, transform.position, Quaternion.identity);
+            shieldVFX.SetActive(false);
         }
 
         public override void ExecuteOnMobSpawn(MobPortal mobPortal)

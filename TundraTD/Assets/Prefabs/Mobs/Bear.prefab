@@ -501,7 +501,6 @@ GameObject:
   - component: {fileID: 1082552720583528107}
   - component: {fileID: 321769541472041174}
   - component: {fileID: 5954184426546149657}
-  - component: {fileID: 5369930030507065063}
   m_Layer: 0
   m_Name: Shield
   m_TagString: Untagged
@@ -518,7 +517,7 @@ Transform:
   m_GameObject: {fileID: 2680520622593967372}
   m_LocalRotation: {x: -0.12523158, y: -0.37475672, z: -0.29114932, w: 0.87126726}
   m_LocalPosition: {x: -0.049999952, y: 0.75, z: 0.049999952}
-  m_LocalScale: {x: 3.7467, y: 3.7467, z: 3.7467}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 3965573974770687877}
   m_RootOrder: 5
@@ -570,19 +569,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &5369930030507065063
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2680520622593967372}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2902154066838331613
 GameObject:
   m_ObjectHideFlags: 0
@@ -867,6 +853,7 @@ MonoBehaviour:
   armorStand: {fileID: 5689175756098562362}
   armorDestroyVFX: {fileID: 2182789252553541779, guid: c4abcac355512c046a3e04f8a95bbe4b,
     type: 3}
+  shieldVFX: {fileID: 2680520622593967372}
 --- !u!54 &3495415602175080554
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2411,15 +2398,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79ad6d7af4be2194dbf7f31b3eb9a2bb, type: 3}
---- !u!4 &6844037795569121799 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1052198853877760824, guid: 79ad6d7af4be2194dbf7f31b3eb9a2bb,
-    type: 3}
-  m_PrefabInstance: {fileID: 5791841692760652095}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5282433041228489482 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1814450957371464245, guid: 79ad6d7af4be2194dbf7f31b3eb9a2bb,
+    type: 3}
+  m_PrefabInstance: {fileID: 5791841692760652095}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6844037795569121799 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1052198853877760824, guid: 79ad6d7af4be2194dbf7f31b3eb9a2bb,
     type: 3}
   m_PrefabInstance: {fileID: 5791841692760652095}
   m_PrefabAsset: {fileID: 0}
