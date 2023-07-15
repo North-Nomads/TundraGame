@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:TundraTD/Assets/Materials/Mobs/ShieldMaterial.mat.meta
 guid: be5321b37494d544db69cf74a7802b2c
 NativeFormatImporter:
+========
+guid: 00f761c3f6178c24aa49f5483fa19f85
+folderAsset: yes
+DefaultImporter:
+>>>>>>>> origin/custom-shading:TundraTD/Assets/Scenes/Levels.meta
   externalObjects: {}
   mainObjectFileID: 2100000
   userData: 
