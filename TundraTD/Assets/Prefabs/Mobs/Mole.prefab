@@ -266,10 +266,9 @@ MonoBehaviour:
   maxMobHealth: 72
   defaultMobDamage: 20
   defaultMobSpeed: 0.86
-  renderer: {fileID: 8339433164911701459}
-  defaultMaterial: {fileID: 2100000, guid: f508e946a12f4034a9f74c8bf133a58d, type: 2}
+  renderers:
+  - {fileID: 8339433164911701459}
   rigidbody: {fileID: 5441702568856095961}
-  defaultMobAngularSpeed: 1000
 --- !u!114 &679887491081338523
 MonoBehaviour:
   m_ObjectHideFlags: 0

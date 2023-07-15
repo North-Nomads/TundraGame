@@ -1,5 +1,6 @@
 ﻿using Spells;
 using UnityEngine;
+using UnityEngine.VFX;
 
 namespace Mobs.MobsBehaviour.Bear
 {
@@ -11,6 +12,7 @@ namespace Mobs.MobsBehaviour.Bear
     {
         [SerializeField] private float mobShield;
         [SerializeField] private Transform armorStand;
+        [SerializeField] private GameObject armorDestroyVFX;
 
         private float MobShield
         {
@@ -30,9 +32,7 @@ namespace Mobs.MobsBehaviour.Bear
             {
                 MobShield -= damage;
                 if (MobShield <= 0)
-                {
                     ExecuteShieldCrackVfx();
-                }
             }
             else
             {
@@ -44,6 +44,7 @@ namespace Mobs.MobsBehaviour.Bear
         private void ExecuteShieldCrackVfx()
         {
             armorStand.gameObject.SetActive(false);
+            Instantiate(armorDestroyVFX, transform.position, Quaternion.identity);
         }
 
         public override void ExecuteOnMobSpawn(MobPortal mobPortal)

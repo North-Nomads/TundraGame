@@ -95,10 +95,10 @@ namespace Spells.SpellClasses
 
                 mob.HitThisMob(damage, BasicElement.Fire);
                 mob.AddSingleEffect(effect);
+                ApplyAdditionalEffects(mob);
             }
 
             // Aftershock animations & stuff
-            print("Aftershock");
             StartCoroutine(RunExplosionAnimation());
             meteoriteMesh.enabled = false;
         }

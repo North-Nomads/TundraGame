@@ -66,6 +66,7 @@ namespace Spells.SpellClasses
                     new SpeedEffect(6f.SecondsToTicks(), 4),
                     new TornadoEffect(lifetime.SecondsToTicks())
                 });
+                ApplyAdditionalEffects(mob);
                 _affectedMobs.Add(mob);
             }
         }
@@ -82,12 +83,8 @@ namespace Spells.SpellClasses
                 yield return new WaitForSeconds(.5f);
             }
             
-            // Handle landing
-            print(_affectedMobs.Count);
             HandleStormDestroying();
             Destroy(gameObject);
         }
-
-        
     }
 }

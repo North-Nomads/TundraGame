@@ -30,6 +30,7 @@ namespace Spells.SpellClasses
                 var mob = _grenadeExplosionResults[i].GetComponent<MobBehaviour>();
                 mob.AddReceivedEffects(new List<Effect>
                     { new InspirationEffect(), new StunEffect(1f.SecondsToTicks()) });
+                ApplyAdditionalEffects(mob);
                 mob.HitThisMob(100, BasicElement.None);
             }
             

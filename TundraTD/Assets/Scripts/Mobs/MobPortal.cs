@@ -3,23 +3,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Level;
-using ModulesUI;
-using ModulesUI.MobPortal;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Mobs
 {
     /// <summary>
     /// Spawns mobs and manages waves
     /// </summary>
-    public class MobPortal : MonoBehaviour, IPointerClickHandler
+    public class MobPortal : MonoBehaviour
     {
         [Header("Navigation")] 
         [SerializeField] private Transform routeParent;
         [Header("Other")]
         [SerializeField] private MobPool mobPool;
-        [SerializeField] private PortalInfoCanvas infoPanel;
         [SerializeField] private MobWave[] mobWaves;
 
         private MobWave _currentMobWave;
@@ -57,17 +53,8 @@ namespace Mobs
 
             WavesAmount = mobWaves.Length;
             IsInstantiated = true;
-            infoPanel.LoadWaveInPanel(_currentMobWave);
         }
-        
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            if (LevelCornerman.IsInWaveMode)
-                return;
-            
-            UIToggle.TryOpenCanvas(infoPanel);
-        }
-        
+
         public void EquipNextWave()
         {
             if (_currentMobWaveIndex >= mobWaves.Length)
@@ -84,7 +71,6 @@ namespace Mobs
             if (_currentMobWaveIndex >= mobWaves.Length)
                 return;
             _currentMobWave = mobWaves[_currentMobWaveIndex];
-            infoPanel.LoadWaveInPanel(_currentMobWave);
         }
 
         public void SpawnNextMob()
