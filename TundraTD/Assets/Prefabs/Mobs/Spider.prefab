@@ -160,7 +160,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8407804740319664521}
   m_Layer: 8
-  m_Name: Bone.009
+  m_Name: Right 1 Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -222,7 +222,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3531078097999003121}
   m_Layer: 8
-  m_Name: Bone.022
+  m_Name: Left 1 Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -253,7 +253,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2811626735130792942}
   m_Layer: 8
-  m_Name: Bone.013
+  m_Name: Right 2 Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -314,7 +314,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6666977256365639903}
   m_Layer: 8
-  m_Name: Bone.003
+  m_Name: BackPart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -375,7 +375,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3797212292568570201}
   m_Layer: 8
-  m_Name: Bone.017
+  m_Name: Right 3 Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -499,7 +499,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5679187233510633737}
   m_Layer: 8
-  m_Name: Bone.024
+  m_Name: Left 3 Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -906,7 +906,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9154425607037762095}
   m_Layer: 8
-  m_Name: Bone.021
+  m_Name: Left 0 Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1420,7 +1420,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5526930736505353334}
   m_Layer: 8
-  m_Name: Bone.005
+  m_Name: Righ 0 Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1433,7 +1433,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6437920035946855562}
-  m_LocalRotation: {x: 0.39287394, y: -0.00000001238392, z: -0.6565697, w: 0.6438682}
+  m_LocalRotation: {x: 0.3924303, y: -0.000000012369936, z: -0.6575469, w: 0.64314115}
   m_LocalPosition: {x: 4.662685e-10, y: 0.017612532, z: 5.2503423e-12}
   m_LocalScale: {x: 0.99999994, y: 1, z: 0.99999994}
   m_Children:
@@ -1696,7 +1696,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7158298997320261036}
   m_Layer: 8
-  m_Name: Bone.001
+  m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1732,7 +1732,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2498326540342088158
 Transform:
   m_ObjectHideFlags: 0
@@ -2157,7 +2157,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8357061096629622829}
   m_Layer: 8
-  m_Name: Bone
+  m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2290,7 +2290,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1645337227857457546}
   m_Layer: 8
-  m_Name: Bone.023
+  m_Name: Left 2 Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2625,6 +2625,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2349183490312003862, guid: b30548a536be72749bbc37137a81fc48,
         type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2349183490312003862, guid: b30548a536be72749bbc37137a81fc48,
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 0}
@@ -2816,6 +2821,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1461893717278840116, guid: 79ad6d7af4be2194dbf7f31b3eb9a2bb,
         type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1461893717278840116, guid: 79ad6d7af4be2194dbf7f31b3eb9a2bb,
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 0}
@@ -2869,6 +2879,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Wet
+      objectReference: {fileID: 0}
+    - target: {fileID: 8622465482818135834, guid: c5b300f4a14b5114fb2255d486d8650c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8622465482818135834, guid: c5b300f4a14b5114fb2255d486d8650c,
         type: 3}
@@ -2951,6 +2966,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2498326540342088158}
     m_Modifications:
+    - target: {fileID: 1490671629212816225, guid: e66c3dc669a0bc54aa4d88417b3b0860,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1490671629212816225, guid: e66c3dc669a0bc54aa4d88417b3b0860,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
