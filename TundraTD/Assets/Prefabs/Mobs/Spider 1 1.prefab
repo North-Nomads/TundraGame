@@ -2973,6 +2973,7 @@ GameObject:
   - component: {fileID: 4028562763983901917}
   - component: {fileID: 3404705208707545701}
   - component: {fileID: 3404705208707545706}
+  - component: {fileID: 721054747096594846}
   - component: {fileID: 3404705208707545707}
   m_Layer: 0
   m_Name: Spider 1 1
@@ -3069,6 +3070,19 @@ MonoBehaviour:
   - {fileID: 7799857283343089692}
   - {fileID: 2078887503879164019}
   mobModel: {fileID: 3404705208707545701}
+--- !u!114 &721054747096594846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5764458733182940540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efc37d906a8c87642b207706d930e3b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  legPositions: []
 --- !u!54 &3404705208707545707
 Rigidbody:
   m_ObjectHideFlags: 0
