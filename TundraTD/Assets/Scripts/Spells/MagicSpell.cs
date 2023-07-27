@@ -48,6 +48,11 @@ namespace Spells
             return spell;
         }
 
+        public static bool CanMakeSpell(BasicElement basis)
+        {
+            return _prefabs.ContainsKey(basis);
+        }
+
         /// <summary>
         /// Sets spell prefabs into the internal dictionary based on their basic elements.
         /// </summary>
