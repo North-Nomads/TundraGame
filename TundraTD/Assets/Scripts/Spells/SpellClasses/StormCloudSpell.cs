@@ -69,7 +69,7 @@ namespace Spells.SpellClasses
             // Apply all effects on this mob
             IEnumerator ApplyZapOnMob()
             {
-                var zap = Instantiate(zapPrefab);
+                var zap = Instantiate(zapPrefab, transform);
                 zap.Lightning.SetPosition(0, transform.position);
                 zap.Lightning.SetPosition(1, mob.transform.position);
 
