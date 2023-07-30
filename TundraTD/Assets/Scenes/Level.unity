@@ -5288,7 +5288,7 @@ PrefabInstance:
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
       propertyPath: mobWaves.Array.data[0].mobProperties.Array.size
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
@@ -5309,7 +5309,7 @@ PrefabInstance:
         type: 3}
       propertyPath: mobWaves.Array.data[0].mobProperties.Array.data[0].mob
       value: 
-      objectReference: {fileID: 7777544483688279284, guid: 10f967618cdd9564ebbf894ac5f61a80,
+      objectReference: {fileID: 3404705208707545706, guid: cf02822e6645d154e94b18c22fa05641,
         type: 3}
     - target: {fileID: 6165614670995634803, guid: 82f908a53c183df4fb4dc007f98d738a,
         type: 3}
@@ -6320,7 +6320,7 @@ AudioSource:
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
-  Mute: 0
+  Mute: 1
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
@@ -10695,6 +10695,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 9095aab9181485742bf9b1987f84a831,
         type: 3}
+    - target: {fileID: 3843521612558280278, guid: 61bbee7996868784eaec8c88043f40a7,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4488601425736818869, guid: 61bbee7996868784eaec8c88043f40a7,
         type: 3}
       propertyPath: m_AnchorMax.y
