@@ -47,7 +47,7 @@ public class SpiderWalkIK : MonoBehaviour
     private Vector3 CenteredSlerp(Vector3 a, Vector3 b, float t)
     {
         Vector3 center = (a + b) * 0.5f;
-        center -= new Vector3(0, 0.3f, 0);
+        center -= new Vector3(0, 0.9f, 0);
         Vector3 relativeA = a - center; 
         Vector3 relativeB = b - center;
 
