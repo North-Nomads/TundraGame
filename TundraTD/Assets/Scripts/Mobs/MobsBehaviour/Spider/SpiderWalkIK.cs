@@ -27,8 +27,8 @@ public class SpiderWalkIK : MonoBehaviour
 
 
     //todo
-    //плвлоачтваььб паука
-    //адьеогаьтвгая расстановка ног
+    //поворачивать паука
+    //альтернативная расстановка ног
     //поиграть с оффсетом
 
     void Start()
@@ -99,8 +99,20 @@ public class SpiderWalkIK : MonoBehaviour
         return _timePassed < 1;
     }
 
+    void RotateToGroundNormal()
+    {
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out RaycastHit hit, Mathf.Infinity)){
+            if(transform.up.y - rayHit.normal.y < 0.005f)
+                return;
+            transform.rotation = Quaternion.FromToRotation(transform.up, rayHit.normal) * transform.rotation;
+
+	    }
+    }
+
     void Update()
     {
+        RotateToGroundNormal();
+        qua
         if(!Step())
         {
             _step++;
