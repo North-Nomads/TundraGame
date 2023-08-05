@@ -44,6 +44,11 @@ namespace SceneManagement
             SceneManager.LoadScene(FirstSceneID);
         }
 
+        public void LoadAuthorsScene()
+        {
+            SceneManager.LoadScene(2);
+        }
+
         public void SwitchSounds()
         {
             if (GameParameters.EffectsVolumeModifier == 1)

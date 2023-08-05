@@ -932,7 +932,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitMaterial: {fileID: 2100000, guid: 173f4c2e019091841ac54b766ef59b29, type: 2}
   mobSprite: {fileID: 21300000, guid: d8d738703ed70674a843199268819755, type: 3}
-  maxMobHealth: 475
+  maxMobHealth: 208
   defaultMobDamage: 4
   defaultMobSpeed: 1.25
   renderers:

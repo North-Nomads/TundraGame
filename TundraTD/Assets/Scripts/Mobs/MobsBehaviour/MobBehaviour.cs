@@ -127,6 +127,7 @@ namespace Mobs.MobsBehaviour
         private void KillThisMob()
         {
             ClearMobEffects();
+            MobModel.SetDefaultMaterial();
             gameObject.SetActive(false);
             transform.parent = null;
         }

@@ -817,8 +817,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitMaterial: {fileID: 2100000, guid: 173f4c2e019091841ac54b766ef59b29, type: 2}
   mobSprite: {fileID: 21300086, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
-  maxMobHealth: 70
-  defaultMobDamage: 10
+  maxMobHealth: 400
+  defaultMobDamage: 100
   defaultMobSpeed: 0.78
   renderers:
   - {fileID: 2366553930096127508}
@@ -849,7 +849,7 @@ MonoBehaviour:
   - {fileID: 3427401502230575098}
   - {fileID: 4251093103526566381}
   mobModel: {fileID: 3495415602175080548}
-  mobShield: 100
+  mobShield: 50
   armorStand: {fileID: 5689175756098562362}
   armorDestroyVFX: {fileID: 2182789252553541779, guid: c4abcac355512c046a3e04f8a95bbe4b,
     type: 3}
