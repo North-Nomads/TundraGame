@@ -3071,6 +3071,7 @@ MonoBehaviour:
   - {fileID: 7799857283343089692}
   - {fileID: 2078887503879164019}
   mobModel: {fileID: 3404705208707545701}
+  walkController: {fileID: 721054747096594846}
 --- !u!114 &721054747096594846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3129,7 +3130,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 6, y: 3.3, z: 7}
+  m_Size: {x: 2.3, y: 3.3, z: 4}
   m_Center: {x: 0, y: 0.25, z: -0.6}
 --- !u!1 &5903189826957863243
 GameObject:
