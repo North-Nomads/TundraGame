@@ -418,7 +418,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Olyanishin Ivan, Maxim Korsakov, Mikov Denis
+  m_Text: Olyanishin Ivan, Korsakov Maxim, Mikov Denis
 --- !u!222 &356306322
 CanvasRenderer:
   m_ObjectHideFlags: 0
