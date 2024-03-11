@@ -4,7 +4,7 @@
 * Free to play Tower Defence game
 * Mobile, Android
 
-Our first game released in [mobile store (RuStore)](https://apps.rustore.ru/app/com.NorthNomads.Magicpunk). The project was created with the help of ["Акселератор Игровых Проектов" by "Начни Игру"](https://startgame.rsv.ru/)
+Our first game released in RuStore. The project was created with the help of ["Акселератор Игровых Проектов" by "Начни Игру"](https://startgame.rsv.ru/)
 
 ## Team:
 * [@TaggedDev](https://github.com/TaggedDev) - Game Design, AI developer
