@@ -10,7 +10,7 @@ Our first released game. The project was created with the help of ["Акселе
 ### Code:
 * [@TaggedDev](https://github.com/TaggedDev) Mikov Denis: Game Design, AI developer
 * [@IOExcept10n](https://github.com/IOExcept10n) Olyanishin Ivan: Feature & UI Development
-* [@GalteXx](https://github.com/GalteXx) Korsakov Maxim - AI developer, procedural animation & shader developer
+* [@GalteXx](https://github.com/GalteXx) Korsakov Maksim - AI developer, procedural animation & shader developer
 
 ### Other:
 * [@ZeekFeed07](https://github.com/ZeekFeed07) Ishanov Azizkhon - 3D Art
