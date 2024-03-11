@@ -8,5 +8,5 @@ Our first game released in [mobile store (RuStore)](https://apps.rustore.ru/app/
 
 ## Team:
 * [@TaggedDev](https://github.com/TaggedDev) - Game Design, AI developer
-* [@IOExcept10n](https://github.com/IOExcept10n) - Feature Development
+* [@IOExcept10n](https://github.com/IOExcept10n) - Feature & UI Development
 * [@GalteXx](https://github.com/GalteXx) - AI developer, procedural animation & shader developer
